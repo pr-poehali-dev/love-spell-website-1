@@ -18,50 +18,42 @@ export default function ContactSection() {
           </span>ставьте сообщение
         </h2>
         
-        {/* Элегантная кнопка связи */}
+        {/* Минималистичная кнопка связи */}
         <div className="flex justify-center mb-8">
           <button 
-            className="relative overflow-hidden group bg-gradient-to-r from-primary via-primary/95 to-primary/90 hover:from-primary/95 hover:via-primary hover:to-primary text-white rounded-full px-8 py-5 transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-primary/30 active:scale-[0.97] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            className="group relative bg-white border border-border hover:border-primary/30 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] w-full max-w-sm"
             onClick={() => setIsModalOpen(true)}
           >
-            {/* Анимированный фон */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            
-            <div className="relative flex items-center gap-4">
-              {/* Аватар с анимацией */}
-              <div className="relative">
-                <div className="w-14 h-14 rounded-full overflow-hidden border-3 border-white/30 group-hover:border-white/50 transition-colors duration-300">
+            <div className="flex items-center gap-4">
+              {/* Аватар */}
+              <div className="relative flex-shrink-0">
+                <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-primary/10 group-hover:ring-primary/20 transition-all duration-300">
                   <img 
                     src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                     alt="Раиса Ильинская"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                {/* Статус онлайн с пульсацией */}
-                <div className="absolute -bottom-1 -right-1">
-                  <div className="w-5 h-5 bg-green-400 rounded-full flex items-center justify-center animate-pulse">
-                    <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-                  </div>
-                  <div className="absolute inset-0 w-5 h-5 bg-green-400 rounded-full animate-ping opacity-30"></div>
+                <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></div>
+              </div>
+              
+              {/* Контент */}
+              <div className="flex-1 text-left">
+                <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
+                  Раиса Ильинская
+                </h3>
+                <p className="text-muted-foreground text-sm mb-3">
+                  Персональная консультация
+                </p>
+                <div className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary/15 text-primary px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 group-hover:scale-105">
+                  <Icon name="MessageCircle" size={14} />
+                  Напишите мне
                 </div>
               </div>
               
-              {/* Текст */}
-              <div className="text-left">
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="font-bold text-base tracking-wide">Раиса Ильинская</span>
-                  <span className="bg-green-400 text-green-900 text-xs px-2.5 py-1 rounded-full font-bold shadow-sm">
-                    Online
-                  </span>
-                </div>
-                <div className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
-                  Напишите мне прямо сейчас
-                </div>
-              </div>
-              
-              {/* Стрелка с анимацией */}
-              <div className="ml-2 transform group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300">
-                <Icon name="Send" size={18} className="text-white/80 group-hover:text-white" />
+              {/* Стрелка */}
+              <div className="flex-shrink-0 text-muted-foreground group-hover:text-primary transition-all duration-300 transform group-hover:translate-x-1">
+                <Icon name="ArrowRight" size={20} />
               </div>
             </div>
           </button>
