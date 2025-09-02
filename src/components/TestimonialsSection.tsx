@@ -200,7 +200,7 @@ export default function TestimonialsSection() {
             onTouchEnd={handleTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-3 sm:p-4 flex flex-col">
+            <div className="absolute inset-0 p-3 sm:p-4 flex flex-col justify-between">
               {/* Текст отзыва с красивыми скобками */}
               <div className="flex items-start justify-center py-2">
                 <div 
@@ -225,7 +225,7 @@ export default function TestimonialsSection() {
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center mt-4 sm:mt-6 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-2 sm:py-3 border-t border-border/30 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
