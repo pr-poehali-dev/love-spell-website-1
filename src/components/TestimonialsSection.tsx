@@ -63,56 +63,32 @@ export default function TestimonialsSection() {
 
   const nextTestimonial = () => {
     if (isTransitioning) return;
-    
-    // Сохраняем текущую позицию скролла
-    const currentScroll = window.scrollY;
-    setScrollPosition(currentScroll);
-    
     setIsTransitioning(true);
+    
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      // Восстанавливаем позицию скролла
-      window.scrollTo(0, currentScroll);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-    }, 200);
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 250);
   };
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
-    
-    // Сохраняем текущую позицию скролла
-    const currentScroll = window.scrollY;
-    setScrollPosition(currentScroll);
-    
     setIsTransitioning(true);
+    
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      // Восстанавливаем позицию скролла
-      window.scrollTo(0, currentScroll);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-    }, 200);
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 250);
   };
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
-    
-    // Сохраняем текущую позицию скролла
-    const currentScroll = window.scrollY;
-    setScrollPosition(currentScroll);
-    
     setIsTransitioning(true);
+    
     setTimeout(() => {
       setCurrentTestimonial(index);
-      // Восстанавливаем позицию скролла
-      window.scrollTo(0, currentScroll);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-    }, 200);
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 250);
   };
 
   return (
@@ -133,98 +109,101 @@ export default function TestimonialsSection() {
           </h2>
 
           {/* Карусель отзывов */}
-          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 md:p-12 border border-border/50 mb-8 overflow-hidden min-h-[400px] md:min-h-[350px]">
-            {/* Текст отзыва с красивыми скобками */}
-            <div className="relative z-10 mb-8 min-h-[200px] md:min-h-[180px] flex items-center">
+          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl border border-border/50 mb-8 overflow-hidden" style={{ height: '400px' }}>
+            {/* Контейнер с абсолютным позиционированием */}
+            <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between">
+              {/* Текст отзыва с красивыми скобками */}
+              <div className="flex-1 flex items-center justify-center">
+                <div 
+                  className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out w-full ${
+                    isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+                  }`}
+                >
+                  {/* Открывающая скобка */}
+                  <span className="absolute -left-4 top-0 text-4xl md:text-6xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  
+                  <p className="text-lg md:text-xl leading-relaxed text-muted-foreground italic text-center px-6">
+                    {testimonials[currentTestimonial].text}
+                  </p>
+                  
+                  {/* Закрывающая скобка */}
+                  <span className="absolute -right-4 bottom-0 text-4xl md:text-6xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                </div>
+              </div>
+
+              {/* Автор */}
               <div 
-                className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out w-full ${
-                  isTransitioning ? 'opacity-0 transform scale-95 translate-y-6' : 'opacity-100 transform scale-100 translate-y-0'
+                className={`flex flex-col items-center transition-all duration-500 ease-in-out ${
+                  isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
-                {/* Открывающая скобка */}
-                <span className="absolute -left-4 top-0 text-4xl md:text-6xl font-serif text-accent/30 select-none">"</span>
-                
-                <p className="text-lg md:text-xl leading-relaxed text-muted-foreground italic text-center px-6">
-                  {testimonials[currentTestimonial].text}
+                <div 
+                  className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-2 mb-4"
+                  style={{ 
+                    color: '#ff9800',
+                    borderColor: '#ff9800',
+                    backgroundColor: 'transparent'
+                  }}
+                >
+                  {testimonials[currentTestimonial].initial}
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-1">
+                  {testimonials[currentTestimonial].name}
+                </h3>
+                <p className="text-muted-foreground">
+                  {testimonials[currentTestimonial].location}
                 </p>
-                
-                {/* Закрывающая скобка */}
-                <span className="absolute -right-4 bottom-0 text-4xl md:text-6xl font-serif text-accent/30 select-none">"</span>
-              </div>
-            </div>
-
-            {/* Автор */}
-            <div 
-              className={`flex flex-col items-center mb-8 transition-all duration-500 ease-in-out ${
-                isTransitioning ? 'opacity-0 transform scale-95 translate-y-6' : 'opacity-100 transform scale-100 translate-y-0'
-              }`}
-            >
-              <div 
-                className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-2 mb-4 transition-all duration-300"
-                style={{ 
-                  color: '#ff9800',
-                  borderColor: '#ff9800',
-                  backgroundColor: 'transparent'
-                }}
-              >
-                {testimonials[currentTestimonial].initial}
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-1">
-                {testimonials[currentTestimonial].name}
-              </h3>
-              <p className="text-muted-foreground">
-                {testimonials[currentTestimonial].location}
-              </p>
-            </div>
-
-            {/* Навигация */}
-            <div className="flex items-center justify-center gap-4">
-              <button 
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  prevTestimonial();
-                }}
-                disabled={isTransitioning}
-                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
-              >
-                <Icon name="ChevronLeft" size={20} />
-              </button>
-
-              {/* Индикаторы */}
-              <div className="flex gap-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      goToTestimonial(index);
-                    }}
-                    disabled={isTransitioning}
-                    className={`w-3 h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-                      index === currentTestimonial 
-                        ? 'bg-accent' 
-                        : 'bg-accent/30 hover:bg-accent/50'
-                    }`}
-                  />
-                ))}
               </div>
 
-              <button 
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  nextTestimonial();
-                }}
-                disabled={isTransitioning}
-                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
-              >
-                <Icon name="ChevronRight" size={20} />
-              </button>
+              {/* Навигация */}
+              <div className="flex items-center justify-center gap-4 mt-4">
+                <button 
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    prevTestimonial();
+                  }}
+                  disabled={isTransitioning}
+                  className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
+                >
+                  <Icon name="ChevronLeft" size={20} />
+                </button>
+
+                {/* Индикаторы */}
+                <div className="flex gap-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        goToTestimonial(index);
+                      }}
+                      disabled={isTransitioning}
+                      className={`w-3 h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+                        index === currentTestimonial 
+                          ? 'bg-accent' 
+                          : 'bg-accent/30 hover:bg-accent/50'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <button 
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    nextTestimonial();
+                  }}
+                  disabled={isTransitioning}
+                  className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
+                >
+                  <Icon name="ChevronRight" size={20} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
