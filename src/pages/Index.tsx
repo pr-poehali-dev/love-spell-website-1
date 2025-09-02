@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import AboutMeSection from '@/components/AboutMeSection';
 import RitualsPageSection from '@/components/RitualsPageSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import Divider from '@/components/Divider';
 
 export default function Index() {
@@ -28,6 +29,12 @@ export default function Index() {
           showMoreRituals={showMoreRituals} 
           setShowMoreRituals={setShowMoreRituals} 
         />
+      </div>
+
+      <Divider />
+
+      <div id="testimonials">
+        <TestimonialsSection />
       </div>
     </div>
   );
