@@ -62,7 +62,7 @@ export default function Index() {
       </div>
 
       {/* Hero Section with V-Mask Design */}
-      <div className="relative -mt-[320px] sm:-mt-[360px] md:-mt-[400px] z-10">
+      <div className="relative -mt-[240px] sm:-mt-[280px] md:-mt-[320px] z-10">
         {/* Background Image with V-Mask */}
         <div className="relative h-[70vh] sm:h-[75vh]">
           <div 
@@ -79,7 +79,9 @@ export default function Index() {
           <div className="max-w-xs mx-auto px-4 text-center">
             {/* Large Profile Image */}
             <div className="mb-6">
-              <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden ring-4 ring-accent/30 shadow-2xl bg-background relative">
+              <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden shadow-2xl bg-background relative">
+                {/* Realistic reflection effect */}
+                <div className="absolute inset-0 rounded-full shadow-[inset_0_-20px_40px_rgba(255,152,0,0.4)] z-10"></div>
                 <img 
                   src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                   alt="Раиса Ильинская"
