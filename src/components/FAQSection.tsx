@@ -29,17 +29,23 @@ export default function FAQSection() {
         {faqItems.map((question, index) => (
           <div key={index} className="group relative overflow-hidden">
             <div className="relative p-5 cursor-pointer bg-gradient-to-br from-background to-muted/20 hover:from-accent/5 hover:to-accent/10 transition-all duration-300 rounded-2xl border border-border/50 hover:border-accent/30">
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 mt-0.5">
-                  <div className="text-2xl font-bold text-accent/30 group-hover:text-accent/60 transition-colors duration-300">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-                </div>
-                <div className="flex-1">
+              {/* Полупрозрачный знак вопроса */}
+              <div className="absolute -left-2 top-1/2 -translate-y-1/2 text-8xl font-bold text-accent/8 group-hover:text-accent/15 transition-colors duration-300 transform rotate-12 select-none pointer-events-none">
+                ?
+              </div>
+              
+              <div className="relative flex items-start gap-4">
+                <div className="flex-1 pl-6">
                   <p className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 leading-relaxed">{question}</p>
                 </div>
+                <div className="flex-shrink-0">
+                  <Icon 
+                    name="ChevronDown" 
+                    size={20} 
+                    className="text-muted-foreground group-hover:text-accent transition-all duration-300 group-hover:rotate-180" 
+                  />
+                </div>
               </div>
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-accent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           </div>
         ))}
