@@ -51,7 +51,7 @@ export default function TestimonialsSection() {
   const getMaxCardHeight = () => {
     // Фиксированные элементы UI
     const padding = 64; // p-4 sm:p-6 md:p-8 (верх + низ)
-    const authorSection = 180; // аватар + имя + город + отступы + дополнительное место снизу
+    const authorSection = 220; // аватар + имя + город + отступы + достаточно места для полного отображения
     const quotesSpace = 60; // место для кавычек сверху и снизу
     const textPadding = 32; // py-2 sm:py-4 для текста
     
