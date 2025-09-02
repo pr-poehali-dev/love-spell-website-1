@@ -46,24 +46,18 @@ export default function TestimonialsSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [cardHeight, setCardHeight] = useState(450);
 
   // Рассчитываем максимальную высоту для самого длинного отзыва
   const getMaxCardHeight = () => {
-    // Получаем размеры экрана
-    const screenHeight = typeof window !== 'undefined' ? window.innerHeight : 800;
-    const isMobile = typeof window !== 'undefined' ? window.innerWidth < 640 : false;
-    
-    // Фиксированные элементы UI (адаптивно)
-    const padding = isMobile ? 32 : 64; // p-4 для мобильных, p-6+ для больших
-    const authorSection = isMobile ? 120 : 140; // компактнее на мобильных
-    const quotesSpace = isMobile ? 40 : 60; // меньше места для кавычек
-    const textPadding = isMobile ? 16 : 32; // py-2 для мобильных
-    const navigationSpace = 80; // место для точек навигации и отступов
+    // Фиксированные элементы UI
+    const padding = 64; // p-4 sm:p-6 md:p-8 (верх + низ)
+    const authorSection = 140; // аватар + имя + город + отступы + border
+    const quotesSpace = 60; // место для кавычек сверху и снизу
+    const textPadding = 32; // py-2 sm:py-4 для текста
     
     // Расчет для текста
-    const charPerLine = isMobile ? 45 : 60; // меньше символов на мобильных
-    const lineHeight = isMobile ? 24 : 28; // компактнее межстрочный интервал
+    const charPerLine = 60; // Более консервативная оценка для мобильных
+    const lineHeight = 28; // Увеличенная высота строки для leading-relaxed
 
     const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
     const estimatedLines = Math.ceil(maxTextLength / charPerLine);
@@ -71,28 +65,13 @@ export default function TestimonialsSection() {
     
     const totalHeight = padding + authorSection + quotesSpace + textPadding + textHeight;
     
-    // Ограничиваем высоту размером экрана (оставляем место для header/footer)
-    const maxAllowedHeight = screenHeight - navigationSpace - 100;
-    const minHeight = isMobile ? 350 : 450;
-    
-    return Math.max(minHeight, Math.min(totalHeight, maxAllowedHeight));
+    // Минимальная высота 450px, максимальная 800px
+    return Math.max(450, Math.min(totalHeight, 800));
   };
 
   // Состояния для свайпа
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  // Пересчитываем высоту при изменении размера экрана
-  useEffect(() => {
-    const updateHeight = () => {
-      setCardHeight(getMaxCardHeight());
-    };
-    
-    updateHeight(); // Инициальный расчет
-    window.addEventListener('resize', updateHeight);
-    
-    return () => window.removeEventListener('resize', updateHeight);
-  }, []);
 
   // Автоперелистывание каждые 15 секунд
   useEffect(() => {
@@ -191,7 +170,7 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <div className="py-8 sm:py-12 md:py-16 lg:py-20 px-2 sm:px-3 lg:px-4">
+    <div className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
         
         {/* Отзывы */}
@@ -210,13 +189,13 @@ export default function TestimonialsSection() {
           {/* Карусель отзывов с свайпом */}
           <div 
             className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden cursor-grab active:cursor-grabbing select-none"
-            style={{ height: `${cardHeight}px` }}
+            style={{ height: `${getMaxCardHeight()}px` }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col justify-between">
+            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col justify-between">
               {/* Текст отзыва с красивыми скобками */}
               <div className="flex-1 flex items-center justify-center py-4 sm:py-6">
                 <div 
