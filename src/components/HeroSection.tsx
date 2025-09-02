@@ -71,7 +71,7 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
                 const header = document.querySelector('header');
                 const headerHeight = header ? header.offsetHeight : 120;
                 const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-                const offsetPosition = elementPosition - headerHeight;
+                const offsetPosition = elementPosition - headerHeight - 32; // отступ чтобы показать начало блока после разделителя
                 
                 window.scrollTo({
                   top: offsetPosition,
