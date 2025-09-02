@@ -47,6 +47,9 @@ export default function TestimonialsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Сохраняем позицию скролла перед переключением
+  const [scrollPosition, setScrollPosition] = useState(0);
+
   // Автоперелистывание каждые 15 секунд
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,9 +63,16 @@ export default function TestimonialsSection() {
 
   const nextTestimonial = () => {
     if (isTransitioning) return;
+    
+    // Сохраняем текущую позицию скролла
+    const currentScroll = window.scrollY;
+    setScrollPosition(currentScroll);
+    
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      // Восстанавливаем позицию скролла
+      window.scrollTo(0, currentScroll);
       setTimeout(() => {
         setIsTransitioning(false);
       }, 100);
@@ -71,9 +81,16 @@ export default function TestimonialsSection() {
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
+    
+    // Сохраняем текущую позицию скролла
+    const currentScroll = window.scrollY;
+    setScrollPosition(currentScroll);
+    
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      // Восстанавливаем позицию скролла
+      window.scrollTo(0, currentScroll);
       setTimeout(() => {
         setIsTransitioning(false);
       }, 100);
@@ -82,9 +99,16 @@ export default function TestimonialsSection() {
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
+    
+    // Сохраняем текущую позицию скролла
+    const currentScroll = window.scrollY;
+    setScrollPosition(currentScroll);
+    
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentTestimonial(index);
+      // Восстанавливаем позицию скролла
+      window.scrollTo(0, currentScroll);
       setTimeout(() => {
         setIsTransitioning(false);
       }, 100);
@@ -109,11 +133,11 @@ export default function TestimonialsSection() {
           </h2>
 
           {/* Карусель отзывов */}
-          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 md:p-12 border border-border/50 mb-8 overflow-hidden">
+          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 md:p-12 border border-border/50 mb-8 overflow-hidden min-h-[400px] md:min-h-[350px]">
             {/* Текст отзыва с красивыми скобками */}
-            <div className="relative z-10 mb-8">
+            <div className="relative z-10 mb-8 min-h-[200px] md:min-h-[180px] flex items-center">
               <div 
-                className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out ${
+                className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out w-full ${
                   isTransitioning ? 'opacity-0 transform scale-95 translate-y-6' : 'opacity-100 transform scale-100 translate-y-0'
                 }`}
               >
