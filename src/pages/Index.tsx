@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { useState, useEffect } from 'react';
 
@@ -20,15 +19,17 @@ export default function Index() {
       <div className="bg-background border-b border-border sticky top-0 z-30">
         <div className="max-w-sm mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full overflow-hidden">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
               <img 
                 src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                 alt="Раиса Ильинская"
                 className="w-full h-full object-cover"
+                loading="eager"
+                decoding="async"
               />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-foreground">Раиса Ильинская</h1>
+              <h1 className="text-base sm:text-lg font-semibold text-foreground truncate">Раиса Ильинская</h1>
               <div className="text-sm font-medium text-accent">
                 <span className="typewriter" key={currentTitle}>{currentTitle}</span>
               </div>
@@ -39,23 +40,23 @@ export default function Index() {
 
       {/* Navigation Menu */}
       <div className="bg-background border-b border-border sticky top-[84px] z-20">
-        <div className="max-w-sm mx-auto px-4 py-4">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors">
               <Icon name="User" size={20} className="text-accent" />
-              <span className="text-xs font-medium text-foreground">КТО Я</span>
+              <span className="text-xs sm:text-xs font-medium text-foreground">КТО Я</span>
             </button>
             <button className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors">
               <Icon name="Leaf" size={20} className="text-foreground" />
-              <span className="text-xs font-medium text-foreground">ОБРЯДЫ</span>
+              <span className="text-xs sm:text-xs font-medium text-foreground">ОБРЯДЫ</span>
             </button>
             <button className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors">
               <Icon name="MessageCircle" size={20} className="text-foreground" />
-              <span className="text-xs font-medium text-foreground">ОТЗЫВЫ</span>
+              <span className="text-xs sm:text-xs font-medium text-foreground">ОТЗЫВЫ</span>
             </button>
             <button className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors">
               <Icon name="Mail" size={20} className="text-foreground" />
-              <span className="text-xs font-medium text-foreground">СВЯЗЬ</span>
+              <span className="text-xs sm:text-xs font-medium text-foreground">СВЯЗЬ</span>
             </button>
           </div>
         </div>
@@ -68,7 +69,10 @@ export default function Index() {
           <div 
             className="absolute inset-0 hero-bg v-mask"
             style={{
-              backgroundImage: `url('/img/360087e3-3b50-4f2f-932f-be1fbf78267b.jpg')`
+              backgroundImage: `url('/img/360087e3-3b50-4f2f-932f-be1fbf78267b.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              willChange: 'transform'
             }}
           >
           </div>
@@ -76,7 +80,7 @@ export default function Index() {
         
         {/* Profile Section Overlapping */}
         <div className="relative -mt-16 sm:-mt-20 md:-mt-24 z-10">
-          <div className="max-w-xs mx-auto px-4 text-center">
+          <div className="max-w-xs sm:max-w-sm md:max-w-md mx-auto px-4 text-center">
             {/* Large Profile Image with Realistic Shadow */}
             <div className="mb-6 relative">
               {/* Container for avatar and shadow rings */}
@@ -102,6 +106,8 @@ export default function Index() {
                     src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                     alt="Раиса Ильинская"
                     className="w-full h-full object-cover"
+                    loading="eager"
+                    decoding="async"
                   />
                   {/* Sunset reflection overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-yellow-300/20 to-red-500/25 rounded-full mix-blend-overlay"></div>
@@ -124,11 +130,11 @@ export default function Index() {
         
         {/* Bottom Section */}
         <div className="bg-background pt-2 pb-8">
-          <div className="max-w-xs mx-auto px-4">
+          <div className="max-w-xs sm:max-w-sm md:max-w-md mx-auto px-4">
             {/* Call to Action */}
             <Button 
               size="lg" 
-              className="w-full bg-primary hover:bg-primary/90 text-white transition-all duration-300 font-semibold text-sm sm:text-base py-4 sm:py-6"
+              className="w-full bg-primary hover:bg-primary/90 text-white transition-all duration-300 font-semibold text-sm sm:text-base py-4 sm:py-6 active:scale-[0.98] transform-gpu"
             >
               НАПИШИТЕ МНЕ
               <Icon name="ChevronRight" size={18} className="ml-2" />
@@ -142,7 +148,7 @@ export default function Index() {
 
       {/* Who Am I Section */}
       <div className="bg-background">
-        <div className="max-w-sm mx-auto px-6 py-8 space-y-16">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-12 sm:space-y-16">
           
           {/* About Me */}
           <div>
@@ -180,7 +186,7 @@ export default function Index() {
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
                   background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
-                  <Icon name="Plus" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
+                  <Icon name="Plus" size={24} className="sm:!w-7 sm:!h-7" style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">Христианской магией</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
