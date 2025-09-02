@@ -20,7 +20,7 @@ export default function Index() {
       <div className="bg-background border-b border-border relative z-20">
         <div className="max-w-sm mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/20">
+            <div className="w-12 h-12 rounded-full overflow-hidden">
               <img 
                 src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                 alt="Раиса Ильинская"
