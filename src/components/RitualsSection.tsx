@@ -61,17 +61,17 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
-    <div className="group relative py-4 px-1 cursor-pointer transition-all duration-200 hover:bg-accent/5 rounded-md">
-      <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 mt-0.5">
-          <Icon name={ritual.icon as any} size={18} style={{color: '#ff9800'}} />
+    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent">
+      <div className="flex flex-col items-center text-center">
+        <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+          <Icon name={ritual.icon as any} size={32} style={{color: '#ff9800'}} />
         </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-base font-medium text-foreground mb-1 group-hover:text-accent transition-colors duration-200">{ritual.title}</h3>
-          <p className="text-muted-foreground text-sm leading-relaxed">{ritual.description}</p>
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300">{ritual.title}</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">{ritual.description}</p>
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-border opacity-30"></div>
+      <div className="absolute bottom-0 left-4 right-4 h-px bg-border opacity-30"></div>
     </div>
   );
 }
