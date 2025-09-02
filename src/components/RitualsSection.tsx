@@ -61,24 +61,17 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
-    <div className="group relative border border-border rounded-xl p-5 hover:border-accent/50 transition-all duration-300 cursor-pointer bg-background hover:bg-gradient-to-r hover:from-background hover:to-accent/5">
-      <div className="flex items-center gap-4">
-        <div className="relative">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-accent/20 group-hover:border-accent/40 transition-colors duration-300" style={{
-            background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.08) 0%, rgba(255, 152, 0, 0.02) 100%)'
-          }}>
-            <Icon name={ritual.icon as any} size={22} className="sm:!w-6 sm:!h-6 group-hover:scale-110 transition-transform duration-300" style={{color: '#ff9800', strokeWidth: 2.5}} />
-          </div>
-          <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div className="group relative py-4 px-1 cursor-pointer transition-all duration-200 hover:bg-accent/5 rounded-md">
+      <div className="flex items-start gap-3">
+        <div className="flex-shrink-0 mt-0.5">
+          <Icon name={ritual.icon as any} size={18} style={{color: '#ff9800'}} />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1 group-hover:text-accent transition-colors duration-300 truncate">{ritual.title}</h3>
-          <p className="text-muted-foreground text-sm leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">{ritual.description}</p>
-        </div>
-        <div className="flex-shrink-0">
-          <Icon name="ChevronRight" size={18} className="text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
+          <h3 className="text-base font-medium text-foreground mb-1 group-hover:text-accent transition-colors duration-200">{ritual.title}</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">{ritual.description}</p>
         </div>
       </div>
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-border opacity-30"></div>
     </div>
   );
 }
