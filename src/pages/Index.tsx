@@ -75,7 +75,7 @@ export default function Index() {
         </div>
         
         {/* Profile Section Overlapping */}
-        <div className="relative -mt-32 sm:-mt-40 z-10">
+        <div className="relative -mt-40 sm:-mt-48 md:-mt-52 z-10">
           <div className="max-w-xs mx-auto px-4 text-center">
             {/* Large Profile Image */}
             <div className="mb-6">
@@ -93,7 +93,7 @@ export default function Index() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
                 Раиса Ильинская
               </h2>
-              <div className="text-accent font-semibold text-lg sm:text-xl md:text-2xl drop-shadow-lg">
+              <div className="text-accent font-semibold text-lg sm:text-xl md:text-2xl drop-shadow-lg min-h-[1.5em]">
                 <span className="typewriter" key={currentTitle}>{currentTitle}</span>
               </div>
             </div>
