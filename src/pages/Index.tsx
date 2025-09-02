@@ -64,7 +64,7 @@ export default function Index() {
       {/* Hero Section with V-Mask Design */}
       <div className="relative">
         {/* Background Image with V-Mask */}
-        <div className="relative h-[60vh] sm:h-[70vh]">
+        <div className="relative h-[50vh] sm:h-[60vh]">
           <div 
             className="absolute inset-0 hero-bg v-mask"
             style={{
@@ -75,7 +75,7 @@ export default function Index() {
         </div>
         
         {/* Profile Section Overlapping */}
-        <div className="relative -mt-40 sm:-mt-48 md:-mt-52 z-10">
+        <div className="relative -mt-48 sm:-mt-56 md:-mt-60 z-10">
           <div className="max-w-xs mx-auto px-4 text-center">
             {/* Large Profile Image */}
             <div className="mb-6">
