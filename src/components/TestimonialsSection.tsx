@@ -56,15 +56,15 @@ export default function TestimonialsSection() {
     const isMobile = screenWidth < 640;
     const isSmall = screenWidth < 400;
     
-    // Фиксированные элементы UI (более точные размеры)
+    // Фиксированные элементы UI (обновленные размеры)
     const containerPadding = isSmall ? 24 : isMobile ? 32 : 48; // внешний padding контейнера
-    const authorSection = isSmall ? 100 : isMobile ? 110 : 130; // аватар + имя + город + border
-    const quotesSpace = isSmall ? 30 : isMobile ? 40 : 50; // кавычки сверху и снизу
+    const authorSection = isSmall ? 110 : isMobile ? 130 : 150; // увеличенный аватар + имя + город + border
+    const quotesSpace = isSmall ? 35 : isMobile ? 45 : 55; // кавычки сверху и снизу
     const textPadding = isSmall ? 12 : isMobile ? 16 : 24; // отступы вокруг текста
     
-    // Расчет для текста (более точный)
-    const charPerLine = isSmall ? 35 : isMobile ? 50 : 65; 
-    const lineHeight = isSmall ? 20 : isMobile ? 22 : 26; // компактнее для маленьких экранов
+    // Расчет для текста (учитывает увеличенные размеры)
+    const charPerLine = isSmall ? 35 : isMobile ? 45 : 55; // меньше символов из-за увеличенного текста
+    const lineHeight = isSmall ? 20 : isMobile ? 24 : 30; // увеличенная высота строки
 
     const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
     const estimatedLines = Math.ceil(maxTextLength / charPerLine);
@@ -232,7 +232,7 @@ export default function TestimonialsSection() {
                   
                   {/* Полный текст с автоматической высотой */}
                   <div className="px-3 sm:px-4 md:px-6">
-                    <p className="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 md:py-3">
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 md:py-3">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
@@ -249,7 +249,7 @@ export default function TestimonialsSection() {
                 }`}
               >
                 <div 
-                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-sm sm:text-base md:text-lg font-bold border-2 mb-1 sm:mb-2"
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-base sm:text-lg md:text-xl font-bold border-2 mb-1 sm:mb-2"
                   style={{ 
                     color: '#ff9800',
                     borderColor: '#ff9800',
@@ -258,10 +258,10 @@ export default function TestimonialsSection() {
                 >
                   {testimonials[currentTestimonial].initial}
                 </div>
-                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground mb-0.5 sm:mb-1">
+                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-foreground mb-0.5 sm:mb-1">
                   {testimonials[currentTestimonial].name}
                 </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   {testimonials[currentTestimonial].location}
                 </p>
               </div>
