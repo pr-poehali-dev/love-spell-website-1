@@ -48,37 +48,18 @@ export default function TestimonialsSection() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [cardHeight, setCardHeight] = useState(450);
 
-  // Рассчитываем максимальную высоту для самого длинного отзыва
+  // Простой расчет высоты карточки под самый длинный отзыв
   const getMaxCardHeight = () => {
-    // Получаем размеры экрана
-    const screenHeight = typeof window !== 'undefined' ? window.innerHeight : 800;
-    const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 375;
-    const isMobile = screenWidth < 640;
-    const isSmall = screenWidth < 400;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
     
-    // Фиксированные элементы UI (обновленные размеры)
-    const containerPadding = isSmall ? 24 : isMobile ? 32 : 48; // внешний padding контейнера
-    const authorSection = isSmall ? 110 : isMobile ? 130 : 150; // увеличенный аватар + имя + город + border
-    const quotesSpace = isSmall ? 35 : isMobile ? 45 : 55; // кавычки сверху и снизу
-    const textPadding = isSmall ? 12 : isMobile ? 16 : 24; // отступы вокруг текста
-    
-    // Расчет для текста (учитывает увеличенные размеры)
-    const charPerLine = isSmall ? 35 : isMobile ? 45 : 55; // меньше символов из-за увеличенного текста
-    const lineHeight = isSmall ? 20 : isMobile ? 24 : 30; // увеличенная высота строки
-
+    // Находим самый длинный отзыв
     const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
-    const estimatedLines = Math.ceil(maxTextLength / charPerLine);
-    const textHeight = estimatedLines * lineHeight;
     
-    const totalCalculatedHeight = containerPadding + authorSection + quotesSpace + textPadding + textHeight;
+    // Простая формула: базовая высота + дополнительная высота для текста
+    const baseHeight = isMobile ? 400 : 500; // базовая высота для UI элементов
+    const textHeight = Math.ceil(maxTextLength / (isMobile ? 50 : 70)) * (isMobile ? 25 : 30); // высота для текста
     
-    // Ограничения по размеру экрана
-    const maxAllowedHeight = Math.max(screenHeight * 0.7, 300); // максимум 70% экрана, но не менее 300px
-    const minHeight = isSmall ? 280 : isMobile ? 320 : 400;
-    
-    const finalHeight = Math.max(minHeight, Math.min(totalCalculatedHeight, maxAllowedHeight));
-    
-    return finalHeight;
+    return baseHeight + textHeight;
   };
 
   // Состояния для свайпа
@@ -219,37 +200,37 @@ export default function TestimonialsSection() {
             onTouchEnd={handleTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col h-full">
-              {/* Текст отзыва с красивыми скобками - занимает оставшееся место */}
-              <div className="flex-1 flex items-start justify-center pt-2 sm:pt-4 pb-2 sm:pb-4 overflow-hidden">
+            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col justify-between">
+              {/* Текст отзыва с красивыми скобками */}
+              <div className="flex-1 flex items-center justify-center py-4 sm:py-6">
                 <div 
                   className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
                   {/* Открывающая скобка */}
-                  <span className="absolute -left-1 sm:-left-2 md:-left-4 -top-1 sm:-top-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                   
-                  {/* Полный текст с автоматической высотой */}
-                  <div className="px-3 sm:px-4 md:px-6">
-                    <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 md:py-3">
+                  {/* Полный текст отзыва */}
+                  <div className="px-4 sm:px-6">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-2 sm:py-4">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
                   
                   {/* Закрывающая скобка */}
-                  <span className="absolute -right-1 sm:-right-2 md:-right-4 -bottom-1 sm:-bottom-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                 </div>
               </div>
 
-              {/* Автор - фиксированная высота внизу */}
+              {/* Автор */}
               <div 
-                className={`flex-shrink-0 flex flex-col items-center pt-3 sm:pt-4 border-t border-border/30 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-4 sm:py-6 border-t border-border/30 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
                 <div 
-                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-base sm:text-lg md:text-xl font-bold border-2 mb-1 sm:mb-2"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-2 sm:mb-3"
                   style={{ 
                     color: '#ff9800',
                     borderColor: '#ff9800',
@@ -258,10 +239,10 @@ export default function TestimonialsSection() {
                 >
                   {testimonials[currentTestimonial].initial}
                 </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-foreground mb-0.5 sm:mb-1">
+                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">
                   {testimonials[currentTestimonial].name}
                 </h3>
-                <p className="text-sm sm:text-base text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {testimonials[currentTestimonial].location}
                 </p>
               </div>
