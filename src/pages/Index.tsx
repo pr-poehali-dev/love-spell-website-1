@@ -41,7 +41,7 @@ export default function Index() {
 
         <Divider />
         
-        <section data-contact className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
+        <section id="contact" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
           <ContactSection />
         </section>
       </main>

@@ -9,9 +9,12 @@ interface HeaderProps {
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
   if (element) {
-    const headerHeight = 154;
+    // Получаем актуальную высоту хедера
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 120;
+    
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-    const offsetPosition = elementPosition - headerHeight;
+    const offsetPosition = elementPosition - headerHeight - 20; // добавляем небольшой отступ
     
     // Добавляем визуальную обратную связь
     const button = document.querySelector(`[data-section="${sectionId}"]`);
