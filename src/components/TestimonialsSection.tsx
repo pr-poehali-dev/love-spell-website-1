@@ -67,36 +67,66 @@ export default function TestimonialsSection() {
 
   const nextTestimonial = () => {
     if (isTransitioning) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      setTimeout(() => setIsTransitioning(false), 50);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
     }, 250);
   };
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      setTimeout(() => setIsTransitioning(false), 50);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
     }, 250);
   };
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial(index);
-      setTimeout(() => setIsTransitioning(false), 50);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
     }, 250);
   };
 
   // Функции для "Читать далее"
-  const MAX_TEXT_LENGTH = 200; // Максимальная длина текста без "Читать далее"
+  const MAX_TEXT_LENGTH = 400; // Максимальная длина текста без "Читать далее" (только для очень длинных)
   
   const toggleExpanded = (index: number) => {
     const newExpanded = new Set(expandedTestimonials);
