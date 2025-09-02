@@ -47,21 +47,10 @@ export default function TestimonialsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Функция для расчета высоты карточки на основе длины текста
-  const getCardHeight = () => {
-    const currentText = testimonials[currentTestimonial].text;
-    const baseHeight = 400; // Базовая высота
-    const charLimit = 300; // Лимит символов для базовой высоты
-    
-    if (currentText.length <= charLimit) {
-      return baseHeight;
-    }
-    
-    // Добавляем высоту на каждые дополнительные символы
-    const extraChars = currentText.length - charLimit;
-    const additionalHeight = Math.ceil(extraChars / 100) * 60; // +60px на каждые 100 символов
-    
-    return Math.min(baseHeight + additionalHeight, 700); // Максимум 700px
+  // Фиксированная высота для предотвращения скролла
+  const CARD_HEIGHT = {
+    mobile: 450, // px для мобильных
+    desktop: 500 // px для десктопов
   };
 
   // Автоперелистывание каждые 15 секунд
@@ -124,33 +113,36 @@ export default function TestimonialsSection() {
 
           {/* Карусель отзывов */}
           <div 
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden transition-all duration-500 ease-in-out"
-            style={{ height: `${getCardHeight()}px` }}
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden"
+            style={{ height: '450px' }}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col justify-between">
-              {/* Текст отзыва с красивыми скобками */}
-              <div className="flex-1 flex items-center justify-center py-2 sm:py-4">
+            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col">
+              {/* Текст отзыва с красивыми скобками - с внутренним скроллом */}
+              <div className="flex-1 flex items-center justify-center py-2 sm:py-4 min-h-0">
                 <div 
-                  className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out w-full ${
+                  className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
                   {/* Открывающая скобка */}
-                  <span className="absolute -left-2 sm:-left-4 top-0 text-2xl sm:text-3xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  <span className="absolute -left-2 sm:-left-4 top-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
                   
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center px-4 sm:px-6 py-1 sm:py-2">
-                    {testimonials[currentTestimonial].text}
-                  </p>
+                  {/* Скроллируемая область для текста */}
+                  <div className="max-h-[280px] sm:max-h-[320px] overflow-y-auto testimonial-scroll px-4 sm:px-6">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 pr-2">
+                      {testimonials[currentTestimonial].text}
+                    </p>
+                  </div>
                   
                   {/* Закрывающая скобка */}
-                  <span className="absolute -right-2 sm:-right-4 bottom-0 text-2xl sm:text-3xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  <span className="absolute -right-2 sm:-right-4 bottom-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
                 </div>
               </div>
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center py-2 sm:py-4 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-3 sm:py-4 border-t border-border/30 mt-2 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
