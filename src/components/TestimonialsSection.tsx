@@ -47,26 +47,43 @@ export default function TestimonialsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Рассчитываем максимальную высоту для самого длинного отзыва
+  // Рассчитываем точную высоту контейнера для правильного размещения точек навигации
   const getMaxCardHeight = () => {
-    // Фиксированные элементы UI
-    const padding = 64; // p-4 sm:p-6 md:p-8 (верх + низ)
-    const authorSection = 300; // значительно увеличенное место для гарантированного отображения автора
-    const quotesSpace = 60; // место для кавычек сверху и снизу
-    const textPadding = 32; // py-2 sm:py-4 для текста
+    // Адаптивные размеры в зависимости от экрана
+    const isSmall = typeof window !== 'undefined' && window.innerWidth < 640;
+    const isMedium = typeof window !== 'undefined' && window.innerWidth < 1024;
     
-    // Расчет для текста
-    const charPerLine = 60; // Более консервативная оценка для мобильных
-    const lineHeight = 28; // Увеличенная высота строки для leading-relaxed
-
-    const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
-    const estimatedLines = Math.ceil(maxTextLength / charPerLine);
+    // Основные элементы UI с адаптивными размерами
+    const topPadding = isSmall ? 24 : isMedium ? 32 : 40;
+    const quotesSpace = 40;
+    const textPadding = isSmall ? 16 : 24;
+    const authorSection = isSmall ? 100 : isMedium ? 120 : 140; // аватар + имя + город
+    const bottomPadding = 16;
+    
+    // Расчет высоты текста самого длинного отзыва (Валерия, индекс 0)
+    const valeriasText = testimonials[0].text;
+    const avgCharsPerLine = isSmall ? 35 : isMedium ? 50 : 65;
+    const lineHeight = isSmall ? 24 : 28;
+    const estimatedLines = Math.ceil(valeriasText.length / avgCharsPerLine);
     const textHeight = estimatedLines * lineHeight;
     
-    const totalHeight = padding + authorSection + quotesSpace + textPadding + textHeight;
+    const totalHeight = topPadding + quotesSpace + textPadding + textHeight + authorSection + bottomPadding;
     
-    // Минимальная высота 450px, максимальная 800px
-    return Math.max(450, Math.min(totalHeight, 800));
+    // Адаптивные ограничения по высоте
+    const minHeight = isSmall ? 420 : isMedium ? 450 : 480;
+    const maxHeight = isSmall ? 550 : isMedium ? 600 : 650;
+    
+    return Math.max(minHeight, Math.min(totalHeight, maxHeight));
+  };
+  
+  // Рассчитываем точную позицию для размещения точек навигации после города "Пермь"
+  const getNavigationPosition = () => {
+    const isSmall = typeof window !== 'undefined' && window.innerWidth < 640;
+    const isMedium = typeof window !== 'undefined' && window.innerWidth < 1024;
+    
+    // Место для нижней части секции автора (после города "Пермь")
+    const authorBottomSpace = isSmall ? 35 : isMedium ? 40 : 45;
+    return authorBottomSpace;
   };
 
   // Состояния для свайпа
@@ -266,9 +283,35 @@ export default function TestimonialsSection() {
                 </p>
               </div>
 
+              {/* Навигационные точки точно после самого длинного отзыва */}
+              <div 
+                className="absolute left-1/2 transform -translate-x-1/2 z-10"
+                style={{ bottom: `${getNavigationPosition()}px` }}
+              >
+                <div className="flex justify-center gap-2 bg-background/80 backdrop-blur-sm rounded-full px-3 py-2 shadow-sm">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        goToTestimonial(index);
+                      }}
+                      disabled={isTransitioning}
+                      className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                        index === currentTestimonial 
+                          ? 'bg-accent scale-125 shadow-sm' 
+                          : 'bg-accent/40 hover:bg-accent/60 hover:scale-110'
+                      }`}
+                      aria-label={`Перейти к отзыву ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
 
             </div>
-          </div>
+          </div
 
 
         </div>
