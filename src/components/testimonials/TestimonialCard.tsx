@@ -158,7 +158,7 @@ export default function TestimonialCard({
                       onClick={onToggleExpanded}
                       disabled={isTransitioning}
                       className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
-                      style={{ color: '#ff9800' }}
+                      className="text-primary"
                     >
                       Читать далее
                       <Icon name="ChevronDown" size={14} className="sm:w-4 sm:h-4 transition-transform duration-200 group-hover:translate-y-0.5" />
@@ -173,7 +173,7 @@ export default function TestimonialCard({
                       onClick={onToggleExpanded}
                       disabled={isTransitioning}
                       className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
-                      style={{ color: '#ff9800' }}
+                      className="text-primary"
                     >
                       Свернуть
                       <Icon name="ChevronUp" size={14} className="sm:w-4 sm:h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
@@ -200,11 +200,7 @@ export default function TestimonialCard({
                 ? 'transform rotate-12 scale-90' 
                 : 'transform rotate-0 scale-100'
             }`}
-            style={{ 
-              color: '#ff9800',
-              borderColor: '#ff9800',
-              backgroundColor: 'transparent'
-            }}
+            className="text-primary border-primary bg-transparent"
           >
             {testimonial.initial}
           </div>

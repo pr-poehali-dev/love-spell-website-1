@@ -15,16 +15,16 @@
     --popover: 225 8% 21%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 36 100% 50%;
+    --primary: 33 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 36 100% 50%;
+    --secondary: 33 100% 50%;
     --secondary-foreground: 31 15% 14%;
 
     --muted: 31 15% 20%;
     --muted-foreground: 0 0% 75%;
 
-    --accent: 36 100% 50%;
+    --accent: 33 100% 50%;
     --accent-foreground: 31 15% 14%;
 
     --destructive: 0 84.2% 60.2%;
@@ -32,7 +32,7 @@
 
     --border: 31 15% 25%;
     --input: 31 15% 25%;
-    --ring: 36 100% 50%;
+    --ring: 33 100% 50%;
     --success: 142 71% 45%;
     --warning: 48 96% 53%;
     --info: 199 89% 48%;
@@ -155,7 +155,7 @@
   /* Стили для скроллбара в отзывах */
   .testimonial-scroll {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 152, 0, 0.3) transparent;
+    scrollbar-color: hsl(var(--primary) / 0.3) transparent;
   }
 
   .testimonial-scroll::-webkit-scrollbar {
@@ -167,13 +167,13 @@
   }
 
   .testimonial-scroll::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 152, 0, 0.3);
+    background-color: hsl(var(--primary) / 0.3);
     border-radius: 3px;
     transition: background-color 0.2s ease;
   }
 
   .testimonial-scroll::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 152, 0, 0.5);
+    background-color: hsl(var(--primary) / 0.5);
   }
 
   /* Анимации появления */
@@ -200,5 +200,20 @@
   .hover-lift:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Унифицированные стили для карточек */
+  .card-hover {
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:shadow-lg hover:shadow-primary/10;
+    @apply hover:border-primary/20;
+  }
+
+  .section-spacing {
+    @apply space-y-12 sm:space-y-16;
+  }
+
+  .text-accent-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
   }
 }

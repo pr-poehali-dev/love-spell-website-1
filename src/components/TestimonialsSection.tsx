@@ -74,9 +74,9 @@ export default function TestimonialsSection() {
         {/* Отзывы */}
         <h2 className="text-xl font-bold text-foreground mb-8 relative pt-0">
             <span className="relative inline-block">
-              <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
+              <span className="text-2xl font-bold relative z-10 text-primary">О</span>
               <div className="absolute w-9 h-9 rounded-full opacity-40" style={{
-                background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)',
+                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.6) 0%, hsl(var(--primary) / 0.1) 100%)',
                 top: '-1px',
                 left: '-10px'
               }}></div>
