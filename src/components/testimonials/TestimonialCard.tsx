@@ -73,27 +73,24 @@ export default function TestimonialCard({
 
   // Анимация перехода текста
   useEffect(() => {
-    if (displayText === (isExpanded ? testimonial.text : getTruncatedText(testimonial.text))) {
+    const newText = isExpanded ? testimonial.text : getTruncatedText(testimonial.text);
+    
+    if (displayText === newText) {
       return; // Текст уже соответствует состоянию
     }
 
     setIsAnimating(true);
     
-    // Fade out
-    const fadeOutTimer = setTimeout(() => {
-      setDisplayText(isExpanded ? testimonial.text : getTruncatedText(testimonial.text));
-    }, 150);
-
-    // Fade in
-    const fadeInTimer = setTimeout(() => {
+    // Сразу меняем текст и убираем анимацию через 200ms
+    const timer = setTimeout(() => {
+      setDisplayText(newText);
       setIsAnimating(false);
-    }, 300);
+    }, 200);
 
     return () => {
-      clearTimeout(fadeOutTimer);
-      clearTimeout(fadeInTimer);
+      clearTimeout(timer);
     };
-  }, [isExpanded, testimonial.text]);
+  }, [isExpanded, testimonial.text, displayText]);
 
   return (
     <div className="relative w-full">
@@ -137,8 +134,8 @@ export default function TestimonialCard({
                     <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic transition-all duration-500 ease-in-out ${
                       isExpanded ? 'text-left' : 'text-center'
                     }`}>
-                      <span className={`inline-block transition-all duration-300 ease-in-out ${
-                        isAnimating ? 'opacity-0 transform translate-y-2' : 'opacity-100 transform translate-y-0'
+                      <span className={`inline-block transition-all duration-200 ease-in-out ${
+                        isAnimating ? 'opacity-0' : 'opacity-100'
                       }`}>
                         {displayText}
                       </span>
@@ -184,11 +181,7 @@ export default function TestimonialCard({
         </div>
 
         {/* Автор */}
-        <div 
-          className={`flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-4 transition-all duration-400 ease-in-out ${
-            isTransitioning ? 'opacity-0 transform scale-95 translate-y-2' : 'opacity-100 transform scale-100 translate-y-0'
-          }`}
-        >
+        <div className="flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-4">
           <div 
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-base sm:text-lg font-bold border-2 mb-2"
             style={{ 
