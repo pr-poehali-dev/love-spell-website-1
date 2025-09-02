@@ -38,6 +38,8 @@ export default function Index() {
         <section id="testimonials" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-8">
           <TestimonialsSection />
         </section>
+
+        <Divider />
         
         <section data-contact className="scroll-mt-32 max-w-4xl mx-auto px-4 py-8">
           <ContactSection />
