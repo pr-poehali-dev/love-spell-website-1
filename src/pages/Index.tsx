@@ -9,7 +9,7 @@ export default function Index() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTitle(prev => prev === 'Маг' ? 'Ворожея' : 'Маг');
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -75,11 +75,11 @@ export default function Index() {
         </div>
         
         {/* Profile Section Overlapping */}
-        <div className="relative -mt-20 sm:-mt-24 z-10">
+        <div className="relative -mt-32 sm:-mt-40 z-10">
           <div className="max-w-xs mx-auto px-4 text-center">
             {/* Large Profile Image */}
             <div className="mb-6">
-              <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden ring-4 ring-accent/30 shadow-2xl bg-background">
+              <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden ring-4 ring-accent/30 shadow-2xl bg-background">
                 <img 
                   src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                   alt="Раиса Ильинская"
@@ -89,11 +89,11 @@ export default function Index() {
             </div>
             
             {/* Name and Title */}
-            <div className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 drop-shadow-lg">
+            <div className="mb-16 sm:mb-20">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
                 Раиса Ильинская
               </h2>
-              <div className="text-accent font-semibold text-base sm:text-lg drop-shadow-lg">
+              <div className="text-accent font-semibold text-lg sm:text-xl md:text-2xl drop-shadow-lg">
                 <span className="typewriter" key={currentTitle}>{currentTitle}</span>
               </div>
             </div>
