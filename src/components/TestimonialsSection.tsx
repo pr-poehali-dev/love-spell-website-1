@@ -196,7 +196,7 @@ export default function TestimonialsSection() {
           >
             {/* Навигационные точки сразу после самого длинного отзыва */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-10 bottom-16 sm:bottom-20 md:bottom-24"
+              className="absolute left-1/2 transform -translate-x-1/2 z-10 bottom-8 sm:bottom-10 md:bottom-12"
             >
               <div className="flex justify-center gap-2">
                 {testimonials.map((_, index) => (
