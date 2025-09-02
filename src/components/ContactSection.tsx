@@ -18,21 +18,45 @@ export default function ContactSection() {
           </span>ставьте сообщение
         </h2>
         
-        {/* Кнопка связи в стиле сайта */}
+        {/* Кнопка связи как на скриншоте */}
         <div className="flex justify-center mb-8">
           <button 
-            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-4 px-6 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] flex items-center justify-center gap-3 group"
+            className="relative flex items-center gap-4 bg-primary hover:bg-primary/90 text-white rounded-full py-4 px-6 pr-8 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] group shadow-lg"
             onClick={() => setIsModalOpen(true)}
           >
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/20 flex-shrink-0">
-              <img 
-                src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
-                alt="Раиса Ильинская"
-                className="w-full h-full object-cover"
-              />
+            {/* Аватар с белой рамкой */}
+            <div className="relative flex-shrink-0">
+              <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white">
+                <img 
+                  src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                  alt="Раиса Ильинская"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Иконка сообщения */}
+              <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <div className="flex gap-0.5">
+                    <div className="w-1 h-1 bg-white rounded-full"></div>
+                    <div className="w-1 h-1 bg-white rounded-full"></div>
+                    <div className="w-1 h-1 bg-white rounded-full"></div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <span className="text-lg">Напишите мне</span>
-            <Icon name="ArrowRight" size={20} className="transition-transform group-hover:translate-x-1" />
+            
+            {/* Контент */}
+            <div className="flex flex-col items-start gap-1">
+              <div className="flex items-center gap-3">
+                <span className="text-white font-semibold text-lg">Раиса</span>
+                <span className="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full">
+                  Online
+                </span>
+              </div>
+              <div className="text-white text-xl font-bold">
+                Напишите мне
+              </div>
+            </div>
           </button>
         </div>
 
