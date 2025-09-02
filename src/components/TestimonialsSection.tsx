@@ -47,8 +47,22 @@ export default function TestimonialsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Сохраняем позицию скролла перед переключением
-  const [scrollPosition, setScrollPosition] = useState(0);
+  // Функция для расчета высоты карточки на основе длины текста
+  const getCardHeight = () => {
+    const currentText = testimonials[currentTestimonial].text;
+    const baseHeight = 400; // Базовая высота
+    const charLimit = 300; // Лимит символов для базовой высоты
+    
+    if (currentText.length <= charLimit) {
+      return baseHeight;
+    }
+    
+    // Добавляем высоту на каждые дополнительные символы
+    const extraChars = currentText.length - charLimit;
+    const additionalHeight = Math.ceil(extraChars / 100) * 60; // +60px на каждые 100 символов
+    
+    return Math.min(baseHeight + additionalHeight, 700); // Максимум 700px
+  };
 
   // Автоперелистывание каждые 15 секунд
   useEffect(() => {
@@ -92,11 +106,11 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <div className="py-20 px-4">
+    <div className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
         
         {/* Отзывы */}
-        <div className="mb-20">
+        <div className="mb-12 sm:mb-16 md:mb-20">
           <h2 className="text-xl font-bold text-foreground mb-6 relative">
             <span className="relative inline-block">
               <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
@@ -109,36 +123,39 @@ export default function TestimonialsSection() {
           </h2>
 
           {/* Карусель отзывов */}
-          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl border border-border/50 mb-8 overflow-hidden" style={{ minHeight: '500px' }}>
+          <div 
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden transition-all duration-500 ease-in-out"
+            style={{ height: `${getCardHeight()}px` }}
+          >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
+            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col justify-between">
               {/* Текст отзыва с красивыми скобками */}
-              <div className="flex-1 flex items-center justify-center py-4">
+              <div className="flex-1 flex items-center justify-center py-2 sm:py-4">
                 <div 
                   className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out w-full ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
                   {/* Открывающая скобка */}
-                  <span className="absolute -left-4 top-0 text-3xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  <span className="absolute -left-2 sm:-left-4 top-0 text-2xl sm:text-3xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                   
-                  <p className="text-base md:text-lg leading-relaxed text-muted-foreground italic text-center px-6 py-2">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center px-4 sm:px-6 py-1 sm:py-2">
                     {testimonials[currentTestimonial].text}
                   </p>
                   
                   {/* Закрывающая скобка */}
-                  <span className="absolute -right-4 bottom-0 text-3xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  <span className="absolute -right-2 sm:-right-4 bottom-0 text-2xl sm:text-3xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                 </div>
               </div>
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center py-4 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-2 sm:py-4 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
                 <div 
-                  className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-2 mb-3"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-2 sm:mb-3"
                   style={{ 
                     color: '#ff9800',
                     borderColor: '#ff9800',
@@ -147,10 +164,10 @@ export default function TestimonialsSection() {
                 >
                   {testimonials[currentTestimonial].initial}
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">
+                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">
                   {testimonials[currentTestimonial].name}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {testimonials[currentTestimonial].location}
                 </p>
               </div>
@@ -158,7 +175,7 @@ export default function TestimonialsSection() {
           </div>
 
           {/* Навигация вынесена отдельно */}
-          <div className="flex items-center justify-center gap-4 mb-8">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
             <button 
               type="button"
               onClick={(e) => {
@@ -167,13 +184,13 @@ export default function TestimonialsSection() {
                 prevTestimonial();
               }}
               disabled={isTransitioning}
-              className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
+              className="p-1.5 sm:p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
             >
-              <Icon name="ChevronLeft" size={20} />
+              <Icon name="ChevronLeft" size={16} />
             </button>
 
             {/* Индикаторы */}
-            <div className="flex gap-2">
+            <div className="flex gap-1.5 sm:gap-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
@@ -184,7 +201,7 @@ export default function TestimonialsSection() {
                     goToTestimonial(index);
                   }}
                   disabled={isTransitioning}
-                  className={`w-3 h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+                  className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
                     index === currentTestimonial 
                       ? 'bg-accent' 
                       : 'bg-accent/30 hover:bg-accent/50'
@@ -201,9 +218,9 @@ export default function TestimonialsSection() {
                 nextTestimonial();
               }}
               disabled={isTransitioning}
-              className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
+              className="p-1.5 sm:p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
             >
-              <Icon name="ChevronRight" size={20} />
+              <Icon name="ChevronRight" size={16} />
             </button>
           </div>
         </div>
