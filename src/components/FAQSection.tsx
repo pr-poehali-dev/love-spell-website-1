@@ -25,20 +25,17 @@ export default function FAQSection() {
         </span>опросы и ответы
       </h2>
       
-      <div className="space-y-3">
+      <div className="space-y-2">
         {faqItems.map((question, index) => (
-          <div key={index} className="group relative p-5 cursor-pointer transition-all duration-300 rounded-xl hover:bg-gradient-to-r hover:from-accent/8 hover:to-accent/3 border border-transparent hover:border-accent/20">
-            <div className="flex items-center gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:bg-accent/15 transition-colors duration-300">
-                  <span className="text-sm font-semibold text-accent">{index + 1}</span>
+          <div key={index} className="group py-4 px-2 cursor-pointer transition-all duration-200 hover:bg-accent/8 rounded-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 mt-1">
+                <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
+                  <Icon name="HelpCircle" size={14} style={{color: '#ff9800'}} />
                 </div>
               </div>
-              <div className="flex-1">
-                <p className="font-medium text-foreground group-hover:text-accent transition-colors duration-300 leading-relaxed">{question}</p>
-              </div>
-              <div className="flex-shrink-0">
-                <Icon name="ChevronRight" size={18} className="text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
+              <div className="flex-1 min-w-0">
+                <p className="text-base font-medium text-foreground group-hover:text-accent transition-colors duration-200 leading-relaxed">{question}</p>
               </div>
             </div>
           </div>
