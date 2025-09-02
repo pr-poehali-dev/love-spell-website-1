@@ -111,3 +111,54 @@
     font-family: "Montserrat", sans-serif;
   }
 }
+
+@layer components {
+  @keyframes typewriter {
+    0% {
+      width: 0;
+    }
+    45% {
+      width: 0;
+    }
+    50% {
+      width: 100%;
+    }
+    95% {
+      width: 100%;
+    }
+    100% {
+      width: 0;
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    50% {
+      border-color: transparent;
+    }
+    51%,
+    100% {
+      border-color: currentColor;
+    }
+  }
+
+  .typewriter {
+    overflow: hidden;
+    border-right: 2px solid;
+    white-space: nowrap;
+    animation:
+      typewriter 6s infinite,
+      blink 0.75s infinite;
+    display: inline-block;
+  }
+
+  .v-mask {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 50% 100%, 0% 60%);
+  }
+
+  .hero-bg {
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+  }
+}

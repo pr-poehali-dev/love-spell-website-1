@@ -1,8 +1,19 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import { useState, useEffect } from 'react';
 
 export default function Index() {
+  const [currentTitle, setCurrentTitle] = useState('Маг');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTitle(prev => prev === 'Маг' ? 'Ворожея' : 'Маг');
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header Profile Section */}
@@ -18,7 +29,9 @@ export default function Index() {
             </div>
             <div>
               <h1 className="text-lg font-semibold text-foreground">Раиса Ильинская</h1>
-              <p className="text-sm font-medium text-accent">Ма</p>
+              <div className="text-sm font-medium text-accent">
+                <span className="typewriter" key={currentTitle}>{currentTitle}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -48,22 +61,25 @@ export default function Index() {
         </div>
       </div>
 
-      {/* Hero Section with Sunset Background */}
-      <div className="relative min-h-screen">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/img/360087e3-3b50-4f2f-932f-be1fbf78267b.jpg')`
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent"></div>
+      {/* Hero Section with V-Mask Design */}
+      <div className="relative">
+        {/* Background Image with V-Mask */}
+        <div className="relative h-[60vh] sm:h-[70vh]">
+          <div 
+            className="absolute inset-0 hero-bg v-mask"
+            style={{
+              backgroundImage: `url('/img/360087e3-3b50-4f2f-932f-be1fbf78267b.jpg')`
+            }}
+          >
+          </div>
         </div>
         
-        <div className="relative z-10 min-h-screen flex flex-col justify-end pb-20">
-          <div className="max-w-sm mx-auto px-4 text-center">
+        {/* Profile Section Overlapping */}
+        <div className="relative -mt-20 sm:-mt-24 z-10">
+          <div className="max-w-xs mx-auto px-4 text-center">
             {/* Large Profile Image */}
-            <div className="mb-8">
-              <div className="w-32 h-32 mx-auto rounded-full overflow-hidden ring-4 ring-accent/30 shadow-2xl">
+            <div className="mb-6">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden ring-4 ring-accent/30 shadow-2xl bg-background">
                 <img 
                   src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                   alt="Раиса Ильинская"
@@ -74,19 +90,26 @@ export default function Index() {
             
             {/* Name and Title */}
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 drop-shadow-lg">
                 Раиса Ильинская
               </h2>
-              <p className="text-accent font-semibold text-lg drop-shadow-lg">Ма</p>
+              <div className="text-accent font-semibold text-base sm:text-lg drop-shadow-lg">
+                <span className="typewriter" key={currentTitle}>{currentTitle}</span>
+              </div>
             </div>
-            
+          </div>
+        </div>
+        
+        {/* Bottom Section */}
+        <div className="bg-background pt-8 pb-8">
+          <div className="max-w-xs mx-auto px-4">
             {/* Call to Action */}
             <Button 
               size="lg" 
-              className="w-full bg-background/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 transition-all duration-300 font-semibold text-base py-6"
+              className="w-full bg-primary hover:bg-primary/90 text-white transition-all duration-300 font-semibold text-sm sm:text-base py-4 sm:py-6"
             >
               НАПИШИТЕ МНЕ
-              <Icon name="ChevronRight" size={20} className="ml-2" />
+              <Icon name="ChevronRight" size={18} className="ml-2" />
             </Button>
           </div>
         </div>
