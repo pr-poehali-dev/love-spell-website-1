@@ -195,9 +195,9 @@ export default function TestimonialsSection() {
             onTouchEnd={handleTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col justify-between">
-              {/* Текст отзыва с красивыми скобками */}
-              <div className="flex-1 flex items-center justify-center py-4 sm:py-6">
+            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col">
+              {/* Текст отзыва с красивыми скобками - сверху */}
+              <div className="mb-4">
                 <div 
                   className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
@@ -206,9 +206,9 @@ export default function TestimonialsSection() {
                   {/* Открывающая скобка */}
                   <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                   
-                  {/* Полный текст без скролла */}
+                  {/* Полный текст отзыва */}
                   <div className="px-4 sm:px-6">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-2 sm:py-4">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic py-2 sm:py-4">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
@@ -218,9 +218,9 @@ export default function TestimonialsSection() {
                 </div>
               </div>
 
-              {/* Автор */}
+              {/* Автор - сразу после отзыва */}
               <div 
-                className={`flex flex-col items-center py-4 sm:py-6 pb-8 border-t border-border/30 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
