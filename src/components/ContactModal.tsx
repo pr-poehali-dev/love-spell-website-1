@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 interface ContactModalProps {
@@ -8,23 +8,45 @@ interface ContactModalProps {
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isVisible, setIsVisible] = useState(false);
+  const [stepTransition, setStepTransition] = useState(false);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+      setTimeout(() => setCurrentStep(1), 300);
+    }
+  }, [isOpen]);
+
+  if (!isOpen && !isVisible) return null;
 
   const handleClose = () => {
-    setCurrentStep(1);
-    onClose();
+    setIsVisible(false);
+    setTimeout(() => {
+      setCurrentStep(1);
+      onClose();
+    }, 300);
   };
 
   const handleNext = () => {
     if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);
+      setStepTransition(true);
+      setTimeout(() => {
+        setCurrentStep(currentStep + 1);
+        setStepTransition(false);
+      }, 150);
     }
   };
 
   const handleBack = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      setStepTransition(true);
+      setTimeout(() => {
+        setCurrentStep(currentStep - 1);
+        setStepTransition(false);
+      }, 150);
     }
   };
 
@@ -44,8 +66,19 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-2 sm:p-4">
-      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl sm:rounded-2xl max-w-xs sm:max-w-md w-full p-4 sm:p-6 relative shadow-2xl border border-white/10 max-h-[95vh] overflow-y-auto">
+    <div 
+      className={`fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 transition-all duration-300 ${
+        isVisible ? 'bg-black/80 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
+      }`}
+      onClick={handleClose}
+    >
+      <div 
+        className={`relative w-full max-w-xs sm:max-w-md transition-all duration-300 transform ${
+          isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
+        }`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/10 max-h-[95vh] overflow-y-auto">
         <button 
           onClick={handleClose}
           className="absolute right-3 sm:right-4 top-3 sm:top-4 text-white/60 hover:text-white transition-colors z-10 p-1 rounded-full hover:bg-white/10"
@@ -53,8 +86,11 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           <Icon name="X" size={20} className="sm:w-6 sm:h-6" />
         </button>
 
-        {/* Шаг 1: Предупреждение о возрасте */}
-        {currentStep === 1 && (
+          <div className={`transition-all duration-300 ${
+            stepTransition ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'
+          }`}>
+            {/* Шаг 1: Предупреждение о возрасте */}
+            {currentStep === 1 && (
           <div className="text-center pt-2 sm:pt-0">
             <div className="mb-4 sm:mb-6">
               <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
@@ -238,22 +274,24 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </div>
           </div>
         )}
-        
-        {/* Индикатор прогресса */}
-        <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-white/10">
-          <div className="flex gap-2">
-            {[1, 2, 3, 4].map((step) => (
-              <div 
-                key={step}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  step === currentStep 
-                    ? 'bg-orange-500 w-6' 
-                    : step < currentStep 
-                    ? 'bg-orange-500/60' 
-                    : 'bg-white/20'
-                }`}
-              />
-            ))}
+          </div>
+          
+          {/* Индикатор прогресса */}
+          <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-white/10">
+            <div className="flex gap-2">
+              {[1, 2, 3, 4].map((step) => (
+                <div 
+                  key={step}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    step === currentStep 
+                      ? 'bg-orange-500 w-6' 
+                      : step < currentStep 
+                      ? 'bg-orange-500/60' 
+                      : 'bg-white/20'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
