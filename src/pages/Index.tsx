@@ -138,7 +138,7 @@ export default function Index() {
       </div>
 
       {/* Divider */}
-      <div className="h-8 bg-[#27262d]"></div>
+      <div className="h-6 bg-[#27262d]"></div>
 
       {/* Who Am I Section */}
       <div className="bg-background">
