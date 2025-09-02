@@ -73,15 +73,19 @@ export default function TestimonialsSection() {
 
           {/* Карусель отзывов */}
           <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 md:p-12 border border-border/50 mb-8">
-            {/* Кавычки */}
-            <div className="absolute top-6 left-6 text-6xl font-bold text-accent/20 select-none">"</div>
-            <div className="absolute bottom-6 right-6 text-6xl font-bold text-accent/20 select-none rotate-180">"</div>
-
-            {/* Текст отзыва */}
+            {/* Текст отзыва с красивыми скобками */}
             <div className="relative z-10 mb-8">
-              <p className="text-lg md:text-xl leading-relaxed text-muted-foreground italic text-center max-w-4xl mx-auto">
-                {testimonials[currentTestimonial].text}
-              </p>
+              <div className="relative max-w-4xl mx-auto">
+                {/* Открывающая скобка */}
+                <span className="absolute -left-4 top-0 text-4xl md:text-6xl font-serif text-accent/30 select-none">"</span>
+                
+                <p className="text-lg md:text-xl leading-relaxed text-muted-foreground italic text-center px-6">
+                  {testimonials[currentTestimonial].text}
+                </p>
+                
+                {/* Закрывающая скобка */}
+                <span className="absolute -right-4 bottom-0 text-4xl md:text-6xl font-serif text-accent/30 select-none">"</span>
+              </div>
             </div>
 
             {/* Автор */}
@@ -193,13 +197,13 @@ export default function TestimonialsSection() {
           <div className="text-center">
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-base transition-all duration-300 transform hover:scale-105"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 transform hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, rgb(255, 152, 0) 0%, rgb(255, 120, 0) 100%)',
                 color: 'white'
               }}
             >
-              <Icon name="MessageCircle" size={18} />
+              <Icon name="MessageCircle" size={16} />
               Добавить отзыв
             </button>
           </div>
