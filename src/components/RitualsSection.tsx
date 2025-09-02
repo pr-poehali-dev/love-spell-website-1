@@ -59,8 +59,32 @@ const ritualCards = [
   }
 ];
 
+function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
+  return (
+    <div className="group relative border border-border rounded-xl p-5 hover:border-accent/50 transition-all duration-300 cursor-pointer bg-background hover:bg-gradient-to-r hover:from-background hover:to-accent/5">
+      <div className="flex items-center gap-4">
+        <div className="relative">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-accent/20 group-hover:border-accent/40 transition-colors duration-300" style={{
+            background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.08) 0%, rgba(255, 152, 0, 0.02) 100%)'
+          }}>
+            <Icon name={ritual.icon as any} size={22} className="sm:!w-6 sm:!h-6 group-hover:scale-110 transition-transform duration-300" style={{color: '#ff9800', strokeWidth: 2.5}} />
+          </div>
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1 group-hover:text-accent transition-colors duration-300 truncate">{ritual.title}</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">{ritual.description}</p>
+        </div>
+        <div className="flex-shrink-0">
+          <Icon name="ChevronRight" size={18} className="text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function RitualsSection({ showMoreRituals, setShowMoreRituals }: RitualsSectionProps) {
-  const visibleRituals = showMoreRituals ? ritualCards : ritualCards.slice(0, 4);
+  const visibleRituals = ritualCards.slice(0, 4);
   const hiddenRituals = ritualCards.slice(4);
 
   return (
@@ -76,68 +100,52 @@ export default function RitualsSection({ showMoreRituals, setShowMoreRituals }: 
         </span>бряды
       </h2>
       
-      <div className="space-y-4">
-        {/* Ritual Cards */}
-        {visibleRituals.slice(0, 4).map((ritual, index) => (
-          <div key={index} className="border border-border rounded-lg p-4 hover:bg-muted/20 hover:shadow-lg transition-all duration-300 cursor-pointer group" style={{
-            boxShadow: 'none'
-          }} onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 8px 25px rgba(255, 152, 0, 0.2)';
-          }} onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = 'none';
-          }}>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 transform-gpu" style={{
-                background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
-              }}>
-                <Icon name={ritual.icon as any} size={24} className="sm:!w-7 sm:!h-7" style={{color: '#ff9800', strokeWidth: 2}} />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">{ritual.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{ritual.description}</p>
-              </div>
-              <Icon name="ChevronRight" size={20} className="text-muted-foreground group-hover:text-accent transition-colors" />
-            </div>
-          </div>
+      <div className="space-y-3">
+        {/* Always Visible Ritual Cards */}
+        {visibleRituals.map((ritual, index) => (
+          <RitualCard key={index} ritual={ritual} />
         ))}
 
-        {/* Hidden Rituals */}
-        {showMoreRituals && (
-          <>
-            {hiddenRituals.map((ritual, index) => (
-              <div key={index + 4} className="border border-border rounded-lg p-4 hover:bg-muted/20 hover:shadow-lg transition-all duration-300 cursor-pointer group" style={{
-                boxShadow: 'none'
-              }} onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(255, 152, 0, 0.2)';
-              }} onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-              }}>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 transform-gpu" style={{
-                    background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
-                  }}>
-                    <Icon name={ritual.icon as any} size={24} className="sm:!w-7 sm:!h-7" style={{color: '#ff9800', strokeWidth: 2}} />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">{ritual.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{ritual.description}</p>
-                  </div>
-                  <Icon name="ChevronRight" size={20} className="text-muted-foreground group-hover:text-accent transition-colors" />
-                </div>
-              </div>
-            ))}
-          </>
-        )}
+        {/* Animated Hidden Rituals */}
+        <div className={`space-y-3 transition-all duration-500 ease-in-out overflow-hidden ${
+          showMoreRituals 
+            ? 'max-h-[2000px] opacity-100' 
+            : 'max-h-0 opacity-0'
+        }`}>
+          {hiddenRituals.map((ritual, index) => (
+            <div
+              key={index + 4}
+              className={`transform transition-all duration-700 ease-out ${
+                showMoreRituals 
+                  ? 'translate-y-0 opacity-100' 
+                  : 'translate-y-4 opacity-0'
+              }`}
+              style={{
+                transitionDelay: showMoreRituals ? `${index * 100}ms` : '0ms'
+              }}
+            >
+              <RitualCard ritual={ritual} />
+            </div>
+          ))}
+        </div>
 
         {/* Show More Button */}
-        <div className="pt-4">
+        <div className="pt-6">
           <Button 
             variant="outline" 
-            className="w-full border-accent text-accent hover:bg-accent hover:text-white transition-all duration-300"
+            className="w-full border-accent/50 text-accent hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 rounded-xl py-3 font-medium group"
             onClick={() => setShowMoreRituals(!showMoreRituals)}
           >
-            {showMoreRituals ? 'Скрыть' : 'Показать больше'}
-            <Icon name={showMoreRituals ? 'ChevronUp' : 'ChevronDown'} size={16} className="ml-2" />
+            <span className="group-hover:scale-105 transition-transform duration-300">
+              {showMoreRituals ? 'Скрыть' : 'Показать больше'}
+            </span>
+            <Icon 
+              name={showMoreRituals ? 'ChevronUp' : 'ChevronDown'} 
+              size={16} 
+              className={`ml-2 transition-transform duration-300 ${
+                showMoreRituals ? 'group-hover:-translate-y-0.5' : 'group-hover:translate-y-0.5'
+              }`}
+            />
           </Button>
         </div>
       </div>
