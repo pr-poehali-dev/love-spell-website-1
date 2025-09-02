@@ -25,19 +25,10 @@ export default function FAQSection() {
         </span>опросы и ответы
       </h2>
       
-      <div className="space-y-2">
+      <div className="space-y-1">
         {faqItems.map((question, index) => (
-          <div key={index} className="group py-4 px-2 cursor-pointer transition-all duration-200 hover:bg-accent/8 rounded-md">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 mt-1">
-                <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
-                  <Icon name="HelpCircle" size={14} style={{color: '#ff9800'}} />
-                </div>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-base font-medium text-foreground group-hover:text-accent transition-colors duration-200 leading-relaxed">{question}</p>
-              </div>
-            </div>
+          <div key={index} className="group py-3 cursor-pointer transition-all duration-200 border-l-2 border-transparent hover:border-accent hover:bg-accent/5 pl-4">
+            <p className="text-base font-normal text-foreground group-hover:text-accent transition-colors duration-200 leading-relaxed">{question}</p>
           </div>
         ))}
       </div>
