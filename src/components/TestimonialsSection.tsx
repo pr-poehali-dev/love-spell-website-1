@@ -56,7 +56,7 @@ export default function TestimonialsSection() {
     const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
     
     // Простая формула: базовая высота + дополнительная высота для текста
-    const baseHeight = isMobile ? 400 : 500; // базовая высота для UI элементов
+    const baseHeight = isMobile ? 320 : 380; // уменьшенная базовая высота для UI элементов
     const textHeight = Math.ceil(maxTextLength / (isMobile ? 50 : 70)) * (isMobile ? 25 : 30); // высота для текста
     
     return baseHeight + textHeight;
@@ -200,9 +200,9 @@ export default function TestimonialsSection() {
             onTouchEnd={handleTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col justify-between">
+            <div className="absolute inset-0 p-3 sm:p-4 flex flex-col justify-between">
               {/* Текст отзыва с красивыми скобками */}
-              <div className="flex-1 flex items-center justify-center py-4 sm:py-6">
+              <div className="flex-1 flex items-center justify-center py-2">
                 <div 
                   className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
@@ -212,8 +212,8 @@ export default function TestimonialsSection() {
                   <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                   
                   {/* Полный текст отзыва */}
-                  <div className="px-4 sm:px-6">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-2 sm:py-4">
+                  <div className="px-3 sm:px-4">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
@@ -225,12 +225,12 @@ export default function TestimonialsSection() {
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center py-4 sm:py-6 border-t border-border/30 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-2 sm:py-3 border-t border-border/30 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
                 <div 
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-2 sm:mb-3"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-1 sm:mb-2"
                   style={{ 
                     color: '#ff9800',
                     borderColor: '#ff9800',
