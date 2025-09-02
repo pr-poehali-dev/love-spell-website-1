@@ -71,78 +71,128 @@ export default function TestimonialsSection() {
   const nextTestimonial = () => {
     if (isTransitioning) return;
     
+    // Сохраняем позицию скролла ДО любых изменений
+    const scrollY = window.scrollY;
+    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
+    
+    // Блокируем плавный скролл
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+    
     // Автосвертывание текущего отзыва
     setExpandedTestimonials(new Set());
     
-    // Сохраняем и фиксируем позицию скролла
-    const scrollY = window.scrollY;
-    document.body.style.scrollBehavior = 'auto';
-    
     setIsTransitioning(true);
     
-    setTimeout(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      // Принудительно восстанавливаем позицию
-      window.scrollTo(0, scrollY);
+    // Немедленно фиксируем позицию после свертывания
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: 'auto' });
+      
       setTimeout(() => {
-        setIsTransitioning(false);
-        document.body.style.scrollBehavior = '';
-      }, 100);
-    }, 250);
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+        
+        // Двойная фиксация позиции
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: scrollY, behavior: 'auto' });
+          
+          setTimeout(() => {
+            setIsTransitioning(false);
+            // Восстанавливаем поведение скролла
+            document.documentElement.style.scrollBehavior = currentScrollBehavior;
+            document.body.style.scrollBehavior = '';
+          }, 100);
+        });
+      }, 250);
+    });
   };
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
     
+    // Сохраняем позицию скролла ДО любых изменений
+    const scrollY = window.scrollY;
+    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
+    
+    // Блокируем плавный скролл
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+    
     // Автосвертывание текущего отзыва
     setExpandedTestimonials(new Set());
     
-    // Сохраняем и фиксируем позицию скролла
-    const scrollY = window.scrollY;
-    document.body.style.scrollBehavior = 'auto';
-    
     setIsTransitioning(true);
     
-    setTimeout(() => {
-      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      // Принудительно восстанавливаем позицию
-      window.scrollTo(0, scrollY);
+    // Немедленно фиксируем позицию после свертывания
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: 'auto' });
+      
       setTimeout(() => {
-        setIsTransitioning(false);
-        document.body.style.scrollBehavior = '';
-      }, 100);
-    }, 250);
+        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        
+        // Двойная фиксация позиции
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: scrollY, behavior: 'auto' });
+          
+          setTimeout(() => {
+            setIsTransitioning(false);
+            // Восстанавливаем поведение скролла
+            document.documentElement.style.scrollBehavior = currentScrollBehavior;
+            document.body.style.scrollBehavior = '';
+          }, 100);
+        });
+      }, 250);
+    });
   };
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
     
+    // Сохраняем позицию скролла ДО любых изменений
+    const scrollY = window.scrollY;
+    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
+    
+    // Блокируем плавный скролл
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+    
     // Автосвертывание текущего отзыва
     setExpandedTestimonials(new Set());
     
-    // Сохраняем и фиксируем позицию скролла
-    const scrollY = window.scrollY;
-    document.body.style.scrollBehavior = 'auto';
-    
     setIsTransitioning(true);
     
-    setTimeout(() => {
-      setCurrentTestimonial(index);
-      // Принудительно восстанавливаем позицию
-      window.scrollTo(0, scrollY);
+    // Немедленно фиксируем позицию после свертывания
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: 'auto' });
+      
       setTimeout(() => {
-        setIsTransitioning(false);
-        document.body.style.scrollBehavior = '';
-      }, 100);
-    }, 250);
+        setCurrentTestimonial(index);
+        
+        // Двойная фиксация позиции
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: scrollY, behavior: 'auto' });
+          
+          setTimeout(() => {
+            setIsTransitioning(false);
+            // Восстанавливаем поведение скролла
+            document.documentElement.style.scrollBehavior = currentScrollBehavior;
+            document.body.style.scrollBehavior = '';
+          }, 100);
+        });
+      }, 250);
+    });
   };
 
   // Функции для "Читать далее"
   const MAX_TEXT_LENGTH = 400; // Максимальная длина текста без "Читать далее" (только для очень длинных)
   
   const toggleExpanded = (index: number) => {
-    // Сохраняем позицию скролла для плавного раскрытия
+    // Сохраняем позицию скролла ДО изменений
     const scrollY = window.scrollY;
+    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
+    
+    // Временно блокируем плавный скролл
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
     
     const newExpanded = new Set(expandedTestimonials);
     if (newExpanded.has(index)) {
@@ -153,9 +203,19 @@ export default function TestimonialsSection() {
     
     setExpandedTestimonials(newExpanded);
     
-    // Небольшая задержка для плавности анимации
+    // Множественная фиксация позиции для надежности
     requestAnimationFrame(() => {
-      window.scrollTo(0, scrollY);
+      window.scrollTo({ top: scrollY, behavior: 'auto' });
+      
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: scrollY, behavior: 'auto' });
+        
+        // Восстанавливаем поведение скролла через небольшую задержку
+        setTimeout(() => {
+          document.documentElement.style.scrollBehavior = currentScrollBehavior;
+          document.body.style.scrollBehavior = '';
+        }, 100);
+      });
     });
   };
 
