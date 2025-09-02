@@ -211,30 +211,7 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Навигационные точки сразу после самого длинного отзыва */}
-            <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-10 bottom-24 sm:bottom-36 md:bottom-52 lg:bottom-60"
-            >
-              <div className="flex justify-center gap-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      goToTestimonial(index);
-                    }}
-                    disabled={isTransitioning}
-                    className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-                      index === currentTestimonial 
-                        ? 'bg-accent scale-125' 
-                        : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+
 
             {/* Контейнер с абсолютным позиционированием */}
             <div className="absolute inset-0 flex flex-col">
