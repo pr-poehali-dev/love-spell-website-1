@@ -1,6 +1,9 @@
+import React, { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import ContactModal from './ContactModal';
 
 export default function ContactSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="bg-background">
       <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-2 sm:py-4 space-y-12 sm:space-y-16">
@@ -19,9 +22,7 @@ export default function ContactSection() {
         <div className="flex justify-center mb-8">
         <button 
           className="flex items-center gap-4 bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-4 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] group"
-          onClick={() => {
-            window.open('https://t.me/username', '_blank');
-          }}
+          onClick={() => setIsModalOpen(true)}
         >
           <div className="relative mr-4">
             <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/20">
@@ -93,6 +94,11 @@ export default function ContactSection() {
         </div>
         </div>
       </div>
+      
+      <ContactModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 }
