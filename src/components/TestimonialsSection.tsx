@@ -194,12 +194,9 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Навигационные точки сразу после самого высокого отзыва */}
+            {/* Навигационные точки сразу после самого длинного отзыва */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-10"
-              style={{ 
-                bottom: window.innerWidth < 640 ? '120px' : window.innerWidth < 768 ? '180px' : '220px'
-              }}
+              className="absolute left-1/2 transform -translate-x-1/2 z-10 bottom-24 sm:bottom-36 md:bottom-44 lg:bottom-48"
             >
               <div className="flex justify-center gap-2">
                 {testimonials.map((_, index) => (
