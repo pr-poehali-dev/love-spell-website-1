@@ -83,7 +83,7 @@ export default function Index() {
               <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
                 
                 {/* Shadow ring */}
-                <div className="absolute w-[108%] h-[108%] rounded-full opacity-70"
+                <div className="absolute w-[102%] h-[102%] rounded-full opacity-70"
                      style={{ 
                        left: '-14px', 
                        top: '8px',
