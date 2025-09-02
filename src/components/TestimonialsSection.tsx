@@ -109,36 +109,36 @@ export default function TestimonialsSection() {
           </h2>
 
           {/* Карусель отзывов */}
-          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl border border-border/50 mb-8 overflow-hidden" style={{ height: '400px' }}>
+          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl border border-border/50 mb-8 overflow-hidden" style={{ minHeight: '500px' }}>
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-center">
+            <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
               {/* Текст отзыва с красивыми скобками */}
-              <div className="flex-1 flex items-center justify-center mb-8">
+              <div className="flex-1 flex items-center justify-center py-4">
                 <div 
                   className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out w-full ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
                   {/* Открывающая скобка */}
-                  <span className="absolute -left-4 top-0 text-4xl md:text-6xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  <span className="absolute -left-4 top-0 text-3xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                   
-                  <p className="text-lg md:text-xl leading-relaxed text-muted-foreground italic text-center px-6">
+                  <p className="text-base md:text-lg leading-relaxed text-muted-foreground italic text-center px-6 py-2">
                     {testimonials[currentTestimonial].text}
                   </p>
                   
                   {/* Закрывающая скобка */}
-                  <span className="absolute -right-4 bottom-0 text-4xl md:text-6xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  <span className="absolute -right-4 bottom-0 text-3xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                 </div>
               </div>
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-4 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
                 <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-2 mb-4"
+                  className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-2 mb-3"
                   style={{ 
                     color: '#ff9800',
                     borderColor: '#ff9800',
@@ -147,10 +147,10 @@ export default function TestimonialsSection() {
                 >
                   {testimonials[currentTestimonial].initial}
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-1">
+                <h3 className="text-lg font-semibold text-foreground mb-1">
                   {testimonials[currentTestimonial].name}
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {testimonials[currentTestimonial].location}
                 </p>
               </div>
