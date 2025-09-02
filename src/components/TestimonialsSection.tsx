@@ -174,7 +174,7 @@ export default function TestimonialsSection() {
       <div className="max-w-6xl mx-auto">
         
         {/* Отзывы */}
-        <div className="mb-12 sm:mb-16 md:mb-20">
+        <div className="mb-12 sm:mb-16 md:mb-20 max-w-4xl mx-auto">
           <h2 className="text-xl font-bold text-foreground mb-6 relative">
             <span className="relative inline-block">
               <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
@@ -194,6 +194,32 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
+            {/* Навигационные точки на высоте середины отзыва */}
+            <div 
+              className="absolute left-1/2 transform -translate-x-1/2 z-10"
+              style={{ top: `${getMaxCardHeight() / 2 - 100}px` }}
+            >
+              <div className="flex justify-center gap-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      goToTestimonial(index);
+                    }}
+                    disabled={isTransitioning}
+                    className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                      index === currentTestimonial 
+                        ? 'bg-accent scale-125' 
+                        : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
             {/* Контейнер с абсолютным позиционированием */}
             <div className="absolute inset-0 flex flex-col">
               {/* Текст отзыва с красивыми кавычками - сверху */}
@@ -245,26 +271,7 @@ export default function TestimonialsSection() {
             </div>
           </div>
 
-          {/* Индикаторы отзывов */}
-          <div className="flex justify-center gap-2 mb-6 sm:mb-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  goToTestimonial(index);
-                }}
-                disabled={isTransitioning}
-                className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-                  index === currentTestimonial 
-                    ? 'bg-accent scale-125' 
-                    : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
-                }`}
-              />
-            ))}
-          </div>
+
         </div>
 
         {/* Видео благодарности */}
