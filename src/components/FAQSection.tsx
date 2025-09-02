@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
 const faqItems = [
@@ -12,6 +13,18 @@ const faqItems = [
 ];
 
 export default function FAQSection() {
+  const [openItems, setOpenItems] = useState<Set<number>>(new Set());
+
+  const toggleItem = (index: number) => {
+    const newOpenItems = new Set(openItems);
+    if (newOpenItems.has(index)) {
+      newOpenItems.delete(index);
+    } else {
+      newOpenItems.add(index);
+    }
+    setOpenItems(newOpenItems);
+  };
+
   return (
     <div>
       <h2 className="text-xl font-bold text-foreground mb-6 relative">
@@ -26,47 +39,59 @@ export default function FAQSection() {
       </h2>
       
       <div className="grid gap-4">
-        {faqItems.map((question, index) => (
-          <div key={index} className="group relative overflow-hidden">
-            <div className="relative p-5 cursor-pointer bg-gradient-to-br from-background to-muted/20 hover:from-accent/5 hover:to-accent/10 transition-all duration-300 rounded-2xl border border-border/50 hover:border-accent/30">
-              {/* Полупрозрачный оранжевый знак вопроса в квадрате */}
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 w-16 h-16 rounded-xl flex items-center justify-center transition-all duration-300 transform rotate-12 select-none pointer-events-none" 
-                   style={{
-                     backgroundColor: 'rgba(255, 152, 0, 0.05)',
-                     border: '1px solid rgba(255, 152, 0, 0.1)'
-                   }}
-                   onMouseEnter={(e) => {
-                     e.currentTarget.style.backgroundColor = 'rgba(255, 152, 0, 0.1)';
-                     e.currentTarget.style.borderColor = 'rgba(255, 152, 0, 0.2)';
-                     const questionMark = e.currentTarget.querySelector('.question-mark') as HTMLElement;
-                     if (questionMark) questionMark.style.color = 'rgba(255, 152, 0, 0.4)';
-                   }} 
-                   onMouseLeave={(e) => {
-                     e.currentTarget.style.backgroundColor = 'rgba(255, 152, 0, 0.05)';
-                     e.currentTarget.style.borderColor = 'rgba(255, 152, 0, 0.1)';
-                     const questionMark = e.currentTarget.querySelector('.question-mark') as HTMLElement;
-                     if (questionMark) questionMark.style.color = 'rgba(255, 152, 0, 0.15)';
-                   }}>
-                <span className="question-mark text-4xl font-bold transition-colors duration-300" style={{color: 'rgba(255, 152, 0, 0.15)'}}>
-                  ?
-                </span>
-              </div>
-              
-              <div className="relative flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <Icon 
-                    name="ChevronDown" 
-                    size={20} 
-                    className="text-muted-foreground group-hover:text-accent transition-all duration-300 group-hover:rotate-180" 
-                  />
+        {faqItems.map((question, index) => {
+          const isOpen = openItems.has(index);
+          return (
+            <div key={index} className="group relative overflow-hidden">
+              <div 
+                className="relative p-5 cursor-pointer bg-gradient-to-br from-background to-muted/20 hover:from-accent/5 hover:to-accent/10 transition-all duration-300 rounded-2xl border border-border/50 hover:border-accent/30"
+                onClick={() => toggleItem(index)}
+              >
+                {/* Полупрозрачный оранжевый знак вопроса в квадрате */}
+                <div 
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-16 h-16 rounded-xl flex items-center justify-center transition-all duration-300 transform rotate-12 select-none pointer-events-none" 
+                  style={{
+                    backgroundColor: isOpen ? 'rgba(255, 152, 0, 0.15)' : 'rgba(255, 152, 0, 0.05)',
+                    border: `1px solid ${isOpen ? 'rgba(255, 152, 0, 0.3)' : 'rgba(255, 152, 0, 0.1)'}`
+                  }}
+                >
+                  <span 
+                    className="question-mark text-4xl font-bold transition-colors duration-300" 
+                    style={{color: isOpen ? 'rgba(255, 152, 0, 0.6)' : 'rgba(255, 152, 0, 0.15)'}}
+                  >
+                    ?
+                  </span>
                 </div>
-                <div className="flex-1 pr-6">
-                  <p className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 leading-relaxed">{question}</p>
+                
+                <div className="relative flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <Icon 
+                      name="ChevronDown" 
+                      size={20} 
+                      className={`text-muted-foreground group-hover:text-accent transition-all duration-300 ${
+                        isOpen ? 'rotate-180 text-accent' : ''
+                      }`}
+                    />
+                  </div>
+                  <div className="flex-1 pr-6">
+                    <p className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 leading-relaxed">{question}</p>
+                  </div>
+                </div>
+
+                {/* Раскрывающийся контент */}
+                <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  isOpen ? 'max-h-40 opacity-100 mt-4' : 'max-h-0 opacity-0'
+                }`}>
+                  <div className="pl-10 pr-6">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Здесь будет ответ на вопрос. Пока что это заглушка для демонстрации анимации раскрытия контента.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
