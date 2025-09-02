@@ -47,17 +47,17 @@ export default function FAQSection() {
               >
                 {/* Множественные хаотичные иконки вопросов */}
                 <div className="absolute inset-0 overflow-hidden select-none pointer-events-none">
-                  {/* Основная иконка - правый верх (самая яркая) */}
+                  {/* Основная иконка - правый верх */}
                   <div 
                     className="absolute right-2 top-4 w-8 h-8 rounded-md flex items-center justify-center transition-all duration-300 transform rotate-12" 
                     style={{
-                      backgroundColor: 'hsl(var(--primary) / 0.2)',
-                      border: '1px solid hsl(var(--primary) / 0.35)'
+                      backgroundColor: 'hsl(var(--primary) / 0.15)',
+                      border: '1px solid hsl(var(--primary) / 0.25)'
                     }}
                   >
                     <span 
                       className="text-lg font-bold transition-colors duration-300" 
-                      style={{color: isOpen ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.6)'}}
+                      style={{color: isOpen ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.4)'}}
                     >
                       ?
                     </span>
@@ -65,28 +65,26 @@ export default function FAQSection() {
 
                   {/* Дополнительные иконки в хаотичном порядке */}
 
-                  {/* Маленькая иконка (минимальная яркость) */}
                   <div 
                     className="absolute right-1 bottom-2 w-5 h-5 rounded flex items-center justify-center transform rotate-45" 
                     style={{
-                      backgroundColor: 'hsl(var(--primary) / 0.05)',
-                      border: '1px solid hsl(var(--primary) / 0.1)'
+                      backgroundColor: 'hsl(var(--primary) / 0.08)',
+                      border: '1px solid hsl(var(--primary) / 0.15)'
                     }}
                   >
-                    <span className="text-xs font-bold" style={{color: 'hsl(var(--primary) / 0.15)'}}>?</span>
+                    <span className="text-xs font-bold" style={{color: 'hsl(var(--primary) / 0.25)'}}>?</span>
                   </div>
 
 
 
-                  {/* Средняя иконка (средняя яркость) */}
                   <div 
                     className="absolute right-8 top-1/2 w-6 h-6 rounded flex items-center justify-center transform -rotate-30" 
                     style={{
-                      backgroundColor: 'hsl(var(--primary) / 0.12)',
-                      border: '1px solid hsl(var(--primary) / 0.2)'
+                      backgroundColor: 'rgba(255, 152, 0, 0.025)',
+                      border: '1px solid rgba(255, 152, 0, 0.05)'
                     }}
                   >
-                    <span className="text-xs font-bold" style={{color: 'hsl(var(--primary) / 0.35)'}}>?</span>
+                    <span className="text-xs font-bold" style={{color: 'rgba(255, 152, 0, 0.07)'}}>?</span>
                   </div>
                 </div>
                 
