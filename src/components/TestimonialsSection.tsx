@@ -246,28 +246,26 @@ export default function TestimonialsSection() {
                   {testimonials[currentTestimonial].location}
                 </p>
                 
-                {/* Навигационные точки сразу после "Пермь" */}
-                {currentTestimonial === 0 && (
-                  <div className="flex justify-center gap-2 mt-2">
-                    {testimonials.map((_, index) => (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          goToTestimonial(index);
-                        }}
-                        disabled={isTransitioning}
-                        className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-                          index === currentTestimonial 
-                            ? 'bg-accent scale-125' 
-                            : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                )}
+                {/* Навигационные точки на той же высоте для всех отзывов */}
+                <div className="flex justify-center gap-2 mt-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        goToTestimonial(index);
+                      }}
+                      disabled={isTransitioning}
+                      className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                        index === currentTestimonial 
+                          ? 'bg-accent scale-125' 
+                          : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
 
 
