@@ -73,118 +73,117 @@ export default function TestimonialsSection() {
     if (isTransitioning) return;
     
     const wasExpanded = expandedTestimonials.size > 0;
-    const scrollY = window.scrollY;
-    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
     
-    // Блокируем плавный скролл
-    document.documentElement.style.scrollBehavior = 'auto';
-    document.body.style.scrollBehavior = 'auto';
-    
-    // Автосвертывание и переключение
+    // Свертываем текст и переходим к следующему
     setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    requestAnimationFrame(() => {
-      // Если был раскрыт - скроллим к началу секции
+    // Плавный переход с правильным скроллом
+    setTimeout(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      
+      // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
       if (wasExpanded && containerRef.current) {
-        const sectionTop = containerRef.current.offsetTop - 100;
-        window.scrollTo({ top: sectionTop, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: scrollY, behavior: 'auto' });
+        setTimeout(() => {
+          const cardTop = containerRef.current!.offsetTop - 80;
+          window.scrollTo({ 
+            top: cardTop, 
+            behavior: 'smooth' 
+          });
+        }, 50);
       }
       
       setTimeout(() => {
-        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-        
-        setTimeout(() => {
-          setIsTransitioning(false);
-          document.documentElement.style.scrollBehavior = currentScrollBehavior;
-          document.body.style.scrollBehavior = '';
-        }, 100);
-      }, 250);
-    });
+        setIsTransitioning(false);
+      }, 300);
+    }, 150);
   };
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
     
     const wasExpanded = expandedTestimonials.size > 0;
-    const scrollY = window.scrollY;
-    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
     
-    // Блокируем плавный скролл
-    document.documentElement.style.scrollBehavior = 'auto';
-    document.body.style.scrollBehavior = 'auto';
-    
-    // Автосвертывание и переключение
+    // Свертываем текст и переходим к предыдущему
     setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    requestAnimationFrame(() => {
-      // Если был раскрыт - скроллим к началу секции
+    // Плавный переход с правильным скроллом
+    setTimeout(() => {
+      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      
+      // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
       if (wasExpanded && containerRef.current) {
-        const sectionTop = containerRef.current.offsetTop - 100;
-        window.scrollTo({ top: sectionTop, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: scrollY, behavior: 'auto' });
+        setTimeout(() => {
+          const cardTop = containerRef.current!.offsetTop - 80;
+          window.scrollTo({ 
+            top: cardTop, 
+            behavior: 'smooth' 
+          });
+        }, 50);
       }
       
       setTimeout(() => {
-        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-        
-        setTimeout(() => {
-          setIsTransitioning(false);
-          document.documentElement.style.scrollBehavior = currentScrollBehavior;
-          document.body.style.scrollBehavior = '';
-        }, 100);
-      }, 250);
-    });
+        setIsTransitioning(false);
+      }, 300);
+    }, 150);
   };
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
     
     const wasExpanded = expandedTestimonials.size > 0;
-    const scrollY = window.scrollY;
-    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
     
-    // Блокируем плавный скролл
-    document.documentElement.style.scrollBehavior = 'auto';
-    document.body.style.scrollBehavior = 'auto';
-    
-    // Автосвертывание и переключение
+    // Свертываем текст и переходим к выбранному
     setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    requestAnimationFrame(() => {
-      // Если был раскрыт - скроллим к началу секции
+    // Плавный переход с правильным скроллом
+    setTimeout(() => {
+      setCurrentTestimonial(index);
+      
+      // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
       if (wasExpanded && containerRef.current) {
-        const sectionTop = containerRef.current.offsetTop - 100;
-        window.scrollTo({ top: sectionTop, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: scrollY, behavior: 'auto' });
+        setTimeout(() => {
+          const cardTop = containerRef.current!.offsetTop - 80;
+          window.scrollTo({ 
+            top: cardTop, 
+            behavior: 'smooth' 
+          });
+        }, 50);
       }
       
       setTimeout(() => {
-        setCurrentTestimonial(index);
-        
-        setTimeout(() => {
-          setIsTransitioning(false);
-          document.documentElement.style.scrollBehavior = currentScrollBehavior;
-          document.body.style.scrollBehavior = '';
-        }, 100);
-      }, 250);
-    });
+        setIsTransitioning(false);
+      }, 300);
+    }, 150);
   };
 
-  // Функции для "Читать далее"
-  const MAX_TEXT_LENGTH = 200; // Показываем короткие отзывы полностью
+  // Умная логика показа текста
+  const MAX_TEXT_LENGTH = 180; // Оптимальная длина для первого экрана
+  
+  // Улучшенная функция для определения необходимости сокращения
+  const shouldTruncateText = (text: string) => {
+    return text.length > MAX_TEXT_LENGTH;
+  };
   
   const toggleExpanded = (index: number) => {
+    const isCurrentlyExpanded = expandedTestimonials.has(index);
+    
     setExpandedTestimonials(prev => {
       const newSet = new Set(prev);
       if (newSet.has(index)) {
         newSet.delete(index);
+        // При свертывании мягко скроллим к началу карточки
+        setTimeout(() => {
+          if (containerRef.current) {
+            const cardTop = containerRef.current.offsetTop - 80;
+            window.scrollTo({ 
+              top: cardTop, 
+              behavior: 'smooth' 
+            });
+          }
+        }, 100);
       } else {
         newSet.add(index);
       }
@@ -254,18 +253,18 @@ export default function TestimonialsSection() {
           {/* Карусель отзывов */}
           <div 
             ref={containerRef}
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none"
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:border-border/70"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
-            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-[350px] overflow-hidden">
+            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-[320px] relative">
               
               {/* Текст отзыва */}
               <div className="flex-1 flex flex-col justify-center">
                 <div 
-                  className={`relative transition-all duration-500 ease-in-out ${
-                    isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+                  className={`relative transition-all duration-300 ease-out ${
+                    isTransitioning ? 'opacity-0 transform translate-y-2' : 'opacity-100 transform translate-y-0'
                   }`}
                 >
                   {/* Открывающая скобка */}
@@ -278,28 +277,32 @@ export default function TestimonialsSection() {
                         {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
                       </p>
                       
-                      {/* Кнопка "Читать далее" */}
+                      {/* Кнопка "Читать далее" с иконкой */}
                       {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
-                        <div className="text-center mt-3">
+                        <div className="text-center mt-4">
                           <button
                             onClick={() => toggleExpanded(currentTestimonial)}
-                            className="inline-block text-sm font-medium px-3 py-1 rounded-md transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10"
+                            disabled={isTransitioning}
+                            className="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
                             style={{ color: '#ff9800' }}
                           >
                             Читать далее
+                            <Icon name="ChevronDown" size={16} className="transition-transform duration-200 group-hover:translate-y-0.5" />
                           </button>
                         </div>
                       )}
                       
-                      {/* Кнопка "Свернуть" */}
-                      {expandedTestimonials.has(currentTestimonial) && testimonials[currentTestimonial].text.length > MAX_TEXT_LENGTH && (
-                        <div className="text-center mt-3">
+                      {/* Кнопка "Свернуть" с иконкой */}
+                      {expandedTestimonials.has(currentTestimonial) && shouldTruncateText(testimonials[currentTestimonial].text) && (
+                        <div className="text-center mt-4">
                           <button
                             onClick={() => toggleExpanded(currentTestimonial)}
-                            className="inline-block text-sm font-medium px-3 py-1 rounded-md transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10"
+                            disabled={isTransitioning}
+                            className="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
                             style={{ color: '#ff9800' }}
                           >
                             Свернуть
+                            <Icon name="ChevronUp" size={16} className="transition-transform duration-200 group-hover:-translate-y-0.5" />
                           </button>
                         </div>
                       )}
@@ -350,11 +353,11 @@ export default function TestimonialsSection() {
                     goToTestimonial(index);
                   }}
                   disabled={isTransitioning}
-                  className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                  className={`relative w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/30 overflow-hidden ${
                     index === currentTestimonial 
-                      ? 'bg-accent scale-110' 
+                      ? 'bg-accent scale-110 shadow-lg shadow-accent/20' 
                       : 'bg-accent/30 hover:bg-accent/50 hover:scale-105'
-                  }`}
+                  } ${isTransitioning ? 'animate-pulse' : ''}`}
                 />
               ))}
             </div>
