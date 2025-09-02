@@ -6,7 +6,8 @@ interface HeaderProps {
   setCurrentTitle: (title: string) => void;
 }
 
-const scrollToSection = (sectionId: string) => {
+const scrollToSection = (sectionId: string, setActiveSection: (section: string) => void) => {
+  setActiveSection(sectionId);
   const element = document.getElementById(sectionId);
   if (element) {
     const headerHeight = 154;
@@ -78,18 +79,18 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
       </div>
 
       {/* Navigation Menu */}  
-      <div className="bg-background border-b border-border sticky top-[77px] z-20">
+      <div className="bg-background sticky top-[77px] z-20">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button 
-              onClick={() => scrollToSection('about')}
+              onClick={() => scrollToSection('about', setActiveSection)}
               className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200 active:scale-95"
             >
-              <Icon name="User" size={20} className="text-accent" />
+              <Icon name="User" size={20} className={activeSection === 'about' ? 'text-accent' : 'text-foreground'} />
               <span className={`text-xs sm:text-xs font-medium ${activeSection === 'about' ? 'text-accent' : 'text-foreground'}`}>КТО Я</span>
             </button>
             <button 
-              onClick={() => scrollToSection('rituals')}
+              onClick={() => scrollToSection('rituals', setActiveSection)}
               className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200 active:scale-95"
             >
               <Icon name="Leaf" size={20} className={activeSection === 'rituals' ? 'text-accent' : 'text-foreground'} />
