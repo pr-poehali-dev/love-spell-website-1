@@ -79,17 +79,20 @@ export default function Index() {
           <div className="max-w-xs mx-auto px-4 text-center">
             {/* Large Profile Image */}
             <div className="mb-6">
-              <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden ring-4 ring-accent/30 shadow-2xl bg-background">
+              <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden ring-4 ring-accent/30 shadow-2xl bg-background relative">
                 <img 
                   src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                   alt="Раиса Ильинская"
                   className="w-full h-full object-cover"
                 />
+                {/* Sunset reflection overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-yellow-300/20 to-red-500/25 rounded-full mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-amber-600/40 via-transparent to-transparent rounded-full mix-blend-soft-light"></div>
               </div>
             </div>
             
             {/* Name and Title */}
-            <div className="mb-16 sm:mb-20">
+            <div className="mb-6 sm:mb-8">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
                 Раиса Ильинская
               </h2>
@@ -101,7 +104,7 @@ export default function Index() {
         </div>
         
         {/* Bottom Section */}
-        <div className="bg-background pt-8 pb-8">
+        <div className="bg-background pt-2 pb-8">
           <div className="max-w-xs mx-auto px-4">
             {/* Call to Action */}
             <Button 
