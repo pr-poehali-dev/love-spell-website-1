@@ -119,7 +119,7 @@
   }
 }
 
-/* Оптимизации для мобильных устройств */\n@media (max-width: 640px) {\n  html {\n    -webkit-text-size-adjust: 100%;\n    -ms-text-size-adjust: 100%;\n  }\n  \n  /* Убираем задержку клика на мобильных */\n  * {\n    touch-action: manipulation;\n  }\n}\n\n/* Ускорение отрисовки с GPU */\n.gpu-accelerated {\n  transform: translateZ(0);\n  -webkit-backface-visibility: hidden;\n  will-change: transform;\n}\n\n@layer components {
+@layer components {
   @keyframes typewriter {
     0% {
       width: 0;

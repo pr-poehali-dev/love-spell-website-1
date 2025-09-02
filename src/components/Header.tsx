@@ -76,9 +76,9 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
     <>
       {/* Header Profile Section */}
       <div className="bg-background border-b border-border sticky top-0 z-30">
-        <div className="max-w-full mx-auto px-2 xs:px-3 sm:px-4 py-3 sm:py-4">
-          <div className="flex items-center gap-2 xs:gap-3">
-            <div className="w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
               <img 
                 src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                 alt="Раиса Ильинская"
@@ -87,9 +87,9 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                 decoding="async"
               />
             </div>
-            <div className="min-w-0 flex-1">
-              <h1 className="text-sm xs:text-base sm:text-lg font-semibold text-foreground truncate tracking-wide">Раиса Ильинская</h1>
-              <div className="text-xs xs:text-sm font-medium text-accent">
+            <div>
+              <h1 className="text-base sm:text-lg font-semibold text-foreground truncate tracking-wide">Раиса Ильинская</h1>
+              <div className="text-sm font-medium text-accent">
                 <span className="typewriter" key={currentTitle}>{currentTitle}</span>
               </div>
             </div>
@@ -98,12 +98,12 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
       </div>
 
       {/* Navigation Menu */}  
-      <div className="bg-background sticky top-[69px] xs:top-[77px] z-20 shadow-md">
-        <div className="max-w-full mx-auto px-1 xs:px-2 sm:px-4 py-2 xs:py-3 sm:py-4">
-          <div className="grid grid-cols-4 gap-0.5 xs:gap-1">
+      <div className="bg-background sticky top-[77px] z-20 shadow-md">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
+          <div className="grid grid-cols-4 gap-1">
             <button 
               onClick={() => scrollToSection('about')}
-              className={`flex flex-col items-center gap-1 xs:gap-1.5 p-1.5 xs:p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'about' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -111,19 +111,19 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             >
               <Icon 
                 name="User" 
-                size={16} 
-                className={`xs:w-5 xs:h-5 transition-colors ${
+                size={20} 
+                className={`transition-colors  ${
                   activeSection === 'about' ? 'text-accent' : ''
                 }`} 
               />
-              <span className="text-[10px] xs:text-xs font-medium leading-tight">КТО Я</span>
+              <span className="text-xs sm:text-xs font-medium">КТО Я</span>
               {activeSection === 'about' && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 xs:w-8 h-0.5 bg-accent rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
             <button 
               onClick={() => scrollToSection('rituals')}
-              className={`flex flex-col items-center gap-1 xs:gap-1.5 p-1.5 xs:p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'rituals' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -131,20 +131,20 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             >
               <Icon 
                 name="Leaf" 
-                size={16} 
-                className={`xs:w-5 xs:h-5 transition-colors ${
+                size={20} 
+                className={`transition-colors  ${
                   activeSection === 'rituals' ? 'text-accent' : ''
                 }`} 
               />
-              <span className="text-[10px] xs:text-xs font-medium leading-tight">ОБРЯДЫ</span>
+              <span className="text-xs sm:text-xs font-medium">ОБРЯДЫ</span>
               {activeSection === 'rituals' && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 xs:w-8 h-0.5 bg-accent rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
             <button 
               data-section="testimonials"
               onClick={() => scrollToSection('testimonials')}
-              className={`flex flex-col items-center gap-1 xs:gap-1.5 p-1.5 xs:p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'testimonials' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -152,14 +152,14 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             >
               <Icon 
                 name="MessageCircle" 
-                size={16} 
-                className={`xs:w-5 xs:h-5 transition-colors ${
+                size={20} 
+                className={`transition-colors  ${
                   activeSection === 'testimonials' ? 'text-accent' : ''
                 }`} 
               />
-              <span className="text-[10px] xs:text-xs font-medium leading-tight">ОТЗЫВЫ</span>
+              <span className="text-xs sm:text-xs font-medium">ОТЗЫВЫ</span>
               {activeSection === 'testimonials' && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 xs:w-8 h-0.5 bg-accent rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
             <button 
@@ -169,7 +169,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                   contactElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
               }}
-              className={`flex flex-col items-center gap-1 xs:gap-1.5 p-1.5 xs:p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'contact' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -177,14 +177,14 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             >
               <Icon 
                 name="Mail" 
-                size={16} 
-                className={`xs:w-5 xs:h-5 transition-colors ${
+                size={20} 
+                className={`transition-colors  ${
                   activeSection === 'contact' ? 'text-accent' : ''
                 }`} 
               />
-              <span className="text-[10px] xs:text-xs font-medium leading-tight">СВЯЗЬ</span>
+              <span className="text-xs sm:text-xs font-medium">СВЯЗЬ</span>
               {activeSection === 'contact' && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 xs:w-8 h-0.5 bg-accent rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
           </div>
