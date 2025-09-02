@@ -64,11 +64,12 @@ export default function TestimonialsSection() {
 
   // Рассчитываем точную позицию для размещения точек навигации после города "Пермь"
   const getNavigationPosition = () => {
+    const isVerySmall = typeof window !== 'undefined' && window.innerWidth <= 375; // iPhone 5s, SE
     const isSmall = typeof window !== 'undefined' && window.innerWidth < 640;
     const isMedium = typeof window !== 'undefined' && window.innerWidth < 1024;
     
     // Место для нижней части секции автора (после города "Пермь")
-    const authorBottomSpace = isSmall ? 35 : isMedium ? 40 : 45;
+    const authorBottomSpace = isVerySmall ? 25 : isSmall ? 35 : isMedium ? 40 : 45;
     return authorBottomSpace;
   };
 
