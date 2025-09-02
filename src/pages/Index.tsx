@@ -17,7 +17,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header Profile Section */}
-      <div className="bg-background border-b border-border">
+      <div className="bg-background border-b border-border relative z-20">
         <div className="max-w-sm mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/20">
@@ -38,7 +38,7 @@ export default function Index() {
       </div>
 
       {/* Navigation Menu */}
-      <div className="bg-background border-b border-border">
+      <div className="bg-background border-b border-border relative z-20">
         <div className="max-w-sm mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors">
@@ -62,7 +62,7 @@ export default function Index() {
       </div>
 
       {/* Hero Section with V-Mask Design */}
-      <div className="relative -mt-16 sm:-mt-20 md:-mt-24">
+      <div className="relative -mt-24 sm:-mt-28 md:-mt-32 z-10">
         {/* Background Image with V-Mask */}
         <div className="relative h-[70vh] sm:h-[75vh]">
           <div 
