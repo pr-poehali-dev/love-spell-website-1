@@ -48,18 +48,34 @@ export default function TestimonialsSection() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [cardHeight, setCardHeight] = useState(450);
 
-  // Простой расчет высоты карточки под самый длинный отзыв
+  // Рассчитываем максимальную высоту для самого длинного отзыва
   const getMaxCardHeight = () => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+    // Получаем размеры экрана
+    const screenHeight = typeof window !== 'undefined' ? window.innerHeight : 800;
+    const isMobile = typeof window !== 'undefined' ? window.innerWidth < 640 : false;
     
-    // Находим самый длинный отзыв
+    // Фиксированные элементы UI (адаптивно)
+    const padding = isMobile ? 32 : 64; // p-4 для мобильных, p-6+ для больших
+    const authorSection = isMobile ? 120 : 140; // компактнее на мобильных
+    const quotesSpace = isMobile ? 40 : 60; // меньше места для кавычек
+    const textPadding = isMobile ? 16 : 32; // py-2 для мобильных
+    const navigationSpace = 80; // место для точек навигации и отступов
+    
+    // Расчет для текста
+    const charPerLine = isMobile ? 45 : 60; // меньше символов на мобильных
+    const lineHeight = isMobile ? 24 : 28; // компактнее межстрочный интервал
+
     const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
+    const estimatedLines = Math.ceil(maxTextLength / charPerLine);
+    const textHeight = estimatedLines * lineHeight;
     
-    // Простая формула: базовая высота + дополнительная высота для текста
-    const baseHeight = isMobile ? 320 : 380; // уменьшенная базовая высота для UI элементов
-    const textHeight = Math.ceil(maxTextLength / (isMobile ? 50 : 70)) * (isMobile ? 25 : 30); // высота для текста
+    const totalHeight = padding + authorSection + quotesSpace + textPadding + textHeight;
     
-    return baseHeight + textHeight;
+    // Ограничиваем высоту размером экрана (оставляем место для header/footer)
+    const maxAllowedHeight = screenHeight - navigationSpace - 100;
+    const minHeight = isMobile ? 350 : 450;
+    
+    return Math.max(minHeight, Math.min(totalHeight, maxAllowedHeight));
   };
 
   // Состояния для свайпа
@@ -200,37 +216,37 @@ export default function TestimonialsSection() {
             onTouchEnd={handleTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-3 sm:p-4 flex flex-col">
-              {/* Текст отзыва с реалистичными кавычками */}
-              <div className="mb-4">
+            <div className="absolute inset-0 p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col justify-between">
+              {/* Текст отзыва с красивыми скобками */}
+              <div className="flex-1 flex items-center justify-center py-4 sm:py-6">
                 <div 
-                  className={`relative transition-all duration-500 ease-in-out ${
+                  className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
-                  {/* Открывающая кавычка */}
-                  <span className="absolute -left-1 sm:-left-2 -top-1 sm:-top-2 text-2xl sm:text-3xl font-serif text-accent/40 select-none pointer-events-none">«</span>
+                  {/* Открывающая скобка */}
+                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                   
-                  {/* Полный текст отзыва */}
-                  <div className="px-3 sm:px-4">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic py-1 sm:py-2">
+                  {/* Полный текст без скролла */}
+                  <div className="px-4 sm:px-6">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-2 sm:py-4">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
                   
-                  {/* Закрывающая кавычка */}
-                  <span className="absolute -right-1 sm:-right-2 -bottom-1 sm:-bottom-2 text-2xl sm:text-3xl font-serif text-accent/40 select-none pointer-events-none">»</span>
+                  {/* Закрывающая скобка */}
+                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                 </div>
               </div>
 
-              {/* Автор - теперь под отзывом */}
+              {/* Автор */}
               <div 
-                className={`flex flex-col items-center transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-4 sm:py-6 border-t border-border/30 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
                 <div 
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-1 sm:mb-2"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-2 sm:mb-3"
                   style={{ 
                     color: '#ff9800',
                     borderColor: '#ff9800',
