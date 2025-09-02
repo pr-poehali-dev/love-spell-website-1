@@ -18,24 +18,26 @@ export default function Index() {
 
       <Divider />
 
-      <div id="about">
-        <AboutMeSection />
-      </div>
+      <main className="max-w-4xl mx-auto px-4 py-8 space-y-12">
+        <section id="about" className="scroll-mt-32">
+          <AboutMeSection />
+        </section>
 
-      <Divider />
+        <Divider />
 
-      <div id="rituals">
-        <RitualsPageSection 
-          showMoreRituals={showMoreRituals} 
-          setShowMoreRituals={setShowMoreRituals} 
-        />
-      </div>
+        <section id="rituals" className="scroll-mt-32">
+          <RitualsPageSection 
+            showMoreRituals={showMoreRituals} 
+            setShowMoreRituals={setShowMoreRituals} 
+          />
+        </section>
 
-      <Divider />
+        <Divider />
 
-      <div id="testimonials">
-        <TestimonialsSection />
-      </div>
+        <section id="testimonials" className="scroll-mt-32">
+          <TestimonialsSection />
+        </section>
+      </main>
     </div>
   );
 }

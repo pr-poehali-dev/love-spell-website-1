@@ -93,7 +93,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
               onClick={() => scrollToSection('about')}
               className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'about' 
-                  ? 'bg-accent/10 text-accent shadow-md' 
+                  ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
               }`}
             >
@@ -131,12 +131,12 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             </button>
             <button 
               onClick={() => scrollToSection('testimonials')}
-              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group text-foreground hover:text-accent"
+              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group relative text-foreground hover:text-accent"
             >
               <Icon name="MessageCircle" size={20} className="transition-colors" />
               <span className="text-xs sm:text-xs font-medium">ОТЗЫВЫ</span>
             </button>
-            <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group text-foreground hover:text-accent">
+            <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group relative text-foreground hover:text-accent">
               <Icon name="Mail" size={20} className="transition-colors" />
               <span className="text-xs sm:text-xs font-medium">СВЯЗЬ</span>
             </button>

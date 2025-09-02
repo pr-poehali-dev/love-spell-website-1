@@ -32,7 +32,7 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
             <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
               <div className="relative w-full h-full rounded-full overflow-hidden bg-background"
                    style={{ 
-                     filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25))'
+                     filter: 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.35))'
                    }}>
                 <img 
                   src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 

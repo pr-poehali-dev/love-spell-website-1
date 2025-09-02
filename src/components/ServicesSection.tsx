@@ -14,15 +14,13 @@ export default function ServicesSection() {
         </span>ем я занимаюсь
       </h2>
       
-      <div className="space-y-8">
+      <div className="space-y-6">
         {/* Christian Magic */}
         <div>
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center mb-3 transform-gpu" style={{
-            background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
-          }}>
-            <Icon name="Plus" size={24} className="sm:!w-7 sm:!h-7" style={{color: '#ff9800', strokeWidth: 3}} />
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
+            <Icon name="Plus" size={20} className="text-accent" />
           </div>
-          <h3 className="text-lg font-semibold text-foreground mb-2">Христианской магией</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Христианской магией</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Основана на работе с архангелами, ангелами, святыми, а также известными архетипами Пресвятой Девы и Отца Небесного.
           </p>
@@ -30,12 +28,10 @@ export default function ServicesSection() {
 
         {/* Runic Magic */}
         <div>
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center mb-3 transform-gpu" style={{
-            background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
-          }}>
-            <Icon name="Zap" size={24} className="sm:!w-7 sm:!h-7" style={{color: '#ff9800', strokeWidth: 3}} />
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
+            <Icon name="Zap" size={20} className="text-accent" />
           </div>
-          <h3 className="text-lg font-semibold text-foreground mb-2">Рунической магией</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Рунической магией</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Использование специальных знаков и символов (рун) для получения нужного результата.
           </p>
@@ -43,12 +39,10 @@ export default function ServicesSection() {
 
         {/* Candle Magic */}
         <div>
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center mb-3 transform-gpu" style={{
-            background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
-          }}>
-            <Icon name="Flame" size={24} className="sm:!w-7 sm:!h-7" style={{color: '#ff9800', strokeWidth: 3}} />
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
+            <Icon name="Flame" size={20} className="text-accent" />
           </div>
-          <h3 className="text-lg font-semibold text-foreground mb-2">Магией свечей</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Магией свечей</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Искусство управления жизненными событиями и влияния на окружающий мир через работу со свечами.
           </p>
@@ -56,12 +50,10 @@ export default function ServicesSection() {
 
         {/* Knot Magic */}
         <div>
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center mb-3 transform-gpu" style={{
-            background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
-          }}>
-            <Icon name="GitBranch" size={24} className="sm:!w-7 sm:!h-7" style={{color: '#ff9800', strokeWidth: 3}} />
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
+            <Icon name="GitBranch" size={20} className="text-accent" />
           </div>
-          <h3 className="text-lg font-semibold text-foreground mb-2">Магией узлов</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Магией узлов</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Магическое направление связи специальных узлов с судьбой и энергиями человека.
           </p>
