@@ -174,7 +174,7 @@ export default function TestimonialsSection() {
       <div className="max-w-6xl mx-auto">
         
         {/* Отзывы */}
-        <div className="mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto">
+        <div className="mb-6 sm:mb-8 md:mb-10 max-w-4xl mx-auto">
           <h2 className="text-xl font-bold text-foreground mb-6 relative">
             <span className="relative inline-block">
               <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
@@ -194,10 +194,10 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Навигационные точки внизу первого отзыва */}
+            {/* Навигационные точки сразу после самого длинного отзыва */}
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-10"
-              style={{ bottom: `120px` }}
+              style={{ bottom: `${300 - 20}px` }}
             >
               <div className="flex justify-center gap-2">
                 {testimonials.map((_, index) => (
