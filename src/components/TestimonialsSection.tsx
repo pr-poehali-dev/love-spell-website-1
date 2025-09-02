@@ -196,30 +196,7 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Навигационные точки сразу после самого длинного отзыва */}
-            <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-10 bottom-20 md:bottom-32 lg:bottom-40"
-            >
-              <div className="flex justify-center gap-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      goToTestimonial(index);
-                    }}
-                    disabled={isTransitioning}
-                    className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-                      index === currentTestimonial 
-                        ? 'bg-accent scale-125' 
-                        : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+
 
             {/* Контейнер с абсолютным позиционированием */}
             <div className="absolute inset-0 flex flex-col">
@@ -243,6 +220,27 @@ export default function TestimonialsSection() {
                   {/* Закрывающая кавычка */}
                   <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">»</span>
                 </div>
+              </div>
+
+              {/* Навигационные точки СРАЗУ после текста "Пермь" */}
+              <div className="flex justify-center gap-2 mt-4 mb-6">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      goToTestimonial(index);
+                    }}
+                    disabled={isTransitioning}
+                    className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                      index === currentTestimonial 
+                        ? 'bg-accent scale-125' 
+                        : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
+                    }`}
+                  />
+                ))}
               </div>
 
               {/* Автор - сразу после отзыва */}
