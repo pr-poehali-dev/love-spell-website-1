@@ -128,9 +128,7 @@ export default function TestimonialCard({
                     <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
                       isExpanded ? 'max-h-[2000px]' : 'max-h-[120px]'
                     }`}>
-                      <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic transition-all duration-300 ease-in-out ${
-                        isExpanded ? 'text-left' : 'text-center'
-                      }`}>
+                      <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-left">
                         {testimonial.text}
                       </p>
                     </div>
