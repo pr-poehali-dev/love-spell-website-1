@@ -78,10 +78,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl max-h-[95vh] overflow-y-auto">
+        <div className="bg-background/95 backdrop-blur-md border border-primary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl max-h-[95vh] overflow-y-auto">
         <button 
           onClick={handleClose}
-          className="absolute right-3 sm:right-4 top-3 sm:top-4 text-muted-foreground hover:text-foreground transition-colors z-10 p-1 rounded-full hover:bg-muted"
+          className="absolute right-3 sm:right-4 top-3 sm:top-4 text-foreground/60 hover:text-foreground transition-colors z-10 p-1 rounded-full hover:bg-primary/10"
         >
           <Icon name="X" size={20} className="sm:w-6 sm:h-6" />
         </button>
@@ -91,7 +91,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {currentStep === 1 && (
               <div className="text-center pt-2 sm:pt-0">
                 <div className="mb-4 sm:mb-6">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center animate-pulse-glow">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-primary/15 rounded-full flex items-center justify-center animate-pulse-glow border border-primary/25">
                     <Icon name="AlertTriangle" size={32} className="text-primary sm:w-10 sm:h-10" />
                   </div>
                   <h2 className="text-foreground text-xl sm:text-2xl font-bold mb-3 sm:mb-4 font-[Montserrat]">
@@ -99,7 +99,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </h2>
                 </div>
                 
-                <div className="bg-muted/50 border border-border rounded-lg p-4 mb-6 sm:mb-8">
+                <div className="bg-primary/10 border border-primary/25 rounded-lg p-4 mb-6 sm:mb-8">
                   <p className="text-foreground text-base sm:text-lg leading-relaxed">
                     Все обращения принимаются строго с <span className="font-bold text-primary">18 лет</span>.
                   </p>
@@ -108,7 +108,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <button 
                     onClick={handleClose}
-                    className="flex-1 bg-muted hover:bg-muted/80 text-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
+                    className="flex-1 bg-background/80 hover:bg-background text-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-primary/20"
                   >
                     Назад
                   </button>
@@ -126,27 +126,27 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {currentStep === 2 && (
               <div className="pt-2 sm:pt-0">
                 <div className="text-center mb-4 sm:mb-6">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-info/10 rounded-full flex items-center justify-center animate-pulse-glow">
-                    <Icon name="Info" size={32} className="text-info sm:w-10 sm:h-10" />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-accent/15 rounded-full flex items-center justify-center animate-pulse-glow border border-accent/25">
+                    <Icon name="Info" size={32} className="text-accent sm:w-10 sm:h-10" />
                   </div>
                   <h2 className="text-foreground text-lg sm:text-xl font-bold font-[Montserrat]">Важная информация</h2>
                 </div>
                 
                 <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-                  <div className="bg-info/10 border border-info/20 rounded-lg p-3 sm:p-4">
+                  <div className="bg-accent/10 border border-accent/20 rounded-lg p-3 sm:p-4">
                     <p className="text-foreground text-sm sm:text-base leading-relaxed border-b border-border pb-2 mb-2">
                       Сейчас я занимаюсь исключительно любовными обрядами и ритуалами.
                     </p>
                   </div>
                   
-                  <div className="bg-warning/10 border border-warning/20 rounded-lg p-3 sm:p-4">
-                    <p className="text-warning text-sm sm:text-base leading-relaxed">
+                  <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 sm:p-4">
+                    <p className="text-primary text-sm sm:text-base leading-relaxed">
                       Гадание на будущее, настоящее или расклады карт для простого любопытства, к сожалению, не провожу.
                     </p>
                   </div>
                   
-                  <div className="bg-success/10 border border-success/20 rounded-lg p-3 sm:p-4">
-                    <p className="text-success text-sm sm:text-base leading-relaxed">
+                  <div className="bg-accent/10 border border-accent/20 rounded-lg p-3 sm:p-4">
+                    <p className="text-accent text-sm sm:text-base leading-relaxed">
                       Но если вам нужно вернуть отношения или провести любовный обряд, я готова помочь.
                     </p>
                   </div>
@@ -155,7 +155,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <button 
                     onClick={handleBack}
-                    className="flex-1 bg-muted hover:bg-muted/80 text-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
+                    className="flex-1 bg-background/80 hover:bg-background text-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-primary/20"
                   >
                     Назад
                   </button>
@@ -173,7 +173,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {currentStep === 3 && (
               <div className="pt-2 sm:pt-0">
                 <div className="text-center mb-4 sm:mb-6">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-destructive/10 rounded-full flex items-center justify-center animate-pulse-glow">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-destructive/15 rounded-full flex items-center justify-center animate-pulse-glow border border-destructive/25">
                     <Icon name="XCircle" size={32} className="text-destructive sm:w-10 sm:h-10" />
                   </div>
                   <h2 className="text-destructive text-lg sm:text-xl font-bold font-[Montserrat]">То, чем я НЕ ЗАНИМАЮСЬ!</h2>
@@ -199,7 +199,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </div>
                 </div>
 
-                <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 sm:p-4 mb-6 sm:mb-8">
+                <div className="bg-primary/15 border border-primary/30 rounded-lg p-3 sm:p-4 mb-6 sm:mb-8">
                   <p className="text-center text-primary text-sm sm:text-base font-medium">
                     Моя специализация — ТОЛЬКО ЛЮБОВНЫЕ ОБРЯДЫ!
                   </p>
@@ -208,13 +208,13 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <button 
                     onClick={handleClose}
-                    className="flex-1 bg-muted hover:bg-muted/80 text-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
+                    className="flex-1 bg-background/80 hover:bg-background text-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-primary/20"
                   >
                     Выйти
                   </button>
                   <button 
                     onClick={handleNext}
-                    className="flex-1 bg-success hover:bg-success/90 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg"
+                    className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg"
                   >
                     Я по делу
                   </button>
@@ -243,9 +243,9 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   <div className="grid grid-cols-2 gap-3 sm:gap-4">
                     <button
                       onClick={handleWhatsApp}
-                      className="flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl hover:bg-muted transition-all duration-200 active:scale-95 border border-border hover:border-success/30 hover-lift"
+                      className="flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl hover:bg-background/50 transition-all duration-200 active:scale-95 border border-primary/20 hover:border-accent/40 hover-lift"
                     >
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-success rounded-full flex items-center justify-center shadow-lg">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-accent rounded-full flex items-center justify-center shadow-lg">
                         <Icon name="MessageCircle" size={20} className="text-white sm:w-7 sm:h-7" />
                       </div>
                       <span className="text-foreground font-medium text-sm sm:text-base">WhatsApp</span>
@@ -253,9 +253,9 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
                     <button
                       onClick={handleTelegram}
-                      className="flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl hover:bg-muted transition-all duration-200 active:scale-95 border border-border hover:border-info/30 hover-lift"
+                      className="flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl hover:bg-background/50 transition-all duration-200 active:scale-95 border border-primary/20 hover:border-accent/40 hover-lift"
                     >
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-info rounded-full flex items-center justify-center shadow-lg">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-full flex items-center justify-center shadow-lg">
                         <Icon name="Send" size={20} className="text-white sm:w-7 sm:h-7" />
                       </div>
                       <span className="text-foreground font-medium text-sm sm:text-base">Telegram</span>
@@ -275,7 +275,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           </div>
           
           {/* Индикатор прогресса */}
-          <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-border">
+          <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-primary/20">
             <div className="flex gap-2">
               {[1, 2, 3, 4].map((step) => (
                 <div 
@@ -285,7 +285,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                       ? 'bg-primary w-6' 
                       : step < currentStep 
                       ? 'bg-primary/60 w-2' 
-                      : 'bg-muted w-2'
+                      : 'bg-foreground/20 w-2'
                   }`}
                 />
               ))}
