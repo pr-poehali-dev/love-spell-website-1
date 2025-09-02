@@ -86,9 +86,9 @@ export default function Index() {
                 <div className="absolute w-[104%] h-[104%] rounded-full opacity-70"
                      style={{ 
                        left: '-12px', 
-                       top: '0px',
+                       top: '8px',
                        zIndex: 1,
-                       background: 'linear-gradient(to bottom, rgba(255, 152, 0, 0.3) 0%, rgba(255, 152, 0, 0.7) 100%)'
+                       background: 'linear-gradient(to bottom, rgba(255, 152, 0, 0.2) 0%, rgba(255, 152, 0, 0.8) 100%)'
                      }}>
                 </div>
                 
