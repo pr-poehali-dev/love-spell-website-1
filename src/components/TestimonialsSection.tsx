@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 import ReviewModal from '@/components/ReviewModal';
 
@@ -47,6 +47,9 @@ export default function TestimonialsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [expandedTestimonials, setExpandedTestimonials] = useState<Set<number>>(new Set());
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Фиксированная высота для предотвращения скролла
   const CARD_HEIGHT = {
@@ -68,6 +71,9 @@ export default function TestimonialsSection() {
   const nextTestimonial = () => {
     if (isTransitioning) return;
     
+    // Автосвертывание текущего отзыва
+    setExpandedTestimonials(new Set());
+    
     // Сохраняем и фиксируем позицию скролла
     const scrollY = window.scrollY;
     document.body.style.scrollBehavior = 'auto';
@@ -88,6 +94,9 @@ export default function TestimonialsSection() {
   const prevTestimonial = () => {
     if (isTransitioning) return;
     
+    // Автосвертывание текущего отзыва
+    setExpandedTestimonials(new Set());
+    
     // Сохраняем и фиксируем позицию скролла
     const scrollY = window.scrollY;
     document.body.style.scrollBehavior = 'auto';
@@ -107,6 +116,9 @@ export default function TestimonialsSection() {
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
+    
+    // Автосвертывание текущего отзыва
+    setExpandedTestimonials(new Set());
     
     // Сохраняем и фиксируем позицию скролла
     const scrollY = window.scrollY;
@@ -129,13 +141,22 @@ export default function TestimonialsSection() {
   const MAX_TEXT_LENGTH = 400; // Максимальная длина текста без "Читать далее" (только для очень длинных)
   
   const toggleExpanded = (index: number) => {
+    // Сохраняем позицию скролла для плавного раскрытия
+    const scrollY = window.scrollY;
+    
     const newExpanded = new Set(expandedTestimonials);
     if (newExpanded.has(index)) {
       newExpanded.delete(index);
     } else {
       newExpanded.add(index);
     }
+    
     setExpandedTestimonials(newExpanded);
+    
+    // Небольшая задержка для плавности анимации
+    requestAnimationFrame(() => {
+      window.scrollTo(0, scrollY);
+    });
   };
 
   const getTruncatedText = (text: string, index: number) => {
@@ -150,12 +171,42 @@ export default function TestimonialsSection() {
     return text.length > MAX_TEXT_LENGTH && !expandedTestimonials.has(index);
   };
 
+  // Функции для свайпов
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextTestimonial();
+    }
+    if (isRightSwipe) {
+      prevTestimonial();
+    }
+    
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
   return (
-    <div className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="bg-background">
+      <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         
         {/* Отзывы */}
-        <div className="mb-12 sm:mb-16 md:mb-20">
+        <div className="mb-12 sm:mb-16">
           <h2 className="text-xl font-bold text-foreground mb-6 relative">
             <span className="relative inline-block">
               <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
@@ -169,8 +220,12 @@ export default function TestimonialsSection() {
 
           {/* Карусель отзывов */}
           <div 
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden"
-            style={{ height: '450px' }}
+            ref={containerRef}
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden cursor-grab active:cursor-grabbing select-none"
+            style={{ minHeight: '400px' }}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
             <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col">
@@ -186,9 +241,16 @@ export default function TestimonialsSection() {
                   
                   {/* Текст отзыва с "Читать далее" */}
                   <div className="px-4 sm:px-6">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2">
-                      {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
-                    </p>
+                    <div 
+                      className="overflow-hidden transition-all duration-700 ease-in-out"
+                      style={{
+                        maxHeight: expandedTestimonials.has(currentTestimonial) ? '1000px' : '200px'
+                      }}
+                    >
+                      <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 transition-opacity duration-500">
+                        {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
+                      </p>
+                    </div>
                     {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
                       <div className="text-center">
                         <button
@@ -244,22 +306,8 @@ export default function TestimonialsSection() {
             </div>
           </div>
 
-          {/* Навигация вынесена отдельно */}
-          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <button 
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                prevTestimonial();
-              }}
-              disabled={isTransitioning}
-              className="p-1.5 sm:p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
-            >
-              <Icon name="ChevronLeft" size={16} />
-            </button>
-
-            {/* Индикаторы */}
+          {/* Индикаторы с подсказкой о свайпах */}
+          <div className="flex flex-col items-center gap-3 mb-6 sm:mb-8">
             <div className="flex gap-1.5 sm:gap-2">
               {testimonials.map((_, index) => (
                 <button
@@ -271,27 +319,17 @@ export default function TestimonialsSection() {
                     goToTestimonial(index);
                   }}
                   disabled={isTransitioning}
-                  className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                  className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
                     index === currentTestimonial 
-                      ? 'bg-accent' 
-                      : 'bg-accent/30 hover:bg-accent/50'
+                      ? 'bg-accent scale-110' 
+                      : 'bg-accent/30 hover:bg-accent/50 hover:scale-105'
                   }`}
                 />
               ))}
             </div>
-
-            <button 
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                nextTestimonial();
-              }}
-              disabled={isTransitioning}
-              className="p-1.5 sm:p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
-            >
-              <Icon name="ChevronRight" size={16} />
-            </button>
+            <p className="text-xs text-muted-foreground/60 text-center">
+              Проведите влево или вправо для переключения
+            </p>
           </div>
         </div>
 
