@@ -200,32 +200,32 @@ export default function TestimonialsSection() {
             onTouchEnd={handleTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-3 sm:p-4 flex flex-col justify-between">
-              {/* Текст отзыва с красивыми скобками */}
-              <div className="flex-1 flex items-start justify-center pt-4 pb-2">
+            <div className="absolute inset-0 p-3 sm:p-4 flex flex-col">
+              {/* Текст отзыва с реалистичными кавычками */}
+              <div className="mb-4">
                 <div 
-                  className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
+                  className={`relative transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
-                  {/* Открывающая скобка */}
-                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  {/* Открывающая кавычка */}
+                  <span className="absolute -left-1 sm:-left-2 -top-1 sm:-top-2 text-2xl sm:text-3xl font-serif text-accent/40 select-none pointer-events-none">«</span>
                   
                   {/* Полный текст отзыва */}
                   <div className="px-3 sm:px-4">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic py-1 sm:py-2">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
                   
-                  {/* Закрывающая скобка */}
-                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  {/* Закрывающая кавычка */}
+                  <span className="absolute -right-1 sm:-right-2 -bottom-1 sm:-bottom-2 text-2xl sm:text-3xl font-serif text-accent/40 select-none pointer-events-none">»</span>
                 </div>
               </div>
 
-              {/* Автор */}
+              {/* Автор - теперь под отзывом */}
               <div 
-                className={`flex flex-col items-center py-2 sm:py-3 border-t border-border/30 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
