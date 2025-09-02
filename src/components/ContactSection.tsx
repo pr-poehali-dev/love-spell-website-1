@@ -47,7 +47,7 @@ export default function ContactSection() {
       {/* Карточки с преимуществами */}
       <div className="space-y-6">
         {/* Эффект виден сразу */}
-        <div className="hover-lift">
+        <div>
           <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
             <Icon name="Activity" size={20} className="text-accent" />
           </div>
@@ -58,7 +58,7 @@ export default function ContactSection() {
         </div>
 
         {/* Без последствий */}
-        <div className="hover-lift">
+        <div>
           <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
             <Icon name="Leaf" size={20} className="text-accent" />
           </div>
@@ -69,7 +69,7 @@ export default function ContactSection() {
         </div>
 
         {/* Оплата по желанию */}
-        <div className="hover-lift">
+        <div>
           <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
             <Icon name="Gift" size={20} className="text-accent" />
           </div>
@@ -80,7 +80,7 @@ export default function ContactSection() {
         </div>
 
         {/* Конфиденциально */}
-        <div className="hover-lift">
+        <div>
           <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
             <Icon name="Shield" size={20} className="text-accent" />
           </div>
