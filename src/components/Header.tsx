@@ -31,7 +31,7 @@ const scrollToSection = (sectionId: string) => {
 };
 
 export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
-  const [activeSection, setActiveSection] = useState('about');
+  const [activeSection, setActiveSection] = useState('ktoya');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,16 +47,11 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const sections = ['about', 'rituals', 'testimonials', 'contact'];
+          const sections = ['ktoya', 'obryad', 'otziv', 'contact'];
           const scrollPosition = window.scrollY + 200;
           
           for (const sectionId of sections) {
-            let element;
-            if (sectionId === 'contact') {
-              element = document.querySelector('[data-contact]');
-            } else {
-              element = document.getElementById(sectionId);
-            }
+            const element = document.getElementById(sectionId);
             if (element) {
               const { offsetTop, offsetHeight } = element;
               if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
@@ -105,9 +100,9 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button 
-              onClick={() => scrollToSection('about')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
-                activeSection === 'about' 
+              onClick={() => scrollToSection('ktoya')}
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+                activeSection === 'ktoya' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
               }`}
@@ -116,18 +111,18 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                 name="User" 
                 size={20} 
                 className={`transition-colors  ${
-                  activeSection === 'about' ? 'text-accent' : ''
+                  activeSection === 'ktoya' ? 'text-accent' : ''
                 }`} 
               />
               <span className="text-xs sm:text-xs font-medium">КТО Я</span>
-              {activeSection === 'about' && (
+              {activeSection === 'ktoya' && (
                 <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
             <button 
-              onClick={() => scrollToSection('rituals')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
-                activeSection === 'rituals' 
+              onClick={() => scrollToSection('obryad')}
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+                activeSection === 'obryad' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
               }`}
@@ -136,19 +131,19 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                 name="Leaf" 
                 size={20} 
                 className={`transition-colors  ${
-                  activeSection === 'rituals' ? 'text-accent' : ''
+                  activeSection === 'obryad' ? 'text-accent' : ''
                 }`} 
               />
               <span className="text-xs sm:text-xs font-medium">ОБРЯДЫ</span>
-              {activeSection === 'rituals' && (
+              {activeSection === 'obryad' && (
                 <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
             <button 
               data-section="testimonials"
-              onClick={() => scrollToSection('testimonials')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
-                activeSection === 'testimonials' 
+              onClick={() => scrollToSection('otziv')}
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+                activeSection === 'otziv' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
               }`}
@@ -157,22 +152,17 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                 name="MessageCircle" 
                 size={20} 
                 className={`transition-colors  ${
-                  activeSection === 'testimonials' ? 'text-accent' : ''
+                  activeSection === 'otziv' ? 'text-accent' : ''
                 }`} 
               />
               <span className="text-xs sm:text-xs font-medium">ОТЗЫВЫ</span>
-              {activeSection === 'testimonials' && (
+              {activeSection === 'otziv' && (
                 <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
             <button 
-              onClick={() => {
-                const contactElement = document.querySelector('[data-contact]');
-                if (contactElement) {
-                  contactElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-              }}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              onClick={() => scrollToSection('contact')}
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'contact' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
