@@ -88,9 +88,10 @@ export default function TestimonialsSection() {
           const rect = containerRef.current!.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           const cardTop = rect.top + scrollTop - 100;
+          // Быстрый скролл при переключении с раскрытого отзыва
           window.scrollTo({ 
             top: cardTop, 
-            behavior: 'smooth' 
+            behavior: 'auto' 
           });
         }, 50);
       }
@@ -120,9 +121,10 @@ export default function TestimonialsSection() {
           const rect = containerRef.current!.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           const cardTop = rect.top + scrollTop - 100;
+          // Быстрый скролл при переключении с раскрытого отзыва
           window.scrollTo({ 
             top: cardTop, 
-            behavior: 'smooth' 
+            behavior: 'auto' 
           });
         }, 50);
       }
@@ -152,9 +154,10 @@ export default function TestimonialsSection() {
           const rect = containerRef.current!.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           const cardTop = rect.top + scrollTop - 100;
+          // Быстрый скролл при переключении с раскрытого отзыва
           window.scrollTo({ 
             top: cardTop, 
-            behavior: 'smooth' 
+            behavior: 'auto' 
           });
         }, 50);
       }
@@ -251,11 +254,19 @@ export default function TestimonialsSection() {
           <div className="relative w-full">
             <div 
               ref={containerRef}
-              className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full h-[420px] sm:h-[450px] overflow-hidden"
+              className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 transition-all duration-500 ease-out hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full overflow-hidden ${
+                expandedTestimonials.has(currentTestimonial) 
+                  ? 'min-h-[420px]' 
+                  : 'h-[420px] sm:h-[450px]'
+              }`}
             >
               {/* Внутренняя карточка отзыва с анимациями */}
               <div 
-                className="p-4 sm:p-6 md:p-8 flex flex-col h-full relative cursor-grab active:cursor-grabbing select-none overflow-y-auto scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent"
+                className={`p-4 sm:p-6 md:p-8 flex flex-col relative cursor-grab active:cursor-grabbing select-none ${
+                  expandedTestimonials.has(currentTestimonial) 
+                    ? 'min-h-[350px]' 
+                    : 'h-full'
+                }`}
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
@@ -275,7 +286,11 @@ export default function TestimonialsSection() {
                   <div className="px-3 sm:px-6 py-2">
                     <div className="space-y-3">
                       <div className="relative">
-                        <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-300 ease-out">
+                        <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-500 ease-out ${
+                          expandedTestimonials.has(currentTestimonial) 
+                            ? 'opacity-100 transform translate-y-0' 
+                            : 'opacity-100 transform translate-y-0'
+                        }`}>
                           {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
                         </p>
                       </div>
