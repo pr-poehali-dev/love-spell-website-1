@@ -13,7 +13,7 @@ const faqItems = [
 ];
 
 export default function FAQSection() {
-  const [openItems, setOpenItems] = useState<Set<number>>(new Set());
+  const [openItems, setOpenItems] = useState<Set<number>>(new Set([0]));
 
   const toggleItem = (index: number) => {
     const newOpenItems = new Set(openItems);
