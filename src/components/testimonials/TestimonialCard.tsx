@@ -35,15 +35,8 @@ export default function TestimonialCard({
   onTouchEnd
 }: TestimonialCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [displayText, setDisplayText] = useState(() => 
-    isExpanded ? testimonial.text : getTruncatedText(testimonial.text)
-  );
 
-  const shouldTruncateText = (text: string) => {
-    return text.length > maxTextLength;
-  };
-
+  // Функция для обрезки текста (объявляем до useState)
   const getTruncatedText = (text: string) => {
     if (text.length <= maxTextLength) {
       return text; // Короткий текст показываем полностью
@@ -62,6 +55,20 @@ export default function TestimonialCard({
       return text.slice(0, lastSpace) + '...'; // Обрезаем по слову
     }
     return truncated + '...'; // Стандартная обрезка
+  };
+
+  // Состояния для анимации (после объявления getTruncatedText)
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [displayText, setDisplayText] = useState(() => 
+    isExpanded ? testimonial.text : getTruncatedText(testimonial.text)
+  );
+
+  const shouldTruncateText = (text: string) => {
+    return text.length > maxTextLength;
+  };
+
+  const shouldShowReadMore = (text: string) => {
+    return text.length > maxTextLength && !isExpanded;
   };
 
   // Анимация перехода текста
@@ -87,10 +94,6 @@ export default function TestimonialCard({
       clearTimeout(fadeInTimer);
     };
   }, [isExpanded, testimonial.text]);
-
-  const shouldShowReadMore = (text: string) => {
-    return text.length > maxTextLength && !isExpanded;
-  };
 
   return (
     <div className="relative w-full">
