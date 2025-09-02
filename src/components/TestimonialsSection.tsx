@@ -1,6 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
-import Icon from '@/components/ui/icon';
+import { useState } from 'react';
 import ReviewModal from '@/components/ReviewModal';
+import TestimonialCard from '@/components/testimonials/TestimonialCard';
+import TestimonialNavigation from '@/components/testimonials/TestimonialNavigation';
+import VideoTestimonials from '@/components/testimonials/VideoTestimonials';
+import { useTestimonialLogic } from '@/components/testimonials/useTestimonialLogic';
 
 const testimonials = [
   {
@@ -43,288 +46,22 @@ const videoTestimonials = [
 ];
 
 export default function TestimonialsSection() {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [expandedTestimonials, setExpandedTestimonials] = useState<Set<number>>(new Set());
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Адаптивные высоты карточек
-  const getCardHeight = () => {
-    if (typeof window === 'undefined') return { collapsed: 'h-[420px]', expanded: 'min-h-[500px]' };
-    
-    const isMobile = window.innerWidth < 640;
-    const isTablet = window.innerWidth < 1024;
-    
-    if (isMobile) {
-      return {
-        collapsed: 'h-[380px]',
-        expanded: 'min-h-[450px] max-h-[80vh]'
-      };
-    } else if (isTablet) {
-      return {
-        collapsed: 'h-[420px]',
-        expanded: 'min-h-[500px] max-h-[75vh]'
-      };
-    } else {
-      return {
-        collapsed: 'h-[450px]',
-        expanded: 'min-h-[550px] max-h-[70vh]'
-      };
-    }
-  };
-
-  const [cardHeight, setCardHeight] = useState(getCardHeight());
-
-  // Обновляем высоты при изменении размера экрана
-  useEffect(() => {
-    const handleResize = () => {
-      setCardHeight(getCardHeight());
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Автоперелистывание каждые 15 секунд
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isModalOpen && !isTransitioning) {
-        nextTestimonial();
-      }
-    }, 15000);
-
-    return () => clearInterval(interval);
-  }, [isModalOpen, isTransitioning]);
-
-  const nextTestimonial = () => {
-    if (isTransitioning) return;
-    
-    const wasExpanded = expandedTestimonials.size > 0;
-    setIsTransitioning(true);
-    
-    if (wasExpanded) {
-      // Сначала свертываем отзыв
-      setExpandedTestimonials(new Set());
-      
-      // Скроллим к началу карточки
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const cardTop = rect.top + scrollTop - 100;
-        window.scrollTo({ 
-          top: cardTop, 
-          behavior: 'smooth' 
-        });
-      }
-      
-      // Ждем окончания анимации свертывания, затем переключаем отзыв
-      setTimeout(() => {
-        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 300);
-      }, 600);
-    } else {
-      // Обычное переключение без анимации свертывания
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 300);
-    }
-  };
-
-  const prevTestimonial = () => {
-    if (isTransitioning) return;
-    
-    const wasExpanded = expandedTestimonials.size > 0;
-    setIsTransitioning(true);
-    
-    if (wasExpanded) {
-      // Сначала свертываем отзыв
-      setExpandedTestimonials(new Set());
-      
-      // Скроллим к началу карточки
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const cardTop = rect.top + scrollTop - 100;
-        window.scrollTo({ 
-          top: cardTop, 
-          behavior: 'smooth' 
-        });
-      }
-      
-      // Ждем окончания анимации свертывания, затем переключаем отзыв
-      setTimeout(() => {
-        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 300);
-      }, 600);
-    } else {
-      // Обычное переключение без анимации свертывания
-      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 300);
-    }
-  };
-
-  const goToTestimonial = (index: number) => {
-    if (isTransitioning || index === currentTestimonial) return;
-    
-    const wasExpanded = expandedTestimonials.size > 0;
-    setIsTransitioning(true);
-    
-    if (wasExpanded) {
-      // Сначала свертываем отзыв
-      setExpandedTestimonials(new Set());
-      
-      // Скроллим к началу карточки
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const cardTop = rect.top + scrollTop - 100;
-        window.scrollTo({ 
-          top: cardTop, 
-          behavior: 'smooth' 
-        });
-      }
-      
-      // Ждем окончания анимации свертывания, затем переключаем отзыв
-      setTimeout(() => {
-        setCurrentTestimonial(index);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 300);
-      }, 600);
-    } else {
-      // Обычное переключение без анимации свертывания
-      setCurrentTestimonial(index);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 300);
-    }
-  };
-
-  // Адаптивная логика показа текста
-  const getMaxTextLength = () => {
-    if (typeof window === 'undefined') return 180;
-    
-    const isMobile = window.innerWidth < 640;
-    const isTablet = window.innerWidth < 1024;
-    
-    if (isMobile) {
-      return 140; // Меньше текста для мобильных
-    } else if (isTablet) {
-      return 160; // Средне для планшетов
-    } else {
-      return 200; // Больше для десктопов
-    }
-  };
-
-  const [maxTextLength, setMaxTextLength] = useState(getMaxTextLength());
-
-  // Обновляем максимальную длину при изменении размера экрана
-  useEffect(() => {
-    const handleResize = () => {
-      setMaxTextLength(getMaxTextLength());
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
   
-  // Улучшенная функция для определения необходимости сокращения
-  const shouldTruncateText = (text: string) => {
-    return text.length > maxTextLength;
-  };
-  
-  const toggleExpanded = (index: number) => {
-    setExpandedTestimonials(prev => {
-      const newSet = new Set(prev);
-      const isExpanding = !newSet.has(index);
-      
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
-        
-        // Для мобильных устройств при раскрытии скроллим к началу карточки
-        if (isExpanding && containerRef.current && window.innerWidth < 768) {
-          setTimeout(() => {
-            const rect = containerRef.current!.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const cardTop = rect.top + scrollTop - 20;
-            window.scrollTo({ 
-              top: cardTop, 
-              behavior: 'smooth' 
-            });
-          }, 100);
-        }
-      }
-      return newSet;
-    });
-  };
-
-  const getTruncatedText = (text: string, index: number) => {
-    const isExpanded = expandedTestimonials.has(index);
-    if (text.length <= maxTextLength) {
-      return text; // Короткий текст показываем полностью
-    }
-    if (isExpanded) {
-      return text; // При раскрытии показываем ВЕСЬ текст
-    }
-    // Умная обрезка - ищем последнее предложение или точку
-    const truncated = text.slice(0, maxTextLength);
-    const lastSentence = truncated.lastIndexOf('.');
-    const lastSpace = truncated.lastIndexOf(' ');
-    
-    if (lastSentence > maxTextLength - 50) {
-      return text.slice(0, lastSentence + 1); // Обрезаем по предложению
-    } else if (lastSpace > 0) {
-      return text.slice(0, lastSpace) + '...'; // Обрезаем по слову
-    }
-    return truncated + '...'; // Стандартная обрезка
-  };
-
-  const shouldShowReadMore = (text: string, index: number) => {
-    return text.length > maxTextLength && !expandedTestimonials.has(index);
-  };
-
-  // Функции для свайпов
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      nextTestimonial();
-    }
-    if (isRightSwipe) {
-      prevTestimonial();
-    }
-    
-    setTouchStart(null);
-    setTouchEnd(null);
-  };
+  const {
+    currentTestimonial,
+    isTransitioning,
+    expandedTestimonials,
+    cardHeight,
+    maxTextLength,
+    nextTestimonial,
+    prevTestimonial,
+    goToTestimonial,
+    toggleExpanded,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd
+  } = useTestimonialLogic({ testimonials, isModalOpen });
 
   return (
     <div className="bg-background">
@@ -343,222 +80,35 @@ export default function TestimonialsSection() {
             </span>тзывы и благодарности
           </h2>
 
-          {/* Фиксированная карточка-контейнер */}
-          <div className="relative w-full">
-            <div 
-              ref={containerRef}
-              className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full transition-all ease-in-out ${
-                expandedTestimonials.has(currentTestimonial) 
-                  ? `h-auto ${cardHeight.expanded} duration-500 overflow-y-auto` 
-                  : `${cardHeight.collapsed} duration-300 overflow-hidden`
-              }`}
-            >
-              {/* Внутренняя карточка отзыва с анимациями */}
-              <div 
-                className={`p-4 sm:p-6 md:p-8 flex flex-col relative cursor-grab active:cursor-grabbing select-none transition-all duration-300 ${
-                  expandedTestimonials.has(currentTestimonial) ? 'h-auto' : 'h-full'
-                }`}
-                onTouchStart={onTouchStart}
-                onTouchMove={onTouchMove}
-                onTouchEnd={onTouchEnd}
-              >
-              
-              {/* Текст отзыва */}
-              <div className="flex-1 flex flex-col justify-center">
-                <div 
-                  className={`relative transition-all duration-400 ease-out ${
-                    isTransitioning ? 'opacity-0 transform translate-y-3 scale-98' : 'opacity-100 transform translate-y-0 scale-100'
-                  }`}
-                >
-                  {/* Открывающая скобка */}
-                  <span className="absolute -left-1 sm:-left-2 -top-1 text-2xl sm:text-3xl font-serif text-accent/30 select-none pointer-events-none">"</span>
-                  
-                  {/* Основной текст */}
-                  <div className="px-3 sm:px-6 py-2">
-                    <div className="space-y-3">
-                      <div className="relative">
-                        <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-300 ease-out ${
-                          expandedTestimonials.has(currentTestimonial) ? 'text-left' : 'text-center'
-                        }`}>
-                          {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
-                        </p>
-                      </div>
-                      
-                      {/* Кнопка "Читать далее" с иконкой */}
-                      {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
-                        <div className="text-center mt-3 sm:mt-4">
-                          <button
-                            onClick={() => toggleExpanded(currentTestimonial)}
-                            disabled={isTransitioning}
-                            className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
-                            style={{ color: '#ff9800' }}
-                          >
-                            Читать далее
-                            <Icon name="ChevronDown" size={14} className="sm:w-4 sm:h-4 transition-transform duration-200 group-hover:translate-y-0.5" />
-                          </button>
-                        </div>
-                      )}
-                      
-                      {/* Кнопка "Свернуть" с иконкой */}
-                      {expandedTestimonials.has(currentTestimonial) && shouldTruncateText(testimonials[currentTestimonial].text) && (
-                        <div className="text-center mt-3 sm:mt-4">
-                          <button
-                            onClick={() => toggleExpanded(currentTestimonial)}
-                            disabled={isTransitioning}
-                            className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
-                            style={{ color: '#ff9800' }}
-                          >
-                            Свернуть
-                            <Icon name="ChevronUp" size={14} className="sm:w-4 sm:h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  
-                  {/* Закрывающая скобка */}
-                  <span className="absolute -right-1 sm:-right-2 -bottom-1 text-2xl sm:text-3xl font-serif text-accent/30 select-none pointer-events-none">"</span>
-                </div>
-              </div>
-
-              {/* Автор */}
-              <div 
-                className={`flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-4 transition-all duration-400 ease-in-out ${
-                  isTransitioning ? 'opacity-0 transform scale-95 translate-y-2' : 'opacity-100 transform scale-100 translate-y-0'
-                }`}
-              >
-                <div 
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-base sm:text-lg font-bold border-2 mb-2"
-                  style={{ 
-                    color: '#ff9800',
-                    borderColor: '#ff9800',
-                    backgroundColor: 'transparent'
-                  }}
-                >
-                  {testimonials[currentTestimonial].initial}
-                </div>
-                <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1">
-                  {testimonials[currentTestimonial].name}
-                </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  {testimonials[currentTestimonial].location}
-                </p>
-              </div>
-              </div>
-            </div>
-          </div>
+          {/* Карточка отзыва */}
+          <TestimonialCard
+            testimonial={testimonials[currentTestimonial]}
+            isExpanded={expandedTestimonials.has(currentTestimonial)}
+            isTransitioning={isTransitioning}
+            maxTextLength={maxTextLength}
+            cardHeight={cardHeight}
+            onToggleExpanded={() => toggleExpanded(currentTestimonial)}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          />
           
           {/* Навигация */}
-          <div className="flex items-center justify-between mb-6 sm:mb-8">
-            {/* Кнопка назад */}
-            <button
-              onClick={prevTestimonial}
-              disabled={isTransitioning}
-              className="p-2 sm:p-3 rounded-full bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:bg-accent/5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/30"
-              aria-label="Предыдущий отзыв"
-            >
-              <Icon name="ChevronLeft" size={18} className="sm:w-5 sm:h-5" />
-            </button>
-
-            {/* Индикаторы */}
-            <div className="flex gap-1.5 sm:gap-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    goToTestimonial(index);
-                  }}
-                  disabled={isTransitioning}
-                  className={`relative w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/30 overflow-hidden ${
-                    index === currentTestimonial 
-                      ? 'bg-accent scale-110 shadow-lg shadow-accent/20' 
-                      : 'bg-accent/30 hover:bg-accent/50 hover:scale-105'
-                  } ${isTransitioning ? 'animate-pulse' : ''}`}
-                />
-              ))}
-            </div>
-
-            {/* Кнопка вперед */}
-            <button
-              onClick={nextTestimonial}
-              disabled={isTransitioning}
-              className="p-2 sm:p-3 rounded-full bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:bg-accent/5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/30"
-              aria-label="Следующий отзыв"
-            >
-              <Icon name="ChevronRight" size={18} className="sm:w-5 sm:h-5" />
-            </button>
-          </div>
+          <TestimonialNavigation
+            currentTestimonial={currentTestimonial}
+            totalTestimonials={testimonials.length}
+            isTransitioning={isTransitioning}
+            onPrevTestimonial={prevTestimonial}
+            onNextTestimonial={nextTestimonial}
+            onGoToTestimonial={goToTestimonial}
+          />
         </div>
 
         {/* Видео благодарности */}
-        <div>
-          <h2 className="text-xl font-bold text-foreground mb-6 relative">
-            <span className="relative inline-block">
-              <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>В</span>
-              <div className="absolute w-9 h-9 rounded-full opacity-40" style={{
-                background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)',
-                top: '-1px',
-                left: '-10px'
-              }}></div>
-            </span>идео благодарности
-          </h2>
-
-          <div className="flex justify-center mb-12">
-            {videoTestimonials.map((video, index) => (
-              <div 
-                key={index}
-                className="relative group cursor-pointer max-w-md w-full"
-              >
-                <div 
-                  className="aspect-video rounded-2xl overflow-hidden relative"
-                  style={{
-                    background: 'linear-gradient(135deg, rgb(255, 152, 0) 0%, rgb(255, 120, 0) 100%)'
-                  }}
-                >
-                  {/* Иконки сообщений */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2">
-                    <Icon name="MessageCircle" size={40} className="text-white/80" />
-                  </div>
-                  
-                  {/* Заголовок */}
-                  <div className="absolute inset-x-4 top-16">
-                    <h3 className="text-white font-bold text-lg text-center">
-                      {video.title}
-                    </h3>
-                  </div>
-
-                  {/* Кнопка воспроизведения */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/90 hover:bg-white transition-colors rounded-full flex items-center justify-center group-hover:scale-110 transform duration-300">
-                      <Icon name="Play" size={24} className="text-accent ml-1" />
-                    </div>
-                  </div>
-
-                  {/* Градиентный оверлей */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Кнопка добавить отзыв */}
-          <div className="text-center">
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 transform hover:scale-105"
-              style={{
-                background: 'linear-gradient(135deg, rgb(255, 152, 0) 0%, rgb(255, 120, 0) 100%)',
-                color: 'white'
-              }}
-            >
-              <Icon name="MessageCircle" size={16} />
-              Добавить отзыв
-            </button>
-          </div>
-        </div>
+        <VideoTestimonials
+          videoTestimonials={videoTestimonials}
+          onAddReview={() => setIsModalOpen(true)}
+        />
       </div>
       
       {/* Modal */}
