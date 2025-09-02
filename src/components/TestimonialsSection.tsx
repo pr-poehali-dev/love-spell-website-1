@@ -193,10 +193,13 @@ export default function TestimonialsSection() {
 
   const getTruncatedText = (text: string, index: number) => {
     const isExpanded = expandedTestimonials.has(index);
-    if (isExpanded || text.length <= MAX_TEXT_LENGTH) {
-      return text;
+    if (text.length <= MAX_TEXT_LENGTH) {
+      return text; // Короткий текст показываем полностью
     }
-    return text.slice(0, MAX_TEXT_LENGTH) + '...';
+    if (isExpanded) {
+      return text.slice(0, MAX_TEXT_LENGTH); // При раскрытии показываем только первую часть
+    }
+    return text.slice(0, MAX_TEXT_LENGTH) + '...'; // При свернутом состоянии добавляем троеточие
   };
 
   const shouldShowReadMore = (text: string, index: number) => {
@@ -250,15 +253,17 @@ export default function TestimonialsSection() {
             </span>тзывы и благодарности
           </h2>
 
-          {/* Карусель отзывов */}
-          <div 
-            ref={containerRef}
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:border-border/70"
+          {/* Обертка с фиксированной шириной */}
+          <div className="w-full">
+            {/* Карусель отзывов */}
+            <div 
+              ref={containerRef}
+              className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
-            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-[320px] relative">
+            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-[320px] relative w-full">
               
               {/* Текст отзыва */}
               <div className="flex-1 flex flex-col justify-center">
@@ -273,9 +278,28 @@ export default function TestimonialsSection() {
                   {/* Основной текст */}
                   <div className="px-3 sm:px-6 py-2">
                     <div className="space-y-3">
-                      <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center">
-                        {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
-                      </p>
+                      <div className="relative overflow-hidden">
+                        <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-500 ease-out ${
+                          expandedTestimonials.has(currentTestimonial) 
+                            ? 'opacity-100 transform translate-y-0' 
+                            : 'opacity-100 transform translate-y-0'
+                        }`}>
+                          {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
+                        </p>
+                        
+                        {/* Дополнительный текст с анимацией */}
+                        {expandedTestimonials.has(currentTestimonial) && shouldTruncateText(testimonials[currentTestimonial].text) && (
+                          <div className={`transition-all duration-500 ease-out overflow-hidden ${
+                            expandedTestimonials.has(currentTestimonial)
+                              ? 'max-h-96 opacity-100 transform translate-y-0'
+                              : 'max-h-0 opacity-0 transform -translate-y-4'
+                          }`}>
+                            <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center mt-3 animate-in fade-in-0 slide-in-from-top-2 duration-500">
+                              {testimonials[currentTestimonial].text.slice(MAX_TEXT_LENGTH)}
+                            </p>
+                          </div>
+                        )}
+                      </div>
                       
                       {/* Кнопка "Читать далее" с иконкой */}
                       {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
@@ -339,7 +363,7 @@ export default function TestimonialsSection() {
               </div>
             </div>
           </div>
-
+          
           {/* Индикаторы */}
           <div className="flex justify-center mb-6 sm:mb-8">
             <div className="flex gap-1.5 sm:gap-2">
@@ -361,6 +385,7 @@ export default function TestimonialsSection() {
                 />
               ))}
             </div>
+          </div>
           </div>
         </div>
 
