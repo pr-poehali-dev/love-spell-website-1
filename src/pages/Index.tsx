@@ -136,6 +136,157 @@ export default function Index() {
           </div>
         </div>
       </div>
+
+      {/* Who Am I Section */}
+      <div className="bg-background">
+        <div className="max-w-sm mx-auto px-4 py-8 space-y-12">
+          
+          {/* About Me */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400/20 to-orange-600/40 flex items-center justify-center">
+                <span className="text-2xl font-bold text-orange-500">О</span>
+              </div>
+              <h2 className="text-xl font-bold text-foreground">бо мне</h2>
+            </div>
+            <p className="text-muted-foreground leading-relaxed">
+              Магия пришла в мою жизнь очень рано. Я не понимала, как с этим справляться и как это контролировать. Не могла рассказать, что чувствую внутри. Думала, от меня откажутся. Уже с возрастом стала осознавать, что могу быть нужной, могу помогать людям и получать от них позитивную энергию, которая питает меня, как батарея питает теплом холодный дом. Мои дорогие сестры, товарищи, не стесняйтесь просить помощи, ведь наша сила в единстве. Постараюсь помочь вам, чем смогу. Делаю все, что в моих силах.
+            </p>
+          </div>
+
+          {/* What I Do */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400/20 to-orange-600/40 flex items-center justify-center">
+                <span className="text-2xl font-bold text-orange-500">Ч</span>
+              </div>
+              <h2 className="text-xl font-bold text-foreground">ем я занимаюсь</h2>
+            </div>
+            
+            <div className="space-y-8">
+              {/* Christian Magic */}
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400/10 to-orange-600/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Plus" size={24} className="text-orange-500" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Христианской магией</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Основана на работе с архангелами, ангелами, святыми, а также известными архетипами Пресвятой Девы и Отца Небесного.
+                  </p>
+                </div>
+              </div>
+
+              {/* Runic Magic */}
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400/10 to-orange-600/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Zap" size={24} className="text-orange-500" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Рунической магией</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Использование специальных знаков и символов (рун) для получения нужного результата.
+                  </p>
+                </div>
+              </div>
+
+              {/* Candle Magic */}
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400/10 to-orange-600/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Flame" size={24} className="text-orange-500" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Магией свечей</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Искусство управления жизненными событиями и влияния на окружающий мир через работу со свечами.
+                  </p>
+                </div>
+              </div>
+
+              {/* Knot Magic */}
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400/10 to-orange-600/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="GitBranch" size={24} className="text-orange-500" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Магией узлов</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Магическое направление связи специальных узлов с судьбой и энергиями человека.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400/20 to-orange-600/40 flex items-center justify-center">
+                <span className="text-2xl font-bold text-orange-500">В</span>
+              </div>
+              <h2 className="text-xl font-bold text-foreground">опросы и ответы</h2>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-foreground">Как я могу связаться с вами?</p>
+                  <Icon name="ChevronDown" size={20} className="text-muted-foreground" />
+                </div>
+              </div>
+              
+              <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-foreground">Как я могу вас отблагодарить?</p>
+                  <Icon name="ChevronDown" size={20} className="text-muted-foreground" />
+                </div>
+              </div>
+              
+              <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-foreground">Вы практикуете порчу?</p>
+                  <Icon name="ChevronDown" size={20} className="text-muted-foreground" />
+                </div>
+              </div>
+              
+              <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-foreground pr-2">Вы можете погадать на наши отношения с парнем/девушкой или просто погадать мне на что либо?</p>
+                  <Icon name="ChevronDown" size={20} className="text-muted-foreground flex-shrink-0" />
+                </div>
+              </div>
+              
+              <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-foreground">Сколько стоят ваши услуги?</p>
+                  <Icon name="ChevronDown" size={20} className="text-muted-foreground" />
+                </div>
+              </div>
+              
+              <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-foreground">Со скольки лет вы принимаете?</p>
+                  <Icon name="ChevronDown" size={20} className="text-muted-foreground" />
+                </div>
+              </div>
+              
+              <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-foreground">Чем конкретно вы занимаетесь?</p>
+                  <Icon name="ChevronDown" size={20} className="text-muted-foreground" />
+                </div>
+              </div>
+              
+              <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-foreground pr-2">У вас есть ограничение в помощи по религии?</p>
+                  <Icon name="ChevronDown" size={20} className="text-muted-foreground flex-shrink-0" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
