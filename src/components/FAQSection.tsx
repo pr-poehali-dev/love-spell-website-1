@@ -29,9 +29,27 @@ export default function FAQSection() {
         {faqItems.map((question, index) => (
           <div key={index} className="group relative overflow-hidden">
             <div className="relative p-5 cursor-pointer bg-gradient-to-br from-background to-muted/20 hover:from-accent/5 hover:to-accent/10 transition-all duration-300 rounded-2xl border border-border/50 hover:border-accent/30">
-              {/* Полупрозрачный оранжевый знак вопроса справа */}
-              <div className="absolute -right-2 top-1/2 -translate-y-1/2 text-8xl font-bold transition-colors duration-300 transform rotate-12 select-none pointer-events-none" style={{color: 'rgba(255, 152, 0, 0.1)'}} onMouseEnter={(e) => {e.currentTarget.style.color = 'rgba(255, 152, 0, 0.2)'}} onMouseLeave={(e) => {e.currentTarget.style.color = 'rgba(255, 152, 0, 0.1)'}}>
-                ?
+              {/* Полупрозрачный оранжевый знак вопроса в квадрате */}
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 w-16 h-16 rounded-xl flex items-center justify-center transition-all duration-300 transform rotate-12 select-none pointer-events-none" 
+                   style={{
+                     backgroundColor: 'rgba(255, 152, 0, 0.05)',
+                     border: '1px solid rgba(255, 152, 0, 0.1)'
+                   }}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.backgroundColor = 'rgba(255, 152, 0, 0.1)';
+                     e.currentTarget.style.borderColor = 'rgba(255, 152, 0, 0.2)';
+                     const questionMark = e.currentTarget.querySelector('.question-mark') as HTMLElement;
+                     if (questionMark) questionMark.style.color = 'rgba(255, 152, 0, 0.4)';
+                   }} 
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.backgroundColor = 'rgba(255, 152, 0, 0.05)';
+                     e.currentTarget.style.borderColor = 'rgba(255, 152, 0, 0.1)';
+                     const questionMark = e.currentTarget.querySelector('.question-mark') as HTMLElement;
+                     if (questionMark) questionMark.style.color = 'rgba(255, 152, 0, 0.15)';
+                   }}>
+                <span className="question-mark text-4xl font-bold transition-colors duration-300" style={{color: 'rgba(255, 152, 0, 0.15)'}}>
+                  ?
+                </span>
               </div>
               
               <div className="relative flex items-start gap-4">
