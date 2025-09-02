@@ -109,32 +109,32 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           }`}>
             {/* Шаг 1: Предупреждение о возрасте */}
             {currentStep === 1 && (
-          <div className="text-center pt-2 sm:pt-0">
-            <div className="mb-4 sm:mb-6">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
-                <Icon name="AlertTriangle" size={32} className="text-orange-500 sm:w-10 sm:h-10" />
+          <div className="text-center pt-1 xs:pt-2 sm:pt-0">
+            <div className="mb-3 xs:mb-4 sm:mb-6">
+              <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto mb-3 xs:mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
+                <Icon name="AlertTriangle" size={24} className="xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-orange-500" />
               </div>
-              <h2 className="text-white text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+              <h2 className="text-white text-base xs:text-lg sm:text-xl md:text-2xl font-bold mb-2 xs:mb-3 sm:mb-4">
                 Внимание<span className="text-orange-500">!</span>
               </h2>
             </div>
             
-            <div className="bg-white/5 rounded-lg p-4 mb-6 sm:mb-8">
-              <p className="text-white/90 text-base sm:text-lg leading-relaxed">
+            <div className="bg-white/5 rounded-lg p-3 xs:p-4 mb-4 xs:mb-5 sm:mb-6 md:mb-8">
+              <p className="text-white/90 text-sm xs:text-base sm:text-lg leading-relaxed">
                 Все обращения принимаются строго с <span className="font-bold text-orange-400">18 лет</span>.
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row gap-2 xs:gap-3 sm:gap-4">
               <button 
                 onClick={handleClose}
-                className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
+                className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2.5 xs:py-3 px-4 xs:px-5 sm:px-6 rounded-full font-medium text-sm xs:text-base transition-all duration-200 active:scale-95"
               >
                 Назад
               </button>
               <button 
                 onClick={handleNext}
-                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg"
+                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-2.5 xs:py-3 px-4 xs:px-5 sm:px-6 rounded-full font-medium text-sm xs:text-base transition-all duration-200 active:scale-95 shadow-lg"
               >
                 Мне есть 18
               </button>
