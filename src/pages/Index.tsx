@@ -146,26 +146,14 @@ export default function Index() {
           
           {/* About Me */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center relative z-10" style={{
-                  background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #e65100 100%)'
-                }}>
-                  <span className="text-2xl font-bold text-white">О</span>
-                </div>
-                {/* Shadow ring */}
-                <div className="absolute w-[104%] h-[104%] rounded-full opacity-65"
-                     style={{ 
-                       left: '-2px', 
-                       top: '2px',
-                       zIndex: 1,
-                       border: '2px solid #ff9800',
-                       borderRadius: '50%'
-                     }}>
-                </div>
-              </div>
-              <h2 className="text-xl font-bold text-foreground">бо мне</h2>
-            </div>
+            <h2 className="text-xl font-bold text-foreground mb-6 relative">
+              <span className="relative inline-block">
+                <span className="text-2xl font-bold relative z-10">О</span>
+                <div className="absolute w-8 h-8 rounded-full opacity-40 -top-1 -left-1" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)'
+                }}></div>
+              </span>бо мне
+            </h2>
             <p className="text-muted-foreground leading-relaxed">
               Магия пришла в мою жизнь очень рано. Я не понимала, как с этим справляться и как это контролировать. Не могла рассказать, что чувствую внутри. Думала, от меня откажутся. Уже с возрастом стала осознавать, что могу быть нужной, могу помогать людям и получать от них позитивную энергию, которая питает меня, как батарея питает теплом холодный дом. Мои дорогие сестры, товарищи, не стесняйтесь просить помощи, ведь наша сила в единстве. Постараюсь помочь вам, чем смогу. Делаю все, что в моих силах.
             </p>
@@ -173,88 +161,80 @@ export default function Index() {
 
           {/* What I Do */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{
-                background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #e65100 100%)'
-              }}>
-                <span className="text-2xl font-bold text-white">Ч</span>
-              </div>
-              <h2 className="text-xl font-bold text-foreground">ем я занимаюсь</h2>
-            </div>
+            <h2 className="text-xl font-bold text-foreground mb-6 relative">
+              <span className="relative inline-block">
+                <span className="text-2xl font-bold relative z-10">Ч</span>
+                <div className="absolute w-8 h-8 rounded-full opacity-40 -top-1 -left-1" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)'
+                }}></div>
+              </span>ем я занимаюсь
+            </h2>
             
             <div className="space-y-8">
               {/* Christian Magic */}
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{
-                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%)'
+              <div>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.25) 0%, rgba(255, 152, 0, 0.05) 100%)'
                 }}>
-                  <Icon name="Plus" size={24} style={{color: '#ff9800'}} />
+                  <Icon name="Plus" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Христианской магией</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Основана на работе с архангелами, ангелами, святыми, а также известными архетипами Пресвятой Девы и Отца Небесного.
-                  </p>
-                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Христианской магией</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Основана на работе с архангелами, ангелами, святыми, а также известными архетипами Пресвятой Девы и Отца Небесного.
+                </p>
               </div>
 
               {/* Runic Magic */}
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{
-                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%)'
+              <div>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.25) 0%, rgba(255, 152, 0, 0.05) 100%)'
                 }}>
-                  <Icon name="Zap" size={24} style={{color: '#ff9800'}} />
+                  <Icon name="Zap" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Рунической магией</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Использование специальных знаков и символов (рун) для получения нужного результата.
-                  </p>
-                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Рунической магией</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Использование специальных знаков и символов (рун) для получения нужного результата.
+                </p>
               </div>
 
               {/* Candle Magic */}
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{
-                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%)'
+              <div>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.25) 0%, rgba(255, 152, 0, 0.05) 100%)'
                 }}>
-                  <Icon name="Flame" size={24} style={{color: '#ff9800'}} />
+                  <Icon name="Flame" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Магией свечей</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Искусство управления жизненными событиями и влияния на окружающий мир через работу со свечами.
-                  </p>
-                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Магией свечей</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Искусство управления жизненными событиями и влияния на окружающий мир через работу со свечами.
+                </p>
               </div>
 
               {/* Knot Magic */}
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{
-                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%)'
+              <div>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.25) 0%, rgba(255, 152, 0, 0.05) 100%)'
                 }}>
-                  <Icon name="GitBranch" size={24} style={{color: '#ff9800'}} />
+                  <Icon name="GitBranch" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Магией узлов</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Магическое направление связи специальных узлов с судьбой и энергиями человека.
-                  </p>
-                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Магией узлов</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Магическое направление связи специальных узлов с судьбой и энергиями человека.
+                </p>
               </div>
             </div>
           </div>
 
           {/* FAQ */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{
-                background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #e65100 100%)'
-              }}>
-                <span className="text-2xl font-bold text-white">В</span>
-              </div>
-              <h2 className="text-xl font-bold text-foreground">опросы и ответы</h2>
-            </div>
+            <h2 className="text-xl font-bold text-foreground mb-6 relative">
+              <span className="relative inline-block">
+                <span className="text-2xl font-bold relative z-10">В</span>
+                <div className="absolute w-8 h-8 rounded-full opacity-40 -top-1 -left-1" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)'
+                }}></div>
+              </span>опросы и ответы
+            </h2>
             
             <div className="space-y-4">
               <div className="border border-border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer">
