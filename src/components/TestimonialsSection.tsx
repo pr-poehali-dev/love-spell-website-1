@@ -46,6 +46,7 @@ export default function TestimonialsSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [expandedTestimonials, setExpandedTestimonials] = useState<Set<number>>(new Set());
 
   // Фиксированная высота для предотвращения скролла
   const CARD_HEIGHT = {
@@ -94,6 +95,31 @@ export default function TestimonialsSection() {
     }, 250);
   };
 
+  // Функции для "Читать далее"
+  const MAX_TEXT_LENGTH = 200; // Максимальная длина текста без "Читать далее"
+  
+  const toggleExpanded = (index: number) => {
+    const newExpanded = new Set(expandedTestimonials);
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index);
+    } else {
+      newExpanded.add(index);
+    }
+    setExpandedTestimonials(newExpanded);
+  };
+
+  const getTruncatedText = (text: string, index: number) => {
+    const isExpanded = expandedTestimonials.has(index);
+    if (isExpanded || text.length <= MAX_TEXT_LENGTH) {
+      return text;
+    }
+    return text.slice(0, MAX_TEXT_LENGTH) + '...';
+  };
+
+  const shouldShowReadMore = (text: string, index: number) => {
+    return text.length > MAX_TEXT_LENGTH && !expandedTestimonials.has(index);
+  };
+
   return (
     <div className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
@@ -128,11 +154,33 @@ export default function TestimonialsSection() {
                   {/* Открывающая скобка */}
                   <span className="absolute -left-2 sm:-left-4 top-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
                   
-                  {/* Скроллируемая область для текста */}
-                  <div className="max-h-[280px] sm:max-h-[320px] overflow-y-auto testimonial-scroll px-4 sm:px-6">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 pr-2">
-                      {testimonials[currentTestimonial].text}
+                  {/* Текст отзыва с "Читать далее" */}
+                  <div className="px-4 sm:px-6">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2">
+                      {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
                     </p>
+                    {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
+                      <div className="text-center">
+                        <button
+                          onClick={() => toggleExpanded(currentTestimonial)}
+                          className="text-sm font-medium transition-colors duration-200 hover:underline focus:outline-none focus:underline"
+                          style={{ color: '#ff9800' }}
+                        >
+                          Читать далее
+                        </button>
+                      </div>
+                    )}
+                    {expandedTestimonials.has(currentTestimonial) && testimonials[currentTestimonial].text.length > MAX_TEXT_LENGTH && (
+                      <div className="text-center mt-2">
+                        <button
+                          onClick={() => toggleExpanded(currentTestimonial)}
+                          className="text-sm font-medium transition-colors duration-200 hover:underline focus:outline-none focus:underline"
+                          style={{ color: '#ff9800' }}
+                        >
+                          Свернуть
+                        </button>
+                      </div>
+                    )}
                   </div>
                   
                   {/* Закрывающая скобка */}
