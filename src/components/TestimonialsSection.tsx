@@ -62,6 +62,16 @@ export default function TestimonialsSection() {
     return baseHeight + textHeight;
   };
 
+  // Рассчитываем точную позицию для размещения точек навигации после города "Пермь"
+  const getNavigationPosition = () => {
+    const isSmall = typeof window !== 'undefined' && window.innerWidth < 640;
+    const isMedium = typeof window !== 'undefined' && window.innerWidth < 1024;
+    
+    // Место для нижней части секции автора (после города "Пермь")
+    const authorBottomSpace = isSmall ? 35 : isMedium ? 40 : 45;
+    return authorBottomSpace;
+  };
+
   // Состояния для свайпа
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -199,42 +209,37 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-3 sm:p-4 flex flex-col justify-between">
-              {/* Текст отзыва с красивыми скобками */}
-              <div className="flex items-start justify-center py-2">
-                <div 
-                  className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
-                    isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
-                  }`}
-                >
-                  {/* Открывающая скобка */}
-                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+            {/* Единый блок с отзывом и автором */}
+            <div 
+              className={`absolute inset-0 p-3 sm:p-4 flex flex-col transition-all duration-500 ease-in-out ${
+                isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+              }`}
+            >
+              {/* Текст отзыва с красивыми кавычками - сверху */}
+              <div className="mb-6">
+                <div className="relative max-w-4xl mx-auto w-full">
+                  {/* Открывающая кавычка */}
+                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">«</span>
                   
                   {/* Полный текст отзыва */}
-                  <div className="px-3 sm:px-4">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2">
+                  <div className="px-4 sm:px-6">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic py-2 sm:py-4">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
                   
-                  {/* Закрывающая скобка */}
-                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  {/* Закрывающая кавычка */}
+                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">»</span>
                 </div>
               </div>
 
-              {/* Автор */}
-              <div 
-                className={`flex flex-col items-center py-2 sm:py-3 border-t border-border/30 transition-all duration-500 ease-in-out ${
-                  isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
-                }`}
-              >
+              {/* Автор - сразу после отзыва */}
+              <div className="flex flex-col items-center">
                 <div 
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-1 sm:mb-2"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold mb-2 sm:mb-3"
                   style={{ 
                     color: '#ff9800',
-                    borderColor: '#ff9800',
-                    backgroundColor: 'transparent'
+                    backgroundColor: 'rgba(255, 152, 0, 0.1)'
                   }}
                 >
                   {testimonials[currentTestimonial].initial}
@@ -246,31 +251,37 @@ export default function TestimonialsSection() {
                   {testimonials[currentTestimonial].location}
                 </p>
               </div>
+            </div>
 
-
+            {/* Навигационные точки - фиксированная позиция после самого длинного отзыва */}
+            <div 
+              className="absolute left-1/2 transform -translate-x-1/2 z-10"
+              style={{ bottom: `${getNavigationPosition()}px` }}
+            >
+              <div className="flex justify-center gap-2 bg-background/80 backdrop-blur-sm rounded-full px-3 py-2 shadow-sm">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      goToTestimonial(index);
+                    }}
+                    disabled={isTransitioning}
+                    className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                      index === currentTestimonial 
+                        ? 'bg-accent scale-125 shadow-sm' 
+                        : 'bg-accent/40 hover:bg-accent/60 hover:scale-110'
+                    }`}
+                    aria-label={`Перейти к отзыву ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Индикаторы отзывов */}
-          <div className="flex justify-center gap-2 mb-6 sm:mb-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  goToTestimonial(index);
-                }}
-                disabled={isTransitioning}
-                className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-                  index === currentTestimonial 
-                    ? 'bg-accent scale-125' 
-                    : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
-                }`}
-              />
-            ))}
-          </div>
+
         </div>
 
         {/* Видео благодарности */}
