@@ -47,33 +47,9 @@ export default function TestimonialsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Рассчитываем максимальную высоту для самого длинного отзыва
+  // Фиксированная высота контейнера для стабильности
   const getMaxCardHeight = () => {
-    // Адаптивные размеры в зависимости от экрана
-    const isSmall = window.innerWidth < 640;
-    const isMedium = window.innerWidth < 1024;
-    
-    // Фиксированные элементы UI адаптивно
-    const padding = isSmall ? 48 : isMedium ? 56 : 64;
-    const authorSection = isSmall ? 100 : isMedium ? 120 : 140;
-    const quotesSpace = isSmall ? 50 : 60;
-    const textPadding = isSmall ? 24 : 32;
-    
-    // Расчет для текста
-    const charPerLine = isSmall ? 40 : isMedium ? 50 : 60;
-    const lineHeight = 28;
-
-    const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
-    const estimatedLines = Math.ceil(maxTextLength / charPerLine);
-    const textHeight = estimatedLines * lineHeight;
-    
-    const totalHeight = padding + authorSection + quotesSpace + textPadding + textHeight;
-    
-    // Адаптивные лимиты высоты
-    const minHeight = isSmall ? 420 : isMedium ? 450 : 480;
-    const maxHeight = isSmall ? 600 : isMedium ? 650 : 700;
-    
-    return Math.max(minHeight, Math.min(totalHeight, maxHeight));
+    return 500; // Простая фиксированная высота на всех экранах
   };
 
 
