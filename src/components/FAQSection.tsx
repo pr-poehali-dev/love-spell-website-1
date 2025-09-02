@@ -13,16 +13,10 @@ const faqItems = [
 ];
 
 export default function FAQSection() {
-  const [openItems, setOpenItems] = useState<Set<number>>(new Set([0]));
+  const [openItem, setOpenItem] = useState<number | null>(0);
 
   const toggleItem = (index: number) => {
-    const newOpenItems = new Set(openItems);
-    if (newOpenItems.has(index)) {
-      newOpenItems.delete(index);
-    } else {
-      newOpenItems.add(index);
-    }
-    setOpenItems(newOpenItems);
+    setOpenItem(openItem === index ? null : index);
   };
 
   return (
@@ -40,7 +34,7 @@ export default function FAQSection() {
       
       <div className="grid gap-4">
         {faqItems.map((question, index) => {
-          const isOpen = openItems.has(index);
+          const isOpen = openItem === index;
           return (
             <div key={index} className="group relative overflow-hidden">
               <div 
