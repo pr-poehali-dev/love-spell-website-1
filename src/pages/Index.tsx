@@ -148,9 +148,11 @@ export default function Index() {
           <div>
             <h2 className="text-xl font-bold text-foreground mb-6 relative">
               <span className="relative inline-block">
-                <span className="text-2xl font-bold relative z-10">О</span>
-                <div className="absolute w-8 h-8 rounded-full opacity-40 -top-1 -left-1" style={{
-                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)'
+                <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
+                <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
+                  top: '2px',
+                  left: '-2px'
                 }}></div>
               </span>бо мне
             </h2>
@@ -163,9 +165,11 @@ export default function Index() {
           <div>
             <h2 className="text-xl font-bold text-foreground mb-6 relative">
               <span className="relative inline-block">
-                <span className="text-2xl font-bold relative z-10">Ч</span>
-                <div className="absolute w-8 h-8 rounded-full opacity-40 -top-1 -left-1" style={{
-                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)'
+                <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>Ч</span>
+                <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
+                  top: '2px',
+                  left: '-2px'
                 }}></div>
               </span>ем я занимаюсь
             </h2>
@@ -229,9 +233,11 @@ export default function Index() {
           <div>
             <h2 className="text-xl font-bold text-foreground mb-6 relative">
               <span className="relative inline-block">
-                <span className="text-2xl font-bold relative z-10">В</span>
-                <div className="absolute w-8 h-8 rounded-full opacity-40 -top-1 -left-1" style={{
-                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)'
+                <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>В</span>
+                <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
+                  background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
+                  top: '2px',
+                  left: '-2px'
                 }}></div>
               </span>опросы и ответы
             </h2>
