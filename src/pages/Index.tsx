@@ -142,7 +142,7 @@ export default function Index() {
 
       {/* Who Am I Section */}
       <div className="bg-background">
-        <div className="max-w-sm mx-auto px-4 py-8 space-y-16">
+        <div className="max-w-sm mx-auto px-6 py-8 space-y-16">
           
           {/* About Me */}
           <div>
@@ -151,8 +151,8 @@ export default function Index() {
                 <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
-                  top: '2px',
-                  right: '0px'
+                  top: '0px',
+                  right: '4px'
                 }}></div>
               </span>бо мне
             </h2>
@@ -168,8 +168,8 @@ export default function Index() {
                 <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>Ч</span>
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
-                  top: '2px',
-                  right: '0px'
+                  top: '0px',
+                  right: '4px'
                 }}></div>
               </span>ем я занимаюсь
             </h2>
@@ -178,7 +178,7 @@ export default function Index() {
               {/* Christian Magic */}
               <div>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
-                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.25) 0%, rgba(255, 152, 0, 0.05) 100%)'
+                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
                   <Icon name="Plus" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
@@ -191,7 +191,7 @@ export default function Index() {
               {/* Runic Magic */}
               <div>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
-                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.25) 0%, rgba(255, 152, 0, 0.05) 100%)'
+                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
                   <Icon name="Zap" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
@@ -204,7 +204,7 @@ export default function Index() {
               {/* Candle Magic */}
               <div>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
-                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.25) 0%, rgba(255, 152, 0, 0.05) 100%)'
+                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
                   <Icon name="Flame" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
@@ -217,7 +217,7 @@ export default function Index() {
               {/* Knot Magic */}
               <div>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
-                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.25) 0%, rgba(255, 152, 0, 0.05) 100%)'
+                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
                   <Icon name="GitBranch" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
@@ -236,8 +236,8 @@ export default function Index() {
                 <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>В</span>
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
-                  top: '2px',
-                  right: '0px'
+                  top: '0px',
+                  right: '4px'
                 }}></div>
               </span>опросы и ответы
             </h2>
