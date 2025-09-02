@@ -198,7 +198,7 @@ export default function TestimonialsSection() {
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-10"
               style={{ 
-                bottom: '80px' // Фиксированное расстояние от низа для секции автора
+                bottom: '60px' // Минимальное расстояние - сразу после "Пермь"
               }}
             >
               <div className="flex justify-center gap-2">
