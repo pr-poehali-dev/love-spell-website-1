@@ -9,9 +9,9 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
   return (
     <div className="relative -mt-[240px] sm:-mt-[280px] md:-mt-[320px] z-10">
       {/* Background Image with V-Mask */}
-      <div className="relative h-[70vh] sm:h-[75vh]">
+      <div className="relative h-[70vh] sm:h-[75vh] overflow-hidden">
         <div 
-          className="absolute inset-0 hero-bg v-mask"
+          className="absolute inset-0 hero-bg v-mask transform scale-105 smooth-transition-slow hover:scale-100"
           style={{
             backgroundImage: `url('/img/360087e3-3b50-4f2f-932f-be1fbf78267b.jpg')`,
             backgroundSize: 'cover',
@@ -19,6 +19,8 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
             willChange: 'transform'
           }}
         >
+          {/* Overlay для улучшения контраста */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
         </div>
       </div>
       
@@ -28,10 +30,10 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
           {/* Large Profile Image with Realistic Shadow */}
           <div className="mb-6 relative">
             {/* Container for avatar and shadow rings */}
-            <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
+            <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto group">
               
-              {/* Shadow ring */}
-              <div className="absolute w-[104%] h-[104%] rounded-full opacity-65"
+              {/* Shadow ring с анимацией */}
+              <div className="absolute w-[104%] h-[104%] rounded-full opacity-65 smooth-transition group-hover:opacity-80 group-hover:scale-105"
                    style={{ 
                      left: '-10px', 
                      top: '6px',
@@ -40,8 +42,17 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
                    }}>
               </div>
               
+              {/* Дополнительное свечение при hover */}
+              <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-30 smooth-transition"
+                   style={{
+                     background: 'radial-gradient(circle, rgba(255, 152, 0, 0.4) 0%, transparent 70%)',
+                     transform: 'scale(1.2)',
+                     zIndex: 0
+                   }}>
+              </div>
+              
               {/* Main Avatar */}
-              <div className="relative w-full h-full rounded-full overflow-hidden bg-background"
+              <div className="relative w-full h-full rounded-full overflow-hidden bg-background smooth-transition group-hover:scale-105"
                    style={{ 
                      zIndex: 10,
                      filter: 'drop-shadow(0 14px 24px rgba(0, 0, 0, 0.35))'
@@ -61,13 +72,15 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
           </div>
           
           {/* Name and Title */}
-          <div className="mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
+          <div className="mb-6 sm:mb-8 fade-in-up">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg tracking-wide">
               Раиса Ильинская
             </h2>
             <div className="text-accent font-semibold text-lg sm:text-xl md:text-2xl drop-shadow-lg min-h-[1.5em]">
-              <span className="typewriter" key={currentTitle}>{currentTitle}</span>
+              <span className="typewriter gradient-text" key={currentTitle}>{currentTitle}</span>
             </div>
+            {/* Декоративная линия под заголовком */}
+            <div className="w-24 h-1 gradient-accent rounded-full mx-auto mt-4 opacity-80"></div>
           </div>
         </div>
       </div>
@@ -78,10 +91,12 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
           {/* Call to Action */}
           <Button 
             size="lg" 
-            className="w-full bg-primary hover:bg-primary/90 text-white transition-all duration-300 font-semibold text-sm sm:text-base py-4 sm:py-6 active:scale-[0.98] transform-gpu"
+            className="w-full gradient-accent hover:shadow-lg hover:shadow-accent/25 text-white smooth-transition font-semibold text-sm sm:text-base py-4 sm:py-6 active:scale-[0.98] transform-gpu hover:-translate-y-1 focus-visible group"
           >
-            НАПИШИТЕ МНЕ
-            <Icon name="ChevronRight" size={18} className="ml-2" />
+            <span className="relative z-10">НАПИШИТЕ МНЕ</span>
+            <Icon name="MessageSquare" size={18} className="ml-2 relative z-10 group-hover:rotate-12 smooth-transition" />
+            {/* Блик на кнопке */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
           </Button>
         </div>
       </div>
