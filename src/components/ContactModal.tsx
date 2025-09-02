@@ -10,6 +10,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
   const [stepTransition, setStepTransition] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    situation: '',
+    birthDate: '',
+    email: ''
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -31,7 +37,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   };
 
   const handleNext = () => {
-    if (currentStep < 4) {
+    if (currentStep < 5) {
       setStepTransition(true);
       setTimeout(() => {
         setCurrentStep(currentStep + 1);
@@ -60,8 +66,20 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     handleClose();
   };
 
-  const handleEmail = () => {
-    window.open('mailto:example@example.com', '_blank');
+  const handleEmailChoice = () => {
+    setStepTransition(true);
+    setTimeout(() => {
+      setCurrentStep(5);
+      setStepTransition(false);
+    }, 150);
+  };
+
+  const handleSendEmail = () => {
+    const subject = encodeURIComponent('Консультация по любовным обрядам');
+    const body = encodeURIComponent(
+      `Имя: ${formData.name}\n\nСитуация: ${formData.situation}\n\nДата рождения: ${formData.birthDate}`
+    );
+    window.open(`mailto:example@example.com?subject=${subject}&body=${body}`, '_blank');
     handleClose();
   };
 
@@ -265,11 +283,92 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </div>
 
               <button
-                onClick={handleEmail}
+                onClick={handleEmailChoice}
                 className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg flex items-center justify-center gap-2"
               >
                 <Icon name="Mail" size={18} className="text-white" />
                 <span>Написать на Email</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Шаг 5: Email форма */}
+        {currentStep === 5 && (
+          <div className="pt-2 sm:pt-0">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
+                <Icon name="Mail" size={32} className="text-orange-500 sm:w-10 sm:h-10" />
+              </div>
+              <h2 className="text-white text-lg sm:text-xl font-bold">Написать на Email</h2>
+            </div>
+            
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="block text-white/90 text-sm mb-2">Ваше Имя</label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  className="w-full bg-white/5 border-b-2 border-orange-500/50 text-white px-0 py-3 focus:outline-none focus:border-orange-500 transition-colors"
+                  placeholder=""
+                />
+              </div>
+              
+              <div>
+                <label className="block text-white/90 text-sm mb-2">Опишите что у вас случилось</label>
+                <input
+                  type="text"
+                  value={formData.situation}
+                  onChange={(e) => setFormData({...formData, situation: e.target.value})}
+                  className="w-full bg-white/5 border-b-2 border-orange-500/50 text-white px-0 py-3 focus:outline-none focus:border-orange-500 transition-colors"
+                  placeholder=""
+                />
+              </div>
+              
+              <div>
+                <label className="block text-white/90 text-sm mb-2">Ваша дата рождения и дата второй половинки</label>
+                <input
+                  type="text"
+                  value={formData.birthDate}
+                  onChange={(e) => setFormData({...formData, birthDate: e.target.value})}
+                  className="w-full bg-white/5 border-b-2 border-orange-500/50 text-white px-0 py-3 focus:outline-none focus:border-orange-500 transition-colors"
+                  placeholder=""
+                />
+              </div>
+              
+              <div className="bg-white/5 rounded-lg p-4 text-center">
+                <p className="text-white/90 text-sm mb-3">Выберете Ваше фото и фото второй половинки.</p>
+                <button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 active:scale-95">
+                  Выбрать
+                </button>
+              </div>
+              
+              <div>
+                <label className="block text-white/90 text-sm mb-2">Ваш адрес электронной почты</label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  className="w-full bg-white/5 border-b-2 border-orange-500/50 text-white px-0 py-3 focus:outline-none focus:border-orange-500 transition-colors"
+                  placeholder=""
+                />
+              </div>
+            </div>
+            
+            <div className="flex gap-3">
+              <button
+                onClick={handleBack}
+                className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
+              >
+                Назад
+              </button>
+              <button
+                onClick={handleSendEmail}
+                disabled={!formData.name || !formData.situation || !formData.email}
+                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg"
+              >
+                Отправить
               </button>
             </div>
           </div>
@@ -279,7 +378,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           {/* Индикатор прогресса */}
           <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-white/10">
             <div className="flex gap-2">
-              {[1, 2, 3, 4].map((step) => (
+              {[1, 2, 3, 4, 5].map((step) => (
                 <div 
                   key={step}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
