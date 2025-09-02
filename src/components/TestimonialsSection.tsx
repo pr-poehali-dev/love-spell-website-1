@@ -111,9 +111,9 @@ export default function TestimonialsSection() {
           {/* Карусель отзывов */}
           <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl border border-border/50 mb-8 overflow-hidden" style={{ height: '400px' }}>
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between">
+            <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-center">
               {/* Текст отзыва с красивыми скобками */}
-              <div className="flex-1 flex items-center justify-center">
+              <div className="flex-1 flex items-center justify-center mb-8">
                 <div 
                   className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out w-full ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
@@ -154,57 +154,57 @@ export default function TestimonialsSection() {
                   {testimonials[currentTestimonial].location}
                 </p>
               </div>
-
-              {/* Навигация */}
-              <div className="flex items-center justify-center gap-4 mt-4">
-                <button 
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    prevTestimonial();
-                  }}
-                  disabled={isTransitioning}
-                  className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
-                >
-                  <Icon name="ChevronLeft" size={20} />
-                </button>
-
-                {/* Индикаторы */}
-                <div className="flex gap-2">
-                  {testimonials.map((_, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        goToTestimonial(index);
-                      }}
-                      disabled={isTransitioning}
-                      className={`w-3 h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-                        index === currentTestimonial 
-                          ? 'bg-accent' 
-                          : 'bg-accent/30 hover:bg-accent/50'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                <button 
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    nextTestimonial();
-                  }}
-                  disabled={isTransitioning}
-                  className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
-                >
-                  <Icon name="ChevronRight" size={20} />
-                </button>
-              </div>
             </div>
+          </div>
+
+          {/* Навигация вынесена отдельно */}
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <button 
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                prevTestimonial();
+              }}
+              disabled={isTransitioning}
+              className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
+            >
+              <Icon name="ChevronLeft" size={20} />
+            </button>
+
+            {/* Индикаторы */}
+            <div className="flex gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    goToTestimonial(index);
+                  }}
+                  disabled={isTransitioning}
+                  className={`w-3 h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+                    index === currentTestimonial 
+                      ? 'bg-accent' 
+                      : 'bg-accent/30 hover:bg-accent/50'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button 
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                nextTestimonial();
+              }}
+              disabled={isTransitioning}
+              className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
+            >
+              <Icon name="ChevronRight" size={20} />
+            </button>
           </div>
         </div>
 
