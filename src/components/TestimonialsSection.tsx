@@ -72,75 +72,7 @@ export default function TestimonialsSection() {
   const nextTestimonial = () => {
     if (isTransitioning) return;
     
-    // Сохраняем позицию скролла ДО любых изменений
-    const scrollY = window.scrollY;
-    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
-    
-    // Блокируем плавный скролл
-    document.documentElement.style.scrollBehavior = 'auto';
-    document.body.style.scrollBehavior = 'auto';
-    
-    // Автосвертывание и быстрое переключение
-    setExpandedTestimonials(new Set());
-    setIsTransitioning(true);
-    
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: scrollY, behavior: 'auto' });
-      
-      setTimeout(() => {
-        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-        
-        requestAnimationFrame(() => {
-          window.scrollTo({ top: scrollY, behavior: 'auto' });
-          
-          setTimeout(() => {
-            setIsTransitioning(false);
-            document.documentElement.style.scrollBehavior = currentScrollBehavior;
-            document.body.style.scrollBehavior = '';
-          }, 100);
-        });
-      }, 250);
-    });
-  };
-
-  const prevTestimonial = () => {
-    if (isTransitioning) return;
-    
-    // Сохраняем позицию скролла ДО любых изменений
-    const scrollY = window.scrollY;
-    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
-    
-    // Блокируем плавный скролл
-    document.documentElement.style.scrollBehavior = 'auto';
-    document.body.style.scrollBehavior = 'auto';
-    
-    // Автосвертывание и быстрое переключение
-    setExpandedTestimonials(new Set());
-    setIsTransitioning(true);
-    
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: scrollY, behavior: 'auto' });
-      
-      setTimeout(() => {
-        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-        
-        requestAnimationFrame(() => {
-          window.scrollTo({ top: scrollY, behavior: 'auto' });
-          
-          setTimeout(() => {
-            setIsTransitioning(false);
-            document.documentElement.style.scrollBehavior = currentScrollBehavior;
-            document.body.style.scrollBehavior = '';
-          }, 100);
-        });
-      }, 250);
-    });
-  };
-
-  const goToTestimonial = (index: number) => {
-    if (isTransitioning || index === currentTestimonial) return;
-    
-    // Сохраняем позицию скролла ДО любых изменений
+    const wasExpanded = expandedTestimonials.size > 0;
     const scrollY = window.scrollY;
     const currentScrollBehavior = document.documentElement.style.scrollBehavior;
     
@@ -153,20 +85,94 @@ export default function TestimonialsSection() {
     setIsTransitioning(true);
     
     requestAnimationFrame(() => {
-      window.scrollTo({ top: scrollY, behavior: 'auto' });
+      // Если был раскрыт - скроллим к началу секции
+      if (wasExpanded && containerRef.current) {
+        const sectionTop = containerRef.current.offsetTop - 100;
+        window.scrollTo({ top: sectionTop, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: scrollY, behavior: 'auto' });
+      }
+      
+      setTimeout(() => {
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+        
+        setTimeout(() => {
+          setIsTransitioning(false);
+          document.documentElement.style.scrollBehavior = currentScrollBehavior;
+          document.body.style.scrollBehavior = '';
+        }, 100);
+      }, 250);
+    });
+  };
+
+  const prevTestimonial = () => {
+    if (isTransitioning) return;
+    
+    const wasExpanded = expandedTestimonials.size > 0;
+    const scrollY = window.scrollY;
+    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
+    
+    // Блокируем плавный скролл
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+    
+    // Автосвертывание и переключение
+    setExpandedTestimonials(new Set());
+    setIsTransitioning(true);
+    
+    requestAnimationFrame(() => {
+      // Если был раскрыт - скроллим к началу секции
+      if (wasExpanded && containerRef.current) {
+        const sectionTop = containerRef.current.offsetTop - 100;
+        window.scrollTo({ top: sectionTop, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: scrollY, behavior: 'auto' });
+      }
+      
+      setTimeout(() => {
+        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        
+        setTimeout(() => {
+          setIsTransitioning(false);
+          document.documentElement.style.scrollBehavior = currentScrollBehavior;
+          document.body.style.scrollBehavior = '';
+        }, 100);
+      }, 250);
+    });
+  };
+
+  const goToTestimonial = (index: number) => {
+    if (isTransitioning || index === currentTestimonial) return;
+    
+    const wasExpanded = expandedTestimonials.size > 0;
+    const scrollY = window.scrollY;
+    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
+    
+    // Блокируем плавный скролл
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+    
+    // Автосвертывание и переключение
+    setExpandedTestimonials(new Set());
+    setIsTransitioning(true);
+    
+    requestAnimationFrame(() => {
+      // Если был раскрыт - скроллим к началу секции
+      if (wasExpanded && containerRef.current) {
+        const sectionTop = containerRef.current.offsetTop - 100;
+        window.scrollTo({ top: sectionTop, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: scrollY, behavior: 'auto' });
+      }
       
       setTimeout(() => {
         setCurrentTestimonial(index);
         
-        requestAnimationFrame(() => {
-          window.scrollTo({ top: scrollY, behavior: 'auto' });
-          
-          setTimeout(() => {
-            setIsTransitioning(false);
-            document.documentElement.style.scrollBehavior = currentScrollBehavior;
-            document.body.style.scrollBehavior = '';
-          }, 100);
-        });
+        setTimeout(() => {
+          setIsTransitioning(false);
+          document.documentElement.style.scrollBehavior = currentScrollBehavior;
+          document.body.style.scrollBehavior = '';
+        }, 100);
       }, 250);
     });
   };
