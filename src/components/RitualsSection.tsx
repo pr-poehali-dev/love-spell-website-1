@@ -126,7 +126,7 @@ export default function RitualsSection({ showMoreRituals, setShowMoreRituals }: 
         <div className="pt-6">
           <Button 
             variant="outline" 
-            className="w-full border-accent/50 text-accent hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 rounded-xl py-3 font-medium group"
+            className="w-full border-accent/50 text-accent hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 rounded-full py-3 font-medium group"
             onClick={() => setShowMoreRituals(!showMoreRituals)}
           >
             <span className="group-hover:scale-105 transition-transform duration-300">
