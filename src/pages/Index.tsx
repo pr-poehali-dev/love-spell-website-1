@@ -178,7 +178,7 @@ export default function Index() {
               {/* Christian Magic */}
               <div>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
-                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
+                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
                   <Icon name="Plus" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
@@ -191,7 +191,7 @@ export default function Index() {
               {/* Runic Magic */}
               <div>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
-                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
+                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
                   <Icon name="Zap" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
@@ -204,7 +204,7 @@ export default function Index() {
               {/* Candle Magic */}
               <div>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
-                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
+                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
                   <Icon name="Flame" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
@@ -217,7 +217,7 @@ export default function Index() {
               {/* Knot Magic */}
               <div>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3" style={{
-                  background: 'linear-gradient(45deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
+                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.03) 100%)'
                 }}>
                   <Icon name="GitBranch" size={28} style={{color: '#ff9800', strokeWidth: 3}} />
                 </div>
