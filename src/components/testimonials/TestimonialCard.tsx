@@ -65,6 +65,25 @@ export default function TestimonialCard({
     return text.length > maxTextLength && !isExpanded;
   };
 
+  // Состояние для синхронизации анимации градиента
+  const [showGradient, setShowGradient] = useState(!isExpanded && shouldTruncateText(testimonial.text));
+
+  // Синхронизируем градиент с анимацией высоты
+  useEffect(() => {
+    if (isExpanded) {
+      // При раскрытии: сначала убираем градиент через 250ms (половина анимации)
+      const timer = setTimeout(() => {
+        setShowGradient(false);
+      }, 250);
+      return () => clearTimeout(timer);
+    } else {
+      // При сворачивании: показываем градиент сразу
+      if (shouldTruncateText(testimonial.text)) {
+        setShowGradient(true);
+      }
+    }
+  }, [isExpanded, testimonial.text]);
+
   return (
     <div className="relative w-full">
       <div 
@@ -113,8 +132,10 @@ export default function TestimonialCard({
                       </p>
                     </div>
                     {/* Градиент для плавного затухания текста */}
-                    {!isExpanded && shouldTruncateText(testimonial.text) && (
-                      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-card via-card/80 to-transparent pointer-events-none"></div>
+                    {shouldTruncateText(testimonial.text) && (
+                      <div className={`absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-card via-card/80 to-transparent pointer-events-none transition-opacity duration-500 ease-in-out ${
+                        showGradient ? 'opacity-100' : 'opacity-0'
+                      }`}></div>
                     )}
                   </div>
                 </div>
