@@ -4,7 +4,7 @@ export default function ContactSection() {
   return (
     <div className="bg-background">
       <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        <h2 className="text-xl font-bold text-foreground mb-6 relative">
+        <h2 className="text-xl font-bold text-foreground mb-8 relative">
           <span className="relative inline-block">
             <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
             <div className="absolute w-9 h-9 rounded-full opacity-40" style={{
@@ -18,7 +18,7 @@ export default function ContactSection() {
         {/* Оранжевая кнопка с аватаром */}
         <div className="flex justify-center mb-8">
         <button 
-          className="flex items-center bg-accent hover:bg-accent/90 text-white rounded-full pl-2 pr-8 py-2 transition-all hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-1 group"
+          className="flex items-center bg-accent text-white rounded-full pl-2 pr-8 py-2 transition-colors"
           onClick={() => {
             window.open('https://t.me/username', '_blank');
           }}
@@ -32,7 +32,7 @@ export default function ContactSection() {
               />
             </div>
             <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-              <Icon name="MessageCircle" size={10} className="text-white" />
+              <Icon name="ArrowRight" size={10} className="text-white" />
             </div>
           </div>
           <div className="text-left">

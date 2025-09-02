@@ -3,7 +3,7 @@ import Icon from '@/components/ui/icon';
 export default function ServicesSection() {
   return (
     <div>
-      <h2 className="text-xl font-bold text-foreground mb-6 relative">
+      <h2 className="text-xl font-bold text-foreground mb-8 relative">
         <span className="relative inline-block">
           <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>Ч</span>
           <div className="absolute w-9 h-9 rounded-full opacity-40" style={{

@@ -44,11 +44,16 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const sections = ['about', 'rituals'];
+          const sections = ['about', 'rituals', 'testimonials', 'contact'];
           const scrollPosition = window.scrollY + 200;
           
           for (const sectionId of sections) {
-            const element = document.getElementById(sectionId);
+            let element;
+            if (sectionId === 'contact') {
+              element = document.querySelector('[data-contact]');
+            } else {
+              element = document.getElementById(sectionId);
+            }
             if (element) {
               const { offsetTop, offsetHeight } = element;
               if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
@@ -93,7 +98,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
       </div>
 
       {/* Navigation Menu */}  
-      <div className="bg-background sticky top-[77px] z-20 border-b border-border">
+      <div className="bg-background sticky top-[77px] z-20 shadow-md">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button 
@@ -139,10 +144,23 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             <button 
               data-section="testimonials"
               onClick={() => scrollToSection('testimonials')}
-              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-all duration-200 group relative text-foreground hover:text-accent"
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+                activeSection === 'testimonials' 
+                  ? 'bg-accent/10 text-accent' 
+                  : 'hover:bg-muted/50 text-foreground hover:text-accent'
+              }`}
             >
-              <Icon name="MessageCircle" size={20} className="transition-colors" />
+              <Icon 
+                name="MessageCircle" 
+                size={20} 
+                className={`transition-colors  ${
+                  activeSection === 'testimonials' ? 'text-accent' : ''
+                }`} 
+              />
               <span className="text-xs sm:text-xs font-medium">ОТЗЫВЫ</span>
+              {activeSection === 'testimonials' && (
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
+              )}
             </button>
             <button 
               onClick={() => {
@@ -151,10 +169,23 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                   contactElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
               }}
-              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group relative text-foreground hover:text-accent"
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+                activeSection === 'contact' 
+                  ? 'bg-accent/10 text-accent' 
+                  : 'hover:bg-muted/50 text-foreground hover:text-accent'
+              }`}
             >
-              <Icon name="Mail" size={20} className="transition-colors" />
+              <Icon 
+                name="Mail" 
+                size={20} 
+                className={`transition-colors  ${
+                  activeSection === 'contact' ? 'text-accent' : ''
+                }`} 
+              />
               <span className="text-xs sm:text-xs font-medium">СВЯЗЬ</span>
+              {activeSection === 'contact' && (
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
+              )}
             </button>
           </div>
         </div>
