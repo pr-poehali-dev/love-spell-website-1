@@ -46,48 +46,12 @@ export default function TestimonialsSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [cardHeight, setCardHeight] = useState(450);
 
-  // Простой расчет высоты карточки под самый длинный отзыв
-  const getMaxCardHeight = () => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
-    
-    // Находим самый длинный отзыв
-    const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
-    
-    // Простая формула: базовая высота + дополнительная высота для текста
-    const baseHeight = isMobile ? 320 : 380; // уменьшенная базовая высота для UI элементов
-    const textHeight = Math.ceil(maxTextLength / (isMobile ? 50 : 70)) * (isMobile ? 25 : 30); // высота для текста
-    
-    return baseHeight + textHeight;
+  // Фиксированная высота для предотвращения скролла
+  const CARD_HEIGHT = {
+    mobile: 450, // px для мобильных
+    desktop: 500 // px для десктопов
   };
-
-  // Рассчитываем точную позицию для размещения точек навигации после города "Пермь"
-  const getNavigationPosition = () => {
-    const isVerySmall = typeof window !== 'undefined' && window.innerWidth <= 375; // iPhone 5s, SE
-    const isSmall = typeof window !== 'undefined' && window.innerWidth < 640;
-    const isMedium = typeof window !== 'undefined' && window.innerWidth < 1024;
-    
-    // Место для нижней части секции автора (после города "Пермь")
-    const authorBottomSpace = isVerySmall ? 15 : isSmall ? 35 : isMedium ? 40 : 45;
-    return authorBottomSpace;
-  };
-
-  // Состояния для свайпа
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  // Пересчитываем высоту при изменении размера экрана
-  useEffect(() => {
-    const updateHeight = () => {
-      setCardHeight(getMaxCardHeight());
-    };
-    
-    updateHeight(); // Инициальный расчет
-    window.addEventListener('resize', updateHeight);
-    
-    return () => window.removeEventListener('resize', updateHeight);
-  }, []);
 
   // Автоперелистывание каждые 15 секунд
   useEffect(() => {
@@ -102,91 +66,36 @@ export default function TestimonialsSection() {
 
   const nextTestimonial = () => {
     if (isTransitioning) return;
-    
-    // Сохраняем и фиксируем позицию скролла
-    const scrollY = window.scrollY;
-    document.body.style.scrollBehavior = 'auto';
-    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      // Принудительно восстанавливаем позицию
-      window.scrollTo(0, scrollY);
-      setTimeout(() => {
-        setIsTransitioning(false);
-        document.body.style.scrollBehavior = '';
-      }, 100);
+      setTimeout(() => setIsTransitioning(false), 50);
     }, 250);
   };
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
-    
-    // Сохраняем и фиксируем позицию скролла
-    const scrollY = window.scrollY;
-    document.body.style.scrollBehavior = 'auto';
-    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      // Принудительно восстанавливаем позицию
-      window.scrollTo(0, scrollY);
-      setTimeout(() => {
-        setIsTransitioning(false);
-        document.body.style.scrollBehavior = '';
-      }, 100);
+      setTimeout(() => setIsTransitioning(false), 50);
     }, 250);
   };
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
-    
-    // Сохраняем и фиксируем позицию скролла
-    const scrollY = window.scrollY;
-    document.body.style.scrollBehavior = 'auto';
-    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial(index);
-      // Принудительно восстанавливаем позицию
-      window.scrollTo(0, scrollY);
-      setTimeout(() => {
-        setIsTransitioning(false);
-        document.body.style.scrollBehavior = '';
-      }, 100);
+      setTimeout(() => setIsTransitioning(false), 50);
     }, 250);
   };
 
-  // Обработчики свайпов
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      nextTestimonial();
-    }
-    if (isRightSwipe) {
-      prevTestimonial();
-    }
-  };
-
   return (
-    <div className="py-8 sm:py-12 md:py-16 lg:py-20 px-2 sm:px-3 lg:px-4">
+    <div className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
         
         {/* Отзывы */}
@@ -202,45 +111,47 @@ export default function TestimonialsSection() {
             </span>тзывы и благодарности
           </h2>
 
-          {/* Карусель отзывов с свайпом */}
+          {/* Карусель отзывов */}
           <div 
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden cursor-grab active:cursor-grabbing select-none"
-            style={{ height: `${cardHeight}px` }}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden"
+            style={{ height: '450px' }}
           >
-            {/* Единый блок с отзывом и автором */}
-            <div 
-              className={`absolute inset-0 p-3 sm:p-4 flex flex-col transition-all duration-500 ease-in-out ${
-                isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
-              }`}
-            >
-              {/* Текст отзыва с красивыми кавычками - сверху */}
-              <div className="mb-6">
-                <div className="relative max-w-4xl mx-auto w-full">
-                  {/* Открывающая кавычка */}
-                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">«</span>
+            {/* Контейнер с абсолютным позиционированием */}
+            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col">
+              {/* Текст отзыва с красивыми скобками - с внутренним скроллом */}
+              <div className="flex-1 flex items-center justify-center py-2 sm:py-4 min-h-0">
+                <div 
+                  className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
+                    isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+                  }`}
+                >
+                  {/* Открывающая скобка */}
+                  <span className="absolute -left-2 sm:-left-4 top-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
                   
-                  {/* Полный текст отзыва */}
-                  <div className="px-4 sm:px-6">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic py-2 sm:py-4">
+                  {/* Скроллируемая область для текста */}
+                  <div className="max-h-[280px] sm:max-h-[320px] overflow-y-auto testimonial-scroll px-4 sm:px-6">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 pr-2">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
                   
-                  {/* Закрывающая кавычка */}
-                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">»</span>
+                  {/* Закрывающая скобка */}
+                  <span className="absolute -right-2 sm:-right-4 bottom-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
                 </div>
               </div>
 
-              {/* Автор - сразу после отзыва */}
-              <div className="flex flex-col items-center">
+              {/* Автор */}
+              <div 
+                className={`flex flex-col items-center py-3 sm:py-4 border-t border-border/30 mt-2 transition-all duration-500 ease-in-out ${
+                  isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+                }`}
+              >
                 <div 
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold mb-2 sm:mb-3"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-2 sm:mb-3"
                   style={{ 
                     color: '#ff9800',
-                    backgroundColor: 'rgba(255, 152, 0, 0.1)'
+                    borderColor: '#ff9800',
+                    backgroundColor: 'transparent'
                   }}
                 >
                   {testimonials[currentTestimonial].initial}
@@ -253,36 +164,57 @@ export default function TestimonialsSection() {
                 </p>
               </div>
             </div>
-
-            {/* Навигационные точки - фиксированная позиция после самого длинного отзыва */}
-            <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-10"
-              style={{ bottom: `${getNavigationPosition()}px` }}
-            >
-              <div className="flex justify-center gap-2 bg-background/80 backdrop-blur-sm rounded-full px-3 py-2 shadow-sm">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      goToTestimonial(index);
-                    }}
-                    disabled={isTransitioning}
-                    className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-                      index === currentTestimonial 
-                        ? 'bg-accent scale-125 shadow-sm' 
-                        : 'bg-accent/40 hover:bg-accent/60 hover:scale-110'
-                    }`}
-                    aria-label={`Перейти к отзыву ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
           </div>
 
+          {/* Навигация вынесена отдельно */}
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <button 
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                prevTestimonial();
+              }}
+              disabled={isTransitioning}
+              className="p-1.5 sm:p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
+            >
+              <Icon name="ChevronLeft" size={16} />
+            </button>
 
+            {/* Индикаторы */}
+            <div className="flex gap-1.5 sm:gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    goToTestimonial(index);
+                  }}
+                  disabled={isTransitioning}
+                  className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                    index === currentTestimonial 
+                      ? 'bg-accent' 
+                      : 'bg-accent/30 hover:bg-accent/50'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button 
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                nextTestimonial();
+              }}
+              disabled={isTransitioning}
+              className="p-1.5 sm:p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
+            >
+              <Icon name="ChevronRight" size={16} />
+            </button>
+          </div>
         </div>
 
         {/* Видео благодарности */}
@@ -324,8 +256,8 @@ export default function TestimonialsSection() {
 
                   {/* Кнопка воспроизведения */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-white/90 hover:bg-white transition-colors rounded-full flex items-center justify-center group-hover:scale-110 transform duration-300">
-                      <Icon name="Play" size={18} className="text-accent ml-0.5" />
+                    <div className="w-16 h-16 bg-white/90 hover:bg-white transition-colors rounded-full flex items-center justify-center group-hover:scale-110 transform duration-300">
+                      <Icon name="Play" size={24} className="text-accent ml-1" />
                     </div>
                   </div>
 
