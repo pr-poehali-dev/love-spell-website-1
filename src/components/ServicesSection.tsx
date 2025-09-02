@@ -16,7 +16,7 @@ export default function ServicesSection() {
       
       <div className="space-y-6">
         {/* Christian Magic */}
-        <div>
+        <div className="hover-lift animate-fade-in-up" style={{animationDelay: '0.1s'}}>
           <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-accent/10">
             <Icon name="Plus" size={20} className="text-accent" />
           </div>

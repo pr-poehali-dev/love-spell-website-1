@@ -13,6 +13,13 @@ const scrollToSection = (sectionId: string) => {
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
     const offsetPosition = elementPosition - headerHeight;
     
+    // Добавляем визуальную обратную связь
+    const button = document.querySelector(`[data-section="${sectionId}"]`);
+    if (button) {
+      button.classList.add('scale-95');
+      setTimeout(() => button.classList.remove('scale-95'), 150);
+    }
+    
     window.scrollTo({
       top: offsetPosition,
       behavior: 'smooth'
@@ -63,7 +70,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
   return (
     <>
       {/* Header Profile Section */}
-      <div className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-30">
+      <div className="bg-background border-b border-border sticky top-0 z-30">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
@@ -86,7 +93,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
       </div>
 
       {/* Navigation Menu */}  
-      <div className="bg-background/90 backdrop-blur-md sticky top-[77px] z-20 shadow-sm border-b border-border/50">
+      <div className="bg-background sticky top-[77px] z-20 border-b border-border">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button 
@@ -130,13 +137,22 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
               )}
             </button>
             <button 
+              data-section="testimonials"
               onClick={() => scrollToSection('testimonials')}
-              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group relative text-foreground hover:text-accent"
+              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-all duration-200 group relative text-foreground hover:text-accent"
             >
               <Icon name="MessageCircle" size={20} className="transition-colors" />
               <span className="text-xs sm:text-xs font-medium">ОТЗЫВЫ</span>
             </button>
-            <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group relative text-foreground hover:text-accent">
+            <button 
+              onClick={() => {
+                const contactElement = document.querySelector('[data-contact]');
+                if (contactElement) {
+                  contactElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+              }}
+              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group relative text-foreground hover:text-accent"
+            >
               <Icon name="Mail" size={20} className="transition-colors" />
               <span className="text-xs sm:text-xs font-medium">СВЯЗЬ</span>
             </button>

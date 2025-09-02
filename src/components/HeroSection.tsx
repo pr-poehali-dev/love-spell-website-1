@@ -32,7 +32,7 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
             <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
               <div className="relative w-full h-full rounded-full overflow-hidden bg-background"
                    style={{ 
-                     filter: 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.35))'
+                     filter: 'drop-shadow(0 14px 24px rgba(0, 0, 0, 0.35))'
                    }}>
                 <img 
                   src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
@@ -62,7 +62,16 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
       <div className="bg-background pt-2 pb-8">
         <div className="max-w-xs sm:max-w-sm md:max-w-md mx-auto px-4">
           {/* Call to Action */}
-          <Button size="lg" className="w-full bg-accent hover:bg-accent/90 text-white font-semibold">
+          <Button 
+            size="lg" 
+            className="w-full bg-accent hover:bg-accent/90 text-white font-semibold transition-all hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+            onClick={() => {
+              const contactElement = document.querySelector('[data-contact]');
+              if (contactElement) {
+                contactElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }}
+          >
             НАПИШИТЕ МНЕ
             <Icon name="MessageSquare" size={18} className="ml-2" />
           </Button>
