@@ -85,8 +85,8 @@ export default function Index() {
                 {/* Shadow ring */}
                 <div className="absolute w-[104%] h-[104%] rounded-full opacity-65"
                      style={{ 
-                       left: '-6px', 
-                       top: '8px',
+                       left: '-10px', 
+                       top: '4px',
                        zIndex: 1,
                        background: 'linear-gradient(180deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.3) 30%, rgba(255, 152, 0, 0.6) 70%, rgba(255, 152, 0, 0.85) 100%)'
                      }}>
