@@ -98,11 +98,10 @@ export default function TestimonialCard({
         ref={containerRef}
         className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full transition-all duration-500 ease-in-out ${
           isExpanded 
-            ? 'min-h-[500px]' 
+            ? '' 
             : cardHeight.collapsed
         }`}
         style={{
-          maxHeight: isExpanded ? '80vh' : cardHeight.collapsed.match(/\d+/)?.[0] + 'px',
           overflow: isExpanded ? 'visible' : 'hidden'
         }}
       >
@@ -181,7 +180,7 @@ export default function TestimonialCard({
         </div>
 
         {/* Автор */}
-        <div className="flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-4">
+        <div className="flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-auto">
           <div 
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-base sm:text-lg font-bold border-2 mb-2"
             style={{ 
