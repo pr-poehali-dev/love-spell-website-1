@@ -38,8 +38,8 @@ export default function Index() {
         </div>
       </div>
 
-      {/* Navigation Menu */}
-      <div className="bg-background border-b border-border sticky top-[84px] z-20">
+      {/* Navigation Menu */}  
+      <div className="bg-background border-b border-border sticky top-[76px] z-20">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors">
