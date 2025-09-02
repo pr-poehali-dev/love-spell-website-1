@@ -202,7 +202,7 @@ export default function TestimonialsSection() {
             {/* Контейнер с абсолютным позиционированием */}
             <div className="absolute inset-0 p-3 sm:p-4 flex flex-col justify-between">
               {/* Текст отзыва с красивыми скобками */}
-              <div className="flex-1 flex items-center justify-center py-2">
+              <div className="flex-1 flex items-start justify-center pt-4 pb-2">
                 <div 
                   className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
