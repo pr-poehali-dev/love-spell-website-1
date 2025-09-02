@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 interface Testimonial {
@@ -35,6 +35,10 @@ export default function TestimonialCard({
   onTouchEnd
 }: TestimonialCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [displayText, setDisplayText] = useState(() => 
+    isExpanded ? testimonial.text : getTruncatedText(testimonial.text)
+  );
 
   const shouldTruncateText = (text: string) => {
     return text.length > maxTextLength;
@@ -59,6 +63,30 @@ export default function TestimonialCard({
     }
     return truncated + '...'; // Стандартная обрезка
   };
+
+  // Анимация перехода текста
+  useEffect(() => {
+    if (displayText === (isExpanded ? testimonial.text : getTruncatedText(testimonial.text))) {
+      return; // Текст уже соответствует состоянию
+    }
+
+    setIsAnimating(true);
+    
+    // Fade out
+    const fadeOutTimer = setTimeout(() => {
+      setDisplayText(isExpanded ? testimonial.text : getTruncatedText(testimonial.text));
+    }, 150);
+
+    // Fade in
+    const fadeInTimer = setTimeout(() => {
+      setIsAnimating(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(fadeOutTimer);
+      clearTimeout(fadeInTimer);
+    };
+  }, [isExpanded, testimonial.text]);
 
   const shouldShowReadMore = (text: string) => {
     return text.length > maxTextLength && !isExpanded;
@@ -102,11 +130,17 @@ export default function TestimonialCard({
             <div className="px-3 sm:px-6 py-2">
               <div className="space-y-3">
                 <div className="relative">
-                  <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic transition-all duration-300 ease-out ${
-                    isExpanded ? 'text-left' : 'text-center'
-                  }`}>
-                    {getTruncatedText(testimonial.text)}
-                  </p>
+                  <div className="relative overflow-hidden">
+                    <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic transition-all duration-500 ease-in-out ${
+                      isExpanded ? 'text-left' : 'text-center'
+                    }`}>
+                      <span className={`inline-block transition-all duration-300 ease-in-out ${
+                        isAnimating ? 'opacity-0 transform translate-y-2' : 'opacity-100 transform translate-y-0'
+                      }`}>
+                        {displayText}
+                      </span>
+                    </p>
+                  </div>
                 </div>
                 
                 {/* Кнопка "Читать далее" с иконкой */}
