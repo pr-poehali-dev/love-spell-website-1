@@ -49,15 +49,24 @@ export default function TestimonialsSection() {
 
   // Рассчитываем максимальную высоту для самого длинного отзыва
   const getMaxCardHeight = () => {
-    const baseHeight = 300; // Базовая высота для UI элементов
-    const charPerLine = 80; // Примерное количество символов в строке
-    const lineHeight = 24; // Высота строки в пиксель
+    // Фиксированные элементы UI
+    const padding = 64; // p-4 sm:p-6 md:p-8 (верх + низ)
+    const authorSection = 140; // аватар + имя + город + отступы + border
+    const quotesSpace = 60; // место для кавычек сверху и снизу
+    const textPadding = 32; // py-2 sm:py-4 для текста
+    
+    // Расчет для текста
+    const charPerLine = 60; // Более консервативная оценка для мобильных
+    const lineHeight = 28; // Увеличенная высота строки для leading-relaxed
 
     const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
     const estimatedLines = Math.ceil(maxTextLength / charPerLine);
     const textHeight = estimatedLines * lineHeight;
     
-    return baseHeight + textHeight;
+    const totalHeight = padding + authorSection + quotesSpace + textPadding + textHeight;
+    
+    // Минимальная высота 450px, максимальная 800px
+    return Math.max(450, Math.min(totalHeight, 800));
   };
 
   // Состояния для свайпа
@@ -233,12 +242,7 @@ export default function TestimonialsSection() {
                 </p>
               </div>
 
-              {/* Индикатор свайпа */}
-              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
-                <div className="flex items-center gap-1 text-xs text-muted-foreground/50">
-                  <span>← свайп →</span>
-                </div>
-              </div>
+
             </div>
           </div>
 
