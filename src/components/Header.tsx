@@ -103,7 +103,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
           <div className="grid grid-cols-4 gap-1">
             <button 
               onClick={() => scrollToSection('about')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'about' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -123,7 +123,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             </button>
             <button 
               onClick={() => scrollToSection('rituals')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'rituals' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -144,7 +144,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             <button 
               data-section="testimonials"
               onClick={() => scrollToSection('testimonials')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'testimonials' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -169,7 +169,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                   contactElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
               }}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'contact' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
