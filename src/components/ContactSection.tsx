@@ -2,20 +2,21 @@ import Icon from '@/components/ui/icon';
 
 export default function ContactSection() {
   return (
-    <div>
-      <h2 className="text-xl font-bold text-foreground mb-6 relative">
-        <span className="relative inline-block">
-          <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
-          <div className="absolute w-9 h-9 rounded-full opacity-40" style={{
-            background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)',
-            top: '-1px',
-            left: '-10px'
-          }}></div>
-        </span>ставьте сообщение
-      </h2>
-      
-      {/* Оранжевая кнопка с аватаром */}
-      <div className="flex justify-center mb-8">
+    <div className="bg-background">
+      <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <h2 className="text-xl font-bold text-foreground mb-6 relative">
+          <span className="relative inline-block">
+            <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
+            <div className="absolute w-9 h-9 rounded-full opacity-40" style={{
+              background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.6) 0%, rgba(255, 152, 0, 0.1) 100%)',
+              top: '-1px',
+              left: '-10px'
+            }}></div>
+          </span>ставьте сообщение
+        </h2>
+        
+        {/* Оранжевая кнопка с аватаром */}
+        <div className="flex justify-center mb-8">
         <button 
           className="flex items-center bg-accent hover:bg-accent/90 text-white rounded-full pl-2 pr-8 py-2 transition-all hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-1 group"
           onClick={() => {
@@ -88,6 +89,7 @@ export default function ContactSection() {
           <p className="text-muted-foreground text-sm leading-relaxed">
             Я ценю личное пространство каждого, кто ко мне обращается.
           </p>
+        </div>
         </div>
       </div>
     </div>
