@@ -88,7 +88,7 @@ export default function Index() {
                        left: '-12px', 
                        top: '12px',
                        zIndex: 1,
-                       background: 'linear-gradient(180deg, rgba(255, 152, 0, 0.8) 0%, rgba(255, 152, 0, 0.5) 30%, rgba(255, 152, 0, 0.25) 70%, rgba(255, 152, 0, 0.1) 100%)'
+                       background: 'radial-gradient(ellipse at right center, rgba(255, 152, 0, 0.7) 0%, rgba(255, 152, 0, 0.4) 40%, rgba(255, 152, 0, 0.15) 100%)'
                      }}>
                 </div>
                 
