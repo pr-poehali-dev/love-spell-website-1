@@ -77,11 +77,10 @@ export default function Index() {
         {/* Profile Section Overlapping */}
         <div className="relative -mt-16 sm:-mt-20 md:-mt-24 z-10">
           <div className="max-w-xs mx-auto px-4 text-center">
-            {/* Large Profile Image */}
-            <div className="mb-6">
+            {/* Large Profile Image with Reflection */}
+            <div className="mb-6 relative">
+              {/* Main Avatar */}
               <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden shadow-2xl bg-background relative">
-                {/* Realistic reflection effect */}
-                <div className="absolute inset-0 rounded-full shadow-[inset_0_-20px_40px_rgba(255,152,0,0.4)] z-10"></div>
                 <img 
                   src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                   alt="Раиса Ильинская"
@@ -90,6 +89,19 @@ export default function Index() {
                 {/* Sunset reflection overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-yellow-300/20 to-red-500/25 rounded-full mix-blend-overlay"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-amber-600/40 via-transparent to-transparent rounded-full mix-blend-soft-light"></div>
+              </div>
+              
+              {/* Mirror Reflection */}
+              <div className="absolute top-[80%] left-1/2 transform -translate-x-1/2 w-32 h-16 sm:w-36 sm:h-18 md:w-40 md:h-20 rounded-b-full overflow-hidden opacity-40">
+                <img 
+                  src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                  alt=""
+                  className="w-full h-full object-cover transform scale-y-[-1] object-top"
+                />
+                {/* Gradient mask for fade effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background rounded-b-full"></div>
+                {/* Sunset reflection on mirror */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-yellow-300/15 to-red-500/20 rounded-b-full mix-blend-overlay"></div>
               </div>
             </div>
             
