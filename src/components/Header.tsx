@@ -63,21 +63,21 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
   return (
     <>
       {/* Header Profile Section */}
-      <div className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-30 smooth-transition">
+      <div className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-30">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-accent/20 smooth-transition hover:ring-accent/50">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
               <img 
                 src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                 alt="Раиса Ильинская"
-                className="w-full h-full object-cover smooth-transition hover:scale-110"
+                className="w-full h-full object-cover"
                 loading="eager"
                 decoding="async"
               />
             </div>
             <div>
               <h1 className="text-base sm:text-lg font-semibold text-foreground truncate tracking-wide">Раиса Ильинская</h1>
-              <div className="text-sm font-medium gradient-text">
+              <div className="text-sm font-medium text-accent">
                 <span className="typewriter" key={currentTitle}>{currentTitle}</span>
               </div>
             </div>
@@ -91,7 +91,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
           <div className="grid grid-cols-4 gap-1">
             <button 
               onClick={() => scrollToSection('about')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg smooth-transition active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'about' 
                   ? 'bg-accent/10 text-accent shadow-md' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -100,45 +100,45 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
               <Icon 
                 name="User" 
                 size={20} 
-                className={`smooth-transition group-hover:scale-110 ${
+                className={`transition-colors  ${
                   activeSection === 'about' ? 'text-accent' : ''
                 }`} 
               />
-              <span className="text-xs sm:text-xs font-medium smooth-transition">КТО Я</span>
+              <span className="text-xs sm:text-xs font-medium">КТО Я</span>
               {activeSection === 'about' && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 gradient-accent rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
             <button 
               onClick={() => scrollToSection('rituals')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg smooth-transition active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'rituals' 
-                  ? 'bg-accent/10 text-accent shadow-md' 
+                  ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
               }`}
             >
               <Icon 
                 name="Leaf" 
                 size={20} 
-                className={`smooth-transition group-hover:scale-110 ${
+                className={`transition-colors  ${
                   activeSection === 'rituals' ? 'text-accent' : ''
                 }`} 
               />
-              <span className="text-xs sm:text-xs font-medium smooth-transition">ОБРЯДЫ</span>
+              <span className="text-xs sm:text-xs font-medium">ОБРЯДЫ</span>
               {activeSection === 'rituals' && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 gradient-accent rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full"></div>
               )}
             </button>
             <button 
               onClick={() => scrollToSection('testimonials')}
-              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 smooth-transition active:scale-95 focus-visible group text-foreground hover:text-accent"
+              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group text-foreground hover:text-accent"
             >
-              <Icon name="MessageCircle" size={20} className="smooth-transition group-hover:scale-110" />
-              <span className="text-xs sm:text-xs font-medium smooth-transition">ОТЗЫВЫ</span>
+              <Icon name="MessageCircle" size={20} className="transition-colors" />
+              <span className="text-xs sm:text-xs font-medium">ОТЗЫВЫ</span>
             </button>
-            <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 smooth-transition active:scale-95 focus-visible group text-foreground hover:text-accent">
-              <Icon name="Mail" size={20} className="smooth-transition group-hover:scale-110" />
-              <span className="text-xs sm:text-xs font-medium smooth-transition">СВЯЗЬ</span>
+            <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors group text-foreground hover:text-accent">
+              <Icon name="Mail" size={20} className="transition-colors" />
+              <span className="text-xs sm:text-xs font-medium">СВЯЗЬ</span>
             </button>
           </div>
         </div>
