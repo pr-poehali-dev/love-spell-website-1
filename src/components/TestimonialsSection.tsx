@@ -51,7 +51,7 @@ export default function TestimonialsSection() {
   const getMaxCardHeight = () => {
     // Фиксированные элементы UI
     const padding = 64; // p-4 sm:p-6 md:p-8 (верх + низ)
-    const authorSection = 220; // аватар + имя + город + отступы + достаточно места для полного отображения
+    const authorSection = 300; // значительно увеличенное место для гарантированного отображения автора
     const quotesSpace = 60; // место для кавычек сверху и снизу
     const textPadding = 32; // py-2 sm:py-4 для текста
     
@@ -220,7 +220,7 @@ export default function TestimonialsSection() {
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center py-4 sm:py-6 border-t border-border/30 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-4 sm:py-6 pb-8 border-t border-border/30 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
