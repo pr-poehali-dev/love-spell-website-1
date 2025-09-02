@@ -62,7 +62,7 @@ export default function Index() {
       </div>
 
       {/* Hero Section with V-Mask Design */}
-      <div className="relative">
+      <div className="relative -mt-16 sm:-mt-20 md:-mt-24">
         {/* Background Image with V-Mask */}
         <div className="relative h-[70vh] sm:h-[75vh]">
           <div 
