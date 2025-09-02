@@ -49,7 +49,7 @@ export default function TestimonialsSection() {
   const [expandedTestimonials, setExpandedTestimonials] = useState<Set<number>>(new Set());
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const [fixedCardHeight, setFixedCardHeight] = useState<number | null>(null);
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Фиксированная высота для предотвращения скролла
@@ -80,58 +80,27 @@ export default function TestimonialsSection() {
     document.documentElement.style.scrollBehavior = 'auto';
     document.body.style.scrollBehavior = 'auto';
     
+    // Автосвертывание и быстрое переключение
+    setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    // Если есть раскрытый отзыв, сначала плавно свертываем его
-    if (expandedTestimonials.size > 0) {
-      // Сбрасываем фиксированную высоту для плавного свертывания
-      setFixedCardHeight(null);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: 'auto' });
       
-      // Плавное свертывание
-      setExpandedTestimonials(new Set());
-      
-      // Ждем завершения анимации свертывания, затем переключаем
       setTimeout(() => {
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+        
         requestAnimationFrame(() => {
           window.scrollTo({ top: scrollY, behavior: 'auto' });
           
           setTimeout(() => {
-            setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-            
-            requestAnimationFrame(() => {
-              window.scrollTo({ top: scrollY, behavior: 'auto' });
-              
-              setTimeout(() => {
-                setIsTransitioning(false);
-                document.documentElement.style.scrollBehavior = currentScrollBehavior;
-                document.body.style.scrollBehavior = '';
-              }, 100);
-            });
-          }, 200);
+            setIsTransitioning(false);
+            document.documentElement.style.scrollBehavior = currentScrollBehavior;
+            document.body.style.scrollBehavior = '';
+          }, 100);
         });
-      }, 300); // Ждем анимацию свертывания
-    } else {
-      // Нет раскрытых отзывов, переключаем сразу
-      setExpandedTestimonials(new Set());
-      
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: scrollY, behavior: 'auto' });
-        
-        setTimeout(() => {
-          setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-          
-          requestAnimationFrame(() => {
-            window.scrollTo({ top: scrollY, behavior: 'auto' });
-            
-            setTimeout(() => {
-              setIsTransitioning(false);
-              document.documentElement.style.scrollBehavior = currentScrollBehavior;
-              document.body.style.scrollBehavior = '';
-            }, 100);
-          });
-        }, 250);
-      });
-    }
+      }, 250);
+    });
   };
 
   const prevTestimonial = () => {
@@ -145,58 +114,27 @@ export default function TestimonialsSection() {
     document.documentElement.style.scrollBehavior = 'auto';
     document.body.style.scrollBehavior = 'auto';
     
+    // Автосвертывание и быстрое переключение
+    setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    // Если есть раскрытый отзыв, сначала плавно свертываем его
-    if (expandedTestimonials.size > 0) {
-      // Сбрасываем фиксированную высоту для плавного свертывания
-      setFixedCardHeight(null);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: 'auto' });
       
-      // Плавное свертывание
-      setExpandedTestimonials(new Set());
-      
-      // Ждем завершения анимации свертывания, затем переключаем
       setTimeout(() => {
+        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        
         requestAnimationFrame(() => {
           window.scrollTo({ top: scrollY, behavior: 'auto' });
           
           setTimeout(() => {
-            setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-            
-            requestAnimationFrame(() => {
-              window.scrollTo({ top: scrollY, behavior: 'auto' });
-              
-              setTimeout(() => {
-                setIsTransitioning(false);
-                document.documentElement.style.scrollBehavior = currentScrollBehavior;
-                document.body.style.scrollBehavior = '';
-              }, 100);
-            });
-          }, 200);
+            setIsTransitioning(false);
+            document.documentElement.style.scrollBehavior = currentScrollBehavior;
+            document.body.style.scrollBehavior = '';
+          }, 100);
         });
-      }, 300); // Ждем анимацию свертывания
-    } else {
-      // Нет раскрытых отзывов, переключаем сразу
-      setExpandedTestimonials(new Set());
-      
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: scrollY, behavior: 'auto' });
-        
-        setTimeout(() => {
-          setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-          
-          requestAnimationFrame(() => {
-            window.scrollTo({ top: scrollY, behavior: 'auto' });
-            
-            setTimeout(() => {
-              setIsTransitioning(false);
-              document.documentElement.style.scrollBehavior = currentScrollBehavior;
-              document.body.style.scrollBehavior = '';
-            }, 100);
-          });
-        }, 250);
-      });
-    }
+      }, 250);
+    });
   };
 
   const goToTestimonial = (index: number) => {
@@ -210,105 +148,41 @@ export default function TestimonialsSection() {
     document.documentElement.style.scrollBehavior = 'auto';
     document.body.style.scrollBehavior = 'auto';
     
+    // Автосвертывание и переключение
+    setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    // Если есть раскрытый отзыв, сначала плавно свертываем его
-    if (expandedTestimonials.size > 0) {
-      // Сбрасываем фиксированную высоту для плавного свертывания
-      setFixedCardHeight(null);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: 'auto' });
       
-      // Плавное свертывание
-      setExpandedTestimonials(new Set());
-      
-      // Ждем завершения анимации свертывания, затем переключаем
       setTimeout(() => {
+        setCurrentTestimonial(index);
+        
         requestAnimationFrame(() => {
           window.scrollTo({ top: scrollY, behavior: 'auto' });
           
           setTimeout(() => {
-            setCurrentTestimonial(index);
-            
-            requestAnimationFrame(() => {
-              window.scrollTo({ top: scrollY, behavior: 'auto' });
-              
-              setTimeout(() => {
-                setIsTransitioning(false);
-                document.documentElement.style.scrollBehavior = currentScrollBehavior;
-                document.body.style.scrollBehavior = '';
-              }, 100);
-            });
-          }, 200);
+            setIsTransitioning(false);
+            document.documentElement.style.scrollBehavior = currentScrollBehavior;
+            document.body.style.scrollBehavior = '';
+          }, 100);
         });
-      }, 300); // Ждем анимацию свертывания
-    } else {
-      // Нет раскрытых отзывов, переключаем сразу
-      setExpandedTestimonials(new Set());
-      
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: scrollY, behavior: 'auto' });
-        
-        setTimeout(() => {
-          setCurrentTestimonial(index);
-          
-          requestAnimationFrame(() => {
-            window.scrollTo({ top: scrollY, behavior: 'auto' });
-            
-            setTimeout(() => {
-              setIsTransitioning(false);
-              document.documentElement.style.scrollBehavior = currentScrollBehavior;
-              document.body.style.scrollBehavior = '';
-            }, 100);
-          });
-        }, 250);
-      });
-    }
+      }, 250);
+    });
   };
 
   // Функции для "Читать далее"
-  const MAX_TEXT_LENGTH = 400; // Максимальная длина текста без "Читать далее" (только для очень длинных)
+  const MAX_TEXT_LENGTH = 150; // Короткий текст по умолчанию
   
   const toggleExpanded = (index: number) => {
-    // Сохраняем позицию скролла ДО изменений
-    const scrollY = window.scrollY;
-    const currentScrollBehavior = document.documentElement.style.scrollBehavior;
-    
-    // Фиксируем текущую высоту карточки при первом раскрытии
-    if (!fixedCardHeight && containerRef.current) {
-      const currentHeight = containerRef.current.offsetHeight;
-      setFixedCardHeight(currentHeight);
-    }
-    
-    // Временно блокируем плавный скролл
-    document.documentElement.style.scrollBehavior = 'auto';
-    document.body.style.scrollBehavior = 'auto';
-    
-    const newExpanded = new Set(expandedTestimonials);
-    if (newExpanded.has(index)) {
-      newExpanded.delete(index);
-    } else {
-      newExpanded.add(index);
-      // При раскрытии фиксируем высоту карточки
-      if (containerRef.current) {
-        const expandedHeight = containerRef.current.scrollHeight + 100; // добавляем запас для длинного текста
-        setFixedCardHeight(expandedHeight);
+    setExpandedTestimonials(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
       }
-    }
-    
-    setExpandedTestimonials(newExpanded);
-    
-    // Множественная фиксация позиции для надежности
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: scrollY, behavior: 'auto' });
-      
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: scrollY, behavior: 'auto' });
-        
-        // Восстанавливаем поведение скролла через небольшую задержку
-        setTimeout(() => {
-          document.documentElement.style.scrollBehavior = currentScrollBehavior;
-          document.body.style.scrollBehavior = '';
-        }, 100);
-      });
+      return newSet;
     });
   };
 
@@ -374,16 +248,12 @@ export default function TestimonialsSection() {
           {/* Карусель отзывов */}
           <div 
             ref={containerRef}
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none transition-all duration-300"
-            style={{ 
-              height: fixedCardHeight ? `${fixedCardHeight}px` : 'auto',
-              minHeight: fixedCardHeight ? 'unset' : '400px'
-            }}
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
-            <div className="p-4 sm:p-6 md:p-8 flex flex-col h-full">
+            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-[350px] overflow-hidden">
               
               {/* Текст отзыва */}
               <div className="flex-1 flex flex-col justify-center">
