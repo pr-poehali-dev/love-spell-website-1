@@ -170,11 +170,11 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <div className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
+    <div className="py-8 sm:py-12 md:py-16 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
         
         {/* Отзывы */}
-        <div className="mb-12 sm:mb-16 md:mb-20 max-w-4xl mx-auto">
+        <div className="mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto">
           <h2 className="text-xl font-bold text-foreground mb-6 relative">
             <span className="relative inline-block">
               <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
@@ -194,10 +194,10 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Навигационные точки на высоте середины отзыва */}
+            {/* Навигационные точки внизу первого отзыва */}
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-10"
-              style={{ top: `${getMaxCardHeight() / 2 - 100}px` }}
+              style={{ bottom: `120px` }}
             >
               <div className="flex justify-center gap-2">
                 {testimonials.map((_, index) => (
