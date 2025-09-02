@@ -47,11 +47,22 @@ export default function TestimonialsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Фиксированная высота для предотвращения скролла
-  const CARD_HEIGHT = {
-    mobile: 450, // px для мобильных
-    desktop: 500 // px для десктопов
+  // Рассчитываем максимальную высоту для самого длинного отзыва
+  const getMaxCardHeight = () => {
+    const baseHeight = 300; // Базовая высота для UI элементов
+    const charPerLine = 80; // Примерное количество символов в строке
+    const lineHeight = 24; // Высота строки в пиксель
+
+    const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
+    const estimatedLines = Math.ceil(maxTextLength / charPerLine);
+    const textHeight = estimatedLines * lineHeight;
+    
+    return baseHeight + textHeight;
   };
+
+  // Состояния для свайпа
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   // Автоперелистывание каждые 15 секунд
   useEffect(() => {
@@ -124,6 +135,31 @@ export default function TestimonialsSection() {
     }, 250);
   };
 
+  // Обработчики свайпов
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextTestimonial();
+    }
+    if (isRightSwipe) {
+      prevTestimonial();
+    }
+  };
+
   return (
     <div className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
@@ -141,13 +177,16 @@ export default function TestimonialsSection() {
             </span>тзывы и благодарности
           </h2>
 
-          {/* Карусель отзывов */}
+          {/* Карусель отзывов с свайпом */}
           <div 
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden"
-            style={{ minHeight: '400px' }}
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden cursor-grab active:cursor-grabbing select-none"
+            style={{ height: `${getMaxCardHeight()}px` }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            {/* Контейнер без абсолютного позиционирования */}
-            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-full">
+            {/* Контейнер с абсолютным позиционированием */}
+            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col justify-between">
               {/* Текст отзыва с красивыми скобками */}
               <div className="flex-1 flex items-center justify-center py-4 sm:py-6">
                 <div 
@@ -193,57 +232,35 @@ export default function TestimonialsSection() {
                   {testimonials[currentTestimonial].location}
                 </p>
               </div>
+
+              {/* Индикатор свайпа */}
+              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+                <div className="flex items-center gap-1 text-xs text-muted-foreground/50">
+                  <span>← свайп →</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Навигация вынесена отдельно */}
-          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <button 
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                prevTestimonial();
-              }}
-              disabled={isTransitioning}
-              className="p-1.5 sm:p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
-            >
-              <Icon name="ChevronLeft" size={16} />
-            </button>
-
-            {/* Индикаторы */}
-            <div className="flex gap-1.5 sm:gap-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    goToTestimonial(index);
-                  }}
-                  disabled={isTransitioning}
-                  className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-                    index === currentTestimonial 
-                      ? 'bg-accent' 
-                      : 'bg-accent/30 hover:bg-accent/50'
-                  }`}
-                />
-              ))}
-            </div>
-
-            <button 
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                nextTestimonial();
-              }}
-              disabled={isTransitioning}
-              className="p-1.5 sm:p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
-            >
-              <Icon name="ChevronRight" size={16} />
-            </button>
+          {/* Индикаторы отзывов */}
+          <div className="flex justify-center gap-2 mb-6 sm:mb-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  goToTestimonial(index);
+                }}
+                disabled={isTransitioning}
+                className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                  index === currentTestimonial 
+                    ? 'bg-accent scale-125' 
+                    : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
+                }`}
+              />
+            ))}
           </div>
         </div>
 
