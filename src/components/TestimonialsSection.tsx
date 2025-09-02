@@ -78,28 +78,25 @@ export default function TestimonialsSection() {
     setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    // Плавный переход с правильным скроллом
+    // Если был раскрытый отзыв, сначала скроллим к началу
+    if (wasExpanded && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const cardTop = rect.top + scrollTop - 100;
+      window.scrollTo({ 
+        top: cardTop, 
+        behavior: 'smooth' 
+      });
+    }
+    
+    // Плавный переход
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      
-      // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
-      if (wasExpanded && containerRef.current) {
-        setTimeout(() => {
-          const rect = containerRef.current!.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const cardTop = rect.top + scrollTop - 100;
-          // Быстрый скролл при переключении с раскрытого отзыва
-          window.scrollTo({ 
-            top: cardTop, 
-            behavior: 'auto' 
-          });
-        }, 50);
-      }
       
       setTimeout(() => {
         setIsTransitioning(false);
       }, 300);
-    }, 150);
+    }, wasExpanded ? 600 : 150);
   };
 
   const prevTestimonial = () => {
@@ -111,28 +108,25 @@ export default function TestimonialsSection() {
     setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    // Плавный переход с правильным скроллом
+    // Если был раскрытый отзыв, сначала скроллим к началу
+    if (wasExpanded && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const cardTop = rect.top + scrollTop - 100;
+      window.scrollTo({ 
+        top: cardTop, 
+        behavior: 'smooth' 
+      });
+    }
+    
+    // Плавный переход
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      
-      // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
-      if (wasExpanded && containerRef.current) {
-        setTimeout(() => {
-          const rect = containerRef.current!.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const cardTop = rect.top + scrollTop - 100;
-          // Быстрый скролл при переключении с раскрытого отзыва
-          window.scrollTo({ 
-            top: cardTop, 
-            behavior: 'auto' 
-          });
-        }, 50);
-      }
       
       setTimeout(() => {
         setIsTransitioning(false);
       }, 300);
-    }, 150);
+    }, wasExpanded ? 600 : 150);
   };
 
   const goToTestimonial = (index: number) => {
@@ -254,17 +248,17 @@ export default function TestimonialsSection() {
           <div className="relative w-full">
             <div 
               ref={containerRef}
-              className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 transition-all duration-500 ease-out hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full overflow-hidden ${
+              className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 transition-all duration-700 ease-out hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full overflow-hidden ${
                 expandedTestimonials.has(currentTestimonial) 
-                  ? 'min-h-[420px]' 
-                  : 'h-[420px] sm:h-[450px]'
+                  ? 'max-h-[800px]' 
+                  : 'max-h-[420px] sm:max-h-[450px]'
               }`}
             >
               {/* Внутренняя карточка отзыва с анимациями */}
               <div 
-                className={`p-4 sm:p-6 md:p-8 flex flex-col relative cursor-grab active:cursor-grabbing select-none ${
+                className={`p-4 sm:p-6 md:p-8 flex flex-col relative cursor-grab active:cursor-grabbing select-none transition-all duration-700 ease-out ${
                   expandedTestimonials.has(currentTestimonial) 
-                    ? 'min-h-[350px]' 
+                    ? 'min-h-[600px]' 
                     : 'h-full'
                 }`}
                 onTouchStart={onTouchStart}
@@ -286,11 +280,7 @@ export default function TestimonialsSection() {
                   <div className="px-3 sm:px-6 py-2">
                     <div className="space-y-3">
                       <div className="relative">
-                        <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-500 ease-out ${
-                          expandedTestimonials.has(currentTestimonial) 
-                            ? 'opacity-100 transform translate-y-0' 
-                            : 'opacity-100 transform translate-y-0'
-                        }`}>
+                        <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-300 ease-out">
                           {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
                         </p>
                       </div>
