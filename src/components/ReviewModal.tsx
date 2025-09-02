@@ -45,7 +45,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
@@ -53,7 +53,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-sm sm:max-w-md bg-card rounded-2xl sm:rounded-3xl shadow-2xl transform transition-all duration-300 scale-100 animate-in slide-in-from-bottom-4 max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-md bg-card rounded-3xl shadow-2xl transform transition-all duration-300 scale-100 animate-in slide-in-from-bottom-4">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -62,7 +62,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
           <X size={20} />
         </button>
 
-        <div className="p-4 sm:p-6 pt-10 sm:pt-12">
+        <div className="p-6 pt-12">
           {!isSubmitted ? (
             <>
               {/* Header */}
