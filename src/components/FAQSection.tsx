@@ -25,16 +25,12 @@ export default function FAQSection() {
         </span>опросы и ответы
       </h2>
       
-      <div className="space-y-4">
+      <div className="space-y-3">
         {faqItems.map((question, index) => (
-          <div key={index} className="group relative">
-            <div className="flex items-start gap-4 p-4 cursor-pointer transition-all duration-200 hover:bg-muted/30 rounded-lg">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-200">
-                <span className="text-sm font-bold text-muted-foreground group-hover:text-accent transition-colors duration-200">Q</span>
-              </div>
-              <div className="flex-1">
-                <p className="text-base text-foreground group-hover:text-accent/90 transition-colors duration-200 leading-relaxed font-medium">{question}</p>
-              </div>
+          <div key={index} className="group">
+            <div className="py-4 px-1 cursor-pointer">
+              <p className="text-base text-foreground group-hover:text-accent transition-colors duration-200 leading-relaxed">{question}</p>
+              <div className="h-px bg-border mt-3 group-hover:bg-accent/50 transition-colors duration-200"></div>
             </div>
           </div>
         ))}
