@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import ReviewModal from '@/components/ReviewModal';
 
@@ -45,21 +45,136 @@ const videoTestimonials = [
 export default function TestimonialsSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Рассчитываем максимальную высоту для самого длинного отзыва
+  const getMaxCardHeight = () => {
+    // Фиксированные элементы UI
+    const padding = 64; // p-4 sm:p-6 md:p-8 (верх + низ)
+    const authorSection = 300; // значительно увеличенное место для гарантированного отображения автора
+    const quotesSpace = 60; // место для кавычек сверху и снизу
+    const textPadding = 32; // py-2 sm:py-4 для текста
+    
+    // Расчет для текста
+    const charPerLine = 60; // Более консервативная оценка для мобильных
+    const lineHeight = 28; // Увеличенная высота строки для leading-relaxed
+
+    const maxTextLength = Math.max(...testimonials.map(t => t.text.length));
+    const estimatedLines = Math.ceil(maxTextLength / charPerLine);
+    const textHeight = estimatedLines * lineHeight;
+    
+    const totalHeight = padding + authorSection + quotesSpace + textPadding + textHeight;
+    
+    // Минимальная высота 450px, максимальная 800px
+    return Math.max(450, Math.min(totalHeight, 800));
+  };
+
+  // Состояния для свайпа
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Автоперелистывание каждые 15 секунд
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isModalOpen && !isTransitioning) {
+        nextTestimonial();
+      }
+    }, 15000);
+
+    return () => clearInterval(interval);
+  }, [isModalOpen, isTransitioning]);
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    if (isTransitioning) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
+    }, 250);
   };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    if (isTransitioning) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
+    }, 250);
+  };
+
+  const goToTestimonial = (index: number) => {
+    if (isTransitioning || index === currentTestimonial) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      setCurrentTestimonial(index);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
+    }, 250);
+  };
+
+  // Обработчики свайпов
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextTestimonial();
+    }
+    if (isRightSwipe) {
+      prevTestimonial();
+    }
   };
 
   return (
-    <div className="py-20 px-4">
+    <div className="py-8 sm:py-12 md:py-16 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
         
         {/* Отзывы */}
-        <div className="mb-20">
+        <div className="mb-6 sm:mb-8 md:mb-10 max-w-4xl mx-auto">
           <h2 className="text-xl font-bold text-foreground mb-6 relative">
             <span className="relative inline-block">
               <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
@@ -71,75 +186,91 @@ export default function TestimonialsSection() {
             </span>тзывы и благодарности
           </h2>
 
-          {/* Карусель отзывов */}
-          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 md:p-12 border border-border/50 mb-8">
-            {/* Текст отзыва с красивыми скобками */}
-            <div className="relative z-10 mb-8">
-              <div className="relative max-w-4xl mx-auto">
-                {/* Открывающая скобка */}
-                <span className="absolute -left-4 top-0 text-4xl md:text-6xl font-serif text-accent/30 select-none">"</span>
-                
-                <p className="text-lg md:text-xl leading-relaxed text-muted-foreground italic text-center px-6">
-                  {testimonials[currentTestimonial].text}
-                </p>
-                
-                {/* Закрывающая скобка */}
-                <span className="absolute -right-4 bottom-0 text-4xl md:text-6xl font-serif text-accent/30 select-none">"</span>
-              </div>
-            </div>
-
-            {/* Автор */}
-            <div className="flex flex-col items-center mb-8">
-              <div 
-                className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-2 mb-4"
-                style={{ 
-                  color: '#ff9800',
-                  borderColor: '#ff9800',
-                  backgroundColor: 'transparent'
-                }}
-              >
-                {testimonials[currentTestimonial].initial}
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-1">
-                {testimonials[currentTestimonial].name}
-              </h3>
-              <p className="text-muted-foreground">
-                {testimonials[currentTestimonial].location}
-              </p>
-            </div>
-
-            {/* Навигация */}
-            <div className="flex items-center justify-center gap-4">
-              <button 
-                onClick={prevTestimonial}
-                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors"
-              >
-                <Icon name="ChevronLeft" size={20} />
-              </button>
-
-              {/* Индикаторы */}
-              <div className="flex gap-2">
+          {/* Карусель отзывов с свайпом */}
+          <div 
+            className="relative mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none"
+            style={{ height: `${getMaxCardHeight()}px` }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            {/* Навигационные точки сразу после самого длинного отзыва */}
+            <div 
+              className="absolute left-1/2 transform -translate-x-1/2 z-10 bottom-24 sm:bottom-36 md:bottom-52 lg:bottom-60"
+            >
+              <div className="flex justify-center gap-2">
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition-colors ${
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      goToTestimonial(index);
+                    }}
+                    disabled={isTransitioning}
+                    className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
                       index === currentTestimonial 
-                        ? 'bg-accent' 
-                        : 'bg-accent/30 hover:bg-accent/50'
+                        ? 'bg-accent scale-125' 
+                        : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
                     }`}
                   />
                 ))}
               </div>
+            </div>
 
-              <button 
-                onClick={nextTestimonial}
-                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors"
+            {/* Контейнер с абсолютным позиционированием */}
+            <div className="absolute inset-0 flex flex-col">
+              {/* Текст отзыва с красивыми кавычками - сверху */}
+              <div className="mb-6">
+                <div 
+                  className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
+                    isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+                  }`}
+                >
+                  {/* Открывающая кавычка */}
+                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">«</span>
+                  
+                  {/* Полный текст отзыва */}
+                  <div className="px-4 sm:px-6">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic py-2 sm:py-4">
+                      {testimonials[currentTestimonial].text}
+                    </p>
+                  </div>
+                  
+                  {/* Закрывающая кавычка */}
+                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">»</span>
+                </div>
+              </div>
+
+              {/* Автор - сразу после отзыва */}
+              <div 
+                className={`flex flex-col items-center transition-all duration-500 ease-in-out ${
+                  isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+                }`}
               >
-                <Icon name="ChevronRight" size={20} />
-              </button>
+                <div 
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold mb-2 sm:mb-3"
+                  style={{ 
+                    color: '#ff9800',
+                    backgroundColor: 'rgba(255, 152, 0, 0.1)'
+                  }}
+                >
+                  {testimonials[currentTestimonial].initial}
+                </div>
+                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">
+                  {testimonials[currentTestimonial].name}
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  {testimonials[currentTestimonial].location}
+                </p>
+              </div>
+
+
             </div>
           </div>
+
+
         </div>
 
         {/* Видео благодарности */}
@@ -181,8 +312,8 @@ export default function TestimonialsSection() {
 
                   {/* Кнопка воспроизведения */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/90 hover:bg-white transition-colors rounded-full flex items-center justify-center group-hover:scale-110 transform duration-300">
-                      <Icon name="Play" size={24} className="text-accent ml-1" />
+                    <div className="w-12 h-12 bg-white/90 hover:bg-white transition-colors rounded-full flex items-center justify-center group-hover:scale-110 transform duration-300">
+                      <Icon name="Play" size={18} className="text-accent ml-0.5" />
                     </div>
                   </div>
 
