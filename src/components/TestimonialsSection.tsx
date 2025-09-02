@@ -85,7 +85,9 @@ export default function TestimonialsSection() {
       // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
       if (wasExpanded && containerRef.current) {
         setTimeout(() => {
-          const cardTop = containerRef.current!.offsetTop - 80;
+          const rect = containerRef.current!.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const cardTop = rect.top + scrollTop - 100;
           window.scrollTo({ 
             top: cardTop, 
             behavior: 'smooth' 
@@ -115,7 +117,9 @@ export default function TestimonialsSection() {
       // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
       if (wasExpanded && containerRef.current) {
         setTimeout(() => {
-          const cardTop = containerRef.current!.offsetTop - 80;
+          const rect = containerRef.current!.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const cardTop = rect.top + scrollTop - 100;
           window.scrollTo({ 
             top: cardTop, 
             behavior: 'smooth' 
@@ -145,7 +149,9 @@ export default function TestimonialsSection() {
       // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
       if (wasExpanded && containerRef.current) {
         setTimeout(() => {
-          const cardTop = containerRef.current!.offsetTop - 80;
+          const rect = containerRef.current!.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const cardTop = rect.top + scrollTop - 100;
           window.scrollTo({ 
             top: cardTop, 
             behavior: 'smooth' 
@@ -168,22 +174,10 @@ export default function TestimonialsSection() {
   };
   
   const toggleExpanded = (index: number) => {
-    const isCurrentlyExpanded = expandedTestimonials.has(index);
-    
     setExpandedTestimonials(prev => {
       const newSet = new Set(prev);
       if (newSet.has(index)) {
         newSet.delete(index);
-        // При свертывании мягко скроллим к началу карточки
-        setTimeout(() => {
-          if (containerRef.current) {
-            const cardTop = containerRef.current.offsetTop - 80;
-            window.scrollTo({ 
-              top: cardTop, 
-              behavior: 'smooth' 
-            });
-          }
-        }, 100);
       } else {
         newSet.add(index);
       }
@@ -197,7 +191,7 @@ export default function TestimonialsSection() {
       return text; // Короткий текст показываем полностью
     }
     if (isExpanded) {
-      return text.slice(0, MAX_TEXT_LENGTH); // При раскрытии показываем только первую часть
+      return text; // При раскрытии показываем ВЕСЬ текст
     }
     return text.slice(0, MAX_TEXT_LENGTH) + '...'; // При свернутом состоянии добавляем троеточие
   };
@@ -280,27 +274,10 @@ export default function TestimonialsSection() {
                   {/* Основной текст */}
                   <div className="px-3 sm:px-6 py-2">
                     <div className="space-y-3">
-                      <div className="relative overflow-hidden">
-                        <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-500 ease-out ${
-                          expandedTestimonials.has(currentTestimonial) 
-                            ? 'opacity-100 transform translate-y-0' 
-                            : 'opacity-100 transform translate-y-0'
-                        }`}>
+                      <div className="relative">
+                        <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-300 ease-out">
                           {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
                         </p>
-                        
-                        {/* Дополнительный текст с анимацией */}
-                        {expandedTestimonials.has(currentTestimonial) && shouldTruncateText(testimonials[currentTestimonial].text) && (
-                          <div className={`transition-all duration-500 ease-out overflow-hidden ${
-                            expandedTestimonials.has(currentTestimonial)
-                              ? 'max-h-96 opacity-100 transform translate-y-0'
-                              : 'max-h-0 opacity-0 transform -translate-y-4'
-                          }`}>
-                            <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center mt-3 animate-in fade-in-0 slide-in-from-top-2 duration-500">
-                              {testimonials[currentTestimonial].text.slice(MAX_TEXT_LENGTH)}
-                            </p>
-                          </div>
-                        )}
                       </div>
                       
                       {/* Кнопка "Читать далее" с иконкой */}
