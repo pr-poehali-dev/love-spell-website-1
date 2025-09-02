@@ -198,7 +198,7 @@ export default function TestimonialsSection() {
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-10"
               style={{ 
-                bottom: '10px' // Минимальный отступ от "Пермь"
+                bottom: '110px' // Поднимаем точки ВВЕРХ к "Пермь"
               }}
             >
               <div className="flex justify-center gap-2">
