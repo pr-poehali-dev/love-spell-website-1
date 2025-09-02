@@ -66,7 +66,7 @@ export default function VideoTestimonials({ videoTestimonials, onAddReview }: Vi
       <div className="text-center">
         <button 
           onClick={onAddReview}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 transform hover:scale-105"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-medium text-sm transition-all duration-300 transform hover:scale-105"
           style={{
             background: 'linear-gradient(135deg, rgb(255, 152, 0) 0%, rgb(255, 120, 0) 100%)',
             color: 'white'
