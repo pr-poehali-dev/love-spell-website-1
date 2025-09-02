@@ -57,12 +57,6 @@ export default function TestimonialCard({
     return truncated + '...'; // Стандартная обрезка
   };
 
-  // Состояния для анимации (после объявления getTruncatedText)
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [displayText, setDisplayText] = useState(() => 
-    isExpanded ? testimonial.text : getTruncatedText(testimonial.text)
-  );
-
   const shouldTruncateText = (text: string) => {
     return text.length > maxTextLength;
   };
@@ -70,27 +64,6 @@ export default function TestimonialCard({
   const shouldShowReadMore = (text: string) => {
     return text.length > maxTextLength && !isExpanded;
   };
-
-  // Анимация перехода текста
-  useEffect(() => {
-    const newText = isExpanded ? testimonial.text : getTruncatedText(testimonial.text);
-    
-    if (displayText === newText) {
-      return; // Текст уже соответствует состоянию
-    }
-
-    setIsAnimating(true);
-    
-    // Сразу меняем текст и убираем анимацию через 200ms
-    const timer = setTimeout(() => {
-      setDisplayText(newText);
-      setIsAnimating(false);
-    }, 200);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [isExpanded, testimonial.text, displayText]);
 
   return (
     <div className="relative w-full">
@@ -129,16 +102,20 @@ export default function TestimonialCard({
             <div className="px-3 sm:px-6 py-2">
               <div className="space-y-3">
                 <div className="relative">
-                  <div className="relative overflow-hidden">
-                    <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic transition-all duration-500 ease-in-out ${
-                      isExpanded ? 'text-left' : 'text-center'
+                  <div className="relative">
+                    <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                      isExpanded ? 'max-h-[2000px]' : 'max-h-[120px]'
                     }`}>
-                      <span className={`inline-block transition-all duration-200 ease-in-out ${
-                        isAnimating ? 'opacity-0' : 'opacity-100'
+                      <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic transition-all duration-300 ease-in-out ${
+                        isExpanded ? 'text-left' : 'text-center'
                       }`}>
-                        {displayText}
-                      </span>
-                    </p>
+                        {testimonial.text}
+                      </p>
+                    </div>
+                    {/* Градиент для плавного затухания текста */}
+                    {!isExpanded && shouldTruncateText(testimonial.text) && (
+                      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-card via-card/80 to-transparent pointer-events-none"></div>
+                    )}
                   </div>
                 </div>
                 
