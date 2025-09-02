@@ -38,7 +38,11 @@ export default function FAQSection() {
           return (
             <div key={index} className="group relative overflow-hidden">
               <div 
-                className="relative p-5 cursor-pointer bg-gradient-to-br from-background to-muted/20 hover:from-accent/5 hover:to-accent/10 transition-all duration-300 rounded-2xl border border-border/50 hover:border-accent/30"
+                className={`relative p-5 cursor-pointer transition-all duration-300 rounded-2xl ${
+                  isOpen 
+                    ? 'bg-gradient-to-br from-accent/10 to-accent/5 border-accent/40 shadow-md' 
+                    : 'bg-gradient-to-br from-background to-muted/20 hover:from-accent/5 hover:to-accent/10 border-border/50 hover:border-accent/30'
+                } border`}
                 onClick={() => toggleItem(index)}
               >
                 {/* Множественные хаотичные иконки вопросов */}
@@ -86,7 +90,9 @@ export default function FAQSection() {
                 
                 <div className="relative">
                   <div className="flex-1 pr-12">
-                    <p className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 leading-relaxed">{question}</p>
+                    <p className={`text-lg font-medium transition-colors duration-300 leading-relaxed ${
+                      isOpen ? 'text-accent' : 'text-foreground group-hover:text-accent'
+                    }`}>{question}</p>
                   </div>
                 </div>
 

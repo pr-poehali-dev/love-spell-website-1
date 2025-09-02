@@ -221,66 +221,71 @@ export default function TestimonialsSection() {
           {/* Карусель отзывов */}
           <div 
             ref={containerRef}
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden cursor-grab active:cursor-grabbing select-none transition-all duration-500"
-            style={{ minHeight: expandedTestimonials.has(currentTestimonial) ? '500px' : '400px' }}
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
-            {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col">
-              {/* Текст отзыва с красивыми скобками - с внутренним скроллом */}
-              <div className="flex-1 flex items-center justify-center py-2 sm:py-4 min-h-0">
+            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-[350px] sm:min-h-[400px]">
+              
+              {/* Текст отзыва */}
+              <div className="flex-1 flex flex-col justify-center">
                 <div 
-                  className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
+                  className={`relative transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
                   {/* Открывающая скобка */}
-                  <span className="absolute -left-2 sm:-left-4 top-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
+                  <span className="absolute -left-1 sm:-left-2 -top-1 text-2xl sm:text-3xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                   
-                  {/* Текст отзыва с "Читать далее" */}
-                  <div className="px-4 sm:px-6">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2">
-                      {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
-                    </p>
-                    {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
-                      <div className="text-center">
-                        <button
-                          onClick={() => toggleExpanded(currentTestimonial)}
-                          className="text-sm font-medium transition-colors duration-200 hover:underline focus:outline-none focus:underline"
-                          style={{ color: '#ff9800' }}
-                        >
-                          Читать далее
-                        </button>
-                      </div>
-                    )}
-                    {expandedTestimonials.has(currentTestimonial) && testimonials[currentTestimonial].text.length > MAX_TEXT_LENGTH && (
-                      <div className="text-center mt-2">
-                        <button
-                          onClick={() => toggleExpanded(currentTestimonial)}
-                          className="text-sm font-medium transition-colors duration-200 hover:underline focus:outline-none focus:underline"
-                          style={{ color: '#ff9800' }}
-                        >
-                          Свернуть
-                        </button>
-                      </div>
-                    )}
+                  {/* Основной текст */}
+                  <div className="px-3 sm:px-6 py-2">
+                    <div className="space-y-3">
+                      <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center">
+                        {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
+                      </p>
+                      
+                      {/* Кнопка "Читать далее" */}
+                      {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
+                        <div className="text-center mt-3">
+                          <button
+                            onClick={() => toggleExpanded(currentTestimonial)}
+                            className="inline-block text-sm font-medium px-3 py-1 rounded-md transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10"
+                            style={{ color: '#ff9800' }}
+                          >
+                            Читать далее
+                          </button>
+                        </div>
+                      )}
+                      
+                      {/* Кнопка "Свернуть" */}
+                      {expandedTestimonials.has(currentTestimonial) && testimonials[currentTestimonial].text.length > MAX_TEXT_LENGTH && (
+                        <div className="text-center mt-3">
+                          <button
+                            onClick={() => toggleExpanded(currentTestimonial)}
+                            className="inline-block text-sm font-medium px-3 py-1 rounded-md transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10"
+                            style={{ color: '#ff9800' }}
+                          >
+                            Свернуть
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   
                   {/* Закрывающая скобка */}
-                  <span className="absolute -right-2 sm:-right-4 bottom-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
+                  <span className="absolute -right-1 sm:-right-2 -bottom-1 text-2xl sm:text-3xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                 </div>
               </div>
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center py-3 sm:py-4 border-t border-border/30 mt-2 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-4 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
                 <div 
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-2 sm:mb-3"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-base sm:text-lg font-bold border-2 mb-2"
                   style={{ 
                     color: '#ff9800',
                     borderColor: '#ff9800',
@@ -289,7 +294,7 @@ export default function TestimonialsSection() {
                 >
                   {testimonials[currentTestimonial].initial}
                 </div>
-                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">
+                <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1">
                   {testimonials[currentTestimonial].name}
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground">
