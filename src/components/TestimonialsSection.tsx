@@ -66,31 +66,61 @@ export default function TestimonialsSection() {
 
   const nextTestimonial = () => {
     if (isTransitioning) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      setTimeout(() => setIsTransitioning(false), 50);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
     }, 250);
   };
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      setTimeout(() => setIsTransitioning(false), 50);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
     }, 250);
   };
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
+    
+    // Сохраняем и фиксируем позицию скролла
+    const scrollY = window.scrollY;
+    document.body.style.scrollBehavior = 'auto';
+    
     setIsTransitioning(true);
     
     setTimeout(() => {
       setCurrentTestimonial(index);
-      setTimeout(() => setIsTransitioning(false), 50);
+      // Принудительно восстанавливаем позицию
+      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.style.scrollBehavior = '';
+      }, 100);
     }, 250);
   };
 
@@ -114,35 +144,35 @@ export default function TestimonialsSection() {
           {/* Карусель отзывов */}
           <div 
             className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden"
-            style={{ height: '450px' }}
+            style={{ minHeight: '400px' }}
           >
-            {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col">
-              {/* Текст отзыва с красивыми скобками - с внутренним скроллом */}
-              <div className="flex-1 flex items-center justify-center py-2 sm:py-4 min-h-0">
+            {/* Контейнер без абсолютного позиционирования */}
+            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-full">
+              {/* Текст отзыва с красивыми скобками */}
+              <div className="flex-1 flex items-center justify-center py-4 sm:py-6">
                 <div 
                   className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
                   {/* Открывающая скобка */}
-                  <span className="absolute -left-2 sm:-left-4 top-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
+                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                   
-                  {/* Скроллируемая область для текста */}
-                  <div className="max-h-[280px] sm:max-h-[320px] overflow-y-auto testimonial-scroll px-4 sm:px-6">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 pr-2">
+                  {/* Полный текст без скролла */}
+                  <div className="px-4 sm:px-6">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-2 sm:py-4">
                       {testimonials[currentTestimonial].text}
                     </p>
                   </div>
                   
                   {/* Закрывающая скобка */}
-                  <span className="absolute -right-2 sm:-right-4 bottom-2 text-2xl sm:text-3xl md:text-4xl font-serif text-accent/30 select-none pointer-events-none z-10">"</span>
+                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
                 </div>
               </div>
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center py-3 sm:py-4 border-t border-border/30 mt-2 transition-all duration-500 ease-in-out ${
+                className={`flex flex-col items-center py-4 sm:py-6 border-t border-border/30 transition-all duration-500 ease-in-out ${
                   isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                 }`}
               >
