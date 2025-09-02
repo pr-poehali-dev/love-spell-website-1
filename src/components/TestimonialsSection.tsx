@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import ReviewModal from '@/components/ReviewModal';
 
 const testimonials = [
   {
@@ -38,27 +39,14 @@ const videoTestimonials = [
   {
     title: "Видео благодарность от Марии",
     thumbnail: "https://cdn.poehali.dev/files/9b8b6441-8764-40fc-859c-180dbcd877bc.png"
-  },
-  {
-    title: "Отзыв Анны о работе Раисы",
-    thumbnail: "https://cdn.poehali.dev/files/9b8b6441-8764-40fc-859c-180dbcd877bc.png"
-  },
-  {
-    title: "Благодарность от семьи Петровых",
-    thumbnail: "https://cdn.poehali.dev/files/9b8b6441-8764-40fc-859c-180dbcd877bc.png"
   }
 ];
 
 export default function TestimonialsSection() {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [showAllTestimonials, setShowAllTestimonials] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  const displayedTestimonials = showAllTestimonials ? testimonials : testimonials.slice(0, 3);
 
   return (
     <div className="py-20 px-4">
@@ -66,83 +54,80 @@ export default function TestimonialsSection() {
         
         {/* Отзывы */}
         <div className="mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
-            <span className="bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent">О</span>тзывы и благодарности
-          </h2>
-
-          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 md:p-12 border border-border/50">
-            {/* Кавычки */}
-            <div className="absolute top-6 left-6 text-6xl font-bold text-accent/20 select-none">"</div>
-            <div className="absolute bottom-6 right-6 text-6xl font-bold text-accent/20 select-none rotate-180">"</div>
-
-            {/* Текст отзыва */}
-            <div className="relative z-10 mb-8">
-              <p className="text-lg md:text-xl leading-relaxed text-muted-foreground italic text-center max-w-4xl mx-auto">
-                {testimonials[currentTestimonial].text}
-              </p>
-            </div>
-
-            {/* Автор */}
-            <div className="flex flex-col items-center mb-8">
-              <div 
-                className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold text-background mb-4"
-                style={{ backgroundColor: 'rgb(255, 152, 0)' }}
-              >
-                {testimonials[currentTestimonial].initial}
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-1">
-                {testimonials[currentTestimonial].name}
-              </h3>
-              <p className="text-muted-foreground">
-                {testimonials[currentTestimonial].location}
-              </p>
-            </div>
-
-            {/* Навигация */}
-            <div className="flex items-center justify-center gap-4">
-              <button 
-                onClick={prevTestimonial}
-                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors"
-              >
-                <Icon name="ChevronLeft" size={20} />
-              </button>
-
-              {/* Индикаторы */}
-              <div className="flex gap-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition-colors ${
-                      index === currentTestimonial 
-                        ? 'bg-accent' 
-                        : 'bg-accent/30 hover:bg-accent/50'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <button 
-                onClick={nextTestimonial}
-                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors"
-              >
-                <Icon name="ChevronRight" size={20} />
-              </button>
-            </div>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-accent via-accent/90 to-accent/70 bg-clip-text text-transparent">
+              Отзывы и благодарности
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Истории людей, которым удалось изменить свою жизнь к лучшему
+            </p>
           </div>
+
+          <div className="grid lg:grid-cols-3 gap-6 mb-8">
+            {displayedTestimonials.map((testimonial, index) => (
+              <div key={index} className="bg-gradient-to-br from-card to-muted/10 rounded-2xl p-6 border border-border/30 hover:border-accent/30 transition-all duration-300 group">
+                {/* Автор */}
+                <div className="flex items-center mb-4">
+                  <div 
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold text-background mr-3"
+                    style={{ backgroundColor: 'rgb(255, 152, 0)' }}
+                  >
+                    {testimonial.initial}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-accent transition-colors">
+                      {testimonial.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {testimonial.location}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Текст отзыва */}
+                <p className="text-sm leading-relaxed text-muted-foreground mb-4">
+                  {testimonial.text.length > 200 ? `${testimonial.text.substring(0, 200)}...` : testimonial.text}
+                </p>
+                
+                {/* Рейтинг звездами */}
+                <div className="flex items-center pt-4 border-t border-border/20">
+                  {[1,2,3,4,5].map((star) => (
+                    <Icon key={star} name="Star" size={16} className="text-accent fill-accent mr-1" />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Показать больше отзывов */}
+          {testimonials.length > 3 && (
+            <div className="text-center">
+              <button 
+                onClick={() => setShowAllTestimonials(!showAllTestimonials)}
+                className="text-accent hover:text-accent/80 font-medium transition-colors underline decoration-accent/30 hover:decoration-accent/60"
+              >
+                {showAllTestimonials ? 'Скрыть дополнительные отзывы' : 'Показать еще отзывы'}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Видео благодарности */}
         <div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
-            <span className="bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent">В</span>идео благодарности
-          </h2>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-accent via-accent/90 to-accent/70 bg-clip-text text-transparent">
+              Видео благодарности
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Искренние слова благодарности от наших клиентов
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div className="flex justify-center mb-12">
             {videoTestimonials.map((video, index) => (
               <div 
                 key={index}
-                className="relative group cursor-pointer"
+                className="relative group cursor-pointer max-w-md w-full"
               >
                 <div 
                   className="aspect-video rounded-2xl overflow-hidden relative"
@@ -179,6 +164,7 @@ export default function TestimonialsSection() {
           {/* Кнопка добавить отзыв */}
           <div className="text-center">
             <button 
+              onClick={() => setIsModalOpen(true)}
               className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 transform hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, rgb(255, 152, 0) 0%, rgb(255, 120, 0) 100%)',
@@ -191,6 +177,9 @@ export default function TestimonialsSection() {
           </div>
         </div>
       </div>
+      
+      {/* Modal */}
+      <ReviewModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
