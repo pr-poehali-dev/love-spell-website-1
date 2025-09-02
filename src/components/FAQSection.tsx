@@ -66,15 +66,6 @@ export default function FAQSection() {
                   </div>
 
                   {/* Дополнительные иконки в хаотичном порядке */}
-                  <div 
-                    className="absolute left-1 top-2 w-6 h-6 rounded flex items-center justify-center transform -rotate-45" 
-                    style={{
-                      backgroundColor: 'rgba(255, 152, 0, 0.03)',
-                      border: '1px solid rgba(255, 152, 0, 0.05)'
-                    }}
-                  >
-                    <span className="text-xs font-bold" style={{color: 'rgba(255, 152, 0, 0.08)'}}>?</span>
-                  </div>
 
                   <div 
                     className="absolute right-1 bottom-2 w-5 h-5 rounded flex items-center justify-center transform rotate-45" 
@@ -86,15 +77,7 @@ export default function FAQSection() {
                     <span className="text-xs font-bold" style={{color: 'rgba(255, 152, 0, 0.06)'}}>?</span>
                   </div>
 
-                  <div 
-                    className="absolute left-4 bottom-4 w-7 h-7 rounded-lg flex items-center justify-center transform rotate-75" 
-                    style={{
-                      backgroundColor: 'rgba(255, 152, 0, 0.04)',
-                      border: '1px solid rgba(255, 152, 0, 0.06)'
-                    }}
-                  >
-                    <span className="text-sm font-bold" style={{color: 'rgba(255, 152, 0, 0.1)'}}>?</span>
-                  </div>
+
 
                   <div 
                     className="absolute right-8 top-1/2 w-6 h-6 rounded flex items-center justify-center transform -rotate-30" 
