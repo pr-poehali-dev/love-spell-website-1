@@ -152,7 +152,7 @@ export default function Index() {
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
                   top: '0px',
-                  left: '-2px'
+                  left: '-8px'
                 }}></div>
               </span>бо мне
             </h2>
@@ -169,7 +169,7 @@ export default function Index() {
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
                   top: '0px',
-                  left: '-2px'
+                  left: '-8px'
                 }}></div>
               </span>ем я занимаюсь
             </h2>
@@ -237,7 +237,7 @@ export default function Index() {
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
                   top: '0px',
-                  left: '-2px'
+                  left: '-8px'
                 }}></div>
               </span>опросы и ответы
             </h2>
