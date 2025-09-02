@@ -52,11 +52,42 @@ export default function TestimonialsSection() {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Фиксированная высота для предотвращения скролла
-  const CARD_HEIGHT = {
-    mobile: 450, // px для мобильных
-    desktop: 500 // px для десктопов
+  // Адаптивные высоты карточек
+  const getCardHeight = () => {
+    if (typeof window === 'undefined') return { collapsed: 'h-[420px]', expanded: 'min-h-[500px]' };
+    
+    const isMobile = window.innerWidth < 640;
+    const isTablet = window.innerWidth < 1024;
+    
+    if (isMobile) {
+      return {
+        collapsed: 'h-[380px]',
+        expanded: 'min-h-[450px] max-h-[80vh]'
+      };
+    } else if (isTablet) {
+      return {
+        collapsed: 'h-[420px]',
+        expanded: 'min-h-[500px] max-h-[75vh]'
+      };
+    } else {
+      return {
+        collapsed: 'h-[450px]',
+        expanded: 'min-h-[550px] max-h-[70vh]'
+      };
+    }
   };
+
+  const [cardHeight, setCardHeight] = useState(getCardHeight());
+
+  // Обновляем высоты при изменении размера экрана
+  useEffect(() => {
+    const handleResize = () => {
+      setCardHeight(getCardHeight());
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Автоперелистывание каждые 15 секунд
   useEffect(() => {
@@ -180,21 +211,61 @@ export default function TestimonialsSection() {
     }
   };
 
-  // Умная логика показа текста
-  const MAX_TEXT_LENGTH = 180; // Оптимальная длина для первого экрана
+  // Адаптивная логика показа текста
+  const getMaxTextLength = () => {
+    if (typeof window === 'undefined') return 180;
+    
+    const isMobile = window.innerWidth < 640;
+    const isTablet = window.innerWidth < 1024;
+    
+    if (isMobile) {
+      return 140; // Меньше текста для мобильных
+    } else if (isTablet) {
+      return 160; // Средне для планшетов
+    } else {
+      return 200; // Больше для десктопов
+    }
+  };
+
+  const [maxTextLength, setMaxTextLength] = useState(getMaxTextLength());
+
+  // Обновляем максимальную длину при изменении размера экрана
+  useEffect(() => {
+    const handleResize = () => {
+      setMaxTextLength(getMaxTextLength());
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // Улучшенная функция для определения необходимости сокращения
   const shouldTruncateText = (text: string) => {
-    return text.length > MAX_TEXT_LENGTH;
+    return text.length > maxTextLength;
   };
   
   const toggleExpanded = (index: number) => {
     setExpandedTestimonials(prev => {
       const newSet = new Set(prev);
+      const isExpanding = !newSet.has(index);
+      
       if (newSet.has(index)) {
         newSet.delete(index);
       } else {
         newSet.add(index);
+        
+        // Для мобильных устройств при раскрытии скроллим к началу карточки
+        if (isExpanding && containerRef.current && window.innerWidth < 768) {
+          setTimeout(() => {
+            const rect = containerRef.current!.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const cardTop = rect.top + scrollTop - 20;
+            window.scrollTo({ 
+              top: cardTop, 
+              behavior: 'smooth' 
+            });
+          }, 100);
+        }
       }
       return newSet;
     });
@@ -202,17 +273,27 @@ export default function TestimonialsSection() {
 
   const getTruncatedText = (text: string, index: number) => {
     const isExpanded = expandedTestimonials.has(index);
-    if (text.length <= MAX_TEXT_LENGTH) {
+    if (text.length <= maxTextLength) {
       return text; // Короткий текст показываем полностью
     }
     if (isExpanded) {
       return text; // При раскрытии показываем ВЕСЬ текст
     }
-    return text.slice(0, MAX_TEXT_LENGTH) + '...'; // При свернутом состоянии добавляем троеточие
+    // Умная обрезка - ищем последнее предложение или точку
+    const truncated = text.slice(0, maxTextLength);
+    const lastSentence = truncated.lastIndexOf('.');
+    const lastSpace = truncated.lastIndexOf(' ');
+    
+    if (lastSentence > maxTextLength - 50) {
+      return text.slice(0, lastSentence + 1); // Обрезаем по предложению
+    } else if (lastSpace > 0) {
+      return text.slice(0, lastSpace) + '...'; // Обрезаем по слову
+    }
+    return truncated + '...'; // Стандартная обрезка
   };
 
   const shouldShowReadMore = (text: string, index: number) => {
-    return text.length > MAX_TEXT_LENGTH && !expandedTestimonials.has(index);
+    return text.length > maxTextLength && !expandedTestimonials.has(index);
   };
 
   // Функции для свайпов
@@ -266,15 +347,17 @@ export default function TestimonialsSection() {
           <div className="relative w-full">
             <div 
               ref={containerRef}
-              className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full overflow-hidden transition-all ease-in-out ${
+              className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full transition-all ease-in-out ${
                 expandedTestimonials.has(currentTestimonial) 
-                  ? 'h-auto min-h-[600px] duration-500' 
-                  : 'h-[420px] sm:h-[450px] duration-300'
+                  ? `h-auto ${cardHeight.expanded} duration-500 overflow-y-auto` 
+                  : `${cardHeight.collapsed} duration-300 overflow-hidden`
               }`}
             >
               {/* Внутренняя карточка отзыва с анимациями */}
               <div 
-                className="p-4 sm:p-6 md:p-8 flex flex-col h-full relative cursor-grab active:cursor-grabbing select-none"
+                className={`p-4 sm:p-6 md:p-8 flex flex-col relative cursor-grab active:cursor-grabbing select-none transition-all duration-300 ${
+                  expandedTestimonials.has(currentTestimonial) ? 'h-auto' : 'h-full'
+                }`}
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
@@ -283,8 +366,8 @@ export default function TestimonialsSection() {
               {/* Текст отзыва */}
               <div className="flex-1 flex flex-col justify-center">
                 <div 
-                  className={`relative transition-all duration-300 ease-out ${
-                    isTransitioning ? 'opacity-0 transform translate-y-2' : 'opacity-100 transform translate-y-0'
+                  className={`relative transition-all duration-400 ease-out ${
+                    isTransitioning ? 'opacity-0 transform translate-y-3 scale-98' : 'opacity-100 transform translate-y-0 scale-100'
                   }`}
                 >
                   {/* Открывающая скобка */}
@@ -294,37 +377,39 @@ export default function TestimonialsSection() {
                   <div className="px-3 sm:px-6 py-2">
                     <div className="space-y-3">
                       <div className="relative">
-                        <p className="text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-300 ease-out">
+                        <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-300 ease-out ${
+                          expandedTestimonials.has(currentTestimonial) ? 'text-left' : 'text-center'
+                        }`}>
                           {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
                         </p>
                       </div>
                       
                       {/* Кнопка "Читать далее" с иконкой */}
                       {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
-                        <div className="text-center mt-4">
+                        <div className="text-center mt-3 sm:mt-4">
                           <button
                             onClick={() => toggleExpanded(currentTestimonial)}
                             disabled={isTransitioning}
-                            className="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
+                            className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
                             style={{ color: '#ff9800' }}
                           >
                             Читать далее
-                            <Icon name="ChevronDown" size={16} className="transition-transform duration-200 group-hover:translate-y-0.5" />
+                            <Icon name="ChevronDown" size={14} className="sm:w-4 sm:h-4 transition-transform duration-200 group-hover:translate-y-0.5" />
                           </button>
                         </div>
                       )}
                       
                       {/* Кнопка "Свернуть" с иконкой */}
                       {expandedTestimonials.has(currentTestimonial) && shouldTruncateText(testimonials[currentTestimonial].text) && (
-                        <div className="text-center mt-4">
+                        <div className="text-center mt-3 sm:mt-4">
                           <button
                             onClick={() => toggleExpanded(currentTestimonial)}
                             disabled={isTransitioning}
-                            className="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
+                            className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
                             style={{ color: '#ff9800' }}
                           >
                             Свернуть
-                            <Icon name="ChevronUp" size={16} className="transition-transform duration-200 group-hover:-translate-y-0.5" />
+                            <Icon name="ChevronUp" size={14} className="sm:w-4 sm:h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
                           </button>
                         </div>
                       )}
@@ -338,8 +423,8 @@ export default function TestimonialsSection() {
 
               {/* Автор */}
               <div 
-                className={`flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-4 transition-all duration-500 ease-in-out ${
-                  isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+                className={`flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-4 transition-all duration-400 ease-in-out ${
+                  isTransitioning ? 'opacity-0 transform scale-95 translate-y-2' : 'opacity-100 transform scale-100 translate-y-0'
                 }`}
               >
                 <div 
@@ -363,8 +448,19 @@ export default function TestimonialsSection() {
             </div>
           </div>
           
-          {/* Индикаторы */}
-          <div className="flex justify-center mb-6 sm:mb-8">
+          {/* Навигация */}
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
+            {/* Кнопка назад */}
+            <button
+              onClick={prevTestimonial}
+              disabled={isTransitioning}
+              className="p-2 sm:p-3 rounded-full bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:bg-accent/5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/30"
+              aria-label="Предыдущий отзыв"
+            >
+              <Icon name="ChevronLeft" size={18} className="sm:w-5 sm:h-5" />
+            </button>
+
+            {/* Индикаторы */}
             <div className="flex gap-1.5 sm:gap-2">
               {testimonials.map((_, index) => (
                 <button
@@ -376,7 +472,7 @@ export default function TestimonialsSection() {
                     goToTestimonial(index);
                   }}
                   disabled={isTransitioning}
-                  className={`relative w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/30 overflow-hidden ${
+                  className={`relative w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/30 overflow-hidden ${
                     index === currentTestimonial 
                       ? 'bg-accent scale-110 shadow-lg shadow-accent/20' 
                       : 'bg-accent/30 hover:bg-accent/50 hover:scale-105'
@@ -384,6 +480,16 @@ export default function TestimonialsSection() {
                 />
               ))}
             </div>
+
+            {/* Кнопка вперед */}
+            <button
+              onClick={nextTestimonial}
+              disabled={isTransitioning}
+              className="p-2 sm:p-3 rounded-full bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:bg-accent/5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/30"
+              aria-label="Следующий отзыв"
+            >
+              <Icon name="ChevronRight" size={18} className="sm:w-5 sm:h-5" />
+            </button>
           </div>
         </div>
 
