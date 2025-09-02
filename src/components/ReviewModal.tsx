@@ -139,11 +139,11 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-gradient-to-r from-accent to-accent/80 text-background font-semibold text-lg rounded-2xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100"
+                  className="w-full py-4 bg-gradient-to-r from-accent to-accent/80 text-white font-semibold text-lg rounded-2xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center justify-center gap-2">
-                      <div className="w-5 h-5 border-2 border-background/30 border-t-background rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                       Отправляем...
                     </div>
                   ) : (
