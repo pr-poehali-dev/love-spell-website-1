@@ -6,7 +6,23 @@ interface HeaderProps {
   setCurrentTitle: (title: string) => void;
 }
 
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    const headerHeight = 154;
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - headerHeight;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+};
+
 export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
+  const [activeSection, setActiveSection] = useState('about');
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTitle(currentTitle === 'Маг' ? 'Ворожея' : 'Маг');
@@ -14,6 +30,27 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
 
     return () => clearInterval(interval);
   }, [currentTitle, setCurrentTitle]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['about', 'rituals'];
+      const scrollPosition = window.scrollY + 200;
+      
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
@@ -44,13 +81,19 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
       <div className="bg-background border-b border-border sticky top-[77px] z-20">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
-            <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200 active:scale-95">
+            <button 
+              onClick={() => scrollToSection('about')}
+              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200 active:scale-95"
+            >
               <Icon name="User" size={20} className="text-accent" />
-              <span className="text-xs sm:text-xs font-medium text-foreground">КТО Я</span>
+              <span className={`text-xs sm:text-xs font-medium ${activeSection === 'about' ? 'text-accent' : 'text-foreground'}`}>КТО Я</span>
             </button>
-            <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200 active:scale-95">
-              <Icon name="Leaf" size={20} className="text-foreground" />
-              <span className="text-xs sm:text-xs font-medium text-foreground">ОБРЯДЫ</span>
+            <button 
+              onClick={() => scrollToSection('rituals')}
+              className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200 active:scale-95"
+            >
+              <Icon name="Leaf" size={20} className={activeSection === 'rituals' ? 'text-accent' : 'text-foreground'} />
+              <span className={`text-xs sm:text-xs font-medium ${activeSection === 'rituals' ? 'text-accent' : 'text-foreground'}`}>ОБРЯДЫ</span>
             </button>
             <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200 active:scale-95">
               <Icon name="MessageCircle" size={20} className="text-foreground" />

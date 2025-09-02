@@ -17,14 +17,18 @@ export default function Index() {
 
       <Divider />
 
-      <AboutMeSection />
+      <div id="about">
+        <AboutMeSection />
+      </div>
 
       <Divider />
 
-      <RitualsPageSection 
-        showMoreRituals={showMoreRituals} 
-        setShowMoreRituals={setShowMoreRituals} 
-      />
+      <div id="rituals">
+        <RitualsPageSection 
+          showMoreRituals={showMoreRituals} 
+          setShowMoreRituals={setShowMoreRituals} 
+        />
+      </div>
     </div>
   );
 }

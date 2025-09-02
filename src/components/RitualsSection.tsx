@@ -71,7 +71,7 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
           <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">{ritual.description}</p>
         </div>
       </div>
-      <div className="absolute bottom-0 left-4 right-4 h-px bg-border opacity-30"></div>
+
     </div>
   );
 }
