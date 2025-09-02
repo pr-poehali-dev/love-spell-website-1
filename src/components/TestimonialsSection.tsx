@@ -47,24 +47,26 @@ export default function TestimonialsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Автоперелистывание каждые 5 секунд
+  // Автоперелистывание каждые 15 секунд
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isModalOpen) {
+      if (!isModalOpen && !isTransitioning) {
         nextTestimonial();
       }
-    }, 5000);
+    }, 15000);
 
     return () => clearInterval(interval);
-  }, [isModalOpen]);
+  }, [isModalOpen, isTransitioning]);
 
   const nextTestimonial = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      setIsTransitioning(false);
-    }, 150);
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 100);
+    }, 200);
   };
 
   const prevTestimonial = () => {
@@ -72,8 +74,10 @@ export default function TestimonialsSection() {
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      setIsTransitioning(false);
-    }, 150);
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 100);
+    }, 200);
   };
 
   const goToTestimonial = (index: number) => {
@@ -81,8 +85,10 @@ export default function TestimonialsSection() {
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentTestimonial(index);
-      setIsTransitioning(false);
-    }, 150);
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 100);
+    }, 200);
   };
 
   return (
@@ -103,12 +109,12 @@ export default function TestimonialsSection() {
           </h2>
 
           {/* Карусель отзывов */}
-          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 md:p-12 border border-border/50 mb-8">
+          <div className="relative bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 md:p-12 border border-border/50 mb-8 overflow-hidden">
             {/* Текст отзыва с красивыми скобками */}
             <div className="relative z-10 mb-8">
               <div 
-                className={`relative max-w-4xl mx-auto transition-all duration-300 ${
-                  isTransitioning ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'
+                className={`relative max-w-4xl mx-auto transition-all duration-500 ease-in-out ${
+                  isTransitioning ? 'opacity-0 transform scale-95 translate-y-6' : 'opacity-100 transform scale-100 translate-y-0'
                 }`}
               >
                 {/* Открывающая скобка */}
@@ -125,8 +131,8 @@ export default function TestimonialsSection() {
 
             {/* Автор */}
             <div 
-              className={`flex flex-col items-center mb-8 transition-all duration-300 ${
-                isTransitioning ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'
+              className={`flex flex-col items-center mb-8 transition-all duration-500 ease-in-out ${
+                isTransitioning ? 'opacity-0 transform scale-95 translate-y-6' : 'opacity-100 transform scale-100 translate-y-0'
               }`}
             >
               <div 
@@ -150,12 +156,14 @@ export default function TestimonialsSection() {
             {/* Навигация */}
             <div className="flex items-center justify-center gap-4">
               <button 
+                type="button"
                 onClick={(e) => {
                   e.preventDefault();
+                  e.stopPropagation();
                   prevTestimonial();
                 }}
                 disabled={isTransitioning}
-                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
               >
                 <Icon name="ChevronLeft" size={20} />
               </button>
@@ -165,12 +173,14 @@ export default function TestimonialsSection() {
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
+                    type="button"
                     onClick={(e) => {
                       e.preventDefault();
+                      e.stopPropagation();
                       goToTestimonial(index);
                     }}
                     disabled={isTransitioning}
-                    className={`w-3 h-3 rounded-full transition-colors disabled:cursor-not-allowed ${
+                    className={`w-3 h-3 rounded-full transition-colors disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50 ${
                       index === currentTestimonial 
                         ? 'bg-accent' 
                         : 'bg-accent/30 hover:bg-accent/50'
@@ -180,12 +190,14 @@ export default function TestimonialsSection() {
               </div>
 
               <button 
+                type="button"
                 onClick={(e) => {
                   e.preventDefault();
+                  e.stopPropagation();
                   nextTestimonial();
                 }}
                 disabled={isTransitioning}
-                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50"
               >
                 <Icon name="ChevronRight" size={20} />
               </button>
