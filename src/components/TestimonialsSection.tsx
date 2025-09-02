@@ -253,17 +253,19 @@ export default function TestimonialsSection() {
             </span>тзывы и благодарности
           </h2>
 
-          {/* Обертка с фиксированной шириной */}
-          <div className="w-full">
-            {/* Карусель отзывов */}
+          {/* Фиксированная карточка-контейнер */}
+          <div className="relative w-full">
             <div 
               ref={containerRef}
-              className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
-            <div className="p-4 sm:p-6 md:p-8 flex flex-col min-h-[320px] relative w-full">
+              className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full h-[420px] sm:h-[450px] overflow-hidden"
+            >
+              {/* Внутренняя карточка отзыва с анимациями */}
+              <div 
+                className="p-4 sm:p-6 md:p-8 flex flex-col h-full relative cursor-grab active:cursor-grabbing select-none overflow-y-auto scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+              >
               
               {/* Текст отзыва */}
               <div className="flex-1 flex flex-col justify-center">
@@ -360,6 +362,7 @@ export default function TestimonialsSection() {
                 <p className="text-xs sm:text-sm text-muted-foreground">
                   {testimonials[currentTestimonial].location}
                 </p>
+              </div>
               </div>
             </div>
           </div>
