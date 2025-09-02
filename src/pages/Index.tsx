@@ -20,13 +20,13 @@ export default function Index() {
       <Divider />
 
       <main className="space-y-12">
-        <section id="about" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-8">
+        <section id="about" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
           <AboutMeSection />
         </section>
 
         <Divider />
 
-        <section id="rituals" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-8">
+        <section id="rituals" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
           <RitualsPageSection 
             showMoreRituals={showMoreRituals} 
             setShowMoreRituals={setShowMoreRituals} 
@@ -35,13 +35,13 @@ export default function Index() {
 
         <Divider />
 
-        <section id="testimonials" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-8">
+        <section id="testimonials" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
           <TestimonialsSection />
         </section>
 
         <Divider />
         
-        <section data-contact className="scroll-mt-32 max-w-4xl mx-auto px-4 py-8">
+        <section data-contact className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
           <ContactSection />
         </section>
       </main>
