@@ -69,6 +69,16 @@ export default function TestimonialsSection() {
     return Math.max(450, Math.min(totalHeight, 800));
   };
 
+  // Рассчитываем позицию точек сразу после текста самого длинного отзыва
+  const getNavigationPosition = () => {
+    // Элементы снизу карточки
+    const authorSection = 80; // место для аватара + имя + город (минимум)
+    const paddingBottom = 20; // нижний отступ
+    const navigationOffset = 20; // отступ для самих точек навигации
+    
+    return authorSection + paddingBottom + navigationOffset;
+  };
+
   // Состояния для свайпа
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -196,7 +206,8 @@ export default function TestimonialsSection() {
           >
             {/* Навигационные точки сразу после самого длинного отзыва */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-10 bottom-24 sm:bottom-36 md:bottom-52 lg:bottom-60"
+              className="absolute left-1/2 transform -translate-x-1/2 z-10"
+              style={{ bottom: `${getNavigationPosition()}px` }}
             >
               <div className="flex justify-center gap-2">
                 {testimonials.map((_, index) => (
