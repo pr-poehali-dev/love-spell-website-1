@@ -18,7 +18,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
   return (
     <>
       {/* Header Profile Section */}
-      <div className="bg-background border-b border-border sticky top-0 z-30 backdrop-blur-sm bg-background/95">
+      <div className="bg-background border-b border-border sticky top-0 z-30">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
@@ -41,7 +41,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
       </div>
 
       {/* Navigation Menu */}  
-      <div className="bg-background border-b border-border sticky top-[77px] z-20 backdrop-blur-sm bg-background/95">
+      <div className="bg-background border-b border-border sticky top-[77px] z-20">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button className="flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200 active:scale-95">
