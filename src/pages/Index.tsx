@@ -75,7 +75,7 @@ export default function Index() {
         </div>
         
         {/* Profile Section Overlapping */}
-        <div className="relative -mt-48 sm:-mt-56 md:-mt-60 z-10">
+        <div className="relative -mt-44 sm:-mt-52 md:-mt-56 z-10">
           <div className="max-w-xs mx-auto px-4 text-center">
             {/* Large Profile Image */}
             <div className="mb-6">
