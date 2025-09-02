@@ -157,11 +157,10 @@ export default function TestimonialCard({
                     <button
                       onClick={onToggleExpanded}
                       disabled={isTransitioning}
-                      className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
-                      className="text-primary"
+                      className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-primary/10 text-primary border border-primary/20 transition-all duration-200 hover:bg-primary/15 hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed group"
                     >
                       Читать далее
-                      <Icon name="ChevronDown" size={14} className="sm:w-4 sm:h-4 transition-transform duration-200 group-hover:translate-y-0.5" />
+                      <Icon name="ChevronDown" size={14} className="transition-transform duration-200 group-hover:translate-y-0.5" />
                     </button>
                   </div>
                 )}
@@ -172,11 +171,10 @@ export default function TestimonialCard({
                     <button
                       onClick={onToggleExpanded}
                       disabled={isTransitioning}
-                      className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
-                      className="text-primary"
+                      className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-primary/10 text-primary border border-primary/20 transition-all duration-200 hover:bg-primary/15 hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed group"
                     >
                       Свернуть
-                      <Icon name="ChevronUp" size={14} className="sm:w-4 sm:h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
+                      <Icon name="ChevronUp" size={14} className="transition-transform duration-200 group-hover:-translate-y-0.5" />
                     </button>
                   </div>
                 )}
@@ -195,12 +193,11 @@ export default function TestimonialCard({
             : 'opacity-100 transform scale-100 translate-y-0 blur-none'
         }`}>
           <div 
-            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-base sm:text-lg font-bold border-2 mb-2 transition-all duration-300 ease-in-out ${
+            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-base sm:text-lg font-bold border-2 mb-2 text-primary border-primary/30 bg-primary/5 backdrop-blur-sm transition-all duration-300 ease-in-out ${
               isTransitioning 
                 ? 'transform rotate-12 scale-90' 
                 : 'transform rotate-0 scale-100'
             }`}
-            className="text-primary border-primary bg-transparent"
           >
             {testimonial.initial}
           </div>

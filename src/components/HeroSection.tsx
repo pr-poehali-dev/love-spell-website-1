@@ -64,7 +64,7 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
           {/* Call to Action */}
           <Button 
             size="lg" 
-            className="w-full bg-accent hover:bg-accent/90 text-white font-semibold transition-all hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98]"
             onClick={() => {
               const contactElement = document.querySelector('[data-contact]');
               if (contactElement) {
@@ -73,7 +73,7 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
             }}
           >
             НАПИШИТЕ МНЕ
-            <Icon name="MessageSquare" size={18} className="ml-2" />
+            <Icon name="ArrowRight" size={18} className="ml-2" />
           </Button>
         </div>
       </div>

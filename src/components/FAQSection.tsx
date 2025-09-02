@@ -51,13 +51,13 @@ export default function FAQSection() {
                   <div 
                     className="absolute right-2 top-4 w-8 h-8 rounded-md flex items-center justify-center transition-all duration-300 transform rotate-12" 
                     style={{
-                      backgroundColor: 'rgba(255, 152, 0, 0.05)',
-                      border: '1px solid rgba(255, 152, 0, 0.1)'
+                      backgroundColor: 'hsl(var(--primary) / 0.15)',
+                      border: '1px solid hsl(var(--primary) / 0.25)'
                     }}
                   >
                     <span 
                       className="text-lg font-bold transition-colors duration-300" 
-                      style={{color: isOpen ? 'rgba(255, 152, 0, 0.8)' : 'rgba(255, 152, 0, 0.15)'}}
+                      style={{color: isOpen ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.4)'}}
                     >
                       ?
                     </span>
@@ -68,11 +68,11 @@ export default function FAQSection() {
                   <div 
                     className="absolute right-1 bottom-2 w-5 h-5 rounded flex items-center justify-center transform rotate-45" 
                     style={{
-                      backgroundColor: 'rgba(255, 152, 0, 0.02)',
-                      border: '1px solid rgba(255, 152, 0, 0.04)'
+                      backgroundColor: 'hsl(var(--primary) / 0.08)',
+                      border: '1px solid hsl(var(--primary) / 0.15)'
                     }}
                   >
-                    <span className="text-xs font-bold" style={{color: 'rgba(255, 152, 0, 0.06)'}}>?</span>
+                    <span className="text-xs font-bold" style={{color: 'hsl(var(--primary) / 0.25)'}}>?</span>
                   </div>
 
 
