@@ -142,7 +142,7 @@ export default function Index() {
 
       {/* Who Am I Section */}
       <div className="bg-background">
-        <div className="max-w-sm mx-auto px-4 py-8 space-y-12">
+        <div className="max-w-sm mx-auto px-4 py-8 space-y-16">
           
           {/* About Me */}
           <div>
@@ -152,7 +152,7 @@ export default function Index() {
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
                   top: '2px',
-                  left: '-2px'
+                  left: '0px'
                 }}></div>
               </span>бо мне
             </h2>
@@ -169,7 +169,7 @@ export default function Index() {
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
                   top: '2px',
-                  left: '-2px'
+                  left: '0px'
                 }}></div>
               </span>ем я занимаюсь
             </h2>
@@ -237,7 +237,7 @@ export default function Index() {
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
                   background: 'linear-gradient(225deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.6) 100%)',
                   top: '2px',
-                  left: '-2px'
+                  left: '0px'
                 }}></div>
               </span>опросы и ответы
             </h2>
