@@ -60,7 +60,11 @@ export default function TestimonialsSection() {
     toggleExpanded,
     onTouchStart,
     onTouchMove,
-    onTouchEnd
+    onTouchEnd,
+    onMouseEnter,
+    onMouseLeave,
+    onFocus,
+    onBlur
   } = useTestimonialLogic({ testimonials, isModalOpen });
 
   return (
@@ -91,6 +95,10 @@ export default function TestimonialsSection() {
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
           
           {/* Навигация */}

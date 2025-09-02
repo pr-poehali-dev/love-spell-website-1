@@ -18,6 +18,8 @@ export function useTestimonialLogic({ testimonials, isModalOpen }: UseTestimonia
   const [expandedTestimonials, setExpandedTestimonials] = useState<Set<number>>(new Set());
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -89,123 +91,90 @@ export function useTestimonialLogic({ testimonials, isModalOpen }: UseTestimonia
   // Автоперелистывание каждые 15 секунд
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isModalOpen && !isTransitioning) {
+      if (!isModalOpen && !isTransitioning && !isHovered && !isFocused && expandedTestimonials.size === 0) {
         nextTestimonial();
       }
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [isModalOpen, isTransitioning]);
+  }, [isModalOpen, isTransitioning, isHovered, isFocused, expandedTestimonials.size]);
 
   const nextTestimonial = () => {
     if (isTransitioning) return;
     
-    const wasExpanded = expandedTestimonials.size > 0;
     setIsTransitioning(true);
     
-    if (wasExpanded) {
-      // Сначала свертываем отзыв
-      setExpandedTestimonials(new Set());
-      
-      // Скроллим к началу карточки
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const cardTop = rect.top + scrollTop - 100;
-        window.scrollTo({ 
-          top: cardTop, 
-          behavior: 'smooth' 
-        });
-      }
-      
-      // Ждем окончания анимации свертывания, затем переключаем отзыв
-      setTimeout(() => {
-        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 200);
-      }, 500);
-    } else {
-      // Обычное переключение без анимации свертывания
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 200);
+    // Всегда сворачиваем все отзывы при переключении
+    setExpandedTestimonials(new Set());
+    
+    // Скроллим к началу карточки если нужно
+    if (containerRef.current && expandedTestimonials.size > 0) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const cardTop = rect.top + scrollTop - 100;
+      window.scrollTo({ 
+        top: cardTop, 
+        behavior: 'smooth' 
+      });
     }
+    
+    // Быстрое переключение без долгих ожиданий
+    setTimeout(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      setIsTransitioning(false);
+    }, 200);
   };
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
     
-    const wasExpanded = expandedTestimonials.size > 0;
     setIsTransitioning(true);
     
-    if (wasExpanded) {
-      // Сначала свертываем отзыв
-      setExpandedTestimonials(new Set());
-      
-      // Скроллим к началу карточки
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const cardTop = rect.top + scrollTop - 100;
-        window.scrollTo({ 
-          top: cardTop, 
-          behavior: 'smooth' 
-        });
-      }
-      
-      // Ждем окончания анимации свертывания, затем переключаем отзыв
-      setTimeout(() => {
-        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 200);
-      }, 500);
-    } else {
-      // Обычное переключение без анимации свертывания
-      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 200);
+    // Всегда сворачиваем все отзывы при переключении
+    setExpandedTestimonials(new Set());
+    
+    // Скроллим к началу карточки если нужно
+    if (containerRef.current && expandedTestimonials.size > 0) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const cardTop = rect.top + scrollTop - 100;
+      window.scrollTo({ 
+        top: cardTop, 
+        behavior: 'smooth' 
+      });
     }
+    
+    // Быстрое переключение без долгих ожиданий
+    setTimeout(() => {
+      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      setIsTransitioning(false);
+    }, 200);
   };
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
     
-    const wasExpanded = expandedTestimonials.size > 0;
     setIsTransitioning(true);
     
-    if (wasExpanded) {
-      // Сначала свертываем отзыв
-      setExpandedTestimonials(new Set());
-      
-      // Скроллим к началу карточки
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const cardTop = rect.top + scrollTop - 100;
-        window.scrollTo({ 
-          top: cardTop, 
-          behavior: 'smooth' 
-        });
-      }
-      
-      // Ждем окончания анимации свертывания, затем переключаем отзыв
-      setTimeout(() => {
-        setCurrentTestimonial(index);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 200);
-      }, 500);
-    } else {
-      // Обычное переключение без анимации свертывания
-      setCurrentTestimonial(index);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 200);
+    // Всегда сворачиваем все отзывы при переключении
+    setExpandedTestimonials(new Set());
+    
+    // Скроллим к началу карточки если нужно
+    if (containerRef.current && expandedTestimonials.size > 0) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const cardTop = rect.top + scrollTop - 100;
+      window.scrollTo({ 
+        top: cardTop, 
+        behavior: 'smooth' 
+      });
     }
+    
+    // Быстрое переключение без долгих ожиданий
+    setTimeout(() => {
+      setCurrentTestimonial(index);
+      setIsTransitioning(false);
+    }, 200);
   };
 
   const toggleExpanded = (index: number) => {
@@ -265,6 +234,11 @@ export function useTestimonialLogic({ testimonials, isModalOpen }: UseTestimonia
     setTouchEnd(null);
   };
 
+  const onMouseEnter = () => setIsHovered(true);
+  const onMouseLeave = () => setIsHovered(false);
+  const onFocus = () => setIsFocused(true);
+  const onBlur = () => setIsFocused(false);
+
   return {
     currentTestimonial,
     isTransitioning,
@@ -278,6 +252,10 @@ export function useTestimonialLogic({ testimonials, isModalOpen }: UseTestimonia
     toggleExpanded,
     onTouchStart,
     onTouchMove,
-    onTouchEnd
+    onTouchEnd,
+    onMouseEnter,
+    onMouseLeave,
+    onFocus,
+    onBlur
   };
 }

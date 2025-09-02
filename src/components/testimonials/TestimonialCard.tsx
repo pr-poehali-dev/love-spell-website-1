@@ -21,6 +21,10 @@ interface TestimonialCardProps {
   onTouchStart: (e: React.TouchEvent) => void;
   onTouchMove: (e: React.TouchEvent) => void;
   onTouchEnd: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export default function TestimonialCard({
@@ -32,7 +36,11 @@ export default function TestimonialCard({
   onToggleExpanded,
   onTouchStart,
   onTouchMove,
-  onTouchEnd
+  onTouchEnd,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur
 }: TestimonialCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -96,6 +104,11 @@ export default function TestimonialCard({
         style={{
           overflow: isExpanded ? 'visible' : 'hidden'
         }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        tabIndex={0}
       >
         {/* Внутренняя карточка отзыва с анимациями */}
         <div 
