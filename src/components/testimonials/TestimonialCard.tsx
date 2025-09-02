@@ -71,15 +71,18 @@ export default function TestimonialCard({
   // Синхронизируем градиент с анимацией высоты
   useEffect(() => {
     if (isExpanded) {
-      // При раскрытии: сначала убираем градиент через 250ms (половина анимации)
+      // При раскрытии: убираем градиент через 100ms (начало анимации)
       const timer = setTimeout(() => {
         setShowGradient(false);
-      }, 250);
+      }, 100);
       return () => clearTimeout(timer);
     } else {
-      // При сворачивании: показываем градиент сразу
+      // При сворачивании: показываем градиент через 300ms (конец анимации)
       if (shouldTruncateText(testimonial.text)) {
-        setShowGradient(true);
+        const timer = setTimeout(() => {
+          setShowGradient(true);
+        }, 300);
+        return () => clearTimeout(timer);
       }
     }
   }, [isExpanded, testimonial.text]);
@@ -178,9 +181,17 @@ export default function TestimonialCard({
         </div>
 
         {/* Автор */}
-        <div className="flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-auto">
+        <div className={`flex flex-col items-center pt-4 sm:pt-6 border-t border-border/30 mt-auto transition-all duration-400 ease-in-out ${
+          isTransitioning 
+            ? 'opacity-0 transform scale-95 translate-y-2 blur-sm' 
+            : 'opacity-100 transform scale-100 translate-y-0 blur-none'
+        }`}>
           <div 
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-base sm:text-lg font-bold border-2 mb-2"
+            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-base sm:text-lg font-bold border-2 mb-2 transition-all duration-300 ease-in-out ${
+              isTransitioning 
+                ? 'transform rotate-12 scale-90' 
+                : 'transform rotate-0 scale-100'
+            }`}
             style={{ 
               color: '#ff9800',
               borderColor: '#ff9800',
@@ -189,10 +200,18 @@ export default function TestimonialCard({
           >
             {testimonial.initial}
           </div>
-          <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1">
+          <h3 className={`text-sm sm:text-base font-semibold text-foreground mb-1 transition-all duration-350 ease-in-out ${
+            isTransitioning 
+              ? 'transform translate-x-2 opacity-0' 
+              : 'transform translate-x-0 opacity-100'
+          }`}>
             {testimonial.name}
           </h3>
-          <p className="text-xs sm:text-sm text-muted-foreground">
+          <p className={`text-xs sm:text-sm text-muted-foreground transition-all duration-300 ease-in-out ${
+            isTransitioning 
+              ? 'transform translate-x-3 opacity-0' 
+              : 'transform translate-x-0 opacity-100'
+          }`}>
             {testimonial.location}
           </p>
         </div>
