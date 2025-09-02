@@ -80,7 +80,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] max-h-[95vh] overflow-y-auto">
           <button 
             onClick={handleClose}
-            className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors z-10 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="absolute right-4 top-4 text-gray-400 hover:text-orange-500 transition-colors z-10 p-2 rounded-full hover:bg-orange-50 dark:hover:bg-orange-900/20"
           >
             <Icon name="X" size={20} />
           </button>
@@ -90,7 +90,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {currentStep === 1 && (
               <div className="text-center">
                 <div className="mb-6">
-                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
                     <Icon name="MessageSquare" size={28} className="text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 text-center">
@@ -101,8 +101,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </p>
                 </div>
                 
-                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-4 mb-8">
-                  <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center">
+                <div className="bg-orange-50 dark:bg-orange-900/20 rounded-2xl p-4 mb-8">
+                  <p className="text-sm text-orange-700 dark:text-orange-300 leading-relaxed text-center">
                     💡 <strong>Рекомендую WhatsApp</strong> для быстрой связи
                   </p>
                 </div>
@@ -158,7 +158,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {currentStep === 2 && (
               <div className="text-center">
                 <div className="mb-6">
-                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
                     <Icon name="AlertTriangle" size={28} className="text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
@@ -189,7 +189,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {currentStep === 3 && (
               <div className="text-center">
                 <div className="mb-6">
-                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full flex items-center justify-center shadow-lg">
                     <Icon name="Heart" size={28} className="text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
@@ -200,8 +200,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </p>
                 </div>
                 
-                <div className="bg-purple-50 dark:bg-purple-900/20 rounded-2xl p-4 mb-8">
-                  <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                <div className="bg-orange-50 dark:bg-orange-900/20 rounded-2xl p-4 mb-8">
+                  <p className="text-sm text-orange-700 dark:text-orange-300 leading-relaxed">
                     ✨ Возвращение отношений, любовные привязки, гармонизация пар
                   </p>
                 </div>
@@ -215,7 +215,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </button>
                   <button
                     onClick={handleNext}
-                    className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg"
+                    className="flex-1 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg"
                   >
                     Это мой случай
                   </button>
@@ -226,7 +226,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {currentStep === 4 && (
               <div className="text-center">
                 <div className="mb-6">
-                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
                     <Icon name="CheckCircle" size={28} className="text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
@@ -276,9 +276,9 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   key={step}
                   className={`h-1.5 rounded-full transition-all duration-500 ${
                     step === currentStep 
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 w-8' 
+                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 w-8' 
                       : step < currentStep 
-                      ? 'bg-blue-400 w-6' 
+                      ? 'bg-orange-400 w-6' 
                       : 'bg-gray-300 dark:bg-gray-600 w-4'
                   }`}
                 />
