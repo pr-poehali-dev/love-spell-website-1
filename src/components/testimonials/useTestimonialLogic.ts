@@ -123,14 +123,14 @@ export function useTestimonialLogic({ testimonials, isModalOpen }: UseTestimonia
         setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
         setTimeout(() => {
           setIsTransitioning(false);
-        }, 300);
-      }, 600);
+        }, 200);
+      }, 500);
     } else {
       // Обычное переключение без анимации свертывания
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 300);
+      }, 200);
     }
   };
 
@@ -160,14 +160,14 @@ export function useTestimonialLogic({ testimonials, isModalOpen }: UseTestimonia
         setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
         setTimeout(() => {
           setIsTransitioning(false);
-        }, 300);
-      }, 600);
+        }, 200);
+      }, 500);
     } else {
       // Обычное переключение без анимации свертывания
       setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 300);
+      }, 200);
     }
   };
 
@@ -197,14 +197,14 @@ export function useTestimonialLogic({ testimonials, isModalOpen }: UseTestimonia
         setCurrentTestimonial(index);
         setTimeout(() => {
           setIsTransitioning(false);
-        }, 300);
-      }, 600);
+        }, 200);
+      }, 500);
     } else {
       // Обычное переключение без анимации свертывания
       setCurrentTestimonial(index);
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 300);
+      }, 200);
     }
   };
 

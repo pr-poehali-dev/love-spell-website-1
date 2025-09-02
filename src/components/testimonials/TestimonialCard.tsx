@@ -71,18 +71,15 @@ export default function TestimonialCard({
   // Синхронизируем градиент с анимацией высоты
   useEffect(() => {
     if (isExpanded) {
-      // При раскрытии: убираем градиент через 100ms (начало анимации)
+      // При раскрытии: убираем градиент через 200ms (середина анимации)
       const timer = setTimeout(() => {
         setShowGradient(false);
-      }, 100);
+      }, 200);
       return () => clearTimeout(timer);
     } else {
-      // При сворачивании: показываем градиент через 300ms (конец анимации)
+      // При сворачивании: показываем градиент сразу
       if (shouldTruncateText(testimonial.text)) {
-        const timer = setTimeout(() => {
-          setShowGradient(true);
-        }, 300);
-        return () => clearTimeout(timer);
+        setShowGradient(true);
       }
     }
   }, [isExpanded, testimonial.text]);
