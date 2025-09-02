@@ -14,7 +14,7 @@ const scrollToSection = (sectionId: string) => {
     const headerHeight = header ? header.offsetHeight : 120;
     
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-    const offsetPosition = elementPosition - headerHeight - 20; // добавляем небольшой отступ
+    const offsetPosition = elementPosition - headerHeight;
     
     // Добавляем визуальную обратную связь
     const button = document.querySelector(`[data-section="${sectionId}"]`);
@@ -101,7 +101,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
           <div className="grid grid-cols-4 gap-1">
             <button 
               onClick={() => scrollToSection('ktoya')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'ktoya' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -121,7 +121,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             </button>
             <button 
               onClick={() => scrollToSection('obryad')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'obryad' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -142,7 +142,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             <button 
               data-section="testimonials"
               onClick={() => scrollToSection('otziv')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'otziv' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'
@@ -162,7 +162,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             </button>
             <button 
               onClick={() => scrollToSection('contact')}
-              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-full transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
+              className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'contact' 
                   ? 'bg-accent/10 text-accent' 
                   : 'hover:bg-muted/50 text-foreground hover:text-accent'

@@ -66,9 +66,17 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
             size="lg" 
             className="w-full bg-primary hover:bg-primary/90 text-white font-semibold transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98]"
             onClick={() => {
-              const contactElement = document.querySelector('[data-contact]');
-              if (contactElement) {
-                contactElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              const element = document.getElementById('contact');
+              if (element) {
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 120;
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - headerHeight;
+                
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: 'smooth'
+                });
               }
             }}
           >

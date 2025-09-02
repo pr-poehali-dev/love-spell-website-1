@@ -22,7 +22,7 @@ export default function Index() {
             const header = document.querySelector('header');
             const headerHeight = header ? header.offsetHeight : 120;
             const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - headerHeight - 20;
+            const offsetPosition = elementPosition - headerHeight;
             
             window.scrollTo({
               top: offsetPosition,
