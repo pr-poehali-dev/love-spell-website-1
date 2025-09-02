@@ -3,7 +3,7 @@ import Icon from '@/components/ui/icon';
 export default function ContactSection() {
   return (
     <div className="bg-background">
-      <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-2 sm:py-4">
+      <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-2 sm:py-4 space-y-12 sm:space-y-16">
         <h2 className="text-xl font-bold text-foreground mb-8 relative pt-0">
           <span className="relative inline-block">
             <span className="text-2xl font-bold relative z-10 text-primary">О</span>
