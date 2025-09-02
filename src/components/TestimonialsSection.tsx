@@ -188,23 +188,23 @@ export default function TestimonialsSection() {
 
           {/* Карусель отзывов с свайпом */}
           <div 
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden cursor-grab active:cursor-grabbing select-none"
+            className="relative mb-6 sm:mb-8 cursor-grab active:cursor-grabbing select-none"
             style={{ height: `${getMaxCardHeight()}px` }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
             {/* Контейнер с абсолютным позиционированием */}
-            <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col">
-              {/* Текст отзыва с красивыми скобками - сверху */}
-              <div className="mb-4">
+            <div className="absolute inset-0 flex flex-col">
+              {/* Текст отзыва с красивыми кавычками - сверху */}
+              <div className="mb-6">
                 <div 
                   className={`relative max-w-4xl mx-auto w-full transition-all duration-500 ease-in-out ${
                     isTransitioning ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
                   }`}
                 >
-                  {/* Открывающая скобка */}
-                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  {/* Открывающая кавычка */}
+                  <span className="absolute -left-2 sm:-left-4 -top-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">«</span>
                   
                   {/* Полный текст отзыва */}
                   <div className="px-4 sm:px-6">
@@ -213,8 +213,8 @@ export default function TestimonialsSection() {
                     </p>
                   </div>
                   
-                  {/* Закрывающая скобка */}
-                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/30 select-none pointer-events-none">"</span>
+                  {/* Закрывающая кавычка */}
+                  <span className="absolute -right-2 sm:-right-4 -bottom-2 text-3xl sm:text-4xl md:text-5xl font-serif text-accent/40 select-none pointer-events-none">»</span>
                 </div>
               </div>
 
@@ -225,11 +225,10 @@ export default function TestimonialsSection() {
                 }`}
               >
                 <div 
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold border-2 mb-2 sm:mb-3"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold mb-2 sm:mb-3"
                   style={{ 
                     color: '#ff9800',
-                    borderColor: '#ff9800',
-                    backgroundColor: 'transparent'
+                    backgroundColor: 'rgba(255, 152, 0, 0.1)'
                   }}
                 >
                   {testimonials[currentTestimonial].initial}
