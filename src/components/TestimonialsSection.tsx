@@ -221,8 +221,8 @@ export default function TestimonialsSection() {
           {/* Карусель отзывов */}
           <div 
             ref={containerRef}
-            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden cursor-grab active:cursor-grabbing select-none"
-            style={{ minHeight: '400px' }}
+            className="relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 overflow-hidden cursor-grab active:cursor-grabbing select-none transition-all duration-500"
+            style={{ minHeight: expandedTestimonials.has(currentTestimonial) ? '500px' : '400px' }}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -241,16 +241,9 @@ export default function TestimonialsSection() {
                   
                   {/* Текст отзыва с "Читать далее" */}
                   <div className="px-4 sm:px-6">
-                    <div 
-                      className="overflow-hidden transition-all duration-700 ease-in-out"
-                      style={{
-                        maxHeight: expandedTestimonials.has(currentTestimonial) ? '1000px' : '200px'
-                      }}
-                    >
-                      <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2 transition-opacity duration-500">
-                        {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
-                      </p>
-                    </div>
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic text-center py-1 sm:py-2">
+                      {getTruncatedText(testimonials[currentTestimonial].text, currentTestimonial)}
+                    </p>
                     {shouldShowReadMore(testimonials[currentTestimonial].text, currentTestimonial) && (
                       <div className="text-center">
                         <button
@@ -306,8 +299,8 @@ export default function TestimonialsSection() {
             </div>
           </div>
 
-          {/* Индикаторы с подсказкой о свайпах */}
-          <div className="flex flex-col items-center gap-3 mb-6 sm:mb-8">
+          {/* Индикаторы */}
+          <div className="flex justify-center mb-6 sm:mb-8">
             <div className="flex gap-1.5 sm:gap-2">
               {testimonials.map((_, index) => (
                 <button
@@ -327,9 +320,6 @@ export default function TestimonialsSection() {
                 />
               ))}
             </div>
-            <p className="text-xs text-muted-foreground/60 text-center">
-              Проведите влево или вправо для переключения
-            </p>
           </div>
         </div>
 
