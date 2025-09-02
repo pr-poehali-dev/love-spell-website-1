@@ -73,93 +73,111 @@ export default function TestimonialsSection() {
     if (isTransitioning) return;
     
     const wasExpanded = expandedTestimonials.size > 0;
-    
-    // Свертываем текст и переходим к следующему
-    setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    // Если был раскрытый отзыв, сначала скроллим к началу
-    if (wasExpanded && containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const cardTop = rect.top + scrollTop - 100;
-      window.scrollTo({ 
-        top: cardTop, 
-        behavior: 'smooth' 
-      });
-    }
-    
-    // Плавный переход
-    setTimeout(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    if (wasExpanded) {
+      // Сначала свертываем отзыв
+      setExpandedTestimonials(new Set());
       
+      // Скроллим к началу карточки
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const cardTop = rect.top + scrollTop - 100;
+        window.scrollTo({ 
+          top: cardTop, 
+          behavior: 'smooth' 
+        });
+      }
+      
+      // Ждем окончания анимации свертывания, затем переключаем отзыв
+      setTimeout(() => {
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 300);
+      }, 600);
+    } else {
+      // Обычное переключение без анимации свертывания
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
       setTimeout(() => {
         setIsTransitioning(false);
       }, 300);
-    }, wasExpanded ? 600 : 150);
+    }
   };
 
   const prevTestimonial = () => {
     if (isTransitioning) return;
     
     const wasExpanded = expandedTestimonials.size > 0;
-    
-    // Свертываем текст и переходим к предыдущему
-    setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    // Если был раскрытый отзыв, сначала скроллим к началу
-    if (wasExpanded && containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const cardTop = rect.top + scrollTop - 100;
-      window.scrollTo({ 
-        top: cardTop, 
-        behavior: 'smooth' 
-      });
-    }
-    
-    // Плавный переход
-    setTimeout(() => {
-      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    if (wasExpanded) {
+      // Сначала свертываем отзыв
+      setExpandedTestimonials(new Set());
       
+      // Скроллим к началу карточки
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const cardTop = rect.top + scrollTop - 100;
+        window.scrollTo({ 
+          top: cardTop, 
+          behavior: 'smooth' 
+        });
+      }
+      
+      // Ждем окончания анимации свертывания, затем переключаем отзыв
+      setTimeout(() => {
+        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 300);
+      }, 600);
+    } else {
+      // Обычное переключение без анимации свертывания
+      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
       setTimeout(() => {
         setIsTransitioning(false);
       }, 300);
-    }, wasExpanded ? 600 : 150);
+    }
   };
 
   const goToTestimonial = (index: number) => {
     if (isTransitioning || index === currentTestimonial) return;
     
     const wasExpanded = expandedTestimonials.size > 0;
-    
-    // Свертываем текст и переходим к выбранному
-    setExpandedTestimonials(new Set());
     setIsTransitioning(true);
     
-    // Плавный переход с правильным скроллом
-    setTimeout(() => {
-      setCurrentTestimonial(index);
+    if (wasExpanded) {
+      // Сначала свертываем отзыв
+      setExpandedTestimonials(new Set());
       
-      // Если был раскрытый отзыв, плавно возвращаемся к началу карточки
-      if (wasExpanded && containerRef.current) {
-        setTimeout(() => {
-          const rect = containerRef.current!.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const cardTop = rect.top + scrollTop - 100;
-          // Быстрый скролл при переключении с раскрытого отзыва
-          window.scrollTo({ 
-            top: cardTop, 
-            behavior: 'auto' 
-          });
-        }, 50);
+      // Скроллим к началу карточки
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const cardTop = rect.top + scrollTop - 100;
+        window.scrollTo({ 
+          top: cardTop, 
+          behavior: 'smooth' 
+        });
       }
       
+      // Ждем окончания анимации свертывания, затем переключаем отзыв
+      setTimeout(() => {
+        setCurrentTestimonial(index);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 300);
+      }, 600);
+    } else {
+      // Обычное переключение без анимации свертывания
+      setCurrentTestimonial(index);
       setTimeout(() => {
         setIsTransitioning(false);
       }, 300);
-    }, 150);
+    }
   };
 
   // Умная логика показа текста
@@ -248,19 +266,15 @@ export default function TestimonialsSection() {
           <div className="relative w-full">
             <div 
               ref={containerRef}
-              className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 transition-all duration-700 ease-out hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full overflow-hidden ${
+              className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full overflow-hidden transition-all ease-in-out ${
                 expandedTestimonials.has(currentTestimonial) 
-                  ? 'max-h-[800px]' 
-                  : 'max-h-[420px] sm:max-h-[450px]'
+                  ? 'h-auto min-h-[600px] duration-500' 
+                  : 'h-[420px] sm:h-[450px] duration-300'
               }`}
             >
               {/* Внутренняя карточка отзыва с анимациями */}
               <div 
-                className={`p-4 sm:p-6 md:p-8 flex flex-col relative cursor-grab active:cursor-grabbing select-none transition-all duration-700 ease-out ${
-                  expandedTestimonials.has(currentTestimonial) 
-                    ? 'min-h-[600px]' 
-                    : 'h-full'
-                }`}
+                className="p-4 sm:p-6 md:p-8 flex flex-col h-full relative cursor-grab active:cursor-grabbing select-none"
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
