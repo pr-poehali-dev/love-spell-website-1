@@ -19,30 +19,30 @@ export default function ContactSection() {
         </h2>
         
         {/* Адаптивная кнопка связи */}
-        <div className="flex justify-center mb-8 px-4">
-          <div className="relative w-full max-w-sm">
+        <div className="flex justify-center mb-8">
+          <div className="relative w-full max-w-xs px-4">
             <button 
-              className="relative flex items-center w-full bg-primary hover:bg-primary/90 text-white rounded-full py-3 sm:py-4 pl-24 sm:pl-28 pr-6 sm:pr-8 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] group shadow-lg min-h-[70px] sm:min-h-[80px]"
+              className="relative flex items-center w-full bg-primary hover:bg-primary/90 text-white rounded-full py-3 pl-20 pr-4 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] group shadow-lg h-16"
               onClick={() => setIsModalOpen(true)}
             >
               {/* Контент */}
-              <div className="flex flex-col items-start gap-0.5 sm:gap-1">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <span className="text-white font-semibold text-base sm:text-lg">Раиса</span>
-                  <span className="bg-green-500 text-white text-xs sm:text-sm font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+              <div className="flex flex-col items-start gap-0.5 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-white font-semibold text-sm truncate">Раиса</span>
+                  <span className="bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap">
                     Online
                   </span>
                 </div>
-                <div className="text-white text-lg sm:text-xl font-bold">
+                <div className="text-white text-base font-bold truncate">
                   Напишите мне
                 </div>
               </div>
             </button>
             
-            {/* Увеличенный аватар слева - выходит за границы кнопки */}
-            <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
+            {/* Аватар слева - фиксированный размер */}
+            <div className="absolute left-6 top-1/2 transform -translate-y-1/2">
               <div className="relative">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-3 sm:border-4 border-white">
+                <div className="w-14 h-14 rounded-full overflow-hidden border-3 border-white flex-shrink-0">
                   <img 
                     src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                     alt="Раиса Ильинская"
@@ -50,12 +50,12 @@ export default function ContactSection() {
                   />
                 </div>
                 {/* Иконка сообщения */}
-                <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 w-6 h-6 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center">
-                  <div className="w-4 h-4 sm:w-6 sm:h-6 bg-green-500 rounded-full flex items-center justify-center">
+                <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-white rounded-full flex items-center justify-center">
+                  <div className="w-3.5 h-3.5 bg-green-500 rounded-full flex items-center justify-center">
                     <div className="flex gap-0.5">
-                      <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full"></div>
-                      <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full"></div>
-                      <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full"></div>
+                      <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
+                      <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
+                      <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
                     </div>
                   </div>
                 </div>
