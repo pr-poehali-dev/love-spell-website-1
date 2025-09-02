@@ -25,12 +25,21 @@ export default function FAQSection() {
         </span>опросы и ответы
       </h2>
       
-      <div className="space-y-3">
+      <div className="grid gap-4">
         {faqItems.map((question, index) => (
-          <div key={index} className="group">
-            <div className="py-4 px-1 cursor-pointer">
-              <p className="text-base text-foreground group-hover:text-accent transition-colors duration-200 leading-relaxed">{question}</p>
-              <div className="h-px bg-border mt-3 group-hover:bg-accent/50 transition-colors duration-200"></div>
+          <div key={index} className="group relative overflow-hidden">
+            <div className="relative p-5 cursor-pointer bg-gradient-to-br from-background to-muted/20 hover:from-accent/5 hover:to-accent/10 transition-all duration-300 rounded-2xl border border-border/50 hover:border-accent/30">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-0.5">
+                  <div className="text-2xl font-bold text-accent/30 group-hover:text-accent/60 transition-colors duration-300">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <p className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 leading-relaxed">{question}</p>
+                </div>
+              </div>
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-accent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           </div>
         ))}
