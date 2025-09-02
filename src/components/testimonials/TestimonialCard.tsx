@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 interface Testimonial {
@@ -35,6 +35,18 @@ export default function TestimonialCard({
   onTouchEnd
 }: TestimonialCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Управление анимацией расширения
+  useEffect(() => {
+    if (isExpanded !== isAnimating) {
+      setIsAnimating(true);
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+      }, 700); // Длительность анимации
+      return () => clearTimeout(timer);
+    }
+  }, [isExpanded, isAnimating]);
 
   const shouldTruncateText = (text: string) => {
     return text.length > maxTextLength;
@@ -42,22 +54,32 @@ export default function TestimonialCard({
 
   const getTruncatedText = (text: string) => {
     if (text.length <= maxTextLength) {
-      return text; // Короткий текст показываем полностью
+      return { visibleText: text, hiddenText: null };
     }
-    if (isExpanded) {
-      return text; // При раскрытии показываем ВЕСЬ текст
-    }
+    
     // Умная обрезка - ищем последнее предложение или точку
     const truncated = text.slice(0, maxTextLength);
     const lastSentence = truncated.lastIndexOf('.');
     const lastSpace = truncated.lastIndexOf(' ');
     
+    let cutPoint = maxTextLength;
     if (lastSentence > maxTextLength - 50) {
-      return text.slice(0, lastSentence + 1); // Обрезаем по предложению
+      cutPoint = lastSentence + 1;
     } else if (lastSpace > 0) {
-      return text.slice(0, lastSpace) + '...'; // Обрезаем по слову
+      cutPoint = lastSpace;
     }
-    return truncated + '...'; // Стандартная обрезка
+    
+    const visibleText = text.slice(0, cutPoint);
+    const hiddenText = text.slice(cutPoint);
+    
+    if (isExpanded) {
+      return { visibleText, hiddenText };
+    } else {
+      return { 
+        visibleText: visibleText + (hiddenText ? '...' : ''), 
+        hiddenText: null 
+      };
+    }
   };
 
   const shouldShowReadMore = (text: string) => {
@@ -68,10 +90,10 @@ export default function TestimonialCard({
     <div className="relative w-full">
       <div 
         ref={containerRef}
-        className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full transition-all ease-in-out ${
+        className={`relative bg-gradient-to-br from-card to-muted/20 rounded-2xl sm:rounded-3xl border border-border/50 mb-6 sm:mb-8 hover:shadow-lg hover:shadow-black/5 hover:border-border/70 w-full transition-all duration-700 ease-in-out ${
           isExpanded 
-            ? `h-auto ${cardHeight.expanded} duration-500 overflow-y-auto` 
-            : `${cardHeight.collapsed} duration-300 overflow-hidden`
+            ? `max-h-[200vh] overflow-y-auto` 
+            : `${cardHeight.collapsed} overflow-hidden`
         }`}
       >
         {/* Внутренняя карточка отзыва с анимациями */}
@@ -98,19 +120,39 @@ export default function TestimonialCard({
             <div className="px-3 sm:px-6 py-2">
               <div className="space-y-3">
                 <div className="relative">
-                  <p className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic text-center transition-all duration-300 ease-out ${
-                    isExpanded ? 'text-left' : 'text-center'
-                  }`}>
-                    {getTruncatedText(testimonial.text)}
-                  </p>
+                  {(() => {
+                    const { visibleText, hiddenText } = getTruncatedText(testimonial.text);
+                    return (
+                      <div className={`text-sm sm:text-base leading-relaxed text-muted-foreground italic transition-all duration-300 ease-out ${
+                        isExpanded ? 'text-left' : 'text-center'
+                      }`}>
+                        <p className="mb-0">
+                          {visibleText}
+                        </p>
+                        {hiddenText && (
+                          <div 
+                            className={`transition-all duration-700 ease-in-out ${
+                              isExpanded 
+                                ? 'opacity-100 transform translate-y-0 max-h-[500px]' 
+                                : 'opacity-0 transform translate-y-2 max-h-0'
+                            } overflow-hidden`}
+                          >
+                            <p className="mt-0">{hiddenText}</p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
                 
                 {/* Кнопка "Читать далее" с иконкой */}
                 {shouldShowReadMore(testimonial.text) && (
-                  <div className="text-center mt-3 sm:mt-4">
+                  <div className={`text-center mt-3 sm:mt-4 transition-all duration-300 ${
+                    isAnimating ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
+                  }`}>
                     <button
                       onClick={onToggleExpanded}
-                      disabled={isTransitioning}
+                      disabled={isTransitioning || isAnimating}
                       className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
                       style={{ color: '#ff9800' }}
                     >
@@ -122,10 +164,12 @@ export default function TestimonialCard({
                 
                 {/* Кнопка "Свернуть" с иконкой */}
                 {isExpanded && shouldTruncateText(testimonial.text) && (
-                  <div className="text-center mt-3 sm:mt-4">
+                  <div className={`text-center mt-3 sm:mt-4 transition-all duration-300 delay-300 ${
+                    isExpanded && !isAnimating ? 'opacity-100 transform scale-100' : 'opacity-0 transform scale-95'
+                  }`}>
                     <button
                       onClick={onToggleExpanded}
-                      disabled={isTransitioning}
+                      disabled={isTransitioning || isAnimating}
                       className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all duration-200 hover:bg-accent/10 focus:outline-none focus:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed group"
                       style={{ color: '#ff9800' }}
                     >
