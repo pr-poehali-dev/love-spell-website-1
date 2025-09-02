@@ -18,44 +18,21 @@ export default function ContactSection() {
           </span>ставьте сообщение
         </h2>
         
-        {/* Минималистичная кнопка связи */}
+        {/* Кнопка связи в стиле сайта */}
         <div className="flex justify-center mb-8">
           <button 
-            className="group relative bg-white border border-border hover:border-primary/30 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] w-full max-w-sm"
+            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-4 px-6 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] flex items-center justify-center gap-3 group"
             onClick={() => setIsModalOpen(true)}
           >
-            <div className="flex items-center gap-4">
-              {/* Аватар */}
-              <div className="relative flex-shrink-0">
-                <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-primary/10 group-hover:ring-primary/20 transition-all duration-300">
-                  <img 
-                    src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
-                    alt="Раиса Ильинская"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></div>
-              </div>
-              
-              {/* Контент */}
-              <div className="flex-1 text-left">
-                <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
-                  Раиса Ильинская
-                </h3>
-                <p className="text-muted-foreground text-sm mb-3">
-                  Персональная консультация
-                </p>
-                <div className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary/15 text-primary px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 group-hover:scale-105">
-                  <Icon name="MessageCircle" size={14} />
-                  Напишите мне
-                </div>
-              </div>
-              
-              {/* Стрелка */}
-              <div className="flex-shrink-0 text-muted-foreground group-hover:text-primary transition-all duration-300 transform group-hover:translate-x-1">
-                <Icon name="ArrowRight" size={20} />
-              </div>
+            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/20 flex-shrink-0">
+              <img 
+                src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                alt="Раиса Ильинская"
+                className="w-full h-full object-cover"
+              />
             </div>
+            <span className="text-lg">Напишите мне</span>
+            <Icon name="ArrowRight" size={20} className="transition-transform group-hover:translate-x-1" />
           </button>
         </div>
 
