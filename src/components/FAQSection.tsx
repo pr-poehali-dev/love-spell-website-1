@@ -29,21 +29,21 @@ export default function FAQSection() {
         {faqItems.map((question, index) => (
           <div key={index} className="group relative overflow-hidden">
             <div className="relative p-5 cursor-pointer bg-gradient-to-br from-background to-muted/20 hover:from-accent/5 hover:to-accent/10 transition-all duration-300 rounded-2xl border border-border/50 hover:border-accent/30">
-              {/* Полупрозрачный знак вопроса */}
-              <div className="absolute -left-2 top-1/2 -translate-y-1/2 text-8xl font-bold text-accent/8 group-hover:text-accent/15 transition-colors duration-300 transform rotate-12 select-none pointer-events-none">
+              {/* Полупрозрачный оранжевый знак вопроса справа */}
+              <div className="absolute -right-2 top-1/2 -translate-y-1/2 text-8xl font-bold transition-colors duration-300 transform rotate-12 select-none pointer-events-none" style={{color: 'rgba(255, 152, 0, 0.1)'}} onMouseEnter={(e) => {e.currentTarget.style.color = 'rgba(255, 152, 0, 0.2)'}} onMouseLeave={(e) => {e.currentTarget.style.color = 'rgba(255, 152, 0, 0.1)'}}>
                 ?
               </div>
               
               <div className="relative flex items-start gap-4">
-                <div className="flex-1 pl-6">
-                  <p className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 leading-relaxed">{question}</p>
-                </div>
                 <div className="flex-shrink-0">
                   <Icon 
                     name="ChevronDown" 
                     size={20} 
                     className="text-muted-foreground group-hover:text-accent transition-all duration-300 group-hover:rotate-180" 
                   />
+                </div>
+                <div className="flex-1 pr-6">
+                  <p className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 leading-relaxed">{question}</p>
                 </div>
               </div>
             </div>
