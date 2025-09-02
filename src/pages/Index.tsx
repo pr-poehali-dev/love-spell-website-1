@@ -83,19 +83,19 @@ export default function Index() {
               <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
                 
                 {/* Second (far) shadow ring */}
-                <div className="absolute w-[118%] h-[118%] rounded-full bg-[#8B7355] opacity-60 blur-[2px]" 
+                <div className="absolute w-[106%] h-[106%] rounded-full bg-[#A0865F] opacity-50 blur-[1px]" 
                      style={{ 
-                       left: '-28px', 
-                       top: '18px',
+                       left: '-6px', 
+                       top: '4px',
                        zIndex: 1 
                      }}>
                 </div>
                 
                 {/* First (near) shadow ring */}
-                <div className="absolute w-[108%] h-[108%] rounded-full bg-[#6D5D47] opacity-80"
+                <div className="absolute w-[103%] h-[103%] rounded-full bg-[#8B7355] opacity-70"
                      style={{ 
-                       left: '-14px', 
-                       top: '10px',
+                       left: '-3px', 
+                       top: '2px',
                        zIndex: 2 
                      }}>
                 </div>
