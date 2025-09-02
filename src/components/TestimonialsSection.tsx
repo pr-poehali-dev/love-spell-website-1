@@ -69,7 +69,7 @@ export default function TestimonialsSection() {
     const isMedium = typeof window !== 'undefined' && window.innerWidth < 1024;
     
     // Место для нижней части секции автора (после города "Пермь")
-    const authorBottomSpace = isVerySmall ? 25 : isSmall ? 35 : isMedium ? 40 : 45;
+    const authorBottomSpace = isVerySmall ? 15 : isSmall ? 35 : isMedium ? 40 : 45;
     return authorBottomSpace;
   };
 
