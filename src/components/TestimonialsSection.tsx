@@ -50,10 +50,10 @@ export default function TestimonialsSection() {
   // Рассчитываем максимальную высоту для самого длинного отзыва
   const getMaxCardHeight = () => {
     // Фиксированные элементы UI
-    const padding = 64; // p-4 sm:p-6 md:p-8 (верх + низ)
-    const authorSection = 120; // уменьшили для точек навигации вне контейнера
-    const quotesSpace = 60; // место для кавычек сверху и снизу
-    const textPadding = 32; // py-2 sm:py-4 для текста
+    const padding = 40; // уменьшили отступы
+    const authorSection = 80; // минимум для автора
+    const quotesSpace = 40; // уменьшили место для кавычек
+    const textPadding = 20; // уменьшили отступы текста
     
     // Расчет для текста
     const charPerLine = 60; // Более консервативная оценка для мобильных
@@ -65,8 +65,8 @@ export default function TestimonialsSection() {
     
     const totalHeight = padding + authorSection + quotesSpace + textPadding + textHeight;
     
-    // Минимальная высота 450px, максимальная 700px
-    return Math.max(450, Math.min(totalHeight, 700));
+    // Минимальная высота 400px, максимальная 600px
+    return Math.max(400, Math.min(totalHeight, 600));
   };
 
 
