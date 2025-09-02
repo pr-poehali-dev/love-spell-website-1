@@ -246,32 +246,32 @@ export default function TestimonialsSection() {
                   {testimonials[currentTestimonial].location}
                 </p>
                 
-                {/* Навигационные точки на той же высоте для всех отзывов */}
-                <div className="flex justify-center gap-2 mt-2">
-                  {testimonials.map((_, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        goToTestimonial(index);
-                      }}
-                      disabled={isTransitioning}
-                      className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-                        index === currentTestimonial 
-                          ? 'bg-accent scale-125' 
-                          : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
-                      }`}
-                    />
-                  ))}
-                </div>
               </div>
 
 
             </div>
           </div>
 
+          {/* Фиксированные навигационные точки вне анимации */}
+          <div className="flex justify-center gap-2 mt-4">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  goToTestimonial(index);
+                }}
+                disabled={isTransitioning}
+                className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+                  index === currentTestimonial 
+                    ? 'bg-accent scale-125' 
+                    : 'bg-accent/30 hover:bg-accent/50 hover:scale-110'
+                }`}
+              />
+            ))}
+          </div>
 
         </div>
 
