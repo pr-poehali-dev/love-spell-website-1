@@ -256,8 +256,8 @@ export default function TestimonialsSection() {
 
                   {/* Кнопка воспроизведения */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/90 hover:bg-white transition-colors rounded-full flex items-center justify-center group-hover:scale-110 transform duration-300">
-                      <Icon name="Play" size={24} className="text-accent ml-1" />
+                    <div className="w-12 h-12 bg-white/90 hover:bg-white transition-colors rounded-full flex items-center justify-center group-hover:scale-110 transform duration-300">
+                      <Icon name="Play" size={18} className="text-accent ml-0.5" />
                     </div>
                   </div>
 
