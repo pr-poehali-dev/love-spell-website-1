@@ -82,21 +82,12 @@ export default function Index() {
               {/* Container for avatar and shadow rings */}
               <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
                 
-                {/* Second (far) shadow ring */}
-                <div className="absolute w-[106%] h-[106%] rounded-full bg-[#A0865F] opacity-50 blur-[1px]" 
+                {/* Shadow ring */}
+                <div className="absolute w-[105%] h-[105%] rounded-full bg-[#A0865F] opacity-60"
                      style={{ 
-                       left: '-6px', 
-                       top: '4px',
+                       left: '-8px', 
+                       top: '0px',
                        zIndex: 1 
-                     }}>
-                </div>
-                
-                {/* First (near) shadow ring */}
-                <div className="absolute w-[103%] h-[103%] rounded-full bg-[#8B7355] opacity-70"
-                     style={{ 
-                       left: '-3px', 
-                       top: '2px',
-                       zIndex: 2 
                      }}>
                 </div>
                 
