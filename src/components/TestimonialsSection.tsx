@@ -172,7 +172,7 @@ export default function TestimonialsSection() {
   };
 
   // Функции для "Читать далее"
-  const MAX_TEXT_LENGTH = 150; // Короткий текст по умолчанию
+  const MAX_TEXT_LENGTH = 200; // Показываем короткие отзывы полностью
   
   const toggleExpanded = (index: number) => {
     setExpandedTestimonials(prev => {
