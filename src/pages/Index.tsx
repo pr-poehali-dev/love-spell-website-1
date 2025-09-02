@@ -137,6 +137,9 @@ export default function Index() {
         </div>
       </div>
 
+      {/* Divider */}
+      <div className="h-2 bg-[#25242c]"></div>
+
       {/* Who Am I Section */}
       <div className="bg-background">
         <div className="max-w-sm mx-auto px-4 py-8 space-y-12">
@@ -144,8 +147,21 @@ export default function Index() {
           {/* About Me */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400/20 to-orange-600/40 flex items-center justify-center">
-                <span className="text-2xl font-bold text-orange-500">О</span>
+              <div className="relative">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center relative z-10" style={{
+                  background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #e65100 100%)'
+                }}>
+                  <span className="text-2xl font-bold text-white">О</span>
+                </div>
+                {/* Shadow ring */}
+                <div className="absolute w-[104%] h-[104%] rounded-full opacity-65"
+                     style={{ 
+                       left: '-2px', 
+                       top: '2px',
+                       zIndex: 1,
+                       background: 'linear-gradient(180deg, rgba(255, 152, 0, 0.85) 0%, rgba(255, 152, 0, 0.6) 20%, rgba(255, 152, 0, 0.3) 50%, rgba(255, 152, 0, 0.15) 100%)'
+                     }}>
+                </div>
               </div>
               <h2 className="text-xl font-bold text-foreground">бо мне</h2>
             </div>
@@ -157,8 +173,10 @@ export default function Index() {
           {/* What I Do */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400/20 to-orange-600/40 flex items-center justify-center">
-                <span className="text-2xl font-bold text-orange-500">Ч</span>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{
+                background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #e65100 100%)'
+              }}>
+                <span className="text-2xl font-bold text-white">Ч</span>
               </div>
               <h2 className="text-xl font-bold text-foreground">ем я занимаюсь</h2>
             </div>
@@ -166,8 +184,10 @@ export default function Index() {
             <div className="space-y-8">
               {/* Christian Magic */}
               <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400/10 to-orange-600/20 flex items-center justify-center flex-shrink-0">
-                  <Icon name="Plus" size={24} className="text-orange-500" />
+                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{
+                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%)'
+                }}>
+                  <Icon name="Plus" size={24} style={{color: '#ff9800'}} />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Христианской магией</h3>
@@ -179,8 +199,10 @@ export default function Index() {
 
               {/* Runic Magic */}
               <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400/10 to-orange-600/20 flex items-center justify-center flex-shrink-0">
-                  <Icon name="Zap" size={24} className="text-orange-500" />
+                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{
+                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%)'
+                }}>
+                  <Icon name="Zap" size={24} style={{color: '#ff9800'}} />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Рунической магией</h3>
@@ -192,8 +214,10 @@ export default function Index() {
 
               {/* Candle Magic */}
               <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400/10 to-orange-600/20 flex items-center justify-center flex-shrink-0">
-                  <Icon name="Flame" size={24} className="text-orange-500" />
+                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{
+                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%)'
+                }}>
+                  <Icon name="Flame" size={24} style={{color: '#ff9800'}} />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Магией свечей</h3>
@@ -205,8 +229,10 @@ export default function Index() {
 
               {/* Knot Magic */}
               <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400/10 to-orange-600/20 flex items-center justify-center flex-shrink-0">
-                  <Icon name="GitBranch" size={24} className="text-orange-500" />
+                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{
+                  background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%)'
+                }}>
+                  <Icon name="GitBranch" size={24} style={{color: '#ff9800'}} />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Магией узлов</h3>
@@ -221,8 +247,10 @@ export default function Index() {
           {/* FAQ */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400/20 to-orange-600/40 flex items-center justify-center">
-                <span className="text-2xl font-bold text-orange-500">В</span>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{
+                background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #e65100 100%)'
+              }}>
+                <span className="text-2xl font-bold text-white">В</span>
               </div>
               <h2 className="text-xl font-bold text-foreground">опросы и ответы</h2>
             </div>
