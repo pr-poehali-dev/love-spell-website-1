@@ -198,7 +198,7 @@ export default function TestimonialsSection() {
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-10"
               style={{ 
-                bottom: '220px' // Еще выше к тексту "Пермь"
+                bottom: window.innerWidth < 640 ? '120px' : window.innerWidth < 768 ? '180px' : '220px'
               }}
             >
               <div className="flex justify-center gap-2">
