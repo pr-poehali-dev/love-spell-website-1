@@ -91,11 +91,10 @@ export default function Index() {
                      }}>
                 </div>
                 
-                {/* Main Avatar with dark border */}
+                {/* Main Avatar */}
                 <div className="relative w-full h-full rounded-full overflow-hidden bg-background"
                      style={{ 
                        zIndex: 10,
-                       border: '6px solid #2D2D2D',
                        filter: 'drop-shadow(0 14px 24px rgba(0, 0, 0, 0.35))'
                      }}>
                   <img 
