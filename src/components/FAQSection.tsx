@@ -56,7 +56,7 @@ export default function FAQSection() {
                   >
                     <span 
                       className="text-lg font-bold transition-colors duration-300" 
-                      style={{color: isOpen ? 'rgb(255, 152, 0)' : 'rgba(255, 152, 0, 0.4)'}}
+                      style={{color: isOpen ? 'rgb(255, 152, 0)' : 'rgba(255, 152, 0, 0.15)'}}
                     >
                       ?
                     </span>
@@ -71,7 +71,7 @@ export default function FAQSection() {
                       border: '1px solid rgba(255, 152, 0, 0.06)'
                     }}
                   >
-                    <span className="text-xs font-bold" style={{color: 'rgba(255, 152, 0, 0.12)'}}>?</span>
+                    <span className="text-xs font-bold" style={{color: 'rgba(255, 152, 0, 0.15)'}}>?</span>
                   </div>
 
 
