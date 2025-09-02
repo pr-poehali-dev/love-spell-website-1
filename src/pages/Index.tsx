@@ -77,31 +77,45 @@ export default function Index() {
         {/* Profile Section Overlapping */}
         <div className="relative -mt-16 sm:-mt-20 md:-mt-24 z-10">
           <div className="max-w-xs mx-auto px-4 text-center">
-            {/* Large Profile Image with Reflection */}
+            {/* Large Profile Image with Realistic Shadow */}
             <div className="mb-6 relative">
-              {/* Main Avatar */}
-              <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden shadow-2xl bg-background relative">
-                <img 
-                  src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
-                  alt="Раиса Ильинская"
-                  className="w-full h-full object-cover"
-                />
-                {/* Sunset reflection overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-yellow-300/20 to-red-500/25 rounded-full mix-blend-overlay"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-amber-600/40 via-transparent to-transparent rounded-full mix-blend-soft-light"></div>
-              </div>
-              
-              {/* Mirror Reflection */}
-              <div className="absolute top-[80%] left-1/2 transform -translate-x-1/2 w-32 h-16 sm:w-36 sm:h-18 md:w-40 md:h-20 rounded-b-full overflow-hidden opacity-40">
-                <img 
-                  src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
-                  alt=""
-                  className="w-full h-full object-cover transform scale-y-[-1] object-top"
-                />
-                {/* Gradient mask for fade effect */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background rounded-b-full"></div>
-                {/* Sunset reflection on mirror */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-yellow-300/15 to-red-500/20 rounded-b-full mix-blend-overlay"></div>
+              {/* Container for avatar and shadow rings */}
+              <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
+                
+                {/* Second (far) shadow ring */}
+                <div className="absolute w-[118%] h-[118%] rounded-full bg-[#8B7355] opacity-60 blur-[2px]" 
+                     style={{ 
+                       left: '-28px', 
+                       top: '18px',
+                       zIndex: 1 
+                     }}>
+                </div>
+                
+                {/* First (near) shadow ring */}
+                <div className="absolute w-[108%] h-[108%] rounded-full bg-[#6D5D47] opacity-80"
+                     style={{ 
+                       left: '-14px', 
+                       top: '10px',
+                       zIndex: 2 
+                     }}>
+                </div>
+                
+                {/* Main Avatar with dark border */}
+                <div className="relative w-full h-full rounded-full overflow-hidden bg-background"
+                     style={{ 
+                       zIndex: 10,
+                       border: '6px solid #2D2D2D',
+                       filter: 'drop-shadow(0 14px 24px rgba(0, 0, 0, 0.35))'
+                     }}>
+                  <img 
+                    src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                    alt="Раиса Ильинская"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Sunset reflection overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-yellow-300/20 to-red-500/25 rounded-full mix-blend-overlay"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-amber-600/40 via-transparent to-transparent rounded-full mix-blend-soft-light"></div>
+                </div>
               </div>
             </div>
             
