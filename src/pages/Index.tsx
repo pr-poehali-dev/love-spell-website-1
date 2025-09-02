@@ -146,7 +146,7 @@ export default function Index() {
           
           {/* About Me */}
           <div>
-            <h2 className="text-lg font-bold text-foreground mb-6 relative">
+            <h2 className="text-xl font-bold text-foreground mb-6 relative">
               <span className="relative inline-block">
                 <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>О</span>
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
@@ -163,7 +163,7 @@ export default function Index() {
 
           {/* What I Do */}
           <div>
-            <h2 className="text-lg font-bold text-foreground mb-6 relative">
+            <h2 className="text-xl font-bold text-foreground mb-6 relative">
               <span className="relative inline-block">
                 <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>Ч</span>
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
@@ -231,7 +231,7 @@ export default function Index() {
 
           {/* FAQ */}
           <div>
-            <h2 className="text-lg font-bold text-foreground mb-6 relative">
+            <h2 className="text-xl font-bold text-foreground mb-6 relative">
               <span className="relative inline-block">
                 <span className="text-2xl font-bold relative z-10" style={{color: '#ff9800'}}>В</span>
                 <div className="absolute w-8 h-8 rounded-full opacity-40" style={{
