@@ -303,7 +303,7 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
             {/* Заголовок и описание */}
             <div className="space-y-4">
               <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Заявка отправлена! ✨
+                🚀 Заявка отправлена!
               </h3>
               
               <div className="space-y-3">
