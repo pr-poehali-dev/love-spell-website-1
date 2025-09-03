@@ -35,7 +35,7 @@ export default function ArticlePage() {
       </div>
 
       {/* Основной контент */}
-      <main className="bg-background relative z-20">
+      <main className="bg-background relative z-10">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-12 sm:space-y-16">
         {/* Заголовок статьи */}
         <div>
