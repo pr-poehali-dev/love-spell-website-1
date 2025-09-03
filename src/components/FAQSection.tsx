@@ -159,7 +159,8 @@ export default function FAQSection() {
       {/* Contact Modal */}
       <ContactModal 
         isOpen={isContactModalOpen} 
-        onClose={() => setIsContactModalOpen(false)} 
+        onClose={() => setIsContactModalOpen(false)}
+        onSuccess={(email) => console.log('Email sent to:', email)}
       />
     </div>
   );

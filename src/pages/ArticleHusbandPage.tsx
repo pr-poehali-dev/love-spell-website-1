@@ -377,7 +377,8 @@ export default function ArticleHusbandPage() {
       {/* Модальное окно */}
       <ContactModal 
         isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={(email) => console.log('Email sent to:', email)}
       />
     </div>
   );

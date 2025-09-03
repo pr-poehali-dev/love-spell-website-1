@@ -5,6 +5,7 @@ import ContactModalStep2 from '@/components/ContactModalStep2';
 import ContactModalStep3 from '@/components/ContactModalStep3';
 import ContactModalStep4 from '@/components/ContactModalStep4';
 import ContactModalStep5 from '@/components/ContactModalStep5';
+import SuccessNotification from '@/components/SuccessNotification';
 
 interface FormErrors {
   name?: string;
@@ -24,9 +25,10 @@ interface FormData {
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: (email: string) => void;
 }
 
-export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
   const [stepTransition, setStepTransition] = useState(false);
@@ -42,6 +44,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   });
   const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
   const [isUploading, setIsUploading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -227,10 +230,11 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       // Фальшивая отправка с имитацией загрузки
       await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
       
-      // Имитация успешной отправки
-      alert('✅ Сообщение отправлено!\n\nРаиса получила ваше сообщение и ответит в течение 24 часов на указанный email.');
-      
+      // Успешная отправка - показываем уведомление
       handleClose();
+      setShowSuccess(true);
+      onSuccess?.(formData.email);
+      
     } catch (error) {
       console.error('Ошибка отправки:', error);
       alert('❌ Ошибка отправки. Попробуйте еще раз.');
@@ -273,51 +277,59 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   };
 
   return (
-    <div 
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
-        isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
-      }`}
-      onClick={handleClose}
-    >
+    <>
       <div 
-        className={`relative w-full max-w-xs sm:max-w-md transition-all duration-300 transform ${
-          isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
+        className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
+          isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
         }`}
-        onClick={(e) => e.stopPropagation()}
+        onClick={handleClose}
       >
-        <div className="bg-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-border max-h-[95vh] overflow-y-auto">
-          <button 
-            onClick={handleClose}
-            className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/10 rounded-full transition-all duration-200 z-10"
-          >
-            <Icon name="X" size={20} />
-          </button>
+        <div 
+          className={`relative w-full max-w-xs sm:max-w-md transition-all duration-300 transform ${
+            isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="bg-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-border max-h-[95vh] overflow-y-auto">
+            <button 
+              onClick={handleClose}
+              className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/10 rounded-full transition-all duration-200 z-10"
+            >
+              <Icon name="X" size={20} />
+            </button>
 
-          <div className={`transition-all duration-300 ${
-            stepTransition ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'
-          }`}>
-            {renderCurrentStep()}
-          </div>
-          
-          {/* Индикатор прогресса */}
-          <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-border">
-            <div className="flex gap-2">
-              {[1, 2, 3, 4, 5].map((step) => (
-                <div 
-                  key={step}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    step === currentStep 
-                      ? 'bg-primary w-6' 
-                      : step < currentStep 
-                      ? 'bg-primary/60' 
-                      : 'bg-muted'
-                  }`}
-                />
-              ))}
+            <div className={`transition-all duration-300 ${
+              stepTransition ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'
+            }`}>
+              {renderCurrentStep()}
+            </div>
+            
+            {/* Индикатор прогресса */}
+            <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-border">
+              <div className="flex gap-2">
+                {[1, 2, 3, 4, 5].map((step) => (
+                  <div 
+                    key={step}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      step === currentStep 
+                        ? 'bg-primary w-6' 
+                        : step < currentStep 
+                        ? 'bg-primary/60' 
+                        : 'bg-muted'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <SuccessNotification 
+        isOpen={showSuccess}
+        onClose={() => setShowSuccess(false)}
+        email={formData.email}
+      />
+    </>
   );
 }
