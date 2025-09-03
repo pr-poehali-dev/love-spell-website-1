@@ -61,31 +61,41 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
-    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent overflow-hidden border border-accent/10 hover:border-accent/20">
+    <div className="group relative p-6 cursor-pointer transition-all duration-500 rounded-2xl bg-gradient-to-br from-background via-background to-accent/5 hover:from-accent/8 hover:via-background hover:to-accent/12 overflow-hidden border border-accent/15 hover:border-accent/25 shadow-sm hover:shadow-lg hover:shadow-accent/10 backdrop-blur-sm">
+      
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-20 bg-gradient-to-br from-transparent via-accent/3 to-transparent"></div>
       
       <div className="relative flex flex-col items-center text-center">
-        <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-          <Icon name={ritual.icon as any} size={32} className="text-primary" />
+        {/* Icon with enhanced styling */}
+        <div className="mb-5 group-hover:scale-110 transition-all duration-500 relative">
+          <div className="absolute inset-0 bg-primary/10 rounded-full blur-xl group-hover:bg-primary/20 transition-all duration-500"></div>
+          <div className="relative w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center group-hover:from-primary/15 group-hover:to-primary/10 transition-all duration-500">
+            <Icon name={ritual.icon as any} size={28} className="text-primary drop-shadow-sm" />
+          </div>
         </div>
         
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div className="relative">
-            <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 text-center">
+            <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors duration-300 text-center px-4">
               {ritual.title}
             </h3>
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-8">
-              <Icon name="ChevronRight" size={16} className="text-accent/60" />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4">
+              <Icon name="ChevronRight" size={18} className="text-accent/70 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
             </div>
           </div>
-          <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">{ritual.description}</p>
+          <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto px-2">{ritual.description}</p>
         </div>
 
-        {/* Постоянно видимая кнопка-индикатор */}
-        <div className="mt-4 px-4 py-2 bg-accent/8 hover:bg-accent/15 rounded-full text-accent text-xs font-medium transition-colors duration-300 flex items-center gap-2">
-          <span>Подробнее</span>
-          <Icon name="ArrowRight" size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+        {/* Enhanced CTA button */}
+        <div className="mt-6 group-hover:scale-105 transition-transform duration-300">
+          <div className="px-5 py-2.5 bg-gradient-to-r from-accent/12 to-accent/8 hover:from-accent/18 hover:to-accent/12 rounded-full text-accent text-sm font-medium transition-all duration-300 flex items-center gap-2.5 border border-accent/20 hover:border-accent/30">
+            <span>Подробнее</span>
+            <Icon name="ArrowRight" size={16} className="group-hover:translate-x-1.5 transition-transform duration-300" />
+          </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
