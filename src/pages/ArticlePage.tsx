@@ -13,7 +13,7 @@ export default function ArticlePage() {
       <Header currentTitle={currentTitle} setCurrentTitle={setCurrentTitle} />
 
       {/* Широкое изображение-баннер */}
-      <div className="relative">
+      <div className="relative z-0">
         {/* Тень от липкой шапки */}
         <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-background/60 via-background/20 to-transparent pointer-events-none z-10"></div>
         
