@@ -342,6 +342,8 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
           setCurrentStep(1);
           setErrors({});
           setTouched({});
+          // Закрываем основное модальное окно
+          onClose();
         }}
         email={formData.email}
       />
