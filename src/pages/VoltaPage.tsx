@@ -303,14 +303,7 @@ export default function VoltaPage() {
                   </div>
                 </div>
                 <div className="text-center sm:text-left">
-                  <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">Раиса Ильинская</h3>
-                  <p className="text-accent font-medium mb-2">Потомственная ворожея</p>
-                  <div className="flex items-center justify-center sm:justify-start gap-1 text-warning">
-                    {[...Array(5)].map((_, i) => (
-                      <Icon key={i} name="Star" size={16} className="fill-current" />
-                    ))}
-                    <span className="text-muted-foreground text-sm ml-2">4.9 из 5</span>
-                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3">Раиса Ильинская</h3>
                 </div>
               </div>
 
@@ -326,9 +319,9 @@ export default function VoltaPage() {
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-semibold py-3 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+                className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl inline-flex items-center justify-center gap-3 text-lg"
               >
-                <Icon name="MessageCircle" size={20} />
+                <Icon name="MessageCircle" size={22} />
                 Получить консультацию
               </button>
               

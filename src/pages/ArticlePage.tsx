@@ -324,6 +324,7 @@ export default function ArticlePage() {
                 </div>
                 
                 <div className="text-center sm:text-left flex-1">
+                  <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3">Раиса Ильинская</h3>
                   <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-1">
                     Готовы вернуть любовь в ваш брак?
                   </h2>
@@ -337,10 +338,10 @@ export default function ArticlePage() {
               <div className="mb-6">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl inline-flex items-center justify-center gap-3 text-lg"
                 >
-                  <Icon name="MessageCircle" size={20} className="group-hover:scale-110 transition-transform" />
-                  <span>Получить консультацию</span>
+                  <Icon name="MessageCircle" size={22} />
+                  Получить консультацию
                 </button>
               </div>
                 
