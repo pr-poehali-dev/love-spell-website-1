@@ -338,12 +338,10 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
   };
 
   return (
-    <>
-      <div
-        <div 
-          className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
-            isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
-          }`}
+    <div 
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
+        isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
+      }`}
           onClick={handleClose}
         >
           <div 
