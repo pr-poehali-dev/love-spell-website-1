@@ -13,6 +13,7 @@ interface FormData {
   situation: string;
   birthDate: string;
   email: string;
+  photos: File[];
 }
 
 interface ContactModalStep5Props {
@@ -21,6 +22,8 @@ interface ContactModalStep5Props {
   isSubmitting: boolean;
   onFieldChange: (field: keyof FormData, value: string) => void;
   onFieldBlur: (field: keyof FormData) => void;
+  onPhotoUpload: (files: FileList) => void;
+  onRemovePhoto: (index: number) => void;
   onBack: () => void;
   onSendEmail: () => void;
 }
@@ -31,9 +34,12 @@ export default function ContactModalStep5({
   isSubmitting,
   onFieldChange, 
   onFieldBlur, 
+  onPhotoUpload,
+  onRemovePhoto,
   onBack, 
   onSendEmail 
 }: ContactModalStep5Props) {
+  const [selectedPhoto, setSelectedPhoto] = React.useState<string | null>(null);
   return (
     <div className="pt-2 sm:pt-0">
       <div className="text-center mb-6">
@@ -140,13 +146,73 @@ export default function ContactModalStep5({
           <p className="text-muted-foreground text-sm mb-3">
             Прикрепите ваше фото и фото второй половинки для более точной работы.
           </p>
-          <button 
-            type="button"
-            className="bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30 hover:from-primary/30 hover:to-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 active:scale-95 flex items-center gap-2"
-          >
-            <Icon name="Upload" size={16} />
-            Добавить фото
-          </button>
+          
+          {/* Загруженные фото */}
+          {formData.photos.length > 0 && (
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {formData.photos.map((photo, index) => {
+                const photoUrl = URL.createObjectURL(photo);
+                return (
+                  <div key={index} className="relative group">
+                    <div 
+                      className="w-full h-20 bg-muted rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-primary/50 transition-all duration-200"
+                      onClick={() => setSelectedPhoto(photoUrl)}
+                    >
+                      <img 
+                        src={photoUrl} 
+                        alt={`Фото ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onRemovePhoto(index);
+                      }}
+                      className="absolute -top-2 -right-2 w-6 h-6 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110"
+                    >
+                      <Icon name="X" size={12} />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          
+          {/* Кнопка загрузки */}
+          {formData.photos.length < 4 && (
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/jpeg,image/jpg,image/png,image/webp"
+                multiple
+                onChange={(e) => {
+                  if (e.target.files) {
+                    onPhotoUpload(e.target.files);
+                    e.target.value = ''; // Сброс input для повторной загрузки
+                  }
+                }}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+              />
+              <button 
+                type="button"
+                className="w-full bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30 hover:from-primary/30 hover:to-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
+              >
+                <Icon name="Upload" size={16} />
+                {formData.photos.length === 0 ? 'Добавить фото' : `Добавить еще (${formData.photos.length}/4)`}
+              </button>
+            </div>
+          )}
+          
+          {formData.photos.length >= 4 && (
+            <p className="text-warning text-xs text-center mt-2">
+              Максимум 4 фотографии. Удалите ненужные для добавления новых.
+            </p>
+          )}
+          
+          <p className="text-muted-foreground text-xs mt-2">
+            Поддерживаются: JPG, PNG, WEBP (до 5МБ каждая)
+          </p>
         </div>
         
         {/* Email */}
@@ -215,6 +281,29 @@ export default function ContactModalStep5({
           )}
         </button>
       </div>
+      
+      {/* Модалка просмотра фото */}
+      {selectedPhoto && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <div className="relative max-w-2xl max-h-full">
+            <img 
+              src={selectedPhoto} 
+              alt="Просмотр фото"
+              className="max-w-full max-h-full object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={() => setSelectedPhoto(null)}
+              className="absolute top-4 right-4 w-10 h-10 bg-black/50 text-white rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+            >
+              <Icon name="X" size={20} />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -18,6 +18,7 @@ interface FormData {
   situation: string;
   birthDate: string;
   email: string;
+  photos: File[];
 }
 
 interface ContactModalProps {
@@ -36,7 +37,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     name: '',
     situation: '',
     birthDate: '',
-    email: ''
+    email: '',
+    photos: []
   });
 
   useEffect(() => {
@@ -155,24 +157,53 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setErrors(prev => ({ ...prev, [field]: error }));
   };
 
+  const handlePhotoUpload = (files: FileList) => {
+    const newPhotos = Array.from(files).filter(file => {
+      // Валидация типа файла
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        alert('Поддерживаются только файлы: JPG, PNG, WEBP');
+        return false;
+      }
+      
+      // Валидация размера файла (макс 5МБ)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Размер файла не должен превышать 5МБ');
+        return false;
+      }
+      
+      return true;
+    });
+    
+    setFormData(prev => ({
+      ...prev,
+      photos: [...prev.photos, ...newPhotos].slice(0, 4) // Макс 4 фото
+    }));
+  };
+
+  const handleRemovePhoto = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      photos: prev.photos.filter((_, i) => i !== index)
+    }));
+  };
+
   const handleSendEmail = async () => {
     if (!validateForm()) return;
     
     setIsSubmitting(true);
     
     try {
-      // Симуляция отправки
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Фальшивая отправка с имитацией загрузки
+      await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
       
-      const subject = encodeURIComponent('Консультация по любовным обрядам');
-      const body = encodeURIComponent(
-        `Имя: ${formData.name}\n\nСитуация: ${formData.situation}\n\nДата рождения: ${formData.birthDate}\n\nEmail для ответа: ${formData.email}`
-      );
+      // Имитация успешной отправки
+      alert('✅ Сообщение отправлено!\n\nРаиса получила ваше сообщение и ответит в течение 24 часов на указанный email.');
       
-      window.open(`mailto:raisa.ilinskaya@example.com?subject=${subject}&body=${body}`, '_blank');
       handleClose();
     } catch (error) {
       console.error('Ошибка отправки:', error);
+      alert('❌ Ошибка отправки. Попробуйте еще раз.');
     } finally {
       setIsSubmitting(false);
     }
@@ -199,6 +230,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           isSubmitting={isSubmitting}
           onFieldChange={handleFieldChange}
           onFieldBlur={handleFieldBlur}
+          onPhotoUpload={handlePhotoUpload}
+          onRemovePhoto={handleRemovePhoto}
           onBack={handleBack}
           onSendEmail={handleSendEmail}
         />;
