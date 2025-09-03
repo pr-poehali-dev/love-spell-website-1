@@ -39,7 +39,7 @@ export default function ContactSection() {
                 <div className="text-center mb-2.5 xs:mb-3 sm:mb-4">
                   {/* Аватар с индикатором как на скриншоте */}
                   <div className="relative inline-block mb-2">
-                    <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 sm:border-[3px] border-primary/25 group-hover:border-primary/50 transition-all duration-400 mx-auto">
+                    <div className="w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 sm:border-[3px] border-primary/25 group-hover:border-primary/50 transition-all duration-400 mx-auto">
                       <img 
                         src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                         alt="Раиса Ильинская"
@@ -47,13 +47,9 @@ export default function ContactSection() {
                         loading="lazy"
                       />
                     </div>
-                    {/* Белая точка с тремя зелёными точками внутри */}
-                    <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 bg-white border-2 border-card rounded-full flex items-center justify-center shadow-sm">
-                      <div className="flex items-center gap-0.5 xs:gap-1">
-                        <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-green-500 rounded-full" />
-                        <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-green-500 rounded-full" />
-                        <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-green-500 rounded-full" />
-                      </div>
+                    {/* Увеличенная белая точка с залитой зелёной иконкой чата */}
+                    <div className="absolute -bottom-1 -right-1 w-7 h-7 xs:w-8 xs:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white border-2 sm:border-[3px] border-card rounded-full flex items-center justify-center shadow-md">
+                      <Icon name="MessageSquare" size={16} className="text-green-500 fill-green-500 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                     </div>
                   </div>
                   
