@@ -18,55 +18,93 @@ export default function ContactSection() {
           </span>ставьте сообщение
         </h2>
         
-        {/* Кнопка связи - адаптивная */}
-        <div className="flex justify-center mb-8 px-4">
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="group relative w-full max-w-sm sm:max-w-md bg-gradient-to-r from-primary to-primary/90 hover:from-primary/95 hover:to-primary/85 text-primary-foreground rounded-2xl sm:rounded-3xl transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 transform hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus:ring-4 focus:ring-primary/30 border border-primary/10 overflow-hidden"
-          >
-            {/* Главный контент кнопки */}
-            <div className="relative px-6 py-4 sm:px-8 sm:py-5">
+        {/* Кнопка связи - премиум дизайн */}
+        <div className="flex justify-center mb-8">
+          <div className="relative w-full max-w-sm sm:max-w-md mx-4">
+            {/* Основная кнопка */}
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="group relative w-full bg-card hover:bg-card/95 text-foreground rounded-3xl transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-primary/20 border border-border/50 hover:border-primary/30 overflow-hidden backdrop-blur-sm"
+            >
+              {/* Градиентный оверлей */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              {/* Верхняя строка: Статус */}
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-primary-foreground/90 text-xs sm:text-sm font-medium">
-                  Раиса онлайн
-                </span>
-              </div>
-              
-              {/* Основной текст кнопки */}
-              <div className="flex items-center justify-center gap-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 bg-white/15 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300">
-                    <Icon name="MessageCircle" size={18} className="text-primary-foreground" />
+              {/* Контент кнопки */}
+              <div className="relative px-6 py-5 sm:px-8 sm:py-6">
+                
+                {/* Шапка: Статус с аватаром */}
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  {/* Мини-аватар */}
+                  <div className="relative">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-primary/20 group-hover:border-primary/40 transition-colors duration-300">
+                      <img 
+                        src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                        alt="Раиса"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                    {/* Онлайн индикатор */}
+                    <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 border-2 border-card rounded-full animate-pulse" />
                   </div>
-                  <span className="font-bold text-lg sm:text-xl text-primary-foreground">
-                    Напишите мне
-                  </span>
+                  
+                  {/* Имя и статус */}
+                  <div className="text-center">
+                    <div className="font-semibold text-foreground text-base sm:text-lg">Раиса Ильинская</div>
+                    <div className="text-muted-foreground text-xs sm:text-sm flex items-center justify-center gap-1.5">
+                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                      Онлайн сейчас
+                    </div>
+                  </div>
                 </div>
                 
-                {/* Стрелка - скрыта на маленьких экранах */}
-                <Icon 
-                  name="ArrowRight" 
-                  size={18} 
-                  className="text-primary-foreground/70 group-hover:translate-x-1 group-hover:text-primary-foreground transition-all duration-300 hidden xs:block" 
-                />
+                {/* Основное действие */}
+                <div className="bg-gradient-to-r from-primary to-primary/90 group-hover:from-primary/95 group-hover:to-primary/85 text-primary-foreground rounded-2xl px-6 py-4 mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/25">
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
+                      <Icon name="MessageCircle" size={14} className="text-primary-foreground" />
+                    </div>
+                    <span className="font-bold text-lg sm:text-xl">
+                      Напишите мне
+                    </span>
+                    <Icon 
+                      name="Send" 
+                      size={16} 
+                      className="text-primary-foreground/80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" 
+                    />
+                  </div>
+                </div>
+                
+                {/* Преимущества - три колонки */}
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div className="group/item">
+                    <div className="w-8 h-8 mx-auto mb-1.5 bg-accent/10 rounded-lg flex items-center justify-center group-hover/item:bg-accent/20 transition-colors duration-300">
+                      <Icon name="Zap" size={12} className="text-accent" />
+                    </div>
+                    <div className="text-xs font-medium text-foreground">Быстро</div>
+                  </div>
+                  <div className="group/item">
+                    <div className="w-8 h-8 mx-auto mb-1.5 bg-success/10 rounded-lg flex items-center justify-center group-hover/item:bg-success/20 transition-colors duration-300">
+                      <Icon name="Shield" size={12} className="text-success" />
+                    </div>
+                    <div className="text-xs font-medium text-foreground">Надёжно</div>
+                  </div>
+                  <div className="group/item">
+                    <div className="w-8 h-8 mx-auto mb-1.5 bg-info/10 rounded-lg flex items-center justify-center group-hover/item:bg-info/20 transition-colors duration-300">
+                      <Icon name="Heart" size={12} className="text-info" />
+                    </div>
+                    <div className="text-xs font-medium text-foreground">Бесплатно</div>
+                  </div>
+                </div>
               </div>
               
-              {/* Нижняя строка: Подсказка */}
-              <div className="mt-2 text-primary-foreground/75 text-xs text-center">
-                Отвечаю быстро • Конфиденциально
-              </div>
-            </div>
+              {/* Декоративные элементы */}
+              <div className="absolute top-4 right-4 w-12 h-12 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-colors duration-700" />
+              <div className="absolute bottom-4 left-4 w-8 h-8 bg-accent/5 rounded-full blur-lg group-hover:bg-accent/10 transition-colors duration-700" />
+            </button>
             
-            {/* Декоративные элементы */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -translate-y-10 translate-x-10 group-hover:bg-white/10 transition-colors duration-500" />
-            <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/5 rounded-full translate-y-8 -translate-x-8 group-hover:bg-white/10 transition-colors duration-500" />
-            
-            {/* Глянцевый эффект */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          </button>
+            {/* Внешняя подсветка */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/10 to-primary/20 rounded-3xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+          </div>
         </div>
 
       {/* Карточки с преимуществами */}
