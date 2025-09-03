@@ -303,12 +303,12 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
             {/* Заголовок и описание */}
             <div className="space-y-4">
               <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Заявка отправлена!
+                Сообщение отправлено
               </h3>
               
               <div className="space-y-3">
                 <p className="text-muted-foreground leading-relaxed">
-                  Спасибо за доверие! Мы внимательно изучим ваш запрос и свяжемся с вами в течение 24 часов с персональным предложением.
+                  В скором времени я свяжусь с вами
                 </p>
                 
                 {/* Email подтверждение */}
