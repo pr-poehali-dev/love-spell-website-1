@@ -15,19 +15,29 @@ export default function ArticlePage() {
       <Divider />
 
       {/* Широкое изображение-баннер */}
-      <div className="w-full h-32 sm:h-40 md:h-48 relative overflow-hidden">
-        <img 
-          src="/img/f0e0492a-0ea7-4f87-97c1-58f52276e68e.jpg" 
-          alt="Приворот на жену - восстановление гармонии в браке" 
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-primary/20"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent"></div>
+      <div className="relative">
+        {/* Тень от липкой шапки */}
+        <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-background/80 via-background/40 to-transparent pointer-events-none z-10"></div>
+        
+        <div className="w-full h-32 sm:h-40 md:h-48 relative overflow-hidden">
+          <img 
+            src="/img/87197c7b-2604-49c8-8c84-30a4c02cf233.jpg" 
+            alt="Приворот на жену - восстановление гармонии в браке" 
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-primary/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent"></div>
+        </div>
+        
+        {/* Закругленные углы снизу с тенью */}
+        <div className="absolute bottom-0 left-0 right-0 h-8">
+          <div className="w-full h-full bg-background rounded-t-3xl shadow-[0_-8px_24px_rgba(0,0,0,0.3)]"></div>
+        </div>
       </div>
 
       {/* Основной контент */}
-      <main className="bg-background">
+      <main className="bg-background relative z-20">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-12 sm:space-y-16">
         {/* Заголовок статьи */}
         <div>
