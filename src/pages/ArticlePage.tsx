@@ -3,13 +3,58 @@ import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import Divider from '@/components/Divider';
 import ContactModal from '@/components/ContactModal';
+import SEO from '@/components/SEO';
 
 export default function ArticlePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTitle, setCurrentTitle] = useState('Маг');
+  
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Приворот на жену",
+    "description": "Мощный ритуал для возвращения любви супруги и восстановления семейного счастья",
+    "image": "https://poehali.dev/img/9b5bb5e7-9a48-43c0-a089-59924ea39e86.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Раиса Ильинская"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Раиса Ильинская - Потомственная ворожея"
+    },
+    "datePublished": "2024-01-01",
+    "dateModified": "2024-01-01"
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Приворот на жену",
+    "description": "Мощный ритуал для возвращения любви супруги и восстановления семейного счастья",
+    "image": "https://poehali.dev/img/9b5bb5e7-9a48-43c0-a089-59924ea39e86.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Раиса Ильинская"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Раиса Ильинская - Потомственная ворожея"
+    },
+    "datePublished": "2024-01-01",
+    "dateModified": "2024-01-01"
+  };
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Приворот на жену - Мощный ритуал возврата любви | Раиса Ильинская"
+        description="Мощный приворот на жену от потомственной ворожеи. Возвращение любви супруги, восстановление семейного счастья. Проверенные методы, безопасно и эффективно. Консультация бесплатно."
+        keywords="приворот на жену, возврат жены, ворожея, любовная магия, семейные отношения, приворот на супругу"
+        url="/privorot-na-zhenu"
+        type="article"
+        structuredData={structuredData}
+      />
       <Header currentTitle={currentTitle} setCurrentTitle={setCurrentTitle} />
 
       {/* Широкое изображение-баннер */}

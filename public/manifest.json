@@ -1,0 +1,25 @@
+{
+  "name": "Раиса Ильинская - Потомственная Ворожея",
+  "short_name": "Раиса Ильинская",
+  "description": "Опытная потомственная ворожея. Приворот на любовь, возврат мужа, снятие порчи. Работаю только белой магией.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg", 
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "categories": ["lifestyle", "spirituality", "services"],
+  "lang": "ru",
+  "dir": "ltr"
+}

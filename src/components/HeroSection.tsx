@@ -47,9 +47,9 @@ export default function HeroSection({ currentTitle }: HeroSectionProps) {
           
           {/* Name and Title */}
           <div className="mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg tracking-wide">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg tracking-wide">
               Раиса Ильинская
-            </h2>
+            </h1>
             <div className="text-accent font-semibold text-lg sm:text-xl md:text-2xl drop-shadow-lg min-h-[1.5em]">
               <span className="typewriter" key={currentTitle}>{currentTitle}</span>
             </div>

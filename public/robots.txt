@@ -4,6 +4,9 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+User-agent: Yandexbot
+Allow: /
+
 User-agent: Twitterbot
 Allow: /
 
@@ -12,3 +15,20 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://poehali.dev/sitemap.xml
+
+# Запрет на индексацию служебных файлов
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/
+
+# Разрешить важные файлы
+Allow: /img/
+Allow: /favicon.ico
+Allow: /manifest.json
+
+# Частота посещений
+Crawl-delay: 1
