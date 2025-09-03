@@ -1,92 +1,49 @@
 import React, { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import Header from '@/components/Header';
+import Divider from '@/components/Divider';
 import ContactModal from '@/components/ContactModal';
 
 export default function ArticlePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentTitle, setCurrentTitle] = useState('Маг');
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header Profile Section */}
-      <div className="bg-background border-b border-border sticky top-0 z-30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
-                <img 
-                  src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
-                  alt="Раиса Ильинская"
-                  className="w-full h-full object-cover"
-                  loading="eager"
-                  decoding="async"
-                />
-              </div>
-              <div>
-                <a href="/" className="text-base sm:text-lg font-semibold text-foreground hover:text-primary transition-colors">
-                  Раиса Ильинская
-                </a>
-                <div className="text-sm font-medium text-accent">Маг</div>
-              </div>
-            </div>
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors font-medium"
-            >
-              Связаться
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation Menu */}  
-      <div className="bg-background sticky top-[77px] z-20 shadow-sm border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3">
-          <div className="flex justify-center space-x-8">
-            <a href="/" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-muted/50">
-              <Icon name="Home" size={18} />
-              <span className="text-sm font-medium">Главная</span>
-            </a>
-            <a href="/#obryad" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-muted/50">
-              <Icon name="Leaf" size={18} />
-              <span className="text-sm font-medium">Обряды</span>
-            </a>
-            <a href="/#otziv" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-muted/50">
-              <Icon name="MessageCircle" size={18} />
-              <span className="text-sm font-medium">Отзывы</span>
-            </a>
-            <a href="/#contact" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-muted/50">
-              <Icon name="Mail" size={18} />
-              <span className="text-sm font-medium">Связь</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Разделитель */}
-      <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+      <Header currentTitle={currentTitle} setCurrentTitle={setCurrentTitle} />
+      
+      <Divider />
 
       {/* Основной контент */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <main className="bg-background">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-2 sm:py-4 space-y-12 sm:space-y-16">
         {/* Заголовок статьи */}
-        <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4 leading-tight px-2">
-            Приворот на жену: восстановление гармонии в браке
-          </h1>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Как вернуть любовь и взаимопонимание в отношения с супругой через древние магические практики
+        <div>
+          <h2 className="text-xl font-bold text-foreground mb-8 relative pt-0">
+            <span className="relative inline-block">
+              <span className="text-2xl font-bold relative z-10 text-primary">П</span>
+              <div className="absolute w-9 h-9 rounded-full opacity-40" style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.6) 0%, hsl(var(--primary) / 0.1) 100%)',
+                top: '-1px',
+                left: '-10px'
+              }}></div>
+            </span>риворот на жену
+          </h2>
+          <p className="text-muted-foreground leading-relaxed text-base mb-8">
+            Как вернуть любовь и взаимопонимание в отношения с супругой через древние магические практики.
           </p>
         </div>
 
         {/* Иллюстрация */}
-        <div className="mb-8 sm:mb-12 text-center px-2">
-          <div className="relative inline-block w-full max-w-2xl">
+        <div className="text-center mb-8">
+          <div className="relative inline-block w-full">
             <img 
               src="/img/0e081d67-4997-4e3c-8b95-aab516500b10.jpg" 
               alt="Приворот на жену - магические свечи и ритуальные предметы" 
-              className="w-full h-auto rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl"
+              className="w-full h-auto rounded-2xl shadow-2xl"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-xl sm:rounded-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
           </div>
         </div>
 
@@ -106,7 +63,7 @@ export default function ArticlePage() {
             {/* Что такое приворот на жену */}
             <section>
               <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
-                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
                   <Icon name="Heart" size={20} className="text-primary" />
                 </div>
                 Что такое приворот на жену
@@ -128,7 +85,7 @@ export default function ArticlePage() {
             {/* Когда стоит обращаться */}
             <section>
               <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
-                <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
                   <Icon name="AlertCircle" size={20} className="text-accent" />
                 </div>
                 Когда стоит обращаться к приворотной магии
@@ -188,7 +145,7 @@ export default function ArticlePage() {
             {/* Как работает приворот */}
             <section>
               <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
-                <div className="w-8 h-8 bg-info/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="w-8 h-8 bg-info/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
                   <Icon name="Sparkles" size={20} className="text-info" />
                 </div>
                 Как работает приворот на супругу
@@ -202,21 +159,21 @@ export default function ArticlePage() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 flex-shrink-0">
                       <Icon name="Moon" size={24} className="text-primary" />
                     </div>
                     <h3 className="font-semibold text-foreground mb-2">1-7 дней</h3>
                     <p className="text-muted-foreground text-sm">Первые изменения в поведении жены</p>
                   </div>
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 flex-shrink-0">
                       <Icon name="Sun" size={24} className="text-accent" />
                     </div>
                     <h3 className="font-semibold text-foreground mb-2">2-3 недели</h3>
                     <p className="text-muted-foreground text-sm">Восстановление близости и доверия</p>
                   </div>
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4 flex-shrink-0">
                       <Icon name="Star" size={24} className="text-success" />
                     </div>
                     <h3 className="font-semibold text-foreground mb-2">1-2 месяца</h3>
@@ -229,7 +186,7 @@ export default function ArticlePage() {
             {/* Важные принципы */}
             <section>
               <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
-                <div className="w-8 h-8 bg-warning/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="w-8 h-8 bg-warning/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
                   <Icon name="Shield" size={20} className="text-warning" />
                 </div>
                 Важные принципы безопасного приворота
@@ -237,8 +194,10 @@ export default function ArticlePage() {
               
               <div className="bg-card p-8 rounded-xl border border-border">
                 <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <Icon name="Heart" size={24} className="text-primary mt-1 flex-shrink-0" />
+                  <div className="flex items-start space-x-3 sm:space-x-4">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 bg-primary/10 rounded-lg flex items-center justify-center mt-1 flex-shrink-0">
+                      <Icon name="Heart" size={16} className="text-primary" />
+                    </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-2">Только с любовью</h3>
                       <p className="text-muted-foreground">
@@ -247,8 +206,10 @@ export default function ArticlePage() {
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4">
-                    <Icon name="Leaf" size={24} className="text-success mt-1 flex-shrink-0" />
+                  <div className="flex items-start space-x-3 sm:space-x-4">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 bg-success/10 rounded-lg flex items-center justify-center mt-1 flex-shrink-0">
+                      <Icon name="Leaf" size={16} className="text-success" />
+                    </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-2">Без вреда</h3>
                       <p className="text-muted-foreground">
@@ -257,8 +218,10 @@ export default function ArticlePage() {
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4">
-                    <Icon name="Clock" size={24} className="text-info mt-1 flex-shrink-0" />
+                  <div className="flex items-start space-x-3 sm:space-x-4">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 bg-info/10 rounded-lg flex items-center justify-center mt-1 flex-shrink-0">
+                      <Icon name="Clock" size={16} className="text-info" />
+                    </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-2">Естественность</h3>
                       <p className="text-muted-foreground">
@@ -273,7 +236,7 @@ export default function ArticlePage() {
             {/* Результаты */}
             <section>
               <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
-                <div className="w-8 h-8 bg-success/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="w-8 h-8 bg-success/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
                   <Icon name="Trophy" size={20} className="text-success" />
                 </div>
                 Чего можно ожидать от ритуала
@@ -362,6 +325,7 @@ export default function ArticlePage() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </main>
 
