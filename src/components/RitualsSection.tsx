@@ -62,10 +62,10 @@ const ritualCards = [
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
     <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent overflow-hidden">
-      {/* Большая прозрачная стрелка на заднем фоне между иконкой и заголовком */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{paddingTop: '20px', paddingBottom: '40px'}}>
-        <div className="opacity-4 group-hover:opacity-8 transition-opacity duration-300">
-          <Icon name="ArrowRight" size={120} className="text-accent" />
+      {/* Изящная вытянутая прозрачная стрелка на заднем фоне */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{paddingTop: '10px', paddingBottom: '60px'}}>
+        <div className="opacity-3 group-hover:opacity-6 transition-opacity duration-300 transform scale-x-150 scale-y-75">
+          <Icon name="ArrowRight" size={100} className="text-accent" />
         </div>
       </div>
       
