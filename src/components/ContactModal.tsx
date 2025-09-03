@@ -303,7 +303,7 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
             {/* Заголовок и описание */}
             <div className="space-y-4">
               <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
-                🚀 Заявка отправлена!
+                Заявка отправлена!
               </h3>
               
               <div className="space-y-3">
@@ -324,34 +324,15 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
               </div>
             </div>
             
-            {/* Дополнительная информация */}
-            <div className="space-y-4">
-              <div className="bg-primary/5 border border-primary/10 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                  <Icon name="Clock" size={18} className="text-primary mt-0.5 flex-shrink-0" />
-                  <div className="text-left">
-                    <div className="font-medium text-foreground text-sm mb-1">
-                      Что дальше?
-                    </div>
-                    <div className="text-xs text-muted-foreground space-y-1">
-                      <div>• Изучим ваш случай в течение 2-4 часов</div>
-                      <div>• Подготовим персональное предложение</div>
-                      <div>• Свяжемся для уточнения деталей</div>
-                    </div>
-                  </div>
-                </div>
+            {/* Таймер автозакрытия */}
+            <div className="bg-muted/30 rounded-lg p-3 space-y-2">
+              <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                <Icon name="Timer" size={14} />
+                <span>Окно закроется автоматически через 10 секунд</span>
               </div>
               
-              {/* Таймер автозакрытия */}
-              <div className="bg-muted/30 rounded-lg p-3 space-y-2">
-                <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-                  <Icon name="Timer" size={14} />
-                  <span>Окно закроется автоматически через 10 секунд</span>
-                </div>
-                
-                <div className="h-1 bg-muted/50 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-primary/80 to-primary rounded-full animate-[shrink_10s_linear_forwards]" />
-                </div>
+              <div className="h-1 bg-muted/50 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-primary/80 to-primary rounded-full animate-[shrink_10s_linear_forwards]" />
               </div>
             </div>
           </div>
