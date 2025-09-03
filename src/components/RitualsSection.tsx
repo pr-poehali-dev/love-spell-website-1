@@ -8,52 +8,52 @@ interface RitualsSectionProps {
 
 const ritualCards = [
   {
-    icon: 'Heart',
+    icon: 'HeartHandshake',
     title: 'Приворот на жену',
     description: 'Обряд для восстановления отношений и привлечения внимания супруги'
   },
   {
-    icon: 'Users',
+    icon: 'UserCheck',
     title: 'Приворот на мужа',
     description: 'Обряд для укрепления семейных отношений и возвращения мужа'
   },
   {
-    icon: 'Sparkles',
+    icon: 'Star',
     title: 'Обряд на внушение любви',
     description: 'Магический ритуал для пробуждения искренних чувств'
   },
   {
-    icon: 'Sun',
+    icon: 'Sunrise',
     title: 'Обряд на снятие одиночества',
     description: 'Ритуал для привлечения спутника жизни и избавления от одиночества'
   },
   {
-    icon: 'HeartHandshake',
+    icon: 'Heart',
     title: 'Обряд на привлечение любви',
     description: 'Магический ритуал для привлечения истинной любви в жизнь'
   },
   {
-    icon: 'Image',
+    icon: 'Camera',
     title: 'Обряд приворота на фото',
     description: 'Дистанционный обряд с использованием фотографии человека'
   },
   {
-    icon: 'Shield',
+    icon: 'ShieldCheck',
     title: 'Обряд от соперницы',
     description: 'Защитный ритуал для устранения влияния соперницы'
   },
   {
-    icon: 'Battery',
+    icon: 'Zap',
     title: 'Обряд на набор энергии',
     description: 'Ритуал для восстановления жизненной энергии и сил'
   },
   {
-    icon: 'Handshake',
+    icon: 'Users',
     title: 'Обряд на примирение',
     description: 'Ритуал для восстановления мира и согласия в отношениях'
   },
   {
-    icon: 'Zap',
+    icon: 'Flame',
     title: 'Обряд на вольта',
     description: 'Мощный магический ритуал с использованием восковой куклы'
   }
@@ -61,24 +61,17 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
-    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent overflow-hidden">
-      {/* Большая прозрачная стрелка на заднем фоне между иконкой и заголовком */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{paddingTop: '20px', paddingBottom: '40px'}}>
-        <div className="opacity-4 group-hover:opacity-8 transition-opacity duration-300">
-          <Icon name="ArrowRight" size={120} className="text-accent" />
-        </div>
-      </div>
-      
-      <div className="relative flex flex-col items-center text-center">
+    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent">
+      <div className="flex flex-col items-center text-center">
         <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-          <Icon name={ritual.icon as any} size={32} className="text-primary" />
+          <Icon name={ritual.icon as any} size={40} className="text-primary" />
         </div>
-        
         <div className="space-y-2">
           <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300">{ritual.title}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">{ritual.description}</p>
         </div>
       </div>
+
     </div>
   );
 }
