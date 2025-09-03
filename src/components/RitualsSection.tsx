@@ -61,10 +61,30 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   const getArticleLink = (title: string) => {
-    if (title === 'Приворот на жену') {
-      return '/privorot-na-zhenu';
+    switch (title) {
+      case 'Приворот на жену':
+        return '/privorot-na-zhenu';
+      case 'Приворот на мужа':
+        return '/privorot-na-muzha';
+      case 'Обряд на внушение любви':
+        return '/vnushenie-lyubvi';
+      case 'Обряд на снятие одиночества':
+        return '/snyatie-odinochestva';
+      case 'Обряд на привлечение любви':
+        return '/privlechenie-lyubvi';
+      case 'Обряд приворота на фото':
+        return '/privorot-na-foto';
+      case 'Обряд от соперницы':
+        return '/ot-sopernitsy';
+      case 'Обряд на набор энергии':
+        return '/nabor-energii';
+      case 'Обряд на примирение':
+        return '/primirenie';
+      case 'Обряд на вольта':
+        return '/volta';
+      default:
+        return '#';
     }
-    return '#'; // Для остальных карточек пока оставляем заглушку
   };
 
   return (
