@@ -30,18 +30,15 @@ export default function ContactSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-accent/8 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              {/* Иконка трёх точек "выглядывает из угла" */}
-              <div className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 opacity-15 group-hover:opacity-25 transition-all duration-500 rotate-[25deg] group-hover:rotate-[15deg] transform-gpu">
-                <Icon name="MoreHorizontal" size={24} className="text-primary xs:w-7 xs:h-7 sm:w-8 sm:h-8" />
-              </div>
+
               
               {/* Контент кнопки */}
               <div className="relative px-3 py-3 xs:px-4 xs:py-4 sm:px-5 sm:py-5 md:px-6 md:py-6">
                 
                 {/* Профиль по центру */}
                 <div className="text-center mb-2.5 xs:mb-3 sm:mb-4">
-                  {/* Чистый аватар без индикатора */}
-                  <div className="inline-block mb-2">
+                  {/* Аватар с индикатором как на скриншоте */}
+                  <div className="relative inline-block mb-2">
                     <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 sm:border-[3px] border-primary/25 group-hover:border-primary/50 transition-all duration-400 mx-auto">
                       <img 
                         src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
@@ -49,6 +46,10 @@ export default function ContactSection() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         loading="lazy"
                       />
+                    </div>
+                    {/* Индикатор онлайн как на скриншоте - белый круг с зелёной точкой */}
+                    <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 bg-card border-2 border-card rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full" />
                     </div>
                   </div>
                   
