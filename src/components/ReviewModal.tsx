@@ -253,7 +253,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                     value={formData.name}
                     onChange={(e) => handleFieldChange('name', e.target.value)}
                     onBlur={() => handleFieldBlur('name')}
-                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none transition-all duration-200 ${
+                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-placeholder focus:outline-none transition-all duration-200 ${
                       errors.name 
                         ? 'border-destructive focus:border-destructive' 
                         : 'border-border focus:border-primary'
@@ -282,7 +282,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                     onChange={(e) => handleFieldChange('review', e.target.value)}
                     onBlur={() => handleFieldBlur('review')}
                     rows={4}
-                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none transition-all duration-200 resize-none ${
+                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-placeholder focus:outline-none transition-all duration-200 resize-none ${
                       errors.review 
                         ? 'border-destructive focus:border-destructive' 
                         : 'border-border focus:border-primary'
@@ -311,7 +311,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                     value={formData.location}
                     onChange={(e) => handleFieldChange('location', e.target.value)}
                     onBlur={() => handleFieldBlur('location')}
-                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none transition-all duration-200 ${
+                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-placeholder focus:outline-none transition-all duration-200 ${
                       errors.location 
                         ? 'border-destructive focus:border-destructive' 
                         : 'border-border focus:border-primary'
@@ -337,7 +337,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                     value={formData.email}
                     onChange={(e) => handleFieldChange('email', e.target.value)}
                     onBlur={() => handleFieldBlur('email')}
-                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none transition-all duration-200 ${
+                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-placeholder focus:outline-none transition-all duration-200 ${
                       errors.email 
                         ? 'border-destructive focus:border-destructive' 
                         : 'border-border focus:border-primary'

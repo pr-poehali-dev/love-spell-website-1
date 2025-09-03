@@ -77,16 +77,16 @@ export default function ContactModalStep5({
         {/* Ситуация */}
         <div>
           <label className="block text-white/90 text-sm mb-2 font-medium">
-            Опишите что у вас случилось <span className="text-red-400">*</span>
+            Опишите что у вас случилось <span className="text-destructive">*</span>
           </label>
           <textarea
             value={formData.situation}
             onChange={(e) => onFieldChange('situation', e.target.value)}
             onBlur={() => onFieldBlur('situation')}
-            className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 resize-none h-24 ${
+            className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-placeholder focus:outline-none transition-all duration-200 resize-none h-24 ${
               errors.situation 
-                ? 'border-red-500 focus:border-red-400' 
-                : 'border-orange-500/30 focus:border-orange-500'
+                ? 'border-destructive focus:border-destructive' 
+                : 'border-border focus:border-primary'
             }`}
             placeholder="Расскажите подробнее о вашей ситуации..."
             maxLength={500}
@@ -104,18 +104,18 @@ export default function ContactModalStep5({
         
         {/* Дата рождения */}
         <div>
-          <label className="block text-white/90 text-sm mb-2 font-medium">
-            Даты рождения <span className="text-red-400">*</span>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Даты рождения <span className="text-destructive">*</span>
           </label>
           <input
             type="text"
             value={formData.birthDate}
             onChange={(e) => onFieldChange('birthDate', e.target.value)}
             onBlur={() => onFieldBlur('birthDate')}
-            className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 ${
+            className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-placeholder focus:outline-none transition-all duration-200 ${
               errors.birthDate 
-                ? 'border-red-500 focus:border-red-400' 
-                : 'border-orange-500/30 focus:border-orange-500'
+                ? 'border-destructive focus:border-destructive' 
+                : 'border-border focus:border-primary'
             }`}
             placeholder="Например: 15.03.1990 и 22.07.1988"
           />
@@ -131,18 +131,18 @@ export default function ContactModalStep5({
         </div>
         
         {/* Фото */}
-        <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+        <div className="bg-input border border-border rounded-xl p-4">
           <div className="flex items-center gap-3 mb-3">
-            <Icon name="Camera" size={20} className="text-orange-500" />
-            <h3 className="text-white/90 text-sm font-medium">Фотографии</h3>
-            <span className="text-white/60 text-xs">(опционально)</span>
+            <Icon name="Camera" size={20} className="text-primary" />
+            <h3 className="text-foreground text-sm font-medium">Фотографии</h3>
+            <span className="text-muted-foreground text-xs">(опционально)</span>
           </div>
-          <p className="text-white/70 text-sm mb-3">
+          <p className="text-muted-foreground text-sm mb-3">
             Прикрепите ваше фото и фото второй половинки для более точной работы.
           </p>
           <button 
             type="button"
-            className="bg-gradient-to-r from-orange-500/20 to-orange-600/20 border border-orange-500/30 hover:from-orange-500/30 hover:to-orange-600/30 text-orange-300 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 active:scale-95 flex items-center gap-2"
+            className="bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30 hover:from-primary/30 hover:to-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 active:scale-95 flex items-center gap-2"
           >
             <Icon name="Upload" size={16} />
             Добавить фото
@@ -151,18 +151,18 @@ export default function ContactModalStep5({
         
         {/* Email */}
         <div>
-          <label className="block text-white/90 text-sm mb-2 font-medium">
-            Ваш email <span className="text-red-400">*</span>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Ваш email <span className="text-destructive">*</span>
           </label>
           <input
             type="email"
             value={formData.email}
             onChange={(e) => onFieldChange('email', e.target.value)}
             onBlur={() => onFieldBlur('email')}
-            className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 ${
+            className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-placeholder focus:outline-none transition-all duration-200 ${
               errors.email 
-                ? 'border-red-500 focus:border-red-400' 
-                : 'border-orange-500/30 focus:border-orange-500'
+                ? 'border-destructive focus:border-destructive' 
+                : 'border-border focus:border-primary'
             }`}
             placeholder="your@email.com"
           />
@@ -179,30 +179,32 @@ export default function ContactModalStep5({
       </div>
       
       {/* Информация о конфиденциальности */}
-      <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 mb-6">
-        <div className="flex items-start gap-2">
-          <Icon name="Shield" size={16} className="text-blue-400 mt-0.5 flex-shrink-0" />
-          <p className="text-blue-300 text-xs leading-relaxed">
-            Ваши данные защищены и не передаются третьим лицам. Все консультации строго конфиденциальны.
-          </p>
+      <div className="bg-info/10 border border-info/20 rounded-xl p-4 mb-6">
+        <div className="flex items-start gap-3">
+          <Icon name="Shield" size={16} className="text-info mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Ваши данные защищены и не передаются третьим лицам. Все консультации строго конфиденциальны.
+            </p>
+          </div>
         </div>
       </div>
       
       <div className="flex gap-3">
         <button
           onClick={onBack}
-          className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
+          className="flex-1 bg-muted hover:bg-muted/80 text-muted-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
         >
           Назад
         </button>
         <button
           onClick={onSendEmail}
           disabled={isSubmitting || Object.keys(errors).some(key => errors[key as keyof FormErrors]) || !formData.name || !formData.situation || !formData.email}
-          className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg flex items-center justify-center gap-2"
+          className="flex-1 bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 disabled:from-muted disabled:to-muted disabled:cursor-not-allowed text-primary-foreground py-3 px-6 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] disabled:hover:scale-100 active:scale-95 flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
             <>
-              <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
               Отправка...
             </>
           ) : (
