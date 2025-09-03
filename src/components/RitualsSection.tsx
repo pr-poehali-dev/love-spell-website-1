@@ -8,22 +8,22 @@ interface RitualsSectionProps {
 
 const ritualCards = [
   {
-    icon: 'HeartHandshake',
+    icon: 'Heart',
     title: 'Приворот на жену',
     description: 'Обряд для восстановления отношений и привлечения внимания супруги'
   },
   {
-    icon: 'UserCheck',
+    icon: 'User',
     title: 'Приворот на мужа',
     description: 'Обряд для укрепления семейных отношений и возвращения мужа'
   },
   {
-    icon: 'Star',
+    icon: 'Sparkles',
     title: 'Обряд на внушение любви',
     description: 'Магический ритуал для пробуждения искренних чувств'
   },
   {
-    icon: 'Sunrise',
+    icon: 'Sun',
     title: 'Обряд на снятие одиночества',
     description: 'Ритуал для привлечения спутника жизни и избавления от одиночества'
   },
@@ -33,17 +33,17 @@ const ritualCards = [
     description: 'Магический ритуал для привлечения истинной любви в жизнь'
   },
   {
-    icon: 'Camera',
+    icon: 'ImageIcon',
     title: 'Обряд приворота на фото',
     description: 'Дистанционный обряд с использованием фотографии человека'
   },
   {
-    icon: 'ShieldCheck',
+    icon: 'Shield',
     title: 'Обряд от соперницы',
     description: 'Защитный ритуал для устранения влияния соперницы'
   },
   {
-    icon: 'Zap',
+    icon: 'Battery',
     title: 'Обряд на набор энергии',
     description: 'Ритуал для восстановления жизненной энергии и сил'
   },
