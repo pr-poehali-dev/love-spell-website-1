@@ -30,42 +30,47 @@ export default function ContactSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-accent/8 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
+              {/* Иконка чата в верхнем левом углу */}
+              <div className="absolute top-3 left-3 sm:top-4 sm:left-4 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                <Icon name="MessageSquare" size={16} className="text-foreground xs:w-[18px] xs:h-[18px] sm:w-5 sm:h-5" />
+              </div>
+              
               {/* Контент кнопки */}
               <div className="relative px-3 py-3 xs:px-4 xs:py-4 sm:px-5 sm:py-5 md:px-6 md:py-6">
                 
-                {/* Шапка: Компактный профиль */}
-                <div className="flex items-center justify-center gap-2.5 xs:gap-3 sm:gap-4 mb-2.5 xs:mb-3 sm:mb-4">
-                  {/* Мини-аватар */}
-                  <div className="relative flex-shrink-0">
-                    <div className="w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-primary/25 group-hover:border-primary/50 transition-all duration-400">
+                {/* Профиль по центру */}
+                <div className="text-center mb-2.5 xs:mb-3 sm:mb-4">
+                  {/* Аватар в центре */}
+                  <div className="relative inline-block mb-2">
+                    <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 sm:border-[3px] border-primary/25 group-hover:border-primary/50 transition-all duration-400 mx-auto">
                       <img 
                         src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
-                        alt="Раиса"
+                        alt="Раиса Ильинская"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         loading="lazy"
                       />
                     </div>
-                    {/* Компактный online индикатор */}
-                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4">
+                    {/* Online индикатор */}
+                    <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6">
                       <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75" />
-                      <div className="relative w-full h-full bg-green-500 border border-card rounded-full" />
+                      <div className="relative w-full h-full bg-green-500 border-2 border-card rounded-full" />
                     </div>
                   </div>
                   
-                  {/* Компактная информация */}
-                  <div className="text-center min-w-0 flex-1">
-                    <div className="font-semibold text-foreground text-xs xs:text-sm sm:text-base md:text-lg leading-tight">
+                  {/* Текст по центру */}
+                  <div>
+                    <div className="font-semibold text-foreground text-sm xs:text-base sm:text-lg md:text-xl leading-tight mb-1">
                       Раиса Ильинская
                     </div>
-                    <div className="text-muted-foreground text-[10px] xs:text-xs sm:text-sm flex items-center justify-center gap-1 mt-0.5">
-                      <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-green-500 rounded-full animate-pulse" />
+                    <div className="text-muted-foreground text-xs xs:text-sm sm:text-base flex items-center justify-center gap-1.5">
+                      <div className="w-1.5 h-1.5 xs:w-2 xs:h-2 bg-green-500 rounded-full animate-pulse" />
                       <span>Онлайн</span>
                     </div>
                   </div>
                 </div>
                 
                 {/* Основное действие - оранжевая кнопка с самолётиком */}
-                <div className="bg-gradient-to-r from-primary to-primary/90 group-hover:from-primary/95 group-hover:to-primary/85 text-primary-foreground rounded-xl sm:rounded-2xl px-3 py-2.5 xs:px-4 xs:py-3 sm:px-5 sm:py-3.5 mb-3 sm:mb-4 transition-all duration-400 group-hover:shadow-xl group-hover:shadow-primary/30 group-hover:-translate-y-0.5 will-change-transform">
+                <div className="bg-gradient-to-r from-primary to-primary/90 group-hover:from-primary/95 group-hover:to-primary/85 text-primary-foreground rounded-xl sm:rounded-2xl px-3 py-2.5 xs:px-4 xs:py-3 sm:px-5 sm:py-3.5 mb-3 sm:mb-4 transition-all duration-400 group-hover:shadow-lg group-hover:-translate-y-0.5 will-change-transform">
                   <div className="flex items-center justify-center gap-2 xs:gap-2.5 sm:gap-3">
                     <Icon 
                       name="Plane" 
