@@ -20,6 +20,8 @@ interface ContactModalStep5Props {
   formData: FormData;
   errors: FormErrors;
   isSubmitting: boolean;
+  uploadProgress: { [key: string]: number };
+  isUploading: boolean;
   onFieldChange: (field: keyof FormData, value: string) => void;
   onFieldBlur: (field: keyof FormData) => void;
   onPhotoUpload: (files: FileList) => void;
@@ -32,6 +34,8 @@ export default function ContactModalStep5({
   formData, 
   errors, 
   isSubmitting,
+  uploadProgress,
+  isUploading,
   onFieldChange, 
   onFieldBlur, 
   onPhotoUpload,
@@ -179,6 +183,33 @@ export default function ContactModalStep5({
             </div>
           )}
           
+          {/* Прогресс бары загрузки */}
+          {Object.keys(uploadProgress).length > 0 && (
+            <div className="space-y-2 mb-4">
+              {Object.entries(uploadProgress).map(([fileKey, progress]) => {
+                const fileName = fileKey.split('-')[0];
+                return (
+                  <div key={fileKey} className="bg-muted/30 rounded-lg p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs text-muted-foreground truncate flex-1 mr-2">
+                        {fileName}
+                      </span>
+                      <span className="text-xs text-primary font-medium">
+                        {progress}%
+                      </span>
+                    </div>
+                    <div className="w-full bg-muted rounded-full h-2">
+                      <div 
+                        className="bg-gradient-to-r from-primary to-primary/80 h-2 rounded-full transition-all duration-300 ease-out"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          
           {/* Кнопка загрузки */}
           {formData.photos.length < 4 && (
             <div className="relative">
@@ -186,20 +217,35 @@ export default function ContactModalStep5({
                 type="file"
                 accept="image/jpeg,image/jpg,image/png,image/webp"
                 multiple
+                disabled={isUploading}
                 onChange={(e) => {
                   if (e.target.files) {
                     onPhotoUpload(e.target.files);
                     e.target.value = ''; // Сброс input для повторной загрузки
                   }
                 }}
-                className="absolute inset-0 opacity-0 cursor-pointer"
+                className="absolute inset-0 opacity-0 cursor-pointer disabled:cursor-not-allowed"
               />
               <button 
                 type="button"
-                className="w-full bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30 hover:from-primary/30 hover:to-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
+                disabled={isUploading}
+                className={`w-full border border-primary/30 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+                  isUploading 
+                    ? 'bg-gradient-to-r from-muted to-muted text-muted-foreground cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-primary/20 to-primary/10 hover:from-primary/30 hover:to-primary/20 text-primary active:scale-95'
+                }`}
               >
-                <Icon name="Upload" size={16} />
-                {formData.photos.length === 0 ? 'Добавить фото' : `Добавить еще (${formData.photos.length}/4)`}
+                {isUploading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-muted-foreground/30 border-t-muted-foreground rounded-full animate-spin" />
+                    Загрузка...
+                  </>
+                ) : (
+                  <>
+                    <Icon name="Upload" size={16} />
+                    {formData.photos.length === 0 ? 'Добавить фото' : `Добавить еще (${formData.photos.length}/4)`}
+                  </>
+                )}
               </button>
             </div>
           )}
@@ -211,7 +257,7 @@ export default function ContactModalStep5({
           )}
           
           <p className="text-muted-foreground text-xs mt-2">
-            Поддерживаются: JPG, PNG, WEBP (до 5МБ каждая)
+            Поддерживаются: JPG, PNG, WEBP (до 8МБ каждая)
           </p>
         </div>
         

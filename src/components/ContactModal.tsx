@@ -40,6 +40,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     email: '',
     photos: []
   });
+  const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -157,8 +159,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setErrors(prev => ({ ...prev, [field]: error }));
   };
 
-  const handlePhotoUpload = (files: FileList) => {
-    const newPhotos = Array.from(files).filter(file => {
+  const handlePhotoUpload = async (files: FileList) => {
+    const validFiles = Array.from(files).filter(file => {
       // Валидация типа файла
       const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
       if (!validTypes.includes(file.type)) {
@@ -166,19 +168,47 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         return false;
       }
       
-      // Валидация размера файла (макс 5МБ)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('Размер файла не должен превышать 5МБ');
+      // Валидация размера файла (макс 8МБ)
+      if (file.size > 8 * 1024 * 1024) {
+        alert('Размер файла не должен превышать 8МБ');
         return false;
       }
       
       return true;
     });
     
-    setFormData(prev => ({
-      ...prev,
-      photos: [...prev.photos, ...newPhotos].slice(0, 4) // Макс 4 фото
-    }));
+    if (validFiles.length === 0) return;
+    
+    setIsUploading(true);
+    
+    // Имитация загрузки с прогрессом
+    for (let i = 0; i < validFiles.length; i++) {
+      const file = validFiles[i];
+      const fileKey = `${file.name}-${file.size}`;
+      
+      // Прогресс от 0 до 100
+      for (let progress = 0; progress <= 100; progress += 5) {
+        setUploadProgress(prev => ({ ...prev, [fileKey]: progress }));
+        await new Promise(resolve => setTimeout(resolve, 30 + Math.random() * 20));
+      }
+      
+      // Добавляем файл к списку
+      setFormData(prev => ({
+        ...prev,
+        photos: [...prev.photos, file].slice(0, 4) // Макс 4 фото
+      }));
+      
+      // Очищаем прогресс после завершения
+      setTimeout(() => {
+        setUploadProgress(prev => {
+          const newProgress = { ...prev };
+          delete newProgress[fileKey];
+          return newProgress;
+        });
+      }, 500);
+    }
+    
+    setIsUploading(false);
   };
 
   const handleRemovePhoto = (index: number) => {
@@ -228,6 +258,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           formData={formData}
           errors={errors}
           isSubmitting={isSubmitting}
+          uploadProgress={uploadProgress}
+          isUploading={isUploading}
           onFieldChange={handleFieldChange}
           onFieldBlur={handleFieldBlur}
           onPhotoUpload={handlePhotoUpload}
