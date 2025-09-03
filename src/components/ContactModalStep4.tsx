@@ -45,7 +45,7 @@ export default function ContactModalStep4({ onWhatsApp, onTelegram, onEmailChoic
           
           <button
             onClick={onEmailChoice}
-            className="w-full bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground py-2 px-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 text-sm"
+            className="w-full bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground py-2.5 px-5 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
           >
             <Icon name="Mail" size={18} className="text-primary-foreground" />
             <span>Написать на Email</span>

@@ -48,13 +48,13 @@ export default function ContactModalStep2({ onNext, onBack }: ContactModalStep2P
       <div className="flex gap-3">
         <button 
           onClick={onBack}
-          className="flex-1 bg-secondary hover:bg-secondary/80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border text-sm"
+          className="flex-1 bg-secondary hover:bg-secondary/80 text-white py-2.5 px-5 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
         >
           Назад
         </button>
         <button 
           onClick={onNext}
-          className="flex-1 bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground py-2 px-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] active:scale-95 text-sm"
+          className="flex-1 bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground py-2.5 px-5 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] active:scale-95"
         >
           Далее
         </button>
