@@ -64,7 +64,7 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
     <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent">
       <div className="flex flex-col items-center text-center">
         <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-          <Icon name={ritual.icon as any} size={40} className="text-primary" />
+          <Icon name={ritual.icon as any} size={48} className="text-primary" />
         </div>
         <div className="space-y-2">
           <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300">{ritual.title}</h3>
