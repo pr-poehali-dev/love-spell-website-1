@@ -96,7 +96,6 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
         </div>
       </div>
     </div>
-    </div>
   );
 }
 
