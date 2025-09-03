@@ -62,7 +62,7 @@ export default function ContactSection() {
                   {/* Текст по центру */}
                   <div>
                     <div className="font-semibold text-foreground text-base xs:text-lg sm:text-xl md:text-2xl leading-tight mb-1.5">
-                      Раиса Ильинская
+                      Раиса
                     </div>
                     <div className="text-muted-foreground text-sm xs:text-base sm:text-lg flex items-center justify-center gap-2">
                       <div className="relative w-2 h-2 xs:w-2.5 xs:h-2.5">
