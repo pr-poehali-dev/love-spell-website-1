@@ -69,10 +69,14 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
         </div>
         
         <div className="space-y-2">
-          <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 flex items-center justify-center gap-2">
-            {ritual.title}
-            <Icon name="ChevronRight" size={16} className="text-accent/60 flex-shrink-0" />
-          </h3>
+          <div className="relative">
+            <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 text-center">
+              {ritual.title}
+            </h3>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-8">
+              <Icon name="ChevronRight" size={16} className="text-accent/60" />
+            </div>
+          </div>
           <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">{ritual.description}</p>
         </div>
 
