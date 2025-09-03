@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 
 interface HeaderProps {
@@ -6,32 +7,38 @@ interface HeaderProps {
   setCurrentTitle: (title: string) => void;
 }
 
-const scrollToSection = (sectionId: string) => {
-  const element = document.getElementById(sectionId);
-  if (element) {
-    // Получаем актуальную высоту хедера
-    const header = document.querySelector('header');
-    const headerHeight = header ? header.offsetHeight : 120;
-    
-    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-    const offsetPosition = elementPosition - headerHeight - 32; // отступ чтобы показать начало блока после разделителя
-    
-    // Добавляем визуальную обратную связь
-    const button = document.querySelector(`[data-section="${sectionId}"]`);
-    if (button) {
-      button.classList.add('scale-95');
-      setTimeout(() => button.classList.remove('scale-95'), 150);
+const navigateToSection = (sectionId: string, navigate: any, location: any) => {
+  // Если мы на главной странице - скроллим к секции
+  if (location.pathname === '/') {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 120;
+      
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerHeight - 32;
+      
+      const button = document.querySelector(`[data-section="${sectionId}"]`);
+      if (button) {
+        button.classList.add('scale-95');
+        setTimeout(() => button.classList.remove('scale-95'), 150);
+      }
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
+  } else {
+    // Если мы не на главной - переходим на главную с хэшем
+    navigate(`/#${sectionId}`);
   }
 };
 
 export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
   const [activeSection, setActiveSection] = useState('ktoya');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,7 +48,34 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
     return () => clearInterval(interval);
   }, [currentTitle, setCurrentTitle]);
 
+  // Обработка хэша в URL при загрузке страницы
   useEffect(() => {
+    if (location.pathname === '/' && location.hash) {
+      const sectionId = location.hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const header = document.querySelector('header');
+          const headerHeight = header ? header.offsetHeight : 120;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight - 32;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    // Отслеживание активной секции только на главной странице
+    if (location.pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
     let ticking = false;
     
     const handleScroll = () => {
@@ -68,7 +102,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   return (
     <>
@@ -100,7 +134,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button 
-              onClick={() => scrollToSection('ktoya')}
+              onClick={() => navigateToSection('ktoya', navigate, location)}
               className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'ktoya' 
                   ? 'bg-accent/10 text-accent' 
@@ -120,7 +154,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
               )}
             </button>
             <button 
-              onClick={() => scrollToSection('obryad')}
+              onClick={() => navigateToSection('obryad', navigate, location)}
               className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'obryad' 
                   ? 'bg-accent/10 text-accent' 
@@ -141,7 +175,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
             </button>
             <button 
               data-section="testimonials"
-              onClick={() => scrollToSection('otziv')}
+              onClick={() => navigateToSection('otziv', navigate, location)}
               className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'otziv' 
                   ? 'bg-accent/10 text-accent' 
@@ -161,7 +195,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
               )}
             </button>
             <button 
-              onClick={() => scrollToSection('contact')}
+              onClick={() => navigateToSection('contact', navigate, location)}
               className={`flex flex-col items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg transition-colors active:scale-95 focus-visible group relative overflow-hidden ${
                 activeSection === 'contact' 
                   ? 'bg-accent/10 text-accent' 

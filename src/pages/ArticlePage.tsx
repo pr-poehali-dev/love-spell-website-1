@@ -15,7 +15,7 @@ export default function ArticlePage() {
       <Divider />
 
       {/* Широкое изображение-баннер */}
-      <div className="relative">
+      <div className="relative -mt-1">
         {/* Тень от липкой шапки */}
         <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-background/80 via-background/40 to-transparent pointer-events-none z-10"></div>
         
