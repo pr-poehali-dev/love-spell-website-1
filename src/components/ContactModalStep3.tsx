@@ -45,7 +45,7 @@ export default function ContactModalStep3({ onNext, onClose }: ContactModalStep3
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button 
           onClick={onClose}
-          className="flex-1 bg-muted hover:bg-muted/80 text-muted-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
+          className="flex-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
         >
           Выйти
         </button>

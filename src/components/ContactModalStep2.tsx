@@ -17,29 +17,38 @@ export default function ContactModalStep2({ onNext, onBack }: ContactModalStep2P
       </div>
       
       <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-        <div className="bg-info/10 border border-info/20 rounded-lg p-3 sm:p-4">
-          <p className="text-foreground text-sm sm:text-base leading-relaxed border-b border-border pb-2 mb-2">
-            Сейчас я занимаюсь исключительно любовными обрядами и ритуалами.
-          </p>
+        <div className="bg-info/10 border border-info/20 rounded-xl p-4">
+          <div className="flex items-start gap-3">
+            <Icon name="Heart" size={20} className="text-info mt-0.5 flex-shrink-0" />
+            <p className="text-foreground text-sm sm:text-base leading-relaxed">
+              Сейчас я занимаюсь исключительно любовными обрядами и ритуалами.
+            </p>
+          </div>
         </div>
         
-        <div className="bg-warning/10 border border-warning/20 rounded-lg p-3 sm:p-4">
-          <p className="text-warning text-sm sm:text-base leading-relaxed">
-            Гадание на будущее, настоящее или расклады карт для простого любопытства, к сожалению, не провожу.
-          </p>
+        <div className="bg-warning/10 border border-warning/20 rounded-xl p-4">
+          <div className="flex items-start gap-3">
+            <Icon name="X" size={20} className="text-warning mt-0.5 flex-shrink-0" />
+            <p className="text-foreground text-sm sm:text-base leading-relaxed">
+              Гадание на будущее, настоящее или расклады карт для простого любопытства, к сожалению, не провожу.
+            </p>
+          </div>
         </div>
         
-        <div className="bg-success/10 border border-success/20 rounded-lg p-3 sm:p-4">
-          <p className="text-success text-sm sm:text-base leading-relaxed">
-            Но если вам нужно вернуть отношения или провести любовный обряд, я готова помочь.
-          </p>
+        <div className="bg-success/10 border border-success/20 rounded-xl p-4">
+          <div className="flex items-start gap-3">
+            <Icon name="Check" size={20} className="text-success mt-0.5 flex-shrink-0" />
+            <p className="text-foreground text-sm sm:text-base leading-relaxed">
+              Но если вам нужно вернуть отношения или провести любовный обряд, я готова помочь.
+            </p>
+          </div>
         </div>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button 
           onClick={onBack}
-          className="flex-1 bg-muted hover:bg-muted/80 text-muted-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95"
+          className="flex-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
         >
           Назад
         </button>

@@ -371,7 +371,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                 <button
                   type="submit"
                   disabled={isSubmitting || Object.keys(errors).some(key => errors[key as keyof FormErrors])}
-                  className="w-full py-4 bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground font-semibold text-lg rounded-2xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground font-semibold text-lg rounded-full hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>
