@@ -173,7 +173,7 @@ export default function ContactModalStep5({
                         e.stopPropagation();
                         onRemovePhoto(index);
                       }}
-                      className="absolute -top-2 -right-2 w-6 h-6 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110"
+                      className="absolute -top-2 -right-2 w-6 h-6 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200 hover:scale-110 active:scale-95 shadow-lg"
                     >
                       <Icon name="X" size={12} />
                     </button>
