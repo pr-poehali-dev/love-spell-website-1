@@ -88,7 +88,10 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   };
 
   return (
-    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent">
+    <a 
+      href={getArticleLink(ritual.title)}
+      className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent block"
+    >
       <div className="flex flex-col items-center text-center">
         <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
           <Icon name={ritual.icon as any} size={48} className="text-primary" />
@@ -100,17 +103,13 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
 
         {/* Кнопка перехода к статье */}
         <div className="mt-4">
-          <a 
-            href={getArticleLink(ritual.title)}
-            className="inline-flex px-4 py-2 bg-accent/8 hover:bg-accent/15 rounded-full text-accent text-sm font-medium transition-colors duration-300 items-center gap-2 justify-center"
-          >
+          <div className="inline-flex px-4 py-2 bg-accent/8 hover:bg-accent/15 rounded-full text-accent text-sm font-medium transition-colors duration-300 items-center gap-2 justify-center">
             <span>Подробнее</span>
             <Icon name="ArrowRight" size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
-          </a>
+          </div>
         </div>
       </div>
-
-    </div>
+    </a>
   );
 }
 

@@ -14,7 +14,7 @@ export default function LoveAttractionPage() {
         <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-background/60 via-background/20 to-transparent pointer-events-none z-10"></div>
         <div className="w-full h-32 sm:h-40 md:h-48 relative overflow-hidden">
           <img 
-            src="/img/9b5bb5e7-9a48-43c0-a089-59924ea39e86.jpg" 
+            src="/img/15b483c3-1ad6-41bc-9c6f-baadf7978a9f.jpg" 
             alt="Обряд на привлечение любви" 
             className="w-full h-full object-cover"
             loading="lazy"

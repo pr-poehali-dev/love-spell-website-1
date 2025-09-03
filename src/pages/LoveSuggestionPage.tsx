@@ -18,7 +18,7 @@ export default function LoveSuggestionPage() {
         
         <div className="w-full h-32 sm:h-40 md:h-48 relative overflow-hidden">
           <img 
-            src="/img/9b5bb5e7-9a48-43c0-a089-59924ea39e86.jpg" 
+            src="/img/5aa88cce-443e-4b32-9119-df08968915f6.jpg" 
             alt="Обряд на внушение любви - влияние на чувства" 
             className="w-full h-full object-cover"
             loading="lazy"

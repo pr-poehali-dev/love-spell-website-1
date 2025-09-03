@@ -18,7 +18,7 @@ export default function LonelinessRemovalPage() {
         
         <div className="w-full h-32 sm:h-40 md:h-48 relative overflow-hidden">
           <img 
-            src="/img/9b5bb5e7-9a48-43c0-a089-59924ea39e86.jpg" 
+            src="/img/bb9b0bb1-5a79-4be0-bc10-59c65011e716.jpg" 
             alt="Обряд на снятие одиночества - привлечение любви в жизнь" 
             className="w-full h-full object-cover"
             loading="lazy"
