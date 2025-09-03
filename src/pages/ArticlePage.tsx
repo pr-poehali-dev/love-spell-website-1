@@ -27,24 +27,6 @@ export default function ArticlePage() {
     "dateModified": "2024-01-01"
   };
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Приворот на жену",
-    "description": "Мощный ритуал для возвращения любви супруги и восстановления семейного счастья",
-    "image": "https://poehali.dev/img/9b5bb5e7-9a48-43c0-a089-59924ea39e86.jpg",
-    "author": {
-      "@type": "Person",
-      "name": "Раиса Ильинская"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Раиса Ильинская - Потомственная ворожея"
-    },
-    "datePublished": "2024-01-01",
-    "dateModified": "2024-01-01"
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <SEO 
