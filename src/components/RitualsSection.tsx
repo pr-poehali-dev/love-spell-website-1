@@ -61,27 +61,7 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
-    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent overflow-hidden">
-      {/* Деликатный фоновый узор из точек */}
-      <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute top-4 right-4">
-          <div className="flex space-x-1">
-            <div className="w-1 h-1 bg-accent/20 rounded-full"></div>
-            <div className="w-1 h-1 bg-accent/30 rounded-full"></div>
-            <div className="w-1 h-1 bg-accent/40 rounded-full"></div>
-          </div>
-        </div>
-        <div className="absolute bottom-4 left-4">
-          <div className="flex space-x-1">
-            <div className="w-1 h-1 bg-accent/40 rounded-full"></div>
-            <div className="w-1 h-1 bg-accent/30 rounded-full"></div>
-            <div className="w-1 h-1 bg-accent/20 rounded-full"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* Подсвечивающаяся рамка */}
-      <div className="absolute inset-0 rounded-lg border border-transparent group-hover:border-accent/20 transition-colors duration-300 pointer-events-none"></div>
+    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent overflow-hidden border border-accent/10 hover:border-accent/20">
       
       <div className="relative flex flex-col items-center text-center">
         <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -89,15 +69,17 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
         </div>
         
         <div className="space-y-2">
-          <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300">{ritual.title}</h3>
+          <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300 flex items-center justify-center gap-2">
+            {ritual.title}
+            <Icon name="ChevronRight" size={16} className="text-accent/60 flex-shrink-0" />
+          </h3>
           <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">{ritual.description}</p>
         </div>
 
-        {/* Элегантная иконка в углу */}
-        <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-60 transition-all duration-300 group-hover:scale-110">
-          <div className="w-6 h-6 bg-accent/10 rounded-full flex items-center justify-center">
-            <Icon name="Plus" size={12} className="text-accent" />
-          </div>
+        {/* Постоянно видимая кнопка-индикатор */}
+        <div className="mt-4 px-4 py-2 bg-accent/8 hover:bg-accent/15 rounded-full text-accent text-xs font-medium transition-colors duration-300 flex items-center gap-2">
+          <span>Подробнее</span>
+          <Icon name="ArrowRight" size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
         </div>
       </div>
     </div>
