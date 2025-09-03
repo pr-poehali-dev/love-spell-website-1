@@ -163,7 +163,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
 
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 transition-all duration-300 ${
-      isVisible ? 'bg-black/80 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
+      isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
     }`}>
       {/* Backdrop */}
       <div 
@@ -172,15 +172,15 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
       />
       
       {/* Modal */}
-      <div className={`relative w-full max-w-sm sm:max-w-md bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl sm:rounded-2xl shadow-2xl border border-white/10 transition-all duration-300 transform max-h-[95vh] overflow-y-auto ${
+      <div className={`relative w-full max-w-sm sm:max-w-md bg-card rounded-2xl sm:rounded-3xl shadow-2xl border border-border transition-all duration-300 transform max-h-[95vh] overflow-y-auto ${
         isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
       }`}>
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-3 sm:top-4 right-3 sm:right-4 text-white/60 hover:text-white transition-colors z-10 p-1 rounded-full hover:bg-white/10"
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/10 rounded-full transition-all duration-200 z-10"
         >
-          <Icon name="X" size={20} className="sm:w-6 sm:h-6" />
+          <Icon name="X" size={20} />
         </button>
 
         <div className="p-4 sm:p-6 pt-12 sm:pt-14">
@@ -188,13 +188,13 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
             <>
               {/* Header */}
               <div className="text-center mb-8">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
-                  <Icon name="MessageSquare" size={32} className="text-orange-500 sm:w-10 sm:h-10" />
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary via-primary/90 to-primary/80 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Icon name="MessageSquare" size={24} className="text-primary-foreground" />
                 </div>
-                <h2 className="text-white text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                <h2 className="text-2xl font-bold text-foreground mb-2">
                   Оставьте свой отзыв
                 </h2>
-                <p className="text-white/70 text-sm">
+                <p className="text-muted-foreground text-sm">
                   Поделитесь своим опытом с другими людьми
                 </p>
               </div>
@@ -203,8 +203,8 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Rating */}
                 <div>
-                  <label className="block text-white/90 text-sm font-medium mb-3">
-                    Ваша оценка <span className="text-red-400">*</span>
+                  <label className="block text-sm font-medium text-foreground mb-3">
+                    Ваша оценка <span className="text-destructive">*</span>
                   </label>
                   <div className="flex items-center justify-center gap-2 mb-2">
                     {[1, 2, 3, 4, 5].map((star) => (
@@ -220,14 +220,14 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                           className={`${
                             star <= formData.rating 
                               ? 'text-yellow-500 fill-yellow-500' 
-                              : 'text-white/40 hover:text-yellow-400'
+                              : 'text-muted-foreground hover:text-yellow-400'
                           } transition-colors duration-200`}
                         />
                       </button>
                     ))}
                   </div>
                   {formData.rating > 0 && (
-                    <p className="text-center text-sm text-white/70">
+                    <p className="text-center text-sm text-muted-foreground">
                       {formData.rating === 1 && 'Плохо'}
                       {formData.rating === 2 && 'Неудовлетворительно'}
                       {formData.rating === 3 && 'Нормально'}
@@ -236,7 +236,7 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                     </p>
                   )}
                   {errors.rating && (
-                    <p className="text-red-400 text-xs mt-1 flex items-center justify-center gap-1">
+                    <p className="text-destructive text-xs mt-1 flex items-center justify-center gap-1">
                       <Icon name="AlertCircle" size={12} />
                       {errors.rating}
                     </p>
@@ -245,18 +245,18 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
 
                 {/* Name */}
                 <div>
-                  <label className="block text-white/90 text-sm font-medium mb-2">
-                    Ваше имя <span className="text-red-400">*</span>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Ваше имя <span className="text-destructive">*</span>
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleFieldChange('name', e.target.value)}
                     onBlur={() => handleFieldBlur('name')}
-                    className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 ${
+                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none transition-all duration-200 ${
                       errors.name 
-                        ? 'border-red-500 focus:border-red-400' 
-                        : 'border-orange-500/30 focus:border-orange-500'
+                        ? 'border-destructive focus:border-destructive' 
+                        : 'border-border focus:border-primary'
                     }`}
                     placeholder="Введите ваше имя"
                     maxLength={50}
@@ -274,53 +274,53 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
 
                 {/* Review */}
                 <div>
-                  <label className="block text-white/90 text-sm font-medium mb-2">
-                    Ваш отзыв <span className="text-red-400">*</span>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Ваш отзыв <span className="text-destructive">*</span>
                   </label>
                   <textarea
                     value={formData.review}
                     onChange={(e) => handleFieldChange('review', e.target.value)}
                     onBlur={() => handleFieldBlur('review')}
                     rows={4}
-                    className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 resize-none ${
+                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none transition-all duration-200 resize-none ${
                       errors.review 
-                        ? 'border-red-500 focus:border-red-400' 
-                        : 'border-orange-500/30 focus:border-orange-500'
+                        ? 'border-destructive focus:border-destructive' 
+                        : 'border-border focus:border-primary'
                     }`}
                     placeholder="Расскажите подробно о вашем опыте, результатах и впечатлениях..."
                     maxLength={1000}
                   />
                   {errors.review && (
-                    <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                    <p className="text-destructive text-xs mt-1 flex items-center gap-1">
                       <Icon name="AlertCircle" size={12} />
                       {errors.review}
                     </p>
                   )}
-                  <p className="text-white/40 text-xs mt-1">
+                  <p className="text-muted-foreground text-xs mt-1">
                     {formData.review.length}/1000 символов
                   </p>
                 </div>
 
                 {/* Location */}
                 <div>
-                  <label className="block text-white/90 text-sm font-medium mb-2">
-                    Откуда вы? <span className="text-white/60 text-xs">(необязательно)</span>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Откуда вы? <span className="text-muted-foreground text-xs">(необязательно)</span>
                   </label>
                   <input
                     type="text"
                     value={formData.location}
                     onChange={(e) => handleFieldChange('location', e.target.value)}
                     onBlur={() => handleFieldBlur('location')}
-                    className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 ${
+                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none transition-all duration-200 ${
                       errors.location 
-                        ? 'border-red-500 focus:border-red-400' 
-                        : 'border-orange-500/30 focus:border-orange-500'
+                        ? 'border-destructive focus:border-destructive' 
+                        : 'border-border focus:border-primary'
                     }`}
                     placeholder="Ваш город"
                     maxLength={100}
                   />
                   {errors.location && (
-                    <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                    <p className="text-destructive text-xs mt-1 flex items-center gap-1">
                       <Icon name="AlertCircle" size={12} />
                       {errors.location}
                     </p>
@@ -329,39 +329,41 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
 
                 {/* Email */}
                 <div>
-                  <label className="block text-white/90 text-sm font-medium mb-2">
-                    Ваш email <span className="text-white/60 text-xs">(необязательно)</span>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Ваш email <span className="text-muted-foreground text-xs">(необязательно)</span>
                   </label>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleFieldChange('email', e.target.value)}
                     onBlur={() => handleFieldBlur('email')}
-                    className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 ${
+                    className={`w-full px-4 py-3 bg-input border-2 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none transition-all duration-200 ${
                       errors.email 
-                        ? 'border-red-500 focus:border-red-400' 
-                        : 'border-orange-500/30 focus:border-orange-500'
+                        ? 'border-destructive focus:border-destructive' 
+                        : 'border-border focus:border-primary'
                     }`}
                     placeholder="your@email.com"
                   />
                   {errors.email && (
-                    <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                    <p className="text-destructive text-xs mt-1 flex items-center gap-1">
                       <Icon name="AlertCircle" size={12} />
                       {errors.email}
                     </p>
                   )}
-                  <p className="text-white/40 text-xs mt-1">
+                  <p className="text-muted-foreground text-xs mt-1">
                     Для связи, если потребуется уточнение
                   </p>
                 </div>
 
                 {/* Privacy notice */}
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3">
-                  <div className="flex items-start gap-2">
-                    <Icon name="Shield" size={16} className="text-blue-400 mt-0.5 flex-shrink-0" />
-                    <p className="text-blue-300 text-xs leading-relaxed">
-                      Ваш отзыв может быть опубликован на сайте. Персональные данные не передаются третьим лицам.
-                    </p>
+                <div className="bg-muted/20 border border-muted rounded-xl p-4">
+                  <div className="flex items-start gap-3">
+                    <Icon name="Shield" size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Ваш отзыв может быть опубликован на сайте. Персональные данные не передаются третьим лицам.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
@@ -369,11 +371,11 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                 <button
                   type="submit"
                   disabled={isSubmitting || Object.keys(errors).some(key => errors[key as keyof FormErrors])}
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground font-semibold text-lg rounded-2xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
                       Отправляем...
                     </>
                   ) : (
@@ -391,13 +393,13 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
               <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-lg">
                 <Icon name="Check" size={36} className="text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">
+              <h3 className="text-2xl font-bold text-foreground mb-3">
                 Спасибо за отзыв!
               </h3>
-              <p className="text-white/90 mb-4">
+              <p className="text-muted-foreground mb-4">
                 Ваш отзыв был успешно отправлен и вскоре появится на сайте
               </p>
-              <div className="flex items-center justify-center gap-2 text-sm text-white/70">
+              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                 <Icon name="Clock" size={16} />
                 <span>Окно закроется автоматически</span>
               </div>

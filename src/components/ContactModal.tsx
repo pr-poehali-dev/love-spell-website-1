@@ -210,7 +210,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   return (
     <div 
       className={`fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 transition-all duration-300 ${
-        isVisible ? 'bg-black/80 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
+        isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
       }`}
       onClick={handleClose}
     >
@@ -220,12 +220,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/10 max-h-[95vh] overflow-y-auto">
+        <div className="bg-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-border max-h-[95vh] overflow-y-auto">
           <button 
             onClick={handleClose}
-            className="absolute right-3 sm:right-4 top-3 sm:top-4 text-white/60 hover:text-white transition-colors z-10 p-1 rounded-full hover:bg-white/10"
+            className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/10 rounded-full transition-all duration-200 z-10"
           >
-            <Icon name="X" size={20} className="sm:w-6 sm:h-6" />
+            <Icon name="X" size={20} />
           </button>
 
           <div className={`transition-all duration-300 ${
@@ -235,17 +235,17 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           </div>
           
           {/* Индикатор прогресса */}
-          <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-white/10">
+          <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-border">
             <div className="flex gap-2">
               {[1, 2, 3, 4, 5].map((step) => (
                 <div 
                   key={step}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     step === currentStep 
-                      ? 'bg-orange-500 w-6' 
+                      ? 'bg-primary w-6' 
                       : step < currentStep 
-                      ? 'bg-orange-500/60' 
-                      : 'bg-white/20'
+                      ? 'bg-primary/60' 
+                      : 'bg-muted'
                   }`}
                 />
               ))}
