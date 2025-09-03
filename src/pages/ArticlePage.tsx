@@ -36,74 +36,77 @@ export default function ArticlePage() {
 
       {/* Основной контент */}
       <main className="bg-background relative z-10">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-12">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-12 sm:space-y-16">
         {/* Заголовок статьи */}
-        <header className="text-center mb-12 sm:mb-16 animate-fade-in-up">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
+        <div>
+          <h2 className="text-xl font-bold text-foreground mb-8 relative pt-0">
             <span className="relative inline-block">
-              <span className="text-4xl sm:text-5xl lg:text-6xl font-bold relative z-10 text-primary">П</span>
-              <div className="absolute w-12 h-12 sm:w-14 sm:h-14 rounded-full opacity-30" style={{
-                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.4) 0%, hsl(var(--primary) / 0.05) 100%)',
-                top: '-2px',
-                left: '-8px'
+              <span className="text-2xl font-bold relative z-10 text-primary">П</span>
+              <div className="absolute w-9 h-9 rounded-full opacity-40" style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.6) 0%, hsl(var(--primary) / 0.1) 100%)',
+                top: '-1px',
+                left: '-10px'
               }}></div>
             </span>риворот на жену
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto font-light">
-            Как вернуть любовь и взаимопонимание в отношения с супругой через древние магические практики
+          </h2>
+          <p className="text-muted-foreground leading-relaxed text-base mb-8">
+            Как вернуть любовь и взаимопонимание в отношения с супругой через древние магические практики.
           </p>
-        </header>
+        </div>
 
 
 
         {/* Содержание статьи */}
-        <article className="prose prose-lg max-w-none">
+        <article className="text-foreground">
           {/* Введение */}
-          <div className="bg-gradient-to-r from-card/50 to-transparent p-8 sm:p-10 rounded-2xl border border-border/50 mb-12 sm:mb-16 backdrop-blur-sm">
-            <p className="text-xl sm:text-2xl leading-relaxed text-foreground/90 font-light text-center">
-              Семейные отношения — это живая система, которая требует постоянного внимания и заботы.<br/><br/>
-              Когда любовь начинает угасать, приворот на жену может стать эффективным способом восстановления гармонии.
+          <div className="mb-8">
+            <p className="text-xl leading-relaxed mb-6 text-muted-foreground">
+              Семейные отношения — это живая система, которая требует постоянного внимания и заботы. Иногда происходит так, 
+              что любовь между супругами начинает угасать, возникают недопонимания, холодность в отношениях. 
+              В таких случаях приворот на жену может стать эффективным способом восстановления гармонии в браке.
             </p>
           </div>
 
           {/* Основные разделы */}
-          <div className="space-y-16 sm:space-y-20">
+          <div className="space-y-12">
             {/* Что такое приворот на жену */}
-            <section className="hover-lift transition-all duration-500">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-8 sm:mb-10 flex items-center">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                  <Icon name="Heart" size={28} className="text-primary" />
+            <section>
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <Icon name="Heart" size={20} className="text-primary" />
                 </div>
                 Что такое приворот на жену
               </h2>
-              <div className="space-y-6 sm:space-y-8 text-foreground/85 text-lg leading-relaxed">
-                <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-primary first-letter:mr-1 first-letter:float-left first-letter:leading-none">
-                  Приворот на супругу — это магический ритуал, направленный на восстановление любви, взаимопонимания и гармонии в браке. Это не принуждение, а пробуждение тех чувств, которые когда-то связывали вас крепкими узами.
+              <div className="space-y-4 text-muted-foreground">
+                <p>
+                  Приворот на супругу — это магический ритуал, направленный на восстановление любви, 
+                  взаимопонимания и гармонии в браке. Это не принуждение, а пробуждение тех чувств, 
+                  которые когда-то связывали вас крепкими узами.
                 </p>
-                <div className="bg-gradient-to-r from-info/5 via-transparent to-info/5 p-6 sm:p-8 rounded-2xl border-l-4 border-info/30">
-                  <p className="italic text-info/90">
-                    Важно понимать, что такой приворот работает только в том случае, если между супругами действительно была любовь. Магия лишь помогает убрать препятствия и восстановить естественную связь.
-                  </p>
-                </div>
+                <p>
+                  Важно понимать, что такой приворот работает только в том случае, если между супругами 
+                  действительно была любовь, и она просто нуждается в возрождении. Магия лишь помогает 
+                  убрать препятствия и восстановить естественную связь между людьми.
+                </p>
               </div>
             </section>
 
             {/* Когда стоит обращаться */}
             <section>
               <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-accent/20 to-accent/5 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                  <Icon name="AlertCircle" size={28} className="text-accent" />
+                <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <Icon name="AlertCircle" size={20} className="text-accent" />
                 </div>
                 Когда стоит обращаться к приворотной магии
               </h2>
-              <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-4">
                   <div className="bg-card p-6 rounded-lg border border-border">
                     <div className="flex items-start space-x-3">
                       <Icon name="Check" size={20} className="text-success mt-1 flex-shrink-0" />
                       <div>
-                        <h3 className="font-semibold text-foreground mb-3 text-lg">Охлаждение в отношениях</h3>
-                        <p className="text-muted-foreground text-base leading-relaxed">
+                        <h3 className="font-semibold text-foreground mb-2">Охлаждение в отношениях</h3>
+                        <p className="text-muted-foreground text-sm">
                           Жена стала холодной, избегает близости, проводит больше времени вне дома
                         </p>
                       </div>
@@ -113,8 +116,8 @@ export default function ArticlePage() {
                     <div className="flex items-start space-x-3">
                       <Icon name="Check" size={20} className="text-success mt-1 flex-shrink-0" />
                       <div>
-                        <h3 className="font-semibold text-foreground mb-3 text-lg">Частые ссоры</h3>
-                        <p className="text-muted-foreground text-base leading-relaxed">
+                        <h3 className="font-semibold text-foreground mb-2">Частые ссоры</h3>
+                        <p className="text-muted-foreground text-sm">
                           Постоянные конфликты по мелочам, отсутствие взаимопонимания
                         </p>
                       </div>
@@ -126,8 +129,8 @@ export default function ArticlePage() {
                     <div className="flex items-start space-x-3">
                       <Icon name="Check" size={20} className="text-success mt-1 flex-shrink-0" />
                       <div>
-                        <h3 className="font-semibold text-foreground mb-3 text-lg">Подозрения в измене</h3>
-                        <p className="text-muted-foreground text-base leading-relaxed">
+                        <h3 className="font-semibold text-foreground mb-2">Подозрения в измене</h3>
+                        <p className="text-muted-foreground text-sm">
                           Появились признаки того, что жена может быть увлечена кем-то другим
                         </p>
                       </div>
@@ -137,8 +140,8 @@ export default function ArticlePage() {
                     <div className="flex items-start space-x-3">
                       <Icon name="Check" size={20} className="text-success mt-1 flex-shrink-0" />
                       <div>
-                        <h3 className="font-semibold text-foreground mb-3 text-lg">Желание развестись</h3>
-                        <p className="text-muted-foreground text-base leading-relaxed">
+                        <h3 className="font-semibold text-foreground mb-2">Желание развестись</h3>
+                        <p className="text-muted-foreground text-sm">
                           Супруга говорит о разводе, хотя раньше ваши отношения были крепкими
                         </p>
                       </div>
