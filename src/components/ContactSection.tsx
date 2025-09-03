@@ -47,9 +47,9 @@ export default function ContactSection() {
                         loading="lazy"
                       />
                     </div>
-                    {/* Индикатор онлайн как на скриншоте - белый круг с зелёной точкой */}
-                    <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 bg-card border-2 border-card rounded-full flex items-center justify-center">
-                      <div className="w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full" />
+                    {/* Белая точка с иконкой чата внутри */}
+                    <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 bg-white border-2 border-card rounded-full flex items-center justify-center shadow-sm">
+                      <Icon name="MessageCircle" size={12} className="text-primary xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4" />
                     </div>
                   </div>
                   
