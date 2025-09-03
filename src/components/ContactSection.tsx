@@ -18,45 +18,54 @@ export default function ContactSection() {
           </span>ставьте сообщение
         </h2>
         
-        {/* Кнопка связи */}
-        <div className="flex justify-center mb-8">
+        {/* Кнопка связи - адаптивная */}
+        <div className="flex justify-center mb-8 px-4">
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="group relative bg-gradient-to-r from-primary via-primary/95 to-primary hover:from-primary/90 hover:via-primary/85 hover:to-primary/90 text-primary-foreground px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/25 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-primary/20 border border-primary/20 min-w-[200px]"
+            className="group relative w-full max-w-sm sm:max-w-md bg-gradient-to-r from-primary to-primary/90 hover:from-primary/95 hover:to-primary/85 text-primary-foreground rounded-2xl sm:rounded-3xl transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 transform hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus:ring-4 focus:ring-primary/30 border border-primary/10 overflow-hidden"
           >
-            {/* Фоновый эффект */}
-            <div className="absolute inset-0 rounded-2xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
-            {/* Контент кнопки */}
-            <div className="relative flex items-center justify-center gap-3">
-              <div className="flex items-center gap-2">
-                {/* Иконка сообщения */}
-                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-                  <Icon name="MessageCircle" size={14} className="text-primary-foreground" />
-                </div>
-                
-                {/* Текст */}
-                <span className="font-semibold">Напишите мне</span>
-                
-                {/* Статус Online */}
-                <div className="flex items-center gap-1.5 bg-white/15 px-2.5 py-1 rounded-full">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  <span className="text-xs font-medium">Онлайн</span>
-                </div>
+            {/* Главный контент кнопки */}
+            <div className="relative px-6 py-4 sm:px-8 sm:py-5">
+              
+              {/* Верхняя строка: Статус */}
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-primary-foreground/90 text-xs sm:text-sm font-medium">
+                  Раиса онлайн
+                </span>
               </div>
               
-              {/* Стрелка */}
-              <Icon 
-                name="ArrowRight" 
-                size={16} 
-                className="text-primary-foreground/80 group-hover:translate-x-1 transition-transform duration-300" 
-              />
+              {/* Основной текст кнопки */}
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 bg-white/15 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300">
+                    <Icon name="MessageCircle" size={18} className="text-primary-foreground" />
+                  </div>
+                  <span className="font-bold text-lg sm:text-xl text-primary-foreground">
+                    Напишите мне
+                  </span>
+                </div>
+                
+                {/* Стрелка - скрыта на маленьких экранах */}
+                <Icon 
+                  name="ArrowRight" 
+                  size={18} 
+                  className="text-primary-foreground/70 group-hover:translate-x-1 group-hover:text-primary-foreground transition-all duration-300 hidden xs:block" 
+                />
+              </div>
+              
+              {/* Нижняя строка: Подсказка */}
+              <div className="mt-2 text-primary-foreground/75 text-xs text-center">
+                Отвечаю быстро • Конфиденциально
+              </div>
             </div>
             
-            {/* Анимация риппла */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-white/5 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
-            </div>
+            {/* Декоративные элементы */}
+            <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -translate-y-10 translate-x-10 group-hover:bg-white/10 transition-colors duration-500" />
+            <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/5 rounded-full translate-y-8 -translate-x-8 group-hover:bg-white/10 transition-colors duration-500" />
+            
+            {/* Глянцевый эффект */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
           </button>
         </div>
 
