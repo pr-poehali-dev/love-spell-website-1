@@ -61,7 +61,21 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
-    <div className="relative p-6 cursor-pointer rounded-lg">{/* Убрал все hover эффекты для мобильных */}
+    <div className="relative p-6 cursor-pointer rounded-lg overflow-hidden">
+      
+      {/* Тонкие фоновые узоры для мобильных */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        {/* Мистические круги */}
+        <div className="absolute top-2 right-2 w-16 h-16 border border-accent/20 rounded-full"></div>
+        <div className="absolute top-4 right-4 w-8 h-8 border border-primary/15 rounded-full"></div>
+        
+        {/* Тонкие лучи */}
+        <div className="absolute bottom-3 left-3 w-12 h-[1px] bg-gradient-to-r from-accent/30 to-transparent rotate-45"></div>
+        <div className="absolute bottom-5 left-5 w-8 h-[1px] bg-gradient-to-r from-primary/25 to-transparent rotate-12"></div>
+        
+        {/* Мягкое свечение от иконки */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-radial from-accent/8 to-transparent rounded-full"></div>
+      </div>
       
       <div className="relative flex flex-col items-center text-center">
         <div className="mb-4">
