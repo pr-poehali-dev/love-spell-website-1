@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import ContactModal from '@/components/ContactModal';
 
 const faqItems = [
   {
     question: 'Как я могу связаться с вами?',
-    answer: 'Вы можете выбрать любой удобный способ связи нажав –  СЮДА'
+    answer: 'Вы можете выбрать любой удобный способ связи нажав –  <button>СЮДА</button>'
   },
   {
     question: 'Как я могу вас отблагодарить?',
@@ -42,6 +43,7 @@ const faqItems = [
 
 export default function FAQSection() {
   const [openItem, setOpenItem] = useState<number | null>(0);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const toggleItem = (index: number) => {
     setOpenItem(openItem === index ? null : index);
@@ -128,9 +130,24 @@ export default function FAQSection() {
                   isOpen ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 opacity-0'
                 }`}>
                   <div className="pr-12">
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.answer}
-                    </p>
+                    <div className="text-sm text-muted-foreground leading-relaxed">
+                      {index === 0 ? (
+                        <span>
+                          Вы можете выбрать любой удобный способ связи нажав –{' '}
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setIsContactModalOpen(true);
+                            }}
+                            className="text-accent font-medium hover:text-accent/80 underline transition-colors duration-200"
+                          >
+                            СЮДА
+                          </button>
+                        </span>
+                      ) : (
+                        <p>{item.answer}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -138,6 +155,12 @@ export default function FAQSection() {
           );
         })}
       </div>
+      
+      {/* Contact Modal */}
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)} 
+      />
     </div>
   );
 }
