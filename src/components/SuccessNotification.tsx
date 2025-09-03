@@ -8,15 +8,10 @@ interface SuccessNotificationProps {
 }
 
 export default function SuccessNotification({ isOpen, onClose, email }: SuccessNotificationProps) {
-  // Автозакрытие через 5 секунд
-  useEffect(() => {
-    if (isOpen) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen, onClose]);
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    onClose();
+  };
 
   if (!isOpen) return null;
 
@@ -37,19 +32,11 @@ export default function SuccessNotification({ isOpen, onClose, email }: SuccessN
         </button>
 
         <div className="p-6 pt-8 text-center relative">
-          {/* Иконка успеха с анимацией */}
+          {/* Иконка успеха */}
           <div className="relative mx-auto mb-6">
-            <div className="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mx-auto relative overflow-hidden">
-              {/* Анимированный фон */}
-              <div className="absolute inset-0 bg-gradient-to-r from-success/20 via-success/30 to-success/20 animate-pulse"></div>
-              <div className="relative z-10">
-                <Icon name="CheckCircle" size={40} className="text-success animate-bounce" />
-              </div>
+            <div className="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mx-auto">
+              <Icon name="CheckCircle" size={40} className="text-success" />
             </div>
-            
-            {/* Декоративные кружки вокруг иконки */}
-            <div className="absolute top-2 left-2 w-3 h-3 bg-success/30 rounded-full animate-ping"></div>
-            <div className="absolute bottom-2 right-2 w-2 h-2 bg-success/40 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
           </div>
 
           {/* Заголовок */}
@@ -108,48 +95,22 @@ export default function SuccessNotification({ isOpen, onClose, email }: SuccessN
             </div>
           </div>
 
-          {/* Кнопки действий */}
-          <div className="flex gap-3">
+          {/* Кнопка действия */}
+          <div className="flex justify-center">
             <button
-              onClick={onClose}
-              className="flex-1 bg-muted/50 hover:bg-muted/70 text-foreground px-4 py-3 rounded-xl font-medium transition-all duration-200"
+              onClick={handleScrollToTop}
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 group"
             >
-              Понятно
-            </button>
-            
-            <button
-              onClick={onClose}
-              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-3 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 group"
-            >
-              <Icon name="ArrowLeft" size={16} className="group-hover:-translate-x-1 transition-transform" />
+              <Icon name="ArrowUp" size={16} className="group-hover:-translate-y-1 transition-transform" />
               На главную
             </button>
           </div>
 
-          {/* Автозакрытие индикатор */}
-          <div className="mt-4">
-            <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-              <Icon name="Timer" size={12} />
-              <span>Окно закроется автоматически через 5 секунд</span>
-            </div>
-            <div className="w-full h-1 bg-muted/30 rounded-full mt-2 overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-primary/50 to-primary rounded-full animate-pulse" 
-                   style={{ 
-                     animation: 'shrink 5s linear forwards',
-                     width: '100%'
-                   }}>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes shrink {
-          from { width: 100%; }
-          to { width: 0%; }
-        }
-      `}</style>
+
     </div>
   );
 }

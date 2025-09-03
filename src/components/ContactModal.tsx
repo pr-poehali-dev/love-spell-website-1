@@ -55,7 +55,7 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
     }
   }, [isOpen]);
 
-  if (!isOpen && !isVisible) return null;
+  if (!isOpen && !isVisible && !showSuccess) return null;
 
   const handleClose = () => {
     setIsVisible(false);
@@ -231,14 +231,14 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
       await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
       
       // Успешная отправка - показываем уведомление
-      handleClose();
       setShowSuccess(true);
+      setIsSubmitting(false);
+      
       onSuccess?.(formData.email);
       
     } catch (error) {
       console.error('Ошибка отправки:', error);
       alert('❌ Ошибка отправки. Попробуйте еще раз.');
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -278,56 +278,71 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
 
   return (
     <>
-      <div 
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
-          isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
-        }`}
-        onClick={handleClose}
-      >
+      {!showSuccess && (
         <div 
-          className={`relative w-full max-w-xs sm:max-w-md transition-all duration-300 transform ${
-            isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
+          className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
+            isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
           }`}
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleClose}
         >
-          <div className="bg-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-border max-h-[95vh] overflow-y-auto">
-            <button 
-              onClick={handleClose}
-              className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/10 rounded-full transition-all duration-200 z-10"
-            >
-              <Icon name="X" size={20} />
-            </button>
+          <div 
+            className={`relative w-full max-w-xs sm:max-w-md transition-all duration-300 transform ${
+              isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="bg-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-border max-h-[95vh] overflow-y-auto">
+              <button 
+                onClick={handleClose}
+                className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/10 rounded-full transition-all duration-200 z-10"
+              >
+                <Icon name="X" size={20} />
+              </button>
 
-            <div className={`transition-all duration-300 ${
-              stepTransition ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'
-            }`}>
-              {renderCurrentStep()}
-            </div>
-            
-            {/* Индикатор прогресса */}
-            <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-border">
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((step) => (
-                  <div 
-                    key={step}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      step === currentStep 
-                        ? 'bg-primary w-6' 
-                        : step < currentStep 
-                        ? 'bg-primary/60' 
-                        : 'bg-muted'
-                    }`}
-                  />
-                ))}
+              <div className={`transition-all duration-300 ${
+                stepTransition ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'
+              }`}>
+                {renderCurrentStep()}
+              </div>
+              
+              {/* Индикатор прогресса */}
+              <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-border">
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((step) => (
+                    <div 
+                      key={step}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        step === currentStep 
+                          ? 'bg-primary w-6' 
+                          : step < currentStep 
+                          ? 'bg-primary/60' 
+                          : 'bg-muted'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <SuccessNotification 
         isOpen={showSuccess}
-        onClose={() => setShowSuccess(false)}
+        onClose={() => {
+          setShowSuccess(false);
+          // Сбрасываем форму после закрытия уведомления
+          setFormData({
+            name: '',
+            situation: '',
+            birthDate: '',
+            email: '',
+            photos: []
+          });
+          setCurrentStep(1);
+          setErrors({});
+          setTouched({});
+        }}
         email={formData.email}
       />
     </>
