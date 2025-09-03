@@ -14,7 +14,7 @@ export default function ContactModalStep1({ onNext, onClose }: ContactModalStep1
           <Icon name="Shield" size={24} className="text-primary-foreground" />
         </div>
         <h2 className="text-2xl font-bold text-foreground mb-3 sm:mb-4">
-          Внимание<span className="text-warning">!</span>
+          Внимание<span className="text-primary">!</span>
         </h2>
       </div>
       
