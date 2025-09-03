@@ -33,7 +33,7 @@ export default function ServicesSection() {
           </div>
           <h3 className="text-lg font-semibold text-foreground mb-3">Рунической магией</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Использование специальных знаков и символов (рун) для получения нужного результата.
+            Использование специальных знаков и символов (рун) для получения информации, предсказаний, влияния на окружающий мир.
           </p>
         </div>
 
