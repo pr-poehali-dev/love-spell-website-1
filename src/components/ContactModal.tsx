@@ -339,8 +339,8 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
       className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
         isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
       }`}
-          onClick={handleClose}
-        >
+      onClick={handleClose}
+    >
           <div 
             className={`relative w-full max-w-xs sm:max-w-md transition-all duration-300 transform ${
               isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
