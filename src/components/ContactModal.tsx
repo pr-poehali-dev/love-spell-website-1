@@ -382,7 +382,6 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
               )}
             </div>
           </div>
-        </div>
     </div>
   );
 }
