@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
+interface FormErrors {
+  name?: string;
+  situation?: string;
+  birthDate?: string;
+  email?: string;
+}
+
+interface FormData {
+  name: string;
+  situation: string;
+  birthDate: string;
+  email: string;
+}
+
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -10,7 +24,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
   const [stepTransition, setStepTransition] = useState(false);
-  const [formData, setFormData] = useState({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     situation: '',
     birthDate: '',
@@ -74,13 +91,86 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     }, 150);
   };
 
-  const handleSendEmail = () => {
-    const subject = encodeURIComponent('Консультация по любовным обрядам');
-    const body = encodeURIComponent(
-      `Имя: ${formData.name}\n\nСитуация: ${formData.situation}\n\nДата рождения: ${formData.birthDate}`
-    );
-    window.open(`mailto:example@example.com?subject=${subject}&body=${body}`, '_blank');
-    handleClose();
+  const validateField = (field: keyof FormData, value: string): string | undefined => {
+    switch (field) {
+      case 'name':
+        if (!value.trim()) return 'Имя обязательно для заполнения';
+        if (value.trim().length < 2) return 'Имя должно содержать минимум 2 символа';
+        if (value.trim().length > 50) return 'Имя не должно превышать 50 символов';
+        break;
+      case 'situation':
+        if (!value.trim()) return 'Опишите вашу ситуацию';
+        if (value.trim().length < 10) return 'Опишите ситуацию подробнее (минимум 10 символов)';
+        if (value.trim().length > 500) return 'Описание не должно превышать 500 символов';
+        break;
+      case 'birthDate':
+        if (!value.trim()) return 'Даты рождения обязательны';
+        if (value.trim().length < 5) return 'Укажите даты в формате: ДД.ММ.ГГГГ и ДД.ММ.ГГГГ';
+        break;
+      case 'email':
+        if (!value.trim()) return 'Email обязателен для заполнения';
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) return 'Введите корректный email адрес';
+        break;
+    }
+    return undefined;
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    
+    Object.keys(formData).forEach(key => {
+      const field = key as keyof FormData;
+      const error = validateField(field, formData[field]);
+      if (error) newErrors[field] = error;
+    });
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleFieldChange = (field: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Очищаем ошибку при изменении поля
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: undefined }));
+    }
+    
+    // Валидируем поле только если оно было затронуто
+    if (touched[field]) {
+      const error = validateField(field, value);
+      setErrors(prev => ({ ...prev, [field]: error }));
+    }
+  };
+
+  const handleFieldBlur = (field: keyof FormData) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const error = validateField(field, formData[field]);
+    setErrors(prev => ({ ...prev, [field]: error }));
+  };
+
+  const handleSendEmail = async () => {
+    if (!validateForm()) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Симуляция отправки
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const subject = encodeURIComponent('Консультация по любовным обрядам');
+      const body = encodeURIComponent(
+        `Имя: ${formData.name}\n\nСитуация: ${formData.situation}\n\nДата рождения: ${formData.birthDate}\n\nEmail для ответа: ${formData.email}`
+      );
+      
+      window.open(`mailto:raisa.ilinskaya@example.com?subject=${subject}&body=${body}`, '_blank');
+      handleClose();
+    } catch (error) {
+      console.error('Ошибка отправки:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -301,58 +391,150 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <Icon name="Mail" size={32} className="text-orange-500 sm:w-10 sm:h-10" />
               </div>
               <h2 className="text-white text-lg sm:text-xl font-bold">Написать на Email</h2>
+              <p className="text-white/70 text-sm mt-2">Заполните все поля для отправки сообщения</p>
             </div>
             
-            <div className="space-y-4 mb-6">
+            <div className="space-y-5 mb-6">
+              {/* Имя */}
               <div>
-                <label className="block text-white/90 text-sm mb-2">Ваше Имя</label>
+                <label className="block text-white/90 text-sm mb-2 font-medium">
+                  Ваше имя <span className="text-red-400">*</span>
+                </label>
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full bg-white/5 border-b-2 border-orange-500/50 text-white px-0 py-3 focus:outline-none focus:border-orange-500 transition-colors"
-                  placeholder=""
+                  onChange={(e) => handleFieldChange('name', e.target.value)}
+                  onBlur={() => handleFieldBlur('name')}
+                  className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 ${
+                    errors.name 
+                      ? 'border-red-500 focus:border-red-400' 
+                      : 'border-orange-500/30 focus:border-orange-500'
+                  }`}
+                  placeholder="Введите ваше имя"
+                  maxLength={50}
                 />
+                {errors.name && (
+                  <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                    <Icon name="AlertCircle" size={12} />
+                    {errors.name}
+                  </p>
+                )}
+                <p className="text-white/40 text-xs mt-1">
+                  {formData.name.length}/50 символов
+                </p>
               </div>
               
+              {/* Ситуация */}
               <div>
-                <label className="block text-white/90 text-sm mb-2">Опишите что у вас случилось</label>
-                <input
-                  type="text"
+                <label className="block text-white/90 text-sm mb-2 font-medium">
+                  Опишите что у вас случилось <span className="text-red-400">*</span>
+                </label>
+                <textarea
                   value={formData.situation}
-                  onChange={(e) => setFormData({...formData, situation: e.target.value})}
-                  className="w-full bg-white/5 border-b-2 border-orange-500/50 text-white px-0 py-3 focus:outline-none focus:border-orange-500 transition-colors"
-                  placeholder=""
+                  onChange={(e) => handleFieldChange('situation', e.target.value)}
+                  onBlur={() => handleFieldBlur('situation')}
+                  className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 resize-none h-24 ${
+                    errors.situation 
+                      ? 'border-red-500 focus:border-red-400' 
+                      : 'border-orange-500/30 focus:border-orange-500'
+                  }`}
+                  placeholder="Расскажите подробнее о вашей ситуации..."
+                  maxLength={500}
                 />
+                {errors.situation && (
+                  <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                    <Icon name="AlertCircle" size={12} />
+                    {errors.situation}
+                  </p>
+                )}
+                <p className="text-white/40 text-xs mt-1">
+                  {formData.situation.length}/500 символов
+                </p>
               </div>
               
+              {/* Дата рождения */}
               <div>
-                <label className="block text-white/90 text-sm mb-2">Ваша дата рождения и дата второй половинки</label>
+                <label className="block text-white/90 text-sm mb-2 font-medium">
+                  Даты рождения <span className="text-red-400">*</span>
+                </label>
                 <input
                   type="text"
                   value={formData.birthDate}
-                  onChange={(e) => setFormData({...formData, birthDate: e.target.value})}
-                  className="w-full bg-white/5 border-b-2 border-orange-500/50 text-white px-0 py-3 focus:outline-none focus:border-orange-500 transition-colors"
-                  placeholder=""
+                  onChange={(e) => handleFieldChange('birthDate', e.target.value)}
+                  onBlur={() => handleFieldBlur('birthDate')}
+                  className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 ${
+                    errors.birthDate 
+                      ? 'border-red-500 focus:border-red-400' 
+                      : 'border-orange-500/30 focus:border-orange-500'
+                  }`}
+                  placeholder="Например: 15.03.1990 и 22.07.1988"
                 />
+                {errors.birthDate && (
+                  <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                    <Icon name="AlertCircle" size={12} />
+                    {errors.birthDate}
+                  </p>
+                )}
+                <p className="text-white/40 text-xs mt-1">
+                  Укажите вашу дату рождения и дату второй половинки
+                </p>
               </div>
               
-              <div className="bg-white/5 rounded-lg p-4 text-center">
-                <p className="text-white/90 text-sm mb-3">Выберете Ваше фото и фото второй половинки.</p>
-                <button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 active:scale-95">
-                  Выбрать
+              {/* Фото */}
+              <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <Icon name="Camera" size={20} className="text-orange-500" />
+                  <h3 className="text-white/90 text-sm font-medium">Фотографии</h3>
+                  <span className="text-white/60 text-xs">(опционально)</span>
+                </div>
+                <p className="text-white/70 text-sm mb-3">
+                  Прикрепите ваше фото и фото второй половинки для более точной работы.
+                </p>
+                <button 
+                  type="button"
+                  className="bg-gradient-to-r from-orange-500/20 to-orange-600/20 border border-orange-500/30 hover:from-orange-500/30 hover:to-orange-600/30 text-orange-300 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 active:scale-95 flex items-center gap-2"
+                >
+                  <Icon name="Upload" size={16} />
+                  Добавить фото
                 </button>
               </div>
               
+              {/* Email */}
               <div>
-                <label className="block text-white/90 text-sm mb-2">Ваш адрес электронной почты</label>
+                <label className="block text-white/90 text-sm mb-2 font-medium">
+                  Ваш email <span className="text-red-400">*</span>
+                </label>
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full bg-white/5 border-b-2 border-orange-500/50 text-white px-0 py-3 focus:outline-none focus:border-orange-500 transition-colors"
-                  placeholder=""
+                  onChange={(e) => handleFieldChange('email', e.target.value)}
+                  onBlur={() => handleFieldBlur('email')}
+                  className={`w-full bg-white/5 border-2 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all duration-200 ${
+                    errors.email 
+                      ? 'border-red-500 focus:border-red-400' 
+                      : 'border-orange-500/30 focus:border-orange-500'
+                  }`}
+                  placeholder="your@email.com"
                 />
+                {errors.email && (
+                  <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                    <Icon name="AlertCircle" size={12} />
+                    {errors.email}
+                  </p>
+                )}
+                <p className="text-white/40 text-xs mt-1">
+                  На этот адрес придет ответ от Раисы
+                </p>
+              </div>
+            </div>
+            
+            {/* Информация о конфиденциальности */}
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 mb-6">
+              <div className="flex items-start gap-2">
+                <Icon name="Shield" size={16} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                <p className="text-blue-300 text-xs leading-relaxed">
+                  Ваши данные защищены и не передаются третьим лицам. Все консультации строго конфиденциальны.
+                </p>
               </div>
             </div>
             
@@ -365,10 +547,20 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </button>
               <button
                 onClick={handleSendEmail}
-                disabled={!formData.name || !formData.situation || !formData.email}
-                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg"
+                disabled={isSubmitting || Object.keys(errors).some(key => errors[key as keyof FormErrors]) || !formData.name || !formData.situation || !formData.email}
+                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 shadow-lg flex items-center justify-center gap-2"
               >
-                Отправить
+                {isSubmitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                    Отправка...
+                  </>
+                ) : (
+                  <>
+                    <Icon name="Send" size={16} />
+                    Отправить
+                  </>
+                )}
               </button>
             </div>
           </div>
