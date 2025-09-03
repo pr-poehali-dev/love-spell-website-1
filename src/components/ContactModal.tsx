@@ -292,39 +292,66 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
         />;
       case 6:
         return (
-          <div className="text-center space-y-6">
-            <div className="relative mx-auto w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center">
-              <Icon name="CheckCircle2" size={48} className="text-green-500" />
-              
-              <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping"></div>
+          <div className="text-center space-y-8">
+            {/* Иконка успеха */}
+            <div className="mx-auto w-24 h-24 bg-gradient-to-br from-green-500/20 to-green-600/10 rounded-full flex items-center justify-center border border-green-500/20">
+              <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center">
+                <Icon name="CheckCircle2" size={32} className="text-green-500" />
+              </div>
             </div>
             
-            <div className="space-y-3">
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-                Заявка отправлена!
+            {/* Заголовок и описание */}
+            <div className="space-y-4">
+              <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
+                Заявка отправлена! ✨
               </h3>
               
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p>
-                  Спасибо за вашу заявку! Мы внимательно изучим ваш запрос и свяжемся с вами в течение 24 часов.
+              <div className="space-y-3">
+                <p className="text-muted-foreground leading-relaxed">
+                  Спасибо за доверие! Мы внимательно изучим ваш запрос и свяжемся с вами в течение 24 часов с персональным предложением.
                 </p>
                 
-                <div className="bg-muted/50 rounded-lg p-3">
-                  <div className="flex items-center justify-center gap-2 text-xs">
-                    <Icon name="Timer" size={14} />
-                    <span>Окно закроется автоматически через 10 секунд</span>
+                {/* Email подтверждение */}
+                <div className="bg-card/50 border border-border rounded-xl p-4">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                    <Icon name="Mail" size={16} />
+                    <span>Ответ придет на почту:</span>
                   </div>
-                  
-                  <div className="mt-2 h-1 bg-muted rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full animate-[shrink_10s_linear_forwards]"
-                    />
+                  <div className="font-semibold text-foreground">
+                    {formData.email}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Дополнительная информация */}
+            <div className="space-y-4">
+              <div className="bg-primary/5 border border-primary/10 rounded-xl p-4">
+                <div className="flex items-start gap-3">
+                  <Icon name="Clock" size={18} className="text-primary mt-0.5 flex-shrink-0" />
+                  <div className="text-left">
+                    <div className="font-medium text-foreground text-sm mb-1">
+                      Что дальше?
+                    </div>
+                    <div className="text-xs text-muted-foreground space-y-1">
+                      <div>• Изучим ваш случай в течение 2-4 часов</div>
+                      <div>• Подготовим персональное предложение</div>
+                      <div>• Свяжемся для уточнения деталей</div>
+                    </div>
                   </div>
                 </div>
               </div>
               
-              <div className="text-xs text-muted-foreground">
-                Ответ придет на почту: <strong className="text-foreground">{formData.email}</strong>
+              {/* Таймер автозакрытия */}
+              <div className="bg-muted/30 rounded-lg p-3 space-y-2">
+                <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                  <Icon name="Timer" size={14} />
+                  <span>Окно закроется автоматически через 10 секунд</span>
+                </div>
+                
+                <div className="h-1 bg-muted/50 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-primary/80 to-primary rounded-full animate-[shrink_10s_linear_forwards]" />
+                </div>
               </div>
             </div>
           </div>
