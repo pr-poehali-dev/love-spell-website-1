@@ -60,6 +60,13 @@ const ritualCards = [
 ];
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
+  const getArticleLink = (title: string) => {
+    if (title === 'Приворот на жену') {
+      return '/privorot-na-zhenu';
+    }
+    return '#'; // Для остальных карточек пока оставляем заглушку
+  };
+
   return (
     <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-gradient-to-br hover:from-accent/10 hover:via-accent/5 hover:to-transparent">
       <div className="flex flex-col items-center text-center">
@@ -73,10 +80,13 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
 
         {/* Кнопка перехода к статье */}
         <div className="mt-4">
-          <div className="px-4 py-2 bg-accent/8 hover:bg-accent/15 rounded-full text-accent text-sm font-medium transition-colors duration-300 flex items-center gap-2 justify-center">
+          <a 
+            href={getArticleLink(ritual.title)}
+            className="inline-flex px-4 py-2 bg-accent/8 hover:bg-accent/15 rounded-full text-accent text-sm font-medium transition-colors duration-300 items-center gap-2 justify-center"
+          >
             <span>Подробнее</span>
             <Icon name="ArrowRight" size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
-          </div>
+          </a>
         </div>
       </div>
 

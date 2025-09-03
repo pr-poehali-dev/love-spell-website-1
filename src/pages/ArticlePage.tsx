@@ -7,59 +7,91 @@ export default function ArticlePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Липкая шапка */}
-      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      {/* Header Profile Section */}
+      <div className="bg-background border-b border-border sticky top-0 z-30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
-            <a href="/" className="text-xl font-bold text-primary hover:text-primary/80 transition-colors">
-              Раиса Ильинская
-            </a>
-            <nav className="hidden md:flex space-x-6">
-              <a href="/" className="text-foreground hover:text-primary transition-colors">Главная</a>
-              <a href="#услуги" className="text-muted-foreground hover:text-primary transition-colors">Услуги</a>
-              <a href="#отзывы" className="text-muted-foreground hover:text-primary transition-colors">Отзывы</a>
-              <a href="#контакты" className="text-muted-foreground hover:text-primary transition-colors">Контакты</a>
-            </nav>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
+                <img 
+                  src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                  alt="Раиса Ильинская"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+              <div>
+                <a href="/" className="text-base sm:text-lg font-semibold text-foreground hover:text-primary transition-colors">
+                  Раиса Ильинская
+                </a>
+                <div className="text-sm font-medium text-accent">Маг</div>
+              </div>
+            </div>
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+              className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors font-medium"
             >
               Связаться
             </button>
           </div>
         </div>
-      </header>
+      </div>
+
+      {/* Navigation Menu */}  
+      <div className="bg-background sticky top-[77px] z-20 shadow-sm border-b border-border">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3">
+          <div className="flex justify-center space-x-8">
+            <a href="/" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-muted/50">
+              <Icon name="Home" size={18} />
+              <span className="text-sm font-medium">Главная</span>
+            </a>
+            <a href="/#obryad" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-muted/50">
+              <Icon name="Leaf" size={18} />
+              <span className="text-sm font-medium">Обряды</span>
+            </a>
+            <a href="/#otziv" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-muted/50">
+              <Icon name="MessageCircle" size={18} />
+              <span className="text-sm font-medium">Отзывы</span>
+            </a>
+            <a href="/#contact" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-muted/50">
+              <Icon name="Mail" size={18} />
+              <span className="text-sm font-medium">Связь</span>
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* Разделитель */}
       <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
 
       {/* Основной контент */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Заголовок статьи */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4 leading-tight px-2">
             Приворот на жену: восстановление гармонии в браке
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Как вернуть любовь и взаимопонимание в отношения с супругой через древние магические практики
           </p>
         </div>
 
         {/* Иллюстрация */}
-        <div className="mb-12 text-center">
-          <div className="relative inline-block">
+        <div className="mb-8 sm:mb-12 text-center px-2">
+          <div className="relative inline-block w-full max-w-2xl">
             <img 
               src="/img/0e081d67-4997-4e3c-8b95-aab516500b10.jpg" 
               alt="Приворот на жену - магические свечи и ритуальные предметы" 
-              className="w-full max-w-2xl mx-auto rounded-2xl shadow-2xl"
+              className="w-full h-auto rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-xl sm:rounded-2xl"></div>
           </div>
         </div>
 
         {/* Содержание статьи */}
-        <article className="prose prose-lg max-w-none text-foreground">
+        <article className="text-foreground">
           {/* Введение */}
           <div className="mb-8">
             <p className="text-xl leading-relaxed mb-6 text-muted-foreground">
@@ -101,7 +133,7 @@ export default function ArticlePage() {
                 </div>
                 Когда стоит обращаться к приворотной магии
               </h2>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-4">
                   <div className="bg-card p-6 rounded-lg border border-border">
                     <div className="flex items-start space-x-3">
@@ -168,7 +200,7 @@ export default function ArticlePage() {
                   и гармонично.
                 </p>
                 
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Icon name="Moon" size={24} className="text-primary" />
@@ -268,39 +300,64 @@ export default function ArticlePage() {
         </article>
 
         {/* Призыв к действию */}
-        <div className="mt-16 mb-12">
-          <div className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 p-8 rounded-2xl border border-primary/20 text-center">
-            <div className="max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold text-foreground mb-4">
-                Готовы вернуть любовь в ваш брак?
-              </h2>
-              <p className="text-muted-foreground mb-8 text-lg">
-                Не позволяйте отношениям разрушиться. Обратитесь ко мне за помощью, 
-                и вместе мы восстановим гармонию в вашей семье.
-              </p>
+        <div className="mt-12 sm:mt-16 mb-8 sm:mb-12 px-2">
+          <div className="relative bg-card/50 backdrop-blur-sm p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-border shadow-lg text-center overflow-hidden">
+            {/* Декоративные элементы */}
+            <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-2xl"></div>
+            <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-accent/20 to-transparent rounded-full blur-xl"></div>
+            
+            <div className="relative max-w-2xl mx-auto">
+              {/* Профиль */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-6">
+                <div className="relative">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
+                    <img 
+                      src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                      alt="Раиса Ильинская"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  {/* Индикатор онлайн */}
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-white border-2 border-card rounded-full flex items-center justify-center">
+                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+                
+                <div className="text-center sm:text-left flex-1">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-1">
+                    Готовы вернуть любовь в ваш брак?
+                  </h2>
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                    Не позволяйте отношениям разрушиться. Обратитесь ко мне за помощью.
+                  </p>
+                </div>
+              </div>
               
-              <div className="space-y-4">
+              {/* Кнопка действия */}
+              <div className="mb-6">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                 >
-                  <Icon name="MessageCircle" size={24} />
-                  Получить консультацию
+                  <Icon name="MessageCircle" size={20} className="group-hover:scale-110 transition-transform" />
+                  <span>Получить консультацию</span>
                 </button>
+              </div>
                 
-                <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
-                  <div className="flex items-center gap-2">
-                    <Icon name="Shield" size={16} className="text-success" />
-                    <span>Конфиденциально</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Icon name="Clock" size={16} className="text-accent" />
-                    <span>Быстрый результат</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Icon name="Heart" size={16} className="text-primary" />
-                    <span>Без вреда</span>
-                  </div>
+              {/* Преимущества */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-sm">
+                <div className="flex items-center justify-center gap-2 p-3 rounded-lg bg-background/50">
+                  <Icon name="Shield" size={16} className="text-success flex-shrink-0" />
+                  <span className="text-muted-foreground">Конфиденциально</span>
+                </div>
+                <div className="flex items-center justify-center gap-2 p-3 rounded-lg bg-background/50">
+                  <Icon name="Clock" size={16} className="text-accent flex-shrink-0" />
+                  <span className="text-muted-foreground">Быстрый результат</span>
+                </div>
+                <div className="flex items-center justify-center gap-2 p-3 rounded-lg bg-background/50">
+                  <Icon name="Heart" size={16} className="text-primary flex-shrink-0" />
+                  <span className="text-muted-foreground">Без вреда</span>
                 </div>
               </div>
             </div>
