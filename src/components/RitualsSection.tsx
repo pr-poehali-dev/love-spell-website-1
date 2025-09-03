@@ -61,7 +61,7 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
-    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-accent/5 border border-border hover:border-accent/20">
+    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-accent/5 hover:shadow-md hover:-translate-y-1">
       
       <div className="flex flex-col items-center text-center">
         <div className="mb-4 group-hover:scale-105 transition-transform duration-300">
