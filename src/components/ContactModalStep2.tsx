@@ -11,7 +11,7 @@ export default function ContactModalStep2({ onNext, onBack }: ContactModalStep2P
     <div className="pt-2 sm:pt-0">
       <div className="text-center mb-4 sm:mb-6">
         <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-info via-info/90 to-info/80 rounded-2xl flex items-center justify-center shadow-lg">
-          <Icon name="Info" size={24} className="text-background" />
+          <Icon name="Info" size={24} className="text-white" />
         </div>
         <h2 className="text-2xl font-bold text-foreground mb-2">Важная информация</h2>
       </div>

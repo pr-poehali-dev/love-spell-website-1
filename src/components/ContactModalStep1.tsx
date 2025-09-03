@@ -27,13 +27,13 @@ export default function ContactModalStep1({ onNext, onClose }: ContactModalStep1
       <div className="flex gap-3">
         <button 
           onClick={onClose}
-          className="flex-1 bg-secondary hover:bg-secondary/80 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
+          className="flex-1 bg-secondary hover:bg-secondary/80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border text-sm"
         >
           Назад
         </button>
         <button 
           onClick={onNext}
-          className="flex-1 bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground py-3 px-6 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] active:scale-95"
+          className="flex-1 bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-primary-foreground py-2 px-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] active:scale-95 text-sm"
         >
           Мне есть 18
         </button>

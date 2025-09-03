@@ -11,7 +11,7 @@ export default function ContactModalStep3({ onNext, onClose }: ContactModalStep3
     <div className="pt-2 sm:pt-0">
       <div className="text-center mb-4 sm:mb-6">
         <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-destructive via-destructive/90 to-destructive/80 rounded-2xl flex items-center justify-center shadow-lg">
-          <Icon name="XCircle" size={24} className="text-background" />
+          <Icon name="XCircle" size={24} className="text-white" />
         </div>
         <h2 className="text-destructive text-2xl font-bold">То, чем я НЕ ЗАНИМАЮСЬ!</h2>
       </div>
