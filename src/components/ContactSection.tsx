@@ -39,7 +39,7 @@ export default function ContactSection() {
                 <div className="text-center mb-2.5 xs:mb-3 sm:mb-4">
                   {/* Аватар с индикатором как на скриншоте */}
                   <div className="relative inline-block mb-2">
-                    <div className="w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 sm:border-[3px] border-primary/25 group-hover:border-primary/50 transition-all duration-400 mx-auto">
+                    <div className="w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 sm:border-[3px] border-white shadow-lg group-hover:border-white/90 transition-all duration-400 mx-auto">
                       <img 
                         src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                         alt="Раиса Ильинская"
@@ -67,7 +67,7 @@ export default function ContactSection() {
                     <div className="text-muted-foreground text-xs xs:text-sm sm:text-base flex items-center justify-center gap-1.5">
                       <div className="relative w-1.5 h-1.5 xs:w-2 xs:h-2">
                         <div className="absolute inset-0 bg-green-500 rounded-full animate-pulse opacity-75" />
-                        <div className="relative w-full h-full bg-green-500 rounded-full" />
+                        <div className="relative w-full h-full bg-green-500 rounded-full animate-pulse" style={{animationDuration: '2s'}} />
                       </div>
                       <span>Онлайн</span>
                     </div>
