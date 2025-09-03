@@ -10,8 +10,8 @@ export default function ContactModalStep1({ onNext, onClose }: ContactModalStep1
   return (
     <div className="text-center pt-2 sm:pt-0">
       <div className="mb-4 sm:mb-6">
-        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-warning via-warning/90 to-warning/80 rounded-2xl flex items-center justify-center shadow-lg">
-          <Icon name="AlertTriangle" size={24} className="text-background" />
+        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary via-primary/90 to-primary/80 rounded-2xl flex items-center justify-center shadow-lg">
+          <Icon name="Shield" size={24} className="text-primary-foreground" />
         </div>
         <h2 className="text-2xl font-bold text-foreground mb-3 sm:mb-4">
           Внимание<span className="text-warning">!</span>
@@ -20,14 +20,14 @@ export default function ContactModalStep1({ onNext, onClose }: ContactModalStep1
       
       <div className="bg-muted/20 rounded-lg p-4 mb-6 sm:mb-8">
         <p className="text-foreground text-base sm:text-lg leading-relaxed">
-          Все обращения принимаются строго с <span className="font-bold text-warning">18 лет</span>.
+          Все обращения принимаются строго с <span className="font-bold text-primary">18 лет</span>.
         </p>
       </div>
       
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button 
           onClick={onClose}
-          className="flex-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
+          className="flex-1 bg-secondary hover:bg-secondary/80 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
         >
           Назад
         </button>

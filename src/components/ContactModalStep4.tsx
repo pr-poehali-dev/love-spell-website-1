@@ -11,15 +11,8 @@ export default function ContactModalStep4({ onWhatsApp, onTelegram, onEmailChoic
   return (
     <div className="text-center pt-2 sm:pt-0">
       <div className="mb-4 sm:mb-6">
-        <div className="flex justify-center mb-4">
-          <div className="relative">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-primary/90 rounded-2xl transform rotate-12 flex items-center justify-center shadow-lg">
-              <Icon name="MessageSquare" size={24} className="text-primary-foreground sm:w-8 sm:h-8" />
-            </div>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary/90 to-primary/80 rounded-xl transform -rotate-12 absolute -right-1 sm:-right-2 -top-1 sm:-top-2 flex items-center justify-center shadow-lg">
-              <Icon name="MessageCircle" size={16} className="text-primary-foreground sm:w-5 sm:h-5" />
-            </div>
-          </div>
+        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary via-primary/90 to-primary/80 rounded-2xl flex items-center justify-center shadow-lg">
+          <Icon name="Users" size={24} className="text-primary-foreground" />
         </div>
         <h2 className="text-2xl font-bold text-foreground">Выберите способ связи</h2>
       </div>
@@ -57,10 +50,7 @@ export default function ContactModalStep4({ onWhatsApp, onTelegram, onEmailChoic
             <div className="w-10 h-10 bg-primary-foreground/20 rounded-full flex items-center justify-center">
               <Icon name="Mail" size={18} className="text-primary-foreground" />
             </div>
-            <div className="flex-1 text-left">
-              <span className="text-primary-foreground font-semibold text-lg block">Email - подробная форма</span>
-              <span className="text-primary-foreground/80 text-sm">Опишите вашу ситуацию</span>
-            </div>
+            <span className="text-primary-foreground font-semibold text-lg">Написать на Email</span>
             <Icon name="ArrowRight" size={20} className="text-primary-foreground/80" />
           </button>
         </div>

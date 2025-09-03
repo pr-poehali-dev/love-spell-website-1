@@ -48,7 +48,7 @@ export default function ContactModalStep2({ onNext, onBack }: ContactModalStep2P
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button 
           onClick={onBack}
-          className="flex-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
+          className="flex-1 bg-secondary hover:bg-secondary/80 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
         >
           Назад
         </button>

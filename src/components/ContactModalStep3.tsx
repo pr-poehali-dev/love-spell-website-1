@@ -45,13 +45,13 @@ export default function ContactModalStep3({ onNext, onClose }: ContactModalStep3
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button 
           onClick={onClose}
-          className="flex-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
+          className="flex-1 bg-secondary hover:bg-secondary/80 text-white py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 border border-border"
         >
           Выйти
         </button>
         <button 
           onClick={onNext}
-          className="flex-1 bg-gradient-to-r from-success to-success hover:from-success/90 hover:to-success/90 text-background py-3 px-6 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] active:scale-95"
+          className="flex-1 bg-gradient-to-r from-success to-success hover:from-success/90 hover:to-success/90 text-white py-3 px-6 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] active:scale-95"
         >
           Я по делу
         </button>
