@@ -130,7 +130,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
       </div>
 
       {/* Navigation Menu */}  
-      <div className="bg-background sticky top-[77px] z-20 shadow-md">
+      <div className="bg-background sticky top-[73px] z-20 shadow-md">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button 
