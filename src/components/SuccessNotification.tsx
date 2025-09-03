@@ -8,10 +8,15 @@ interface SuccessNotificationProps {
 }
 
 export default function SuccessNotification({ isOpen, onClose, email }: SuccessNotificationProps) {
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    onClose();
-  };
+  // Автозакрытие через 10 секунд
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -95,22 +100,31 @@ export default function SuccessNotification({ isOpen, onClose, email }: SuccessN
             </div>
           </div>
 
-          {/* Кнопка действия */}
-          <div className="flex justify-center">
-            <button
-              onClick={handleScrollToTop}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 group"
-            >
-              <Icon name="ArrowUp" size={16} className="group-hover:-translate-y-1 transition-transform" />
-              На главную
-            </button>
+          {/* Индикатор автозакрытия */}
+          <div className="mt-4">
+            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-3">
+              <Icon name="Timer" size={14} />
+              <span>Окно закроется автоматически через 10 секунд</span>
+            </div>
+            <div className="w-full h-2 bg-muted/30 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full transition-all duration-75"
+                style={{ 
+                  animation: 'shrinkBar 10s linear forwards',
+                  width: '100%'
+                }}
+              />
+            </div>
           </div>
-
-
         </div>
       </div>
 
-
+      <style jsx>{`
+        @keyframes shrinkBar {
+          from { width: 100%; }
+          to { width: 0%; }
+        }
+      `}</style>
     </div>
   );
 }
