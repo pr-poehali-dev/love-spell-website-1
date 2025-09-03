@@ -317,10 +317,7 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
                   
                   <div className="mt-2 h-1 bg-muted rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full"
-                      style={{
-                        animation: 'shrinkBar 10s linear forwards'
-                      }}
+                      className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full animate-[shrink_10s_linear_forwards]"
                     />
                   </div>
                 </div>
@@ -386,13 +383,6 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
             </div>
           </div>
         </div>
-
-      <style jsx>{`
-        @keyframes shrinkBar {
-          from { width: 100%; }
-          to { width: 0%; }
-        }
-      `}</style>
     </div>
   );
 }
