@@ -106,7 +106,7 @@ export default function ContactSection() {
                     <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-10 sm:h-10 mx-auto mb-1 xs:mb-1.5 bg-info/10 group-hover:bg-info/15 rounded-lg xs:rounded-xl flex items-center justify-center group-hover/item:bg-info/25 group-hover/item:scale-110 transition-all duration-300">
                       <Icon name="Heart" size={14} className="text-info xs:w-4 xs:h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <div className="text-xs xs:text-sm sm:text-base font-medium text-foreground leading-tight">Бесплатно</div>
+                    <div className="text-xs xs:text-sm sm:text-base font-medium text-foreground leading-tight">Заботливо</div>
                   </div>
                 </div>
               </div>
