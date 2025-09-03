@@ -14,9 +14,21 @@ export default function ArticlePage() {
       
       <Divider />
 
+      {/* Широкое изображение-баннер */}
+      <div className="w-full h-32 sm:h-40 md:h-48 relative overflow-hidden">
+        <img 
+          src="/img/f0e0492a-0ea7-4f87-97c1-58f52276e68e.jpg" 
+          alt="Приворот на жену - восстановление гармонии в браке" 
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-primary/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent"></div>
+      </div>
+
       {/* Основной контент */}
       <main className="bg-background">
-        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-2 sm:py-4 space-y-12 sm:space-y-16">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-12 sm:space-y-16">
         {/* Заголовок статьи */}
         <div>
           <h2 className="text-xl font-bold text-foreground mb-8 relative pt-0">
@@ -34,18 +46,7 @@ export default function ArticlePage() {
           </p>
         </div>
 
-        {/* Иллюстрация */}
-        <div className="text-center mb-8">
-          <div className="relative inline-block w-full">
-            <img 
-              src="/img/0e081d67-4997-4e3c-8b95-aab516500b10.jpg" 
-              alt="Приворот на жену - магические свечи и ритуальные предметы" 
-              className="w-full h-auto rounded-2xl shadow-2xl"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
-          </div>
-        </div>
+
 
         {/* Содержание статьи */}
         <article className="text-foreground">
