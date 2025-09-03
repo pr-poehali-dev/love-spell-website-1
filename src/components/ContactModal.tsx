@@ -5,7 +5,7 @@ import ContactModalStep2 from '@/components/ContactModalStep2';
 import ContactModalStep3 from '@/components/ContactModalStep3';
 import ContactModalStep4 from '@/components/ContactModalStep4';
 import ContactModalStep5 from '@/components/ContactModalStep5';
-import SuccessNotification from '@/components/SuccessNotification';
+
 
 interface FormErrors {
   name?: string;
@@ -44,7 +44,7 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
   });
   const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
   const [isUploading, setIsUploading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [successTimer, setSuccessTimer] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -55,12 +55,25 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
     }
   }, [isOpen]);
 
-  if (!isOpen && !isVisible && !showSuccess) return null;
+  if (!isOpen && !isVisible) return null;
 
   const handleClose = () => {
+    if (successTimer) {
+      clearTimeout(successTimer);
+      setSuccessTimer(null);
+    }
     setIsVisible(false);
     setTimeout(() => {
       setCurrentStep(1);
+      setFormData({
+        name: '',
+        situation: '',
+        birthDate: '',
+        email: '',
+        photos: []
+      });
+      setErrors({});
+      setTouched({});
       onClose();
     }, 300);
   };
@@ -230,11 +243,17 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
       // Фальшивая отправка с имитацией загрузки
       await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
       
-      // Успешная отправка - показываем уведомление
-      setShowSuccess(true);
+      // Успешная отправка - переходим на страницу успеха
+      setCurrentStep(6);
       setIsSubmitting(false);
       
       onSuccess?.(formData.email);
+      
+      // Автозакрытие через 10 секунд
+      const timer = setTimeout(() => {
+        handleClose();
+      }, 10000);
+      setSuccessTimer(timer);
       
     } catch (error) {
       console.error('Ошибка отправки:', error);
@@ -271,6 +290,48 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
           onBack={handleBack}
           onSendEmail={handleSendEmail}
         />;
+      case 6:
+        return (
+          <div className="text-center space-y-6">
+            <div className="relative mx-auto w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center">
+              <Icon name="CheckCircle2" size={48} className="text-green-500" />
+              
+              <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping"></div>
+            </div>
+            
+            <div className="space-y-3">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                Заявка отправлена!
+              </h3>
+              
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>
+                  Спасибо за вашу заявку! Мы внимательно изучим ваш запрос и свяжемся с вами в течение 24 часов.
+                </p>
+                
+                <div className="bg-muted/50 rounded-lg p-3">
+                  <div className="flex items-center justify-center gap-2 text-xs">
+                    <Icon name="Timer" size={14} />
+                    <span>Окно закроется автоматически через 10 секунд</span>
+                  </div>
+                  
+                  <div className="mt-2 h-1 bg-muted rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full"
+                      style={{
+                        animation: 'shrinkBar 10s linear forwards'
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-xs text-muted-foreground">
+                Ответ придет на почту: <strong className="text-foreground">{formData.email}</strong>
+              </div>
+            </div>
+          </div>
+        );
       default:
         return null;
     }
@@ -278,7 +339,7 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
 
   return (
     <>
-      {!showSuccess && (
+      <div
         <div 
           className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
             isVisible ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
@@ -306,47 +367,34 @@ export default function ContactModal({ isOpen, onClose, onSuccess }: ContactModa
               </div>
               
               {/* Индикатор прогресса */}
-              <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-border">
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4, 5].map((step) => (
-                    <div 
-                      key={step}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        step === currentStep 
-                          ? 'bg-primary w-6' 
-                          : step < currentStep 
-                          ? 'bg-primary/60' 
-                          : 'bg-muted'
-                      }`}
-                    />
-                  ))}
+              {currentStep < 6 && (
+                <div className="flex justify-center mt-6 sm:mt-8 pt-4 border-t border-border">
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((step) => (
+                      <div 
+                        key={step}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          step === currentStep 
+                            ? 'bg-primary w-6' 
+                            : step < currentStep 
+                            ? 'bg-primary/60' 
+                            : 'bg-muted'
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
-      )}
 
-      <SuccessNotification 
-        isOpen={showSuccess}
-        onClose={() => {
-          setShowSuccess(false);
-          // Сбрасываем форму после закрытия уведомления
-          setFormData({
-            name: '',
-            situation: '',
-            birthDate: '',
-            email: '',
-            photos: []
-          });
-          setCurrentStep(1);
-          setErrors({});
-          setTouched({});
-          // Закрываем основное модальное окно
-          onClose();
-        }}
-        email={formData.email}
-      />
-    </>
+      <style jsx>{`
+        @keyframes shrinkBar {
+          from { width: 100%; }
+          to { width: 0%; }
+        }
+      `}</style>
+    </div>
   );
 }
