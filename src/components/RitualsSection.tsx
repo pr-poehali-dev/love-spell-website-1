@@ -70,6 +70,14 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
           <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300">{ritual.title}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">{ritual.description}</p>
         </div>
+
+        {/* Кнопка перехода к статье */}
+        <div className="mt-4">
+          <div className="px-4 py-2 bg-accent/8 hover:bg-accent/15 rounded-full text-accent text-sm font-medium transition-colors duration-300 flex items-center gap-2 justify-center">
+            <span>Подробнее</span>
+            <Icon name="ArrowRight" size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+          </div>
+        </div>
       </div>
 
     </div>
