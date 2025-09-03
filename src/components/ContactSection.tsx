@@ -47,9 +47,13 @@ export default function ContactSection() {
                         loading="lazy"
                       />
                     </div>
-                    {/* Белая точка с иконкой чата внутри */}
+                    {/* Белая точка с тремя зелёными точками внутри */}
                     <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 bg-white border-2 border-card rounded-full flex items-center justify-center shadow-sm">
-                      <Icon name="MessageCircle" size={12} className="text-primary xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4" />
+                      <div className="flex items-center gap-0.5 xs:gap-1">
+                        <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-green-500 rounded-full" />
+                        <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-green-500 rounded-full" />
+                        <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-green-500 rounded-full" />
+                      </div>
                     </div>
                   </div>
                   
