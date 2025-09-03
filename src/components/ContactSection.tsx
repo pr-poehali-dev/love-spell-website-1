@@ -20,7 +20,7 @@ export default function ContactSection() {
         
         {/* Кнопка связи - продвинутая адаптивность */}
         <div className="flex justify-center mb-6 sm:mb-8 lg:mb-10 px-2 xs:px-3 sm:px-4">
-          <div className="relative w-full max-w-[280px] xs:max-w-[300px] sm:max-w-[340px] md:max-w-[380px]">
+          <div className="relative w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[400px] md:max-w-[440px]">
             {/* Основная кнопка */}
             <button 
               onClick={() => setIsModalOpen(true)}
@@ -33,13 +33,13 @@ export default function ContactSection() {
 
               
               {/* Контент кнопки */}
-              <div className="relative px-3 py-3 xs:px-4 xs:py-4 sm:px-5 sm:py-5 md:px-6 md:py-6">
+              <div className="relative px-4 py-4 xs:px-5 xs:py-5 sm:px-6 sm:py-6 md:px-8 md:py-8">
                 
                 {/* Профиль по центру */}
                 <div className="text-center mb-2.5 xs:mb-3 sm:mb-4">
                   {/* Аватар с индикатором как на скриншоте */}
                   <div className="relative inline-block mb-2">
-                    <div className="w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 sm:border-[3px] border-white shadow-lg group-hover:border-white/90 transition-all duration-400 mx-auto">
+                    <div className="w-20 h-20 xs:w-24 xs:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-3 sm:border-4 border-white shadow-lg group-hover:border-white/90 transition-all duration-400 mx-auto">
                       <img 
                         src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                         alt="Раиса Ильинская"
@@ -48,12 +48,12 @@ export default function ContactSection() {
                       />
                     </div>
                     {/* Увеличенная белая точка с зелёным кругом чата и тремя белыми точками */}
-                    <div className="absolute -bottom-1 -right-1 w-7 h-7 xs:w-8 xs:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white border-2 sm:border-[3px] border-card rounded-full flex items-center justify-center shadow-md">
-                      <div className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 bg-green-500 rounded-full flex items-center justify-center">
-                        <div className="flex items-center gap-0.5">
-                          <div className="w-0.5 h-0.5 xs:w-1 xs:h-1 bg-white rounded-full" />
-                          <div className="w-0.5 h-0.5 xs:w-1 xs:h-1 bg-white rounded-full" />
-                          <div className="w-0.5 h-0.5 xs:w-1 xs:h-1 bg-white rounded-full" />
+                    <div className="absolute -bottom-1.5 -right-1.5 w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white border-3 sm:border-4 border-card rounded-full flex items-center justify-center shadow-md">
+                      <div className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-9 md:h-9 bg-green-500 rounded-full flex items-center justify-center">
+                        <div className="flex items-center gap-1">
+                          <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-white rounded-full" />
+                          <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-white rounded-full" />
+                          <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-white rounded-full" />
                         </div>
                       </div>
                     </div>
@@ -61,11 +61,11 @@ export default function ContactSection() {
                   
                   {/* Текст по центру */}
                   <div>
-                    <div className="font-semibold text-foreground text-sm xs:text-base sm:text-lg md:text-xl leading-tight mb-1">
+                    <div className="font-semibold text-foreground text-base xs:text-lg sm:text-xl md:text-2xl leading-tight mb-1.5">
                       Раиса Ильинская
                     </div>
-                    <div className="text-muted-foreground text-xs xs:text-sm sm:text-base flex items-center justify-center gap-1.5">
-                      <div className="relative w-1.5 h-1.5 xs:w-2 xs:h-2">
+                    <div className="text-muted-foreground text-sm xs:text-base sm:text-lg flex items-center justify-center gap-2">
+                      <div className="relative w-2 h-2 xs:w-2.5 xs:h-2.5">
                         <div className="absolute inset-0 bg-green-500 rounded-full animate-pulse opacity-75" />
                         <div className="relative w-full h-full bg-green-500 rounded-full animate-pulse" style={{animationDuration: '2s'}} />
                       </div>
@@ -75,38 +75,38 @@ export default function ContactSection() {
                 </div>
                 
                 {/* Основное действие - оранжевая кнопка с самолётиком */}
-                <div className="bg-gradient-to-r from-primary to-primary/90 group-hover:from-primary/95 group-hover:to-primary/85 text-primary-foreground rounded-xl sm:rounded-2xl px-3 py-2.5 xs:px-4 xs:py-3 sm:px-5 sm:py-3.5 mb-3 sm:mb-4 transition-all duration-400 group-hover:shadow-lg group-hover:-translate-y-0.5 will-change-transform">
-                  <div className="flex items-center justify-center gap-2 xs:gap-2.5 sm:gap-3">
+                <div className="bg-gradient-to-r from-primary to-primary/90 group-hover:from-primary/95 group-hover:to-primary/85 text-primary-foreground rounded-xl sm:rounded-2xl px-4 py-3 xs:px-5 xs:py-3.5 sm:px-6 sm:py-4 mb-4 sm:mb-5 transition-all duration-400 group-hover:shadow-lg group-hover:-translate-y-0.5 will-change-transform">
+                  <div className="flex items-center justify-center gap-2.5 xs:gap-3 sm:gap-3.5">
                     <Icon 
                       name="Send" 
-                      size={16} 
-                      className="text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-400 xs:w-[18px] xs:h-[18px] sm:w-5 sm:h-5 flex-shrink-0" 
+                      size={18} 
+                      className="text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-400 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex-shrink-0" 
                     />
-                    <span className="font-bold text-sm xs:text-base sm:text-lg md:text-xl leading-tight text-center min-w-0">
+                    <span className="font-bold text-base xs:text-lg sm:text-xl md:text-2xl leading-tight text-center min-w-0">
                       Напишите мне
                     </span>
                   </div>
                 </div>
                 
                 {/* Компактные преимущества */}
-                <div className="grid grid-cols-3 gap-1.5 xs:gap-2 sm:gap-3 text-center">
-                  <div className="group/item px-1 py-0.5">
-                    <div className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 mx-auto mb-0.5 xs:mb-1 bg-accent/10 group-hover:bg-accent/15 rounded-md xs:rounded-lg flex items-center justify-center group-hover/item:bg-accent/25 group-hover/item:scale-110 transition-all duration-300">
-                      <Icon name="Zap" size={10} className="text-accent xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5" />
+                <div className="grid grid-cols-3 gap-2 xs:gap-3 sm:gap-4 text-center">
+                  <div className="group/item px-1 py-1">
+                    <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-10 sm:h-10 mx-auto mb-1 xs:mb-1.5 bg-accent/10 group-hover:bg-accent/15 rounded-lg xs:rounded-xl flex items-center justify-center group-hover/item:bg-accent/25 group-hover/item:scale-110 transition-all duration-300">
+                      <Icon name="Zap" size={14} className="text-accent xs:w-4 xs:h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <div className="text-[9px] xs:text-[10px] sm:text-xs font-medium text-foreground leading-tight">Быстро</div>
+                    <div className="text-xs xs:text-sm sm:text-base font-medium text-foreground leading-tight">Быстро</div>
                   </div>
-                  <div className="group/item px-1 py-0.5">
-                    <div className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 mx-auto mb-0.5 xs:mb-1 bg-success/10 group-hover:bg-success/15 rounded-md xs:rounded-lg flex items-center justify-center group-hover/item:bg-success/25 group-hover/item:scale-110 transition-all duration-300">
-                      <Icon name="Shield" size={10} className="text-success xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5" />
+                  <div className="group/item px-1 py-1">
+                    <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-10 sm:h-10 mx-auto mb-1 xs:mb-1.5 bg-success/10 group-hover:bg-success/15 rounded-lg xs:rounded-xl flex items-center justify-center group-hover/item:bg-success/25 group-hover/item:scale-110 transition-all duration-300">
+                      <Icon name="Shield" size={14} className="text-success xs:w-4 xs:h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <div className="text-[9px] xs:text-[10px] sm:text-xs font-medium text-foreground leading-tight">Надёжно</div>
+                    <div className="text-xs xs:text-sm sm:text-base font-medium text-foreground leading-tight">Надёжно</div>
                   </div>
-                  <div className="group/item px-1 py-0.5">
-                    <div className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 mx-auto mb-0.5 xs:mb-1 bg-info/10 group-hover:bg-info/15 rounded-md xs:rounded-lg flex items-center justify-center group-hover/item:bg-info/25 group-hover/item:scale-110 transition-all duration-300">
-                      <Icon name="Heart" size={10} className="text-info xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5" />
+                  <div className="group/item px-1 py-1">
+                    <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-10 sm:h-10 mx-auto mb-1 xs:mb-1.5 bg-info/10 group-hover:bg-info/15 rounded-lg xs:rounded-xl flex items-center justify-center group-hover/item:bg-info/25 group-hover/item:scale-110 transition-all duration-300">
+                      <Icon name="Heart" size={14} className="text-info xs:w-4 xs:h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <div className="text-[9px] xs:text-[10px] sm:text-xs font-medium text-foreground leading-tight">Бесплатно</div>
+                    <div className="text-xs xs:text-sm sm:text-base font-medium text-foreground leading-tight">Бесплатно</div>
                   </div>
                 </div>
               </div>
