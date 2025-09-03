@@ -39,7 +39,7 @@ export default function ContactSection() {
                 <div className="text-center mb-2.5 xs:mb-3 sm:mb-4">
                   {/* Аватар с индикатором как на скриншоте */}
                   <div className="relative inline-block mb-2">
-                    <div className="w-20 h-20 xs:w-24 xs:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-3 sm:border-4 border-white shadow-lg group-hover:border-white/90 transition-all duration-400 mx-auto">
+                    <div className="w-20 h-20 xs:w-24 xs:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white shadow-lg group-hover:border-white/90 transition-all duration-400 mx-auto">
                       <img 
                         src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
                         alt="Раиса Ильинская"
@@ -48,12 +48,12 @@ export default function ContactSection() {
                       />
                     </div>
                     {/* Увеличенная белая точка с зелёным кругом чата и тремя белыми точками */}
-                    <div className="absolute -bottom-1.5 -right-1.5 w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white border-3 sm:border-4 border-card rounded-full flex items-center justify-center shadow-md">
-                      <div className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-9 md:h-9 bg-green-500 rounded-full flex items-center justify-center">
-                        <div className="flex items-center gap-1">
-                          <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-white rounded-full" />
-                          <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-white rounded-full" />
-                          <div className="w-1 h-1 xs:w-1.5 xs:h-1.5 bg-white rounded-full" />
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 xs:w-8 xs:h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 bg-white border-2 border-card rounded-full flex items-center justify-center shadow-md">
+                      <div className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 bg-green-500 rounded-full flex items-center justify-center">
+                        <div className="flex items-center gap-0.5">
+                          <div className="w-0.5 h-0.5 xs:w-1 xs:h-1 bg-white rounded-full" />
+                          <div className="w-0.5 h-0.5 xs:w-1 xs:h-1 bg-white rounded-full" />
+                          <div className="w-0.5 h-0.5 xs:w-1 xs:h-1 bg-white rounded-full" />
                         </div>
                       </div>
                     </div>
@@ -75,7 +75,7 @@ export default function ContactSection() {
                 </div>
                 
                 {/* Основное действие - оранжевая кнопка с самолётиком */}
-                <div className="bg-gradient-to-r from-primary to-primary/90 group-hover:from-primary/95 group-hover:to-primary/85 text-primary-foreground rounded-xl sm:rounded-2xl px-4 py-3 xs:px-5 xs:py-3.5 sm:px-6 sm:py-4 mb-4 sm:mb-5 transition-all duration-400 group-hover:shadow-lg group-hover:-translate-y-0.5 will-change-transform">
+                <div className="bg-gradient-to-r from-primary to-primary/90 group-hover:from-primary/95 group-hover:to-primary/85 text-primary-foreground rounded-full px-4 py-3 xs:px-5 xs:py-3.5 sm:px-6 sm:py-4 mb-4 sm:mb-5 transition-all duration-400 group-hover:shadow-lg group-hover:-translate-y-0.5 will-change-transform">
                   <div className="flex items-center justify-center gap-2.5 xs:gap-3 sm:gap-3.5">
                     <Icon 
                       name="Send" 
