@@ -61,29 +61,15 @@ const ritualCards = [
 
 function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
   return (
-    <div className="group relative p-6 cursor-pointer transition-all duration-300 rounded-lg hover:bg-accent/5 hover:shadow-md hover:-translate-y-1 overflow-hidden">
-      
-      {/* Красивые фоновые эффекты */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        {/* Радиальный градиент от центра */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-radial from-accent/20 via-accent/10 to-transparent rounded-full blur-xl"></div>
-        
-        {/* Диагональные полосы света */}
-        <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-accent/15 to-transparent rounded-full blur-lg rotate-45"></div>
-        <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-tr from-primary/15 to-transparent rounded-full blur-md rotate-12"></div>
-        
-        {/* Тонкая светящаяся линия по краю */}
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-accent/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" 
-             style={{background: 'linear-gradient(135deg, transparent 0%, rgba(var(--accent), 0.15) 50%, transparent 100%)'}}></div>
-      </div>
+    <div className="relative p-6 cursor-pointer rounded-lg">{/* Убрал все hover эффекты для мобильных */}
       
       <div className="relative flex flex-col items-center text-center">
-        <div className="mb-4 group-hover:scale-105 transition-transform duration-300">
+        <div className="mb-4">
           <Icon name={ritual.icon as any} size={32} className="text-primary" />
         </div>
         
         <div className="space-y-2">
-          <h3 className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300">
+          <h3 className="text-lg font-medium text-foreground">
             {ritual.title}
           </h3>
           <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">{ritual.description}</p>
@@ -91,9 +77,9 @@ function RitualCard({ ritual }: { ritual: typeof ritualCards[0] }) {
 
         {/* Кнопка перехода к статье */}
         <div className="mt-4">
-          <div className="px-4 py-2 bg-accent/8 hover:bg-accent/15 rounded-full text-accent text-sm font-medium transition-colors duration-300 flex items-center gap-2">
+          <div className="px-4 py-2 bg-accent/8 rounded-full text-accent text-sm font-medium flex items-center gap-2">
             <span>Подробнее</span>
-            <Icon name="ArrowRight" size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+            <Icon name="ArrowRight" size={14} />
           </div>
         </div>
       </div>
