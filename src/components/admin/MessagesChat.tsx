@@ -305,8 +305,8 @@ const MessagesChat = () => {
                 </div>
               </CardHeader>
               <CardContent className="flex flex-col h-[calc(100vh-200px)] lg:h-[500px] p-2 md:p-6">
-                <ScrollArea className="flex-1 pr-1 md:pr-4">
-                  <div className="space-y-3 md:space-y-4">
+                <ScrollArea className="flex-1 pr-1 md:pr-4 pb-4">
+                  <div className="space-y-3 md:space-y-4 pb-4">
                     {selectedConversation.messages.map((message) => (
                       <div
                         key={message.id}
