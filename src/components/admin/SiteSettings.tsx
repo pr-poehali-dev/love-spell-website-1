@@ -372,8 +372,8 @@ const SiteSettings = () => {
                   <div>
                     <h5 className="font-medium text-blue-900 text-sm">Информация о CDN</h5>
                     <p className="text-blue-700 text-xs mt-1 leading-relaxed">
-                      CDN (Content Delivery Network) ускоряет загрузку вашего сайта за счет кэширования 
-                      контента на серверах, расположенных ближе к пользователям.
+                      CDN автоматически заменяет ссылки на фотографии, видео, стили, шрифты и другие статические файлы 
+                      на быстрые серверы по всему миру, значительно ускоряя загрузку всех ресурсов сайта.
                     </p>
                     <ul className="text-blue-700 text-xs mt-2 space-y-1">
                       <li>• Быстрая загрузка статических файлов</li>

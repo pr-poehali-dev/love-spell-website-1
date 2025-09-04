@@ -186,9 +186,9 @@ const MessagesChat = () => {
         </p>
       </div>
 
-      <div className="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6 min-h-[400px] md:min-h-[500px] max-h-[90vh]">
+      <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3 md:gap-6 min-h-[400px] md:min-h-[500px] max-h-[90vh]">
         {/* Список разговоров */}
-        <Card className="lg:col-span-1 h-[40vh] md:h-[50vh] lg:max-h-full">
+        <Card className="lg:col-span-1 h-[35vh] md:h-[45vh] lg:h-full">
           <CardHeader className="p-3 md:p-6 pb-3">
             <div className="flex items-center justify-between mb-3">
               <CardTitle className="text-sm md:text-base">Разговоры</CardTitle>
@@ -205,12 +205,12 @@ const MessagesChat = () => {
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <ScrollArea className="h-[320px] md:h-[400px] lg:h-[500px]">
-              <div className="space-y-2 p-3 md:p-4">
+            <ScrollArea className="h-[260px] md:h-[340px] lg:h-[480px]">
+              <div className="space-y-1 md:space-y-2 p-2 md:p-4">
                 {filteredConversations.map((conversation) => (
                   <div
                     key={conversation.id}
-                    className={`p-3 md:p-4 rounded-lg cursor-pointer transition-colors ${
+                    className={`p-2 md:p-4 rounded-lg cursor-pointer transition-colors ${
                       selectedConversation?.id === conversation.id
                         ? 'bg-primary/10 border border-primary/20'
                         : 'hover:bg-muted/50'
@@ -284,8 +284,8 @@ const MessagesChat = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex flex-col h-[45vh] md:h-[500px] p-3 md:p-6">
-                <ScrollArea className="flex-1 pr-2 md:pr-4">
+              <CardContent className="flex flex-col h-[50vh] md:h-[500px] p-2 md:p-6">
+                <ScrollArea className="flex-1 pr-1 md:pr-4">
                   <div className="space-y-3 md:space-y-4">
                     {selectedConversation.messages.map((message) => (
                       <div

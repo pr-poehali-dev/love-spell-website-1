@@ -46,21 +46,22 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
   return (
     <aside 
       className={cn(
-        "fixed left-0 top-0 h-full bg-card border-r transition-all duration-500 ease-in-out z-40",
+        "fixed left-0 top-0 h-full bg-card border-r transition-all duration-300 ease-in-out z-40",
         collapsed ? "w-16 -translate-x-full md:translate-x-0" : "w-64 translate-x-0"
       )}
     >
       <div className="p-4">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
             <Icon name="Crown" size={20} className="text-primary-foreground" />
           </div>
-          {!collapsed && (
-            <div>
-              <h2 className="font-bold text-lg">Admin</h2>
-              <p className="text-xs text-muted-foreground">Панель управления</p>
-            </div>
-          )}
+          <div className={cn(
+            "transition-all duration-300 overflow-hidden",
+            collapsed ? "w-0 opacity-0" : "w-auto opacity-100"
+          )}>
+            <h2 className="font-bold text-lg whitespace-nowrap">Admin</h2>
+            <p className="text-xs text-muted-foreground whitespace-nowrap">Панель управления</p>
+          </div>
         </div>
 
         <nav className="space-y-2">
@@ -80,62 +81,44 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
                 }
               }}
             >
-              <Icon name={item.icon as any} size={20} className={cn(!collapsed && "mr-3")} />
-              {!collapsed && (
-                <div className="text-left">
-                  <div className="font-medium">{item.label}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {item.description}
-                  </div>
+              <Icon name={item.icon as any} size={20} className="flex-shrink-0" />
+              <div className={cn(
+                "text-left transition-all duration-300 overflow-hidden ml-3",
+                collapsed ? "w-0 opacity-0 ml-0" : "w-auto opacity-100"
+              )}>
+                <div className="font-medium whitespace-nowrap">{item.label}</div>
+                <div className="text-xs text-muted-foreground whitespace-nowrap">
+                  {item.description}
                 </div>
-              )}
+              </div>
             </Button>
           ))}
         </nav>
       </div>
 
       <div className="absolute bottom-4 left-4 right-4">
-        <div className={cn(
-          "p-3 bg-muted/50 rounded-lg flex items-center justify-between",
-          collapsed && "p-2 justify-center"
-        )}>
-          {!collapsed ? (
-            <>
-              <div>
-                <p className="font-medium text-sm">Администратор</p>
-                <p className="text-xs text-muted-foreground">admin@site.com</p>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-8 w-8 p-0 hover:bg-muted-foreground/20"
-                onClick={() => {
-                  onSectionChange('admin-settings');
-                  if (window.innerWidth < 768) {
-                    onMenuItemClick?.();
-                  }
-                }}
-              >
-                <Icon name="Settings" size={16} />
-                <span className="sr-only">Настройки администратора</span>
-              </Button>
-            </>
-          ) : (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 w-8 p-0 hover:bg-muted-foreground/20"
-              onClick={() => {
-                onSectionChange('admin-settings');
-                if (window.innerWidth < 768) {
-                  onMenuItemClick?.();
-                }
-              }}
-            >
-              <Icon name="Settings" size={16} />
-              <span className="sr-only">Настройки администратора</span>
-            </Button>
-          )}
+        <div className="p-3 bg-muted/50 rounded-lg flex items-center gap-3">
+          <div className={cn(
+            "flex-1 transition-all duration-300 overflow-hidden",
+            collapsed ? "w-0 opacity-0" : "w-auto opacity-100"
+          )}>
+            <p className="font-medium text-sm whitespace-nowrap">Администратор</p>
+            <p className="text-xs text-muted-foreground whitespace-nowrap">admin@site.com</p>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 p-0 hover:bg-muted-foreground/20 flex-shrink-0"
+            onClick={() => {
+              onSectionChange('admin-settings');
+              if (window.innerWidth < 768) {
+                onMenuItemClick?.();
+              }
+            }}
+          >
+            <Icon name="Settings" size={16} />
+            <span className="sr-only">Настройки администратора</span>
+          </Button>
         </div>
       </div>
     </aside>
