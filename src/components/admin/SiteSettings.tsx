@@ -59,11 +59,6 @@ const SiteSettings = () => {
     }
   };
 
-  const handleSaveCdn = async () => {
-    // TODO: Implement CDN save API call
-    console.log('Saving CDN settings:', cdnSettings);
-  };
-
   const handleSave = async () => {
     // TODO: Implement save API call
     // const response = await api.updateSiteSettings({
@@ -358,10 +353,7 @@ const SiteSettings = () => {
                     </p>
                   </div>
 
-                  <Button onClick={handleSaveCdn} className="w-full md:w-auto">
-                    <Icon name="Save" size={16} className="mr-2" />
-                    Сохранить CDN настройки
-                  </Button>
+
                 </div>
               )}
 
@@ -388,16 +380,10 @@ const SiteSettings = () => {
         </TabsContent>
       </Tabs>
 
-      <div className="flex flex-col md:flex-row gap-3">
-        <Button onClick={handleSave} className="w-full md:w-auto">
-          <Icon name="Save" size={16} className="mr-2" />
-          Сохранить изменения
-        </Button>
-        <Button variant="outline" className="w-full md:w-auto">
-          <Icon name="Eye" size={16} className="mr-2" />
-          Предварительный просмотр
-        </Button>
-      </div>
+      <Button onClick={handleSave} className="w-full md:w-auto">
+        <Icon name="Save" size={16} className="mr-2" />
+        Сохранить изменения
+      </Button>
     </div>
   );
 };

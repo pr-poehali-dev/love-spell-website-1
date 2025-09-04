@@ -71,7 +71,12 @@ const AdminDashboard = () => {
           </div>
           <div className="flex items-center gap-1 md:gap-3">
             <NotificationDropdown onSectionChange={setActiveSection} />
-            <Button variant="outline" size="sm" className="hidden sm:flex hover:bg-accent">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="hidden sm:flex hover:bg-accent"
+              onClick={() => window.open('/', '_blank')}
+            >
               <Icon name="ExternalLink" size={16} className="mr-2" />
               <span className="hidden md:inline">Перейти на сайт</span>
             </Button>
