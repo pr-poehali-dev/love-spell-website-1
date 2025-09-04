@@ -42,147 +42,151 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
     setMoonPhase(getMoonPhase());
   }, []);
 
-  // Создание стильной 2D луны как 🌕
-  const create2DMoon = () => {
-    const radius = size / 2 - 2;
-    const centerX = size / 2;
-    const centerY = size / 2;
+  // Создание объемной луны с точными фазами
+  const create3DMoon = () => {
+    const radius = size / 2 - 3;
     
-    // Расчет освещенности для фазы
-    const illumination = Math.abs(Math.cos((moonPhase - 0.5) * Math.PI));
+    // Точный расчет фазы луны
+    const phaseProgress = moonPhase; // от 0 до 1
     const isWaxing = moonPhase < 0.5;
+    
+    // Расчет видимой части (наполовину заполнение)
+    let visibleWidth;
+    if (moonPhase <= 0.25) {
+      // Растущий серп (0% -> 50%)
+      visibleWidth = (moonPhase / 0.25) * 50;
+    } else if (moonPhase <= 0.5) {
+      // Растущая луна (50% -> 100%)
+      visibleWidth = 50 + ((moonPhase - 0.25) / 0.25) * 50;
+    } else if (moonPhase <= 0.75) {
+      // Убывающая луна (100% -> 50%)
+      visibleWidth = 100 - ((moonPhase - 0.5) / 0.25) * 50;
+    } else {
+      // Убывающий серп (50% -> 0%)
+      visibleWidth = 50 - ((moonPhase - 0.75) / 0.25) * 50;
+    }
+    
+    const percentage = Math.round(visibleWidth);
     
     return (
       <div 
-        className="relative flex items-center justify-center transition-all duration-500 hover:scale-110 cursor-pointer group"
-        style={{ width: size, height: size }}
+        className="relative flex flex-col items-center transition-all duration-500 hover:scale-110 cursor-pointer group"
+        style={{ width: size + 20, height: size + 30 }}
         title={getMoonPhaseName(moonPhase)}
       >
-        {/* Основной круг луны - плоский 2D дизайн */}
+        {/* Основная объемная луна */}
         <div 
-          className="absolute rounded-full transition-all duration-1000"
+          className="relative rounded-full transition-all duration-1000 overflow-hidden"
           style={{
             width: radius * 2,
             height: radius * 2,
-            background: `linear-gradient(135deg, 
-              hsl(var(--accent) / 0.9) 0%, 
-              hsl(var(--accent) / 0.7) 30%, 
-              hsl(var(--muted) / 0.9) 50%, 
-              hsl(var(--accent) / 0.6) 70%,
-              hsl(var(--accent) / 0.8) 100%
+            background: `radial-gradient(circle at 30% 30%, 
+              hsl(var(--accent) / 0.95) 0%, 
+              hsl(var(--accent) / 0.8) 40%, 
+              hsl(var(--muted) / 0.9) 60%, 
+              hsl(var(--accent) / 0.7) 80%,
+              hsl(var(--muted) / 0.8) 100%
             )`,
-            border: `1px solid hsl(var(--accent) / 0.5)`,
+            border: `2px solid hsl(var(--accent) / 0.6)`,
             boxShadow: `
-              0 0 ${size * 0.3}px hsl(var(--accent) / 0.5),
-              0 0 ${size * 0.6}px hsl(var(--accent) / 0.2),
-              inset 0 0 ${size * 0.1}px hsl(var(--muted) / 0.3)
+              inset -5px -5px 10px hsl(var(--muted) / 0.4),
+              inset 5px 5px 8px hsl(var(--accent) / 0.3),
+              0 0 15px hsl(var(--accent) / 0.4)
             `
           }}
         >
-          {/* 2D кратеры как простые круги */}
-          <div className="absolute inset-0 rounded-full overflow-hidden">
+          {/* Объемные кратеры с тенями */}
+          <div className="absolute inset-0">
             {/* Большой кратер */}
             <div 
-              className="absolute rounded-full opacity-60"
+              className="absolute rounded-full"
               style={{
-                background: `hsl(var(--muted) / 0.7)`,
+                background: `radial-gradient(circle at 30% 30%, 
+                  hsl(var(--muted) / 0.9), 
+                  hsl(var(--accent) / 0.6)
+                )`,
                 width: size * 0.12,
                 height: size * 0.12,
-                top: '22%',
-                left: '28%',
-                boxShadow: `inset 0 0 ${size * 0.02}px hsl(var(--accent) / 0.3)`
+                top: '25%',
+                left: '32%',
+                boxShadow: `
+                  inset 2px 2px 4px hsl(var(--muted) / 0.6),
+                  inset -1px -1px 2px hsl(var(--accent) / 0.3)
+                `
               }}
             />
+            
             {/* Средний кратер */}
             <div 
-              className="absolute rounded-full opacity-50"
+              className="absolute rounded-full"
               style={{
-                background: `hsl(var(--muted) / 0.6)`,
+                background: `radial-gradient(circle at 40% 40%, 
+                  hsl(var(--muted) / 0.8), 
+                  hsl(var(--accent) / 0.5)
+                )`,
                 width: size * 0.08,
                 height: size * 0.08,
-                top: '58%',
-                right: '30%',
-                boxShadow: `inset 0 0 ${size * 0.015}px hsl(var(--accent) / 0.2)`
+                top: '60%',
+                right: '28%',
+                boxShadow: `
+                  inset 1px 1px 3px hsl(var(--muted) / 0.5),
+                  inset -0.5px -0.5px 1px hsl(var(--accent) / 0.2)
+                `
               }}
             />
+            
             {/* Маленькие кратеры */}
-            <div 
-              className="absolute rounded-full opacity-40"
-              style={{
-                background: `hsl(var(--muted) / 0.5)`,
-                width: size * 0.05,
-                height: size * 0.05,
-                top: '40%',
-                left: '20%'
-              }}
-            />
-            <div 
-              className="absolute rounded-full opacity-30"
-              style={{
-                background: `hsl(var(--muted) / 0.4)`,
-                width: size * 0.04,
-                height: size * 0.04,
-                top: '70%',
-                left: '55%'
-              }}
-            />
-            <div 
-              className="absolute rounded-full opacity-35"
-              style={{
-                background: `hsl(var(--muted) / 0.45)`,
-                width: size * 0.03,
-                height: size * 0.03,
-                top: '15%',
-                right: '20%'
-              }}
-            />
+            {[
+              { top: '40%', left: '18%', size: 0.05 },
+              { top: '72%', left: '58%', size: 0.04 },
+              { top: '15%', right: '22%', size: 0.03 }
+            ].map((crater, i) => (
+              <div 
+                key={i}
+                className="absolute rounded-full"
+                style={{
+                  background: `hsl(var(--muted) / 0.7)`,
+                  width: size * crater.size,
+                  height: size * crater.size,
+                  top: crater.top,
+                  left: crater.left,
+                  right: crater.right,
+                  boxShadow: `inset 0.5px 0.5px 1px hsl(var(--muted) / 0.4)`
+                }}
+              />
+            ))}
           </div>
-        </div>
 
-        {/* 2D теневая маска для фазы */}
-        {moonPhase > 0.05 && moonPhase < 0.95 && (
+          {/* Точная фаза луны */}
           <div 
-            className="absolute rounded-full transition-all duration-1000"
+            className="absolute inset-0 rounded-full transition-all duration-1000"
             style={{
-              width: radius * 2,
-              height: radius * 2,
-              background: `hsl(var(--background) / 0.9)`,
+              background: `linear-gradient(to right, 
+                hsl(var(--background) / 0.95) 0%, 
+                hsl(var(--background) / 0.9) 20%,
+                transparent 100%
+              )`,
               clipPath: isWaxing 
-                ? `inset(0 0 0 ${illumination * 100}%)`
-                : `inset(0 ${illumination * 100}% 0 0)`
+                ? `inset(0 0 0 ${visibleWidth}%)`
+                : `inset(0 ${visibleWidth}% 0 0)`
             }}
           />
-        )}
+        </div>
 
-        {/* Простое 2D свечение */}
+        {/* Текст с процентом снизу */}
         <div 
-          className="absolute rounded-full animate-pulse pointer-events-none"
+          className="mt-2 px-2 py-1 rounded-full text-xs font-bold transition-all duration-300"
           style={{
-            width: (radius * 2) + 8,
-            height: (radius * 2) + 8,
-            background: `radial-gradient(circle, 
-              transparent 70%, 
-              hsl(var(--accent) / 0.3) 80%, 
-              transparent 100%
+            background: `linear-gradient(135deg, 
+              hsl(var(--accent) / 0.8) 0%, 
+              hsl(var(--primary) / 0.6) 100%
             )`,
-            animationDuration: '4s'
+            color: `hsl(var(--background))`,
+            boxShadow: `0 2px 4px hsl(var(--accent) / 0.3)`
           }}
-        />
-
-        {/* Внешнее свечение при hover */}
-        <div 
-          className="absolute rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none"
-          style={{
-            width: (radius * 2) + 16,
-            height: (radius * 2) + 16,
-            background: `radial-gradient(circle, 
-              transparent 60%, 
-              hsl(var(--primary) / 0.4) 75%, 
-              transparent 100%
-            )`,
-            filter: 'blur(2px)'
-          }}
-        />
+        >
+          {percentage}%
+        </div>
         
         {/* Мистический тултип */}
         <div className="absolute -bottom-9 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-card/95 backdrop-blur-sm border border-accent/20 rounded-lg px-3 py-2 text-xs font-medium whitespace-nowrap pointer-events-none z-30 shadow-xl">
@@ -195,7 +199,7 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
     );
   };
 
-  return create2DMoon();
+  return create3DMoon();
 };
 
 export default MoonPhase;
