@@ -70,8 +70,8 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
               key={item.id}
               variant={activeSection === item.id ? 'default' : 'ghost'}
               className={cn(
-                "w-full h-auto focus:ring-2 focus:ring-ring focus:ring-offset-2",
-                collapsed ? "w-10 h-10 p-0 justify-center" : "p-3 justify-start"
+                "w-full focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                collapsed ? "w-10 h-10 p-0 justify-center" : "h-10 px-3 justify-start"
               )}
               onClick={() => {
                 onSectionChange(item.id);
@@ -87,9 +87,6 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
                 collapsed ? "w-0 opacity-0 ml-0" : "w-auto opacity-100"
               )}>
                 <div className="font-medium whitespace-nowrap">{item.label}</div>
-                <div className="text-xs text-muted-foreground whitespace-nowrap">
-                  {item.description}
-                </div>
               </div>
             </Button>
           ))}
