@@ -52,8 +52,8 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
     >
       <div className="p-4">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-            <Icon name="Crown" size={20} className="text-primary-foreground" />
+          <div className="ml-2 w-6 h-6 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+            <Icon name="Crown" size={16} className="text-primary-foreground" />
           </div>
           <div className={cn(
             "transition-all duration-300 overflow-hidden",
