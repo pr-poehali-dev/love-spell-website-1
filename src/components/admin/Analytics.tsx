@@ -49,16 +49,16 @@ const Analytics = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 md:space-y-6 px-1 md:px-0">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Аналитика и статистика</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-xl md:text-2xl font-bold">Аналитика и статистика</h2>
+          <p className="text-muted-foreground text-sm md:text-base">
             География клиентов, конверсии и метрики
           </p>
         </div>
         <Select value={dateRange} onValueChange={setDateRange}>
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-full md:w-40">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -70,86 +70,86 @@ const Analytics = () => {
         </Select>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-6">
-        <div className="w-full overflow-x-auto">
-          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-4 h-auto md:h-10 gap-1">
-            <TabsTrigger value="overview" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Обзор</TabsTrigger>
-            <TabsTrigger value="conversions" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Конверсии</TabsTrigger>
-            <TabsTrigger value="geography" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">География</TabsTrigger>
-            <TabsTrigger value="tracking" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Метрики</TabsTrigger>
+      <Tabs defaultValue="overview" className="space-y-4 md:space-y-6">
+        <div className="w-full overflow-x-auto pb-1">
+          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-4 h-auto md:h-10 gap-1 p-1">
+            <TabsTrigger value="overview" className="text-xs md:text-sm whitespace-nowrap px-3 md:px-4 py-2 flex-shrink-0">Обзор</TabsTrigger>
+            <TabsTrigger value="conversions" className="text-xs md:text-sm whitespace-nowrap px-3 md:px-4 py-2 flex-shrink-0">Конверсии</TabsTrigger>
+            <TabsTrigger value="geography" className="text-xs md:text-sm whitespace-nowrap px-3 md:px-4 py-2 flex-shrink-0">География</TabsTrigger>
+            <TabsTrigger value="tracking" className="text-xs md:text-sm whitespace-nowrap px-3 md:px-4 py-2 flex-shrink-0">Метрики</TabsTrigger>
           </TabsList>
         </div>
 
         <TabsContent value="overview">
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardHeader className="p-3 md:p-6 pb-2">
+                  <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground leading-tight">
                     Всего посетителей
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{analyticsData.visitors.total}</div>
-                  <p className="text-xs text-muted-foreground">
-                    За выбранный период
+                <CardContent className="p-3 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{analyticsData.visitors.total}</div>
+                  <p className="text-xs text-muted-foreground leading-tight">
+                    За период
                   </p>
                 </CardContent>
               </Card>
 
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Уникальные посетители
+                <CardHeader className="p-3 md:p-6 pb-2">
+                  <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground leading-tight">
+                    Уникальные
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{analyticsData.visitors.unique}</div>
-                  <p className="text-xs text-muted-foreground">
-                    Без повторных заходов
+                <CardContent className="p-3 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{analyticsData.visitors.unique}</div>
+                  <p className="text-xs text-muted-foreground leading-tight">
+                    без повторов
                   </p>
                 </CardContent>
               </Card>
 
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardHeader className="p-3 md:p-6 pb-2">
+                  <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground leading-tight">
                     Онлайн сейчас
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-green-600">
+                <CardContent className="p-3 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold text-green-600">
                     {analyticsData.visitors.online}
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    Активных пользователей
+                  <p className="text-xs text-muted-foreground leading-tight">
+                    активных
                   </p>
                 </CardContent>
               </Card>
 
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardHeader className="p-3 md:p-6 pb-2">
+                  <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground leading-tight">
                     За сегодня
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{analyticsData.visitors.today}</div>
-                  <p className="text-xs text-muted-foreground">
-                    Посетителей сегодня
+                <CardContent className="p-3 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{analyticsData.visitors.today}</div>
+                  <p className="text-xs text-muted-foreground leading-tight">
+                    посетителей
                   </p>
                 </CardContent>
               </Card>
             </div>
 
             <Card>
-              <CardHeader>
-                <CardTitle>Динамика по дням</CardTitle>
-                <CardDescription>
+              <CardHeader className="p-4 md:p-6 pb-3">
+                <CardTitle className="text-lg md:text-xl">Динамика по дням</CardTitle>
+                <CardDescription className="text-sm md:text-base">
                   Посетители и конверсии за последние дни
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 md:p-6">
                 <div className="space-y-4">
                   {analyticsData.dailyStats.map((day) => (
                     <div key={day.date} className="flex flex-col md:flex-row md:items-center md:justify-between p-3 bg-muted/50 rounded-lg gap-2 md:gap-0">
@@ -175,88 +175,91 @@ const Analytics = () => {
         </TabsContent>
 
         <TabsContent value="conversions">
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardHeader className="p-3 md:p-6 pb-2">
+                  <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground leading-tight">
                     Email заявки
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{analyticsData.conversions.email}</div>
+                <CardContent className="p-3 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{analyticsData.conversions.email}</div>
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Icon name="Mail" size={12} />
-                    Через форму контактов
+                    <span className="hidden md:inline">Через форму</span>
+                    <span className="md:hidden">форма</span>
                   </div>
                 </CardContent>
               </Card>
 
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Telegram переходы
+                <CardHeader className="p-3 md:p-6 pb-2">
+                  <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground leading-tight">
+                    Telegram
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{analyticsData.conversions.telegram}</div>
+                <CardContent className="p-3 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{analyticsData.conversions.telegram}</div>
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Icon name="MessageCircle" size={12} />
-                    Кликов по Telegram
+                    <span className="hidden md:inline">кликов</span>
+                    <span className="md:hidden">клики</span>
                   </div>
                 </CardContent>
               </Card>
 
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    WhatsApp переходы
+                <CardHeader className="p-3 md:p-6 pb-2">
+                  <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground leading-tight">
+                    WhatsApp
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{analyticsData.conversions.whatsapp}</div>
+                <CardContent className="p-3 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{analyticsData.conversions.whatsapp}</div>
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Icon name="Phone" size={12} />
-                    Кликов по WhatsApp
+                    <span className="hidden md:inline">кликов</span>
+                    <span className="md:hidden">клики</span>
                   </div>
                 </CardContent>
               </Card>
 
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Всего конверсий
+                <CardHeader className="p-3 md:p-6 pb-2">
+                  <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground leading-tight">
+                    Всего
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{analyticsData.conversions.total}</div>
-                  <div className="text-xs text-muted-foreground">
-                    Общая конверсия: {((analyticsData.conversions.total / analyticsData.visitors.unique) * 100).toFixed(1)}%
+                <CardContent className="p-3 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{analyticsData.conversions.total}</div>
+                  <div className="text-xs text-muted-foreground leading-tight">
+                    <span className="hidden md:inline">Общая конверсия: </span>{((analyticsData.conversions.total / analyticsData.visitors.unique) * 100).toFixed(1)}%
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             <Card>
-              <CardHeader>
-                <CardTitle>Конверсия по каналам</CardTitle>
-                <CardDescription>
+              <CardHeader className="p-4 md:p-6 pb-3">
+                <CardTitle className="text-lg md:text-xl">Конверсия по каналам</CardTitle>
+                <CardDescription className="text-sm md:text-base">
                   Эффективность различных способов связи
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 md:p-6">
                 <div className="space-y-4">
                   {[
                     { name: 'Email форма', value: analyticsData.conversions.email, color: 'bg-blue-500' },
                     { name: 'Telegram', value: analyticsData.conversions.telegram, color: 'bg-cyan-500' },
                     { name: 'WhatsApp', value: analyticsData.conversions.whatsapp, color: 'bg-green-500' }
                   ].map((channel) => (
-                    <div key={channel.name} className="flex items-center gap-3">
-                      <div className={`w-4 h-4 rounded ${channel.color}`} />
-                      <div className="flex-1 flex justify-between items-center">
-                        <span className="font-medium">{channel.name}</span>
-                        <div className="text-right">
-                          <div className="font-bold">{channel.value}</div>
+                    <div key={channel.name} className="flex items-center gap-2 md:gap-3">
+                      <div className={`w-3 h-3 md:w-4 md:h-4 rounded ${channel.color} flex-shrink-0`} />
+                      <div className="flex-1 flex justify-between items-center min-w-0">
+                        <span className="font-medium text-sm md:text-base truncate">{channel.name}</span>
+                        <div className="text-right flex-shrink-0">
+                          <div className="font-bold text-sm md:text-base">{channel.value}</div>
                           <div className="text-xs text-muted-foreground">
                             {((channel.value / analyticsData.conversions.total) * 100).toFixed(0)}%
                           </div>
@@ -272,30 +275,30 @@ const Analytics = () => {
 
         <TabsContent value="geography">
           <Card>
-            <CardHeader>
-              <CardTitle>География посетителей</CardTitle>
-              <CardDescription>
+            <CardHeader className="p-4 md:p-6 pb-3">
+              <CardTitle className="text-lg md:text-xl">География посетителей</CardTitle>
+              <CardDescription className="text-sm md:text-base">
                 Распределение посетителей по странам
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 md:p-6">
               <div className="space-y-4">
                 {analyticsData.geography.map((country) => (
-                  <div key={country.country} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                        <Icon name="MapPin" size={16} />
+                  <div key={country.country} className="flex items-center justify-between p-3 md:p-4 border rounded-lg">
+                    <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+                      <div className="w-6 h-6 md:w-8 md:h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Icon name="MapPin" size={14} className="md:w-4 md:h-4" />
                       </div>
-                      <div>
-                        <div className="font-medium">{country.country}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {country.visitors} посетителей
+                      <div className="min-w-0 flex-1">
+                        <div className="font-medium text-sm md:text-base truncate">{country.country}</div>
+                        <div className="text-xs md:text-sm text-muted-foreground">
+                          {country.visitors} <span className="hidden md:inline">посетителей</span><span className="md:hidden">пос.</span>
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold">{country.percent}%</div>
-                      <div className="w-20 h-2 bg-muted rounded-full overflow-hidden">
+                    <div className="text-right flex-shrink-0">
+                      <div className="text-lg md:text-2xl font-bold">{country.percent}%</div>
+                      <div className="w-12 md:w-20 h-2 bg-muted rounded-full overflow-hidden">
                         <div
                           className="h-full bg-primary transition-all"
                           style={{ width: `${country.percent}%` }}
@@ -310,15 +313,15 @@ const Analytics = () => {
         </TabsContent>
 
         <TabsContent value="tracking">
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle>Код счетчика</CardTitle>
-                <CardDescription>
+              <CardHeader className="p-4 md:p-6 pb-3">
+                <CardTitle className="text-lg md:text-xl">Код счетчика</CardTitle>
+                <CardDescription className="text-sm md:text-base">
                   Вставьте код Google Analytics, Яндекс.Метрики или другого счетчика
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 p-4 md:p-6">
                 <div className="space-y-2">
                   <Label htmlFor="tracking-code">HTML код счетчика</Label>
                   <Textarea
@@ -348,7 +351,7 @@ const Analytics = () => {
 </script>`}
                   />
                 </div>
-                <Button onClick={handleSaveTracking}>
+                <Button onClick={handleSaveTracking} className="w-full md:w-auto">
                   <Icon name="Save" size={16} className="mr-2" />
                   Сохранить код
                 </Button>
@@ -356,13 +359,13 @@ const Analytics = () => {
             </Card>
 
             <Card>
-              <CardHeader>
-                <CardTitle>Популярные метрики</CardTitle>
-                <CardDescription>
+              <CardHeader className="p-4 md:p-6 pb-3">
+                <CardTitle className="text-lg md:text-xl">Популярные метрики</CardTitle>
+                <CardDescription className="text-sm md:text-base">
                   Рекомендуемые системы аналитики для отслеживания
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 md:p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
                     {
@@ -390,17 +393,17 @@ const Analytics = () => {
                       link: 'https://www.facebook.com/business/tools/meta-pixel'
                     }
                   ].map((service) => (
-                    <div key={service.name} className="p-4 border rounded-lg">
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <Icon name={service.icon as any} size={20} />
+                    <div key={service.name} className="p-3 md:p-4 border rounded-lg">
+                      <div className="flex items-start gap-2 md:gap-3">
+                        <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Icon name={service.icon as any} size={16} className="md:w-5 md:h-5" />
                         </div>
-                        <div className="flex-1">
-                          <h4 className="font-medium">{service.name}</h4>
-                          <p className="text-sm text-muted-foreground mb-2">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-sm md:text-base">{service.name}</h4>
+                          <p className="text-xs md:text-sm text-muted-foreground mb-2 leading-tight">
                             {service.description}
                           </p>
-                          <Button variant="outline" size="sm" asChild>
+                          <Button variant="outline" size="sm" asChild className="w-full md:w-auto">
                             <a href={service.link} target="_blank" rel="noopener noreferrer">
                               <Icon name="ExternalLink" size={14} className="mr-1" />
                               Перейти
