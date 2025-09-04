@@ -17,6 +17,10 @@ import EnergyGatheringPage from "./pages/EnergyGatheringPage";
 import ReconciliationPage from "./pages/ReconciliationPage";
 import VoltaPage from "./pages/VoltaPage";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/admin/AdminLogin";
+import ForgotPassword from "./pages/admin/ForgotPassword";
+import ResetPassword from "./pages/admin/ResetPassword";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +43,11 @@ const App = () => (
           <Route path="/nabor-energii" element={<EnergyGatheringPage />} />
           <Route path="/primirenie" element={<ReconciliationPage />} />
           <Route path="/volta" element={<VoltaPage />} />
+          {/* Admin routes */}
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/forgot-password" element={<ForgotPassword />} />
+          <Route path="/admin/reset-password" element={<ResetPassword />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
