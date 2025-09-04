@@ -70,10 +70,10 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
               key={item.id}
               variant={activeSection === item.id ? 'default' : 'ghost'}
               className={cn(
-                "transition-all duration-300",
+                "relative transition-all duration-300 focus:ring-2 focus:ring-ring",
                 collapsed 
-                  ? "w-10 h-10 p-0 flex items-center justify-center focus:ring-2 focus:ring-ring focus:ring-offset-1" 
-                  : "w-full h-10 px-3 flex items-center justify-start focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  ? "w-10 h-10 p-0 focus:ring-offset-0" 
+                  : "w-full h-10 pl-10 pr-3 justify-start focus:ring-offset-2"
               )}
               onClick={() => {
                 onSectionChange(item.id);
@@ -83,10 +83,7 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
                 }
               }}
             >
-              <div className={cn(
-                "flex items-center justify-center flex-shrink-0",
-                collapsed ? "w-5 h-5" : "w-5 h-5 mr-3"
-              )}>
+              <div className="absolute left-2 top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center">
                 <Icon name={item.icon as any} size={20} />
               </div>
               <div className={cn(
