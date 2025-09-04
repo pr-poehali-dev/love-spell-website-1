@@ -80,14 +80,14 @@ const AdminDashboard = () => {
               <Icon name="ExternalLink" size={16} className="mr-2" />
               <span className="hidden md:inline">Перейти на сайт</span>
             </Button>
-            <Button variant="ghost" size="sm" className="hover:bg-accent">
+            <Button variant="ghost" size="sm" className="hover:bg-accent" aria-label="Выйти из системы">
               <Icon name="LogOut" size={16} className="mr-0 md:mr-2" />
               <span className="hidden md:inline">Выйти</span>
             </Button>
           </div>
         </header>
 
-        <div className="p-4 md:p-6 lg:p-8 overflow-x-hidden">
+        <div className="p-4 md:p-6 lg:p-8 pb-8 md:pb-12 overflow-x-hidden">
           {renderContent()}
         </div>
       </main>

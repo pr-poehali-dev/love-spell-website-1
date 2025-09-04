@@ -52,7 +52,7 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
     >
       <div className="p-4">
         <div className="flex items-center gap-3 mb-8">
-          <div className="ml-2 w-6 h-6 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+          <div className="ml-2 w-6 h-6 bg-primary rounded-lg flex items-center justify-center flex-shrink-0" aria-hidden="true">
             <Icon name="Crown" size={16} className="text-primary-foreground" />
           </div>
           <div className={cn(
@@ -83,7 +83,7 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
                 }
               }}
             >
-              <div className="absolute left-2 top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center">
+              <div className="absolute left-2 top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center" aria-hidden="true">
                 <Icon name={item.icon as any} size={20} />
               </div>
               <div className={cn(

@@ -16,7 +16,7 @@ import RivalRemovalPage from "./pages/RivalRemovalPage";
 import EnergyGatheringPage from "./pages/EnergyGatheringPage";
 import ReconciliationPage from "./pages/ReconciliationPage";
 import VoltaPage from "./pages/VoltaPage";
-import NotFound from "./pages/NotFound";
+import CustomNotFound from "./components/CustomNotFound";
 import AdminLogin from "./pages/admin/AdminLogin";
 import ForgotPassword from "./pages/admin/ForgotPassword";
 import ResetPassword from "./pages/admin/ResetPassword";
@@ -49,7 +49,7 @@ const App = () => (
           <Route path="/admin/reset-password" element={<ResetPassword />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<CustomNotFound />} />
         </Routes>
         </BrowserRouter>
       </TooltipProvider>
