@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import AboutMeSection from '@/components/AboutMeSection';
@@ -7,6 +8,8 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import ContactSection from '@/components/ContactSection';
 import Divider from '@/components/Divider';
 import SEO from '@/components/SEO';
+import { Button } from '@/components/ui/button';
+import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [currentTitle, setCurrentTitle] = useState('Маг');
@@ -109,6 +112,18 @@ export default function Index() {
           <ContactSection />
         </section>
       </main>
+
+      {/* Временная кнопка админки */}
+      <Link to="/admin" className="fixed bottom-4 right-4 z-50">
+        <Button 
+          variant="outline" 
+          size="sm"
+          className="shadow-lg bg-card border-2 hover:bg-accent"
+        >
+          <Icon name="Shield" size={16} className="mr-2" />
+          Админка
+        </Button>
+      </Link>
     </div>
   );
 }
