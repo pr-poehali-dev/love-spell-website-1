@@ -70,8 +70,8 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
               key={item.id}
               variant={activeSection === item.id ? 'default' : 'ghost'}
               className={cn(
-                "w-full h-auto p-3 focus:ring-2 focus:ring-ring focus:ring-offset-2",
-                collapsed ? "px-3 justify-center" : "justify-start"
+                "w-full h-auto focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                collapsed ? "w-10 h-10 p-0 justify-center" : "p-3 justify-start"
               )}
               onClick={() => {
                 onSectionChange(item.id);

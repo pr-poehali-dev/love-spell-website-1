@@ -69,9 +69,9 @@ const NotificationDropdown = ({ onSectionChange }: NotificationDropdownProps) =>
       </PopoverTrigger>
       
       <PopoverContent 
-        className="w-80 max-w-[95vw] p-0" 
+        className="w-80 max-w-[95vw] p-0 md:left-auto md:transform-none" 
         align="center"
-        alignOffset={0}
+        alignOffset={-40}
         sideOffset={8}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >

@@ -178,19 +178,19 @@ const MessagesChat = () => {
   };
 
   return (
-    <div className="space-y-4 md:space-y-6 px-1 md:px-0">
+    <div className="space-y-3 md:space-y-6 px-1 md:px-0">
       <div>
-        <h2 className="text-xl md:text-2xl font-bold">Заявки и сообщения</h2>
-        <p className="text-muted-foreground text-sm md:text-base">
+        <h2 className="text-lg md:text-2xl font-bold">Заявки и сообщения</h2>
+        <p className="text-muted-foreground text-xs md:text-base">
           Общение с клиентами через email интеграцию
         </p>
       </div>
 
-      <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3 md:gap-6 h-[calc(100vh-180px)] lg:min-h-[500px]">
+      <div className="flex flex-col lg:grid lg:grid-cols-3 gap-2 md:gap-6 h-[calc(100vh-140px)] lg:min-h-[500px]">
         {/* Список разговоров */}
-        <Card className="lg:col-span-1 h-[30vh] lg:h-full">
-          <CardHeader className="p-3 md:p-6 pb-3">
-            <div className="flex items-center justify-between mb-3">
+        <Card className="lg:col-span-1 h-[35vh] lg:h-full overflow-hidden">
+          <CardHeader className="p-2 md:p-6 pb-2">
+            <div className="flex items-center justify-between mb-2">
               <CardTitle className="text-sm md:text-base">Разговоры</CardTitle>
               <Badge variant="secondary" className="text-xs">{filteredConversations.length}</Badge>
             </div>
@@ -205,7 +205,7 @@ const MessagesChat = () => {
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <ScrollArea className="h-[260px] md:h-[340px] lg:h-[480px]">
+            <ScrollArea className="h-[calc(35vh-80px)] lg:h-[480px]">
               <div className="space-y-1 md:space-y-2 p-2 md:p-4">
                 {filteredConversations.map((conversation) => (
                   <div
@@ -257,7 +257,7 @@ const MessagesChat = () => {
         </Card>
 
         {/* Чат */}
-        <Card className="lg:col-span-2 flex-1 h-[60vh] lg:h-full">
+        <Card className="lg:col-span-2 flex-1 h-[55vh] lg:h-full overflow-hidden">
           {selectedConversation ? (
             <>
               <CardHeader className="p-3 md:p-6 pb-3">
@@ -284,7 +284,7 @@ const MessagesChat = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex flex-col h-[calc(60vh-80px)] lg:h-[500px] p-2 md:p-6">
+              <CardContent className="flex flex-col h-[calc(55vh-60px)] lg:h-[500px] p-2 md:p-6">
                 <ScrollArea className="flex-1 pr-1 md:pr-4">
                   <div className="space-y-3 md:space-y-4">
                     {selectedConversation.messages.map((message) => (
