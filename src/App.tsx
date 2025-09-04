@@ -16,7 +16,7 @@ import RivalRemovalPage from "./pages/RivalRemovalPage";
 import EnergyGatheringPage from "./pages/EnergyGatheringPage";
 import ReconciliationPage from "./pages/ReconciliationPage";
 import VoltaPage from "./pages/VoltaPage";
-import NotFound from "./pages/NotFound";
+import NotFoundPage from "./components/NotFoundPage";
 
 const queryClient = new QueryClient();
 
@@ -40,7 +40,7 @@ const App = () => (
           <Route path="/primirenie" element={<ReconciliationPage />} />
           <Route path="/volta" element={<VoltaPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         </BrowserRouter>
       </TooltipProvider>

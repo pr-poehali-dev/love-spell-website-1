@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
+import MoonPhase from '@/components/MoonPhase';
 
 interface HeaderProps {
   currentTitle: string;
@@ -109,21 +110,28 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
       {/* Header Profile Section */}
       <div className="bg-background border-b border-border sticky top-0 z-30">
         <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
-              <img 
-                src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
-                alt="Раиса Ильинская"
-                className="w-full h-full object-cover"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
-            <div>
-              <h1 className="text-base sm:text-lg font-semibold text-foreground truncate tracking-wide">Раиса Ильинская</h1>
-              <div className="text-sm font-medium text-accent">
-                <span className="typewriter" key={currentTitle}>{currentTitle}</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
+                <img 
+                  src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                  alt="Раиса Ильинская"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  decoding="async"
+                />
               </div>
+              <div>
+                <h1 className="text-base sm:text-lg font-semibold text-foreground truncate tracking-wide">Раиса Ильинская</h1>
+                <div className="text-sm font-medium text-accent">
+                  <span className="typewriter" key={currentTitle}>{currentTitle}</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Moon Phase Animation */}
+            <div className="flex-shrink-0">
+              <MoonPhase size={36} />
             </div>
           </div>
         </div>
