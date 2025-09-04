@@ -47,155 +47,177 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
     setMoonPhase(getMoonPhase());
   }, []);
 
-  // Создание детализированной луны
-  const createDetailedMoon = () => {
+  // Создание живой анимированной луны
+  const createLiveMoon = () => {
     const radius = size / 2 - 2;
     
-    // Простой и понятный расчет фаз
+    // Простой расчет фаз
     const isWaxing = moonPhase < 0.5;
-    
-    // Заполненность всегда максимум 50%
     let illumination;
     if (moonPhase <= 0.5) {
-      // Растущая: от 0% до 50%
-      illumination = moonPhase * 100; // 0 -> 50%
+      illumination = moonPhase * 100;
     } else {
-      // Убывающая: от 50% до 0%
-      illumination = (1 - moonPhase) * 100; // 50% -> 0%
+      illumination = (1 - moonPhase) * 100;
     }
-    
-    // Ограничиваем максимум 50%
     illumination = Math.min(illumination, 50);
     const percentage = Math.round(illumination);
     
     return (
       <div 
-        className="relative flex flex-col items-center transition-all duration-500 hover:scale-110 cursor-pointer group"
+        className="relative flex flex-col items-center cursor-pointer group"
         style={{ width: size + 30, height: size + 40 }}
         title={getMoonPhaseName(moonPhase)}
       >
-        {/* Основная луна без обводки и внутренних теней */}
+        {/* Живые звездочки вокруг луны */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute text-accent opacity-60"
+              style={{
+                fontSize: '8px',
+                top: `${20 + Math.sin(i * Math.PI / 3) * 35}%`,
+                left: `${50 + Math.cos(i * Math.PI / 3) * 45}%`,
+                animation: `twinkle-${i} ${2 + i * 0.3}s ease-in-out infinite`,
+                transformOrigin: 'center'
+              }}
+            >
+              ✨
+            </div>
+          ))}
+        </div>
+
+        {/* Основная живая луна */}
         <div 
-          className="relative rounded-full transition-all duration-1000 overflow-hidden"
+          className="relative rounded-full overflow-hidden group-hover:animate-bounce"
           style={{
             width: radius * 2,
             height: radius * 2,
-            background: `radial-gradient(circle at 35% 25%, 
-              hsl(var(--accent) / 0.9) 0%, 
-              hsl(var(--accent) / 0.85) 25%, 
-              hsl(var(--accent) / 0.8) 50%, 
-              hsl(var(--accent) / 0.75) 75%,
-              hsl(var(--accent) / 0.7) 100%
-            )`
+            background: `radial-gradient(circle at 30% 25%, 
+              hsl(var(--accent) / 0.95) 0%, 
+              hsl(var(--accent) / 0.85) 40%, 
+              hsl(var(--accent) / 0.8) 70%,
+              hsl(var(--accent) / 0.75) 100%
+            )`,
+            animation: 'moonGlow 4s ease-in-out infinite, moonRotate 20s linear infinite',
+            transformOrigin: 'center'
           }}
         >
-          {/* Детализированные кратеры и лунный ландшафт */}
-          <div className="absolute inset-0">
-            {/* Mare Tranquillitatis - большое темное море */}
+          {/* Живое лицо луны */}
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Глазки */}
             <div 
               className="absolute rounded-full"
               style={{
-                background: `radial-gradient(ellipse at 40% 30%, 
-                  hsl(var(--muted) / 0.6) 0%, 
-                  hsl(var(--muted) / 0.8) 50%,
-                  hsl(var(--accent) / 0.7) 100%
-                )`,
-                width: size * 0.18,
-                height: size * 0.15,
-                top: '22%',
+                background: `hsl(var(--muted) / 0.9)`,
+                width: size * 0.08,
+                height: size * 0.06,
+                top: '32%',
                 left: '28%',
-                transform: 'rotate(-15deg)'
+                animation: 'eyeBlink 3s ease-in-out infinite'
               }}
             />
-            
-            {/* Кратер Тихо - крупный кратер */}
             <div 
               className="absolute rounded-full"
               style={{
-                background: `radial-gradient(circle at 30% 30%, 
-                  hsl(var(--muted) / 0.9) 0%, 
-                  hsl(var(--muted) / 0.7) 40%,
-                  hsl(var(--accent) / 0.6) 100%
-                )`,
-                width: size * 0.09,
-                height: size * 0.09,
-                top: '58%',
-                right: '25%'
+                background: `hsl(var(--muted) / 0.9)`,
+                width: size * 0.08,
+                height: size * 0.06,
+                top: '32%',
+                right: '28%',
+                animation: 'eyeBlink 3.2s ease-in-out infinite'
               }}
             />
             
-            {/* Кратер Коперник */}
+            {/* Зрачки */}
             <div 
               className="absolute rounded-full"
               style={{
-                background: `radial-gradient(circle at 25% 25%, 
-                  hsl(var(--muted) / 0.85) 0%, 
-                  hsl(var(--accent) / 0.65) 100%
-                )`,
+                background: `hsl(var(--background))`,
+                width: size * 0.04,
+                height: size * 0.04,
+                top: '34%',
+                left: '30%',
+                animation: 'eyeMove 5s ease-in-out infinite'
+              }}
+            />
+            <div 
+              className="absolute rounded-full"
+              style={{
+                background: `hsl(var(--background))`,
+                width: size * 0.04,
+                height: size * 0.04,
+                top: '34%',
+                right: '30%',
+                animation: 'eyeMove 5.3s ease-in-out infinite'
+              }}
+            />
+            
+            {/* Улыбка */}
+            <div 
+              className="absolute"
+              style={{
+                width: size * 0.15,
+                height: size * 0.08,
+                top: '55%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                borderBottom: `${size * 0.02}px solid hsl(var(--muted) / 0.8)`,
+                borderRadius: '0 0 50px 50px',
+                animation: 'smile 4s ease-in-out infinite'
+              }}
+            />
+            
+            {/* Щечки */}
+            <div 
+              className="absolute rounded-full"
+              style={{
+                background: `hsl(var(--primary) / 0.3)`,
                 width: size * 0.06,
                 height: size * 0.06,
-                top: '35%',
-                left: '15%'
+                top: '45%',
+                left: '15%',
+                animation: 'cheekGlow 3s ease-in-out infinite'
               }}
             />
-            
-            {/* Мелкие кратеры */}
+            <div 
+              className="absolute rounded-full"
+              style={{
+                background: `hsl(var(--primary) / 0.3)`,
+                width: size * 0.06,
+                height: size * 0.06,
+                top: '45%',
+                right: '15%',
+                animation: 'cheekGlow 3.5s ease-in-out infinite'
+              }}
+            />
+          </div>
+
+          {/* Мультяшные кратеры */}
+          <div className="absolute inset-0">
             {[
-              { top: '45%', left: '65%', size: 0.04 },
-              { top: '75%', left: '45%', size: 0.035 },
-              { top: '12%', right: '18%', size: 0.025 },
-              { top: '68%', left: '25%', size: 0.03 },
-              { top: '25%', right: '35%', size: 0.02 }
+              { top: '20%', right: '20%', size: 0.05, delay: '0s' },
+              { top: '70%', left: '25%', size: 0.04, delay: '1s' },
+              { top: '65%', right: '35%', size: 0.03, delay: '2s' }
             ].map((crater, i) => (
               <div 
                 key={i}
                 className="absolute rounded-full"
                 style={{
-                  background: `hsl(var(--muted) / 0.7)`,
+                  background: `hsl(var(--muted) / 0.6)`,
                   width: size * crater.size,
                   height: size * crater.size,
                   top: crater.top,
                   left: crater.left,
-                  right: crater.right
-                }}
-              />
-            ))}
-            
-            {/* Лунные горы и хребты */}
-            <div 
-              className="absolute"
-              style={{
-                background: `linear-gradient(45deg, 
-                  transparent 40%, 
-                  hsl(var(--accent) / 0.3) 50%,
-                  transparent 60%
-                )`,
-                width: size * 0.3,
-                height: size * 0.05,
-                top: '40%',
-                right: '10%',
-                transform: 'rotate(25deg)',
-                borderRadius: '50px'
-              }}
-            />
-            
-            {/* Мелкие детали поверхности */}
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div 
-                key={`detail-${i}`}
-                className="absolute rounded-full"
-                style={{
-                  background: `hsl(var(--muted) / ${0.3 + Math.random() * 0.2})`,
-                  width: size * (0.008 + Math.random() * 0.01),
-                  height: size * (0.008 + Math.random() * 0.01),
-                  top: `${15 + Math.random() * 70}%`,
-                  left: `${15 + Math.random() * 70}%`
+                  right: crater.right,
+                  animation: `craterPulse 2s ease-in-out infinite`,
+                  animationDelay: crater.delay
                 }}
               />
             ))}
           </div>
 
-          {/* Фаза луны с максимум 50% заполнением */}
+          {/* Фаза луны */}
           <div 
             className="absolute inset-0 rounded-full transition-all duration-1000"
             style={{
@@ -207,21 +229,96 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
           />
         </div>
 
-        {/* Процент с улучшенным дизайном */}
+        {/* Анимированный процент */}
         <div 
-          className="mt-3 px-3 py-1 rounded-full text-sm font-bold transition-all duration-300 group-hover:scale-105"
+          className="mt-3 px-3 py-1 rounded-full text-sm font-bold"
           style={{
             background: `linear-gradient(135deg, 
               hsl(var(--accent) / 0.9) 0%, 
               hsl(var(--primary) / 0.7) 100%
             )`,
             color: `hsl(var(--background))`,
-            boxShadow: `0 3px 6px hsl(var(--accent) / 0.3)`,
-            border: `1px solid hsl(var(--accent) / 0.4)`
+            animation: 'percentBounce 2s ease-in-out infinite'
           }}
         >
           {percentage}%
         </div>
+
+        {/* CSS анимации */}
+        <style>
+          {`
+            @keyframes moonGlow {
+              0%, 100% { filter: brightness(1) hue-rotate(0deg); }
+              50% { filter: brightness(1.1) hue-rotate(5deg); }
+            }
+            
+            @keyframes moonRotate {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+            
+            @keyframes eyeBlink {
+              0%, 90%, 100% { transform: scaleY(1); }
+              95% { transform: scaleY(0.1); }
+            }
+            
+            @keyframes eyeMove {
+              0%, 100% { transform: translateX(0); }
+              25% { transform: translateX(-20%); }
+              75% { transform: translateX(20%); }
+            }
+            
+            @keyframes smile {
+              0%, 100% { transform: translateX(-50%) scaleY(1); }
+              50% { transform: translateX(-50%) scaleY(1.2); }
+            }
+            
+            @keyframes cheekGlow {
+              0%, 100% { opacity: 0.3; transform: scale(1); }
+              50% { opacity: 0.6; transform: scale(1.2); }
+            }
+            
+            @keyframes craterPulse {
+              0%, 100% { transform: scale(1); opacity: 0.6; }
+              50% { transform: scale(1.1); opacity: 0.8; }
+            }
+            
+            @keyframes percentBounce {
+              0%, 100% { transform: scale(1); }
+              50% { transform: scale(1.05); }
+            }
+            
+            @keyframes twinkle-0 {
+              0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+              50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+            }
+            
+            @keyframes twinkle-1 {
+              0%, 100% { opacity: 0.4; transform: scale(0.9) rotate(0deg); }
+              50% { opacity: 0.8; transform: scale(1.1) rotate(180deg); }
+            }
+            
+            @keyframes twinkle-2 {
+              0%, 100% { opacity: 0.2; transform: scale(1) rotate(0deg); }
+              50% { opacity: 0.9; transform: scale(1.3) rotate(180deg); }
+            }
+            
+            @keyframes twinkle-3 {
+              0%, 100% { opacity: 0.5; transform: scale(0.7) rotate(0deg); }
+              50% { opacity: 1; transform: scale(1.4) rotate(180deg); }
+            }
+            
+            @keyframes twinkle-4 {
+              0%, 100% { opacity: 0.3; transform: scale(0.9) rotate(0deg); }
+              50% { opacity: 0.7; transform: scale(1.1) rotate(180deg); }
+            }
+            
+            @keyframes twinkle-5 {
+              0%, 100% { opacity: 0.4; transform: scale(1.1) rotate(0deg); }
+              50% { opacity: 0.9; transform: scale(1.2) rotate(180deg); }
+            }
+          `}
+        </style>
         
         {/* Мистический тултип */}
         <div className="absolute -bottom-9 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-card/95 backdrop-blur-sm border border-accent/20 rounded-lg px-3 py-2 text-xs font-medium whitespace-nowrap pointer-events-none z-30 shadow-xl">
@@ -234,7 +331,7 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
     );
   };
 
-  return createDetailedMoon();
+  return createLiveMoon();
 };
 
 export default MoonPhase;
