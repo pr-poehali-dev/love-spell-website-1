@@ -178,70 +178,70 @@ const MessagesChat = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 px-1 md:px-0">
       <div>
-        <h2 className="text-2xl font-bold">Заявки и сообщения</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-xl md:text-2xl font-bold">Заявки и сообщения</h2>
+        <p className="text-muted-foreground text-sm md:text-base">
           Общение с клиентами через email интеграцию
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-[500px] max-h-[80vh]">
+      <div className="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6 min-h-[400px] md:min-h-[500px] max-h-[90vh]">
         {/* Список разговоров */}
-        <Card className="lg:col-span-1 max-h-[50vh] lg:max-h-full">
-          <CardHeader className="pb-4">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base">Разговоры</CardTitle>
-              <Badge variant="secondary">{filteredConversations.length}</Badge>
+        <Card className="lg:col-span-1 h-[40vh] md:h-[50vh] lg:max-h-full">
+          <CardHeader className="p-3 md:p-6 pb-3">
+            <div className="flex items-center justify-between mb-3">
+              <CardTitle className="text-sm md:text-base">Разговоры</CardTitle>
+              <Badge variant="secondary" className="text-xs">{filteredConversations.length}</Badge>
             </div>
             <div className="relative">
-              <Icon name="Search" size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+              <Icon name="Search" size={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Поиск по имени, email..."
+                placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-9 text-sm"
               />
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <ScrollArea className="h-[300px] lg:h-[500px]">
-              <div className="space-y-1 p-4">
+            <ScrollArea className="h-[25vh] md:h-[35vh] lg:h-[500px]">
+              <div className="space-y-1 p-2 md:p-4">
                 {filteredConversations.map((conversation) => (
                   <div
                     key={conversation.id}
-                    className={`p-3 rounded-lg cursor-pointer transition-colors ${
+                    className={`p-2 md:p-3 rounded-lg cursor-pointer transition-colors ${
                       selectedConversation?.id === conversation.id
                         ? 'bg-primary/10 border border-primary/20'
                         : 'hover:bg-muted/50'
                     }`}
                     onClick={() => setSelectedConversation(conversation)}
                   >
-                    <div className="flex items-start gap-3">
-                      <Avatar className="w-8 h-8">
+                    <div className="flex items-start gap-2 md:gap-3">
+                      <Avatar className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0">
                         <AvatarImage src={`/api/placeholder/32/32`} />
-                        <AvatarFallback>
+                        <AvatarFallback className="text-xs">
                           {conversation.clientName.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-medium text-sm truncate">
+                          <h4 className="font-medium text-xs md:text-sm truncate">
                             {conversation.clientName}
                           </h4>
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1 flex-shrink-0">
                             {conversation.unreadCount > 0 && (
-                              <Badge variant="destructive" className="text-xs h-5 w-5 p-0 flex items-center justify-center">
+                              <Badge variant="destructive" className="text-xs h-4 w-4 p-0 flex items-center justify-center">
                                 {conversation.unreadCount}
                               </Badge>
                             )}
                             <div className={`w-2 h-2 rounded-full ${getStatusColor(conversation.status)}`} />
                           </div>
                         </div>
-                        <p className="text-xs text-muted-foreground mb-1 truncate">
+                        <p className="text-xs text-muted-foreground mb-1 truncate leading-tight">
                           {conversation.subject}
                         </p>
-                        <p className="text-xs text-muted-foreground truncate">
+                        <p className="text-xs text-muted-foreground truncate leading-tight">
                           {conversation.lastMessage}
                         </p>
                         <p className="text-xs text-muted-foreground mt-1">
@@ -257,43 +257,43 @@ const MessagesChat = () => {
         </Card>
 
         {/* Чат */}
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 flex-1">
           {selectedConversation ? (
             <>
-              <CardHeader className="pb-4">
+              <CardHeader className="p-3 md:p-6 pb-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Avatar>
+                  <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+                    <Avatar className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0">
                       <AvatarImage src={`/api/placeholder/40/40`} />
-                      <AvatarFallback>
+                      <AvatarFallback className="text-sm">
                         {selectedConversation.clientName.split(' ').map(n => n[0]).join('')}
                       </AvatarFallback>
                     </Avatar>
-                    <div>
-                      <CardTitle className="text-lg">{selectedConversation.clientName}</CardTitle>
-                      <CardDescription>{selectedConversation.clientEmail}</CardDescription>
+                    <div className="min-w-0 flex-1">
+                      <CardTitle className="text-sm md:text-lg truncate">{selectedConversation.clientName}</CardTitle>
+                      <CardDescription className="text-xs md:text-sm truncate">{selectedConversation.clientEmail}</CardDescription>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline">
+                  <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+                    <Badge variant="outline" className="text-xs">
                       {getStatusText(selectedConversation.status)}
                     </Badge>
-                    <Button variant="ghost" size="sm">
-                      <Icon name="MoreVertical" size={16} />
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <Icon name="MoreVertical" size={14} />
                     </Button>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex flex-col h-[500px]">
-                <ScrollArea className="flex-1 pr-4">
-                  <div className="space-y-4">
+              <CardContent className="flex flex-col h-[45vh] md:h-[500px] p-3 md:p-6">
+                <ScrollArea className="flex-1 pr-2 md:pr-4">
+                  <div className="space-y-3 md:space-y-4">
                     {selectedConversation.messages.map((message) => (
                       <div
                         key={message.id}
                         className={`flex ${message.type === 'admin' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
-                          className={`max-w-[70%] rounded-lg p-3 ${
+                          className={`max-w-[85%] md:max-w-[70%] rounded-lg p-2 md:p-3 ${
                             message.type === 'admin'
                               ? 'bg-primary text-primary-foreground'
                               : message.type === 'auto'
@@ -302,18 +302,18 @@ const MessagesChat = () => {
                           }`}
                         >
                           {message.type === 'auto' && (
-                            <div className="flex items-center gap-1 text-xs mb-2">
-                              <Icon name="Bot" size={12} />
+                            <div className="flex items-center gap-1 text-xs mb-1 md:mb-2">
+                              <Icon name="Bot" size={10} />
                               Автоответ
                             </div>
                           )}
-                          <p className="text-sm">{message.content}</p>
-                          <div className="flex items-center justify-between mt-2 text-xs opacity-70">
+                          <p className="text-xs md:text-sm leading-relaxed">{message.content}</p>
+                          <div className="flex items-center justify-between mt-1 md:mt-2 text-xs opacity-70">
                             <span>{formatTime(message.timestamp)}</span>
                             {message.type === 'admin' && message.status && (
                               <Icon 
                                 name={message.status === 'read' ? 'CheckCheck' : 'Check'} 
-                                size={12} 
+                                size={10} 
                               />
                             )}
                           </div>
@@ -324,13 +324,13 @@ const MessagesChat = () => {
                   </div>
                 </ScrollArea>
                 
-                <div className="pt-4 border-t">
+                <div className="pt-3 md:pt-4 border-t">
                   <div className="flex gap-2">
                     <Textarea
                       placeholder="Введите ответ..."
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      className="flex-1 min-h-[60px] max-h-[120px]"
+                      className="flex-1 min-h-[50px] md:min-h-[60px] max-h-[100px] md:max-h-[120px] text-sm"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                           e.preventDefault();
@@ -341,24 +341,25 @@ const MessagesChat = () => {
                     <Button 
                       onClick={handleSendMessage}
                       disabled={!newMessage.trim()}
-                      className="self-end"
+                      className="self-end h-12 w-12 p-0"
                     >
-                      <Icon name="Send" size={16} />
+                      <Icon name="Send" size={14} />
                     </Button>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Enter для отправки, Shift+Enter для новой строки
+                  <p className="text-xs text-muted-foreground mt-1 md:mt-2 leading-tight">
+                    <span className="hidden md:inline">Enter для отправки, Shift+Enter для новой строки</span>
+                    <span className="md:hidden">Enter - отправить, Shift+Enter - новая строка</span>
                   </p>
                 </div>
               </CardContent>
             </>
           ) : (
-            <CardContent className="flex items-center justify-center h-full">
+            <CardContent className="flex items-center justify-center h-full p-4">
               <div className="text-center">
-                <Icon name="MessageSquare" size={48} className="mx-auto mb-4 text-muted-foreground" />
-                <h3 className="font-medium mb-2">Выберите разговор</h3>
-                <p className="text-sm text-muted-foreground">
-                  Выберите разговор из списка, чтобы начать общение
+                <Icon name="MessageSquare" size={32} className="md:w-12 md:h-12 mx-auto mb-3 md:mb-4 text-muted-foreground" />
+                <h3 className="font-medium mb-2 text-sm md:text-base">Выберите разговор</h3>
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                  Выберите разговор из списка
                 </p>
               </div>
             </CardContent>

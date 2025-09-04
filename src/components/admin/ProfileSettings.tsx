@@ -42,29 +42,29 @@ const ProfileSettings = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <Card>
-        <CardHeader>
-          <CardTitle>Основная информация</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 md:p-6 pb-3">
+          <CardTitle className="text-lg md:text-xl">Основная информация</CardTitle>
+          <CardDescription className="text-sm md:text-base">
             Управление аккаунтом администратора
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6">
           {/* Email Section */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <Label className="text-base">Email адрес</Label>
-                <div className="flex items-center gap-2 mt-1">
-                  <p className="text-sm text-muted-foreground">{currentEmail}</p>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <Label className="text-sm md:text-base">Email адрес</Label>
+                <div className="flex flex-col md:flex-row md:items-center gap-2 mt-1">
+                  <p className="text-sm text-muted-foreground truncate">{currentEmail}</p>
                   {isEmailVerified ? (
-                    <Badge variant="secondary" className="text-xs">
+                    <Badge variant="secondary" className="text-xs w-fit">
                       <Icon name="CheckCircle" size={12} className="mr-1" />
                       Подтверждён
                     </Badge>
                   ) : (
-                    <Badge variant="destructive" className="text-xs">
+                    <Badge variant="destructive" className="text-xs w-fit">
                       <Icon name="AlertCircle" size={12} className="mr-1" />
                       Не подтверждён
                     </Badge>
@@ -74,16 +74,16 @@ const ProfileSettings = () => {
               
               <Dialog open={isChangingEmail} onOpenChange={setIsChangingEmail}>
                 <DialogTrigger asChild>
-                  <Button variant="outline" size="sm">
-                    <Icon name="Edit" size={16} className="mr-2" />
+                  <Button variant="outline" size="sm" className="w-full md:w-auto flex-shrink-0">
+                    <Icon name="Edit" size={14} className="mr-2" />
                     Изменить
                   </Button>
                 </DialogTrigger>
                 
-                <DialogContent className="w-[95vw] max-w-md mx-auto max-h-[80vh] overflow-y-auto">
+                <DialogContent className="w-[95vw] max-w-md max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>Изменение email адреса</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="text-lg md:text-xl">Изменение email адреса</DialogTitle>
+                    <DialogDescription className="text-sm md:text-base">
                       {step === 'input' 
                         ? 'Введите новый email адрес. На него будет отправлен код подтверждения.'
                         : 'Введите код подтверждения, отправленный на новый email.'
@@ -117,15 +117,16 @@ const ProfileSettings = () => {
                           />
                         </div>
                         
-                        <div className="flex gap-2">
+                        <div className="flex flex-col md:flex-row gap-2">
                           <Button 
                             onClick={handleSendVerification}
                             disabled={!newEmail || newEmail === currentEmail}
+                            className="w-full md:w-auto"
                           >
                             <Icon name="Send" size={16} className="mr-2" />
                             Отправить код
                           </Button>
-                          <Button variant="outline" onClick={handleCancelChange}>
+                          <Button variant="outline" onClick={handleCancelChange} className="w-full md:w-auto">
                             Отмена
                           </Button>
                         </div>
@@ -149,18 +150,19 @@ const ProfileSettings = () => {
                           />
                         </div>
                         
-                        <div className="flex gap-2">
+                        <div className="flex flex-col md:flex-row gap-2">
                           <Button 
                             onClick={handleVerifyEmail}
                             disabled={verificationCode.length !== 6}
+                            className="w-full md:w-auto"
                           >
                             <Icon name="Check" size={16} className="mr-2" />
                             Подтвердить
                           </Button>
-                          <Button variant="outline" onClick={() => setStep('input')}>
+                          <Button variant="outline" onClick={() => setStep('input')} className="w-full md:w-auto">
                             Назад
                           </Button>
-                          <Button variant="ghost" onClick={handleCancelChange}>
+                          <Button variant="ghost" onClick={handleCancelChange} className="w-full md:w-auto">
                             Отмена
                           </Button>
                         </div>
@@ -219,33 +221,33 @@ const ProfileSettings = () => {
       
       {/* Account Activity */}
       <Card>
-        <CardHeader>
-          <CardTitle>Активность аккаунта</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 md:p-6 pb-3">
+          <CardTitle className="text-lg md:text-xl">Активность аккаунта</CardTitle>
+          <CardDescription className="text-sm md:text-base">
             История входов и активность
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 md:p-6">
           <div className="space-y-3">
             {[
               { time: '2 часа назад', device: 'Chrome на MacBook', location: 'Москва, Россия', current: true },
               { time: '1 день назад', device: 'Safari на iPhone', location: 'Москва, Россия', current: false },
               { time: '3 дня назад', device: 'Chrome на Windows', location: 'Санкт-Петербург, Россия', current: false }
             ].map((session, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Icon name="Monitor" size={16} />
+              <div key={index} className="flex flex-col md:flex-row md:items-center justify-between p-3 bg-muted/30 rounded-lg gap-2">
+                <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+                  <div className="w-6 h-6 md:w-8 md:h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Icon name="Monitor" size={14} className="md:w-4 md:h-4" />
                   </div>
-                  <div>
-                    <p className="font-medium text-sm">{session.device}</p>
-                    <p className="text-xs text-muted-foreground">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-xs md:text-sm truncate">{session.device}</p>
+                    <p className="text-xs text-muted-foreground truncate">
                       {session.location} • {session.time}
                     </p>
                   </div>
                 </div>
                 {session.current && (
-                  <Badge variant="secondary" className="text-xs">
+                  <Badge variant="secondary" className="text-xs flex-shrink-0 w-fit">
                     Текущая сессия
                   </Badge>
                 )}

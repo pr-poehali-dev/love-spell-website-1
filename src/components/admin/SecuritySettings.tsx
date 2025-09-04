@@ -81,24 +81,24 @@ const SecuritySettings = () => {
   const strength = passwordStrength(newPassword);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <div>
-        <h2 className="text-2xl font-bold">Настройки безопасности</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-lg md:text-2xl font-bold">Настройки безопасности</h2>
+        <p className="text-muted-foreground text-sm md:text-base">
           Двухфакторная аутентификация и смена пароля
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Смена пароля */}
         <Card>
-          <CardHeader>
-            <CardTitle>Смена пароля</CardTitle>
-            <CardDescription>
+          <CardHeader className="p-4 md:p-6 pb-3">
+            <CardTitle className="text-lg md:text-xl">Смена пароля</CardTitle>
+            <CardDescription className="text-sm md:text-base">
               Обновите свой пароль для входа в админ панель
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 p-4 md:p-6">
             <div className="space-y-2">
               <Label htmlFor="current-password">Текущий пароль</Label>
               <Input
@@ -160,23 +160,24 @@ const SecuritySettings = () => {
 
         {/* TOTP настройки */}
         <Card>
-          <CardHeader>
-            <CardTitle>Двухфакторная аутентификация</CardTitle>
-            <CardDescription>
+          <CardHeader className="p-4 md:p-6 pb-3">
+            <CardTitle className="text-lg md:text-xl">Двухфакторная аутентификация</CardTitle>
+            <CardDescription className="text-sm md:text-base">
               Дополнительная защита вашего аккаунта
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between p-4 border rounded-lg">
-              <div>
-                <h4 className="font-medium">TOTP Аутентификация</h4>
-                <p className="text-sm text-muted-foreground">
+          <CardContent className="space-y-4 p-4 md:p-6">
+            <div className="flex items-center justify-between p-3 md:p-4 border rounded-lg">
+              <div className="min-w-0 flex-1">
+                <h4 className="font-medium text-sm md:text-base">TOTP Аутентификация</h4>
+                <p className="text-xs md:text-sm text-muted-foreground">
                   {totpEnabled ? 'Активна' : 'Отключена'}
                 </p>
               </div>
               <Switch
                 checked={totpEnabled}
                 onCheckedChange={setTotpEnabled}
+                className="flex-shrink-0"
               />
             </div>
 
@@ -199,10 +200,10 @@ const SecuritySettings = () => {
                         Показать QR код
                       </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="w-[95vw] max-w-md">
                       <DialogHeader>
-                        <DialogTitle>QR код для настройки</DialogTitle>
-                        <DialogDescription>
+                        <DialogTitle className="text-lg md:text-xl">QR код для настройки</DialogTitle>
+                        <DialogDescription className="text-sm md:text-base">
                           Отсканируйте этот код в приложении Google Authenticator или Authy
                         </DialogDescription>
                       </DialogHeader>
@@ -212,8 +213,7 @@ const SecuritySettings = () => {
                             <img 
                               src={qrCodeUrl} 
                               alt="QR Code" 
-                              className="mx-auto border rounded-lg"
-                              style={{ width: '200px', height: '200px' }}
+                              className="mx-auto border rounded-lg w-40 h-40 md:w-50 md:h-50"
                             />
                           </div>
                         ) : (
@@ -228,15 +228,16 @@ const SecuritySettings = () => {
                         
                         {totpSecret && (
                           <div>
-                            <Label>Секретный ключ (ручной ввод)</Label>
+                            <Label className="text-sm">Секретный ключ (ручной ввод)</Label>
                             <div className="flex gap-2">
-                              <Input value={totpSecret} readOnly className="font-mono" />
+                              <Input value={totpSecret} readOnly className="font-mono text-xs" />
                               <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => navigator.clipboard.writeText(totpSecret)}
+                                className="h-10 w-10 p-0"
                               >
-                                <Icon name="Copy" size={16} />
+                                <Icon name="Copy" size={14} />
                               </Button>
                             </div>
                           </div>
@@ -267,13 +268,13 @@ const SecuritySettings = () => {
 
       {/* Рекомендации по безопасности */}
       <Card>
-        <CardHeader>
-          <CardTitle>Рекомендации по безопасности</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 md:p-6 pb-3">
+          <CardTitle className="text-lg md:text-xl">Рекомендации по безопасности</CardTitle>
+          <CardDescription className="text-sm md:text-base">
             Советы для защиты вашего аккаунта
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 md:p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               {
@@ -297,13 +298,13 @@ const SecuritySettings = () => {
                 description: 'Сразу сообщайте о любых подозрительных входах в систему'
               }
             ].map((tip) => (
-              <div key={tip.title} className="flex gap-3 p-4 border rounded-lg">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Icon name={tip.icon as any} size={20} />
+              <div key={tip.title} className="flex gap-2 md:gap-3 p-3 md:p-4 border rounded-lg">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon name={tip.icon as any} size={16} className="md:w-5 md:h-5" />
                 </div>
-                <div>
-                  <h4 className="font-medium mb-1">{tip.title}</h4>
-                  <p className="text-sm text-muted-foreground">{tip.description}</p>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-medium mb-1 text-sm md:text-base">{tip.title}</h4>
+                  <p className="text-xs md:text-sm text-muted-foreground leading-tight">{tip.description}</p>
                 </div>
               </div>
             ))}
