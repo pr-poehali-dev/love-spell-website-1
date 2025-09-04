@@ -83,14 +83,16 @@ export default function Index() {
 
       <Divider />
 
-      <main className="space-y-12">
-        <section id="ktoya" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
-          <AboutMeSection />
+      <main className="space-y-12 lg:space-y-20">
+        <section id="ktoya" className="scroll-mt-32 max-w-4xl lg:max-w-6xl mx-auto px-4 py-2">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+            <AboutMeSection />
+          </div>
         </section>
 
         <Divider />
 
-        <section id="obryad" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
+        <section id="obryad" className="scroll-mt-32 max-w-4xl lg:max-w-7xl mx-auto px-4 py-2">
           <RitualsPageSection 
             showMoreRituals={showMoreRituals} 
             setShowMoreRituals={setShowMoreRituals} 
@@ -99,13 +101,15 @@ export default function Index() {
 
         <Divider />
 
-        <section id="otziv" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
-          <TestimonialsSection />
+        <section id="otziv" className="scroll-mt-32 max-w-4xl lg:max-w-6xl mx-auto px-4 py-2">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-16">
+            <TestimonialsSection />
+          </div>
         </section>
 
         <Divider />
         
-        <section id="contact" className="scroll-mt-32 max-w-4xl mx-auto px-4 py-2">
+        <section id="contact" className="scroll-mt-32 max-w-4xl lg:max-w-5xl mx-auto px-4 py-2">
           <ContactSection />
         </section>
       </main>
