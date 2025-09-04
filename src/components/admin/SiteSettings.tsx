@@ -76,12 +76,12 @@ const SiteSettings = () => {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="w-full md:w-auto">
             <Icon name="Edit" size={16} className="mr-2" />
             Изменить
           </Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="w-[95vw] max-w-md mx-auto">
           <DialogHeader>
             <DialogTitle>Изменить {label}</DialogTitle>
             <DialogDescription>
@@ -98,13 +98,20 @@ const SiteSettings = () => {
                 placeholder={placeholder}
               />
             </div>
-            <div className="flex gap-2">
-              <Button onClick={() => {
-                setContacts(prev => ({ ...prev, [type]: tempValue }));
-              }}>
+            <div className="flex flex-col md:flex-row gap-2">
+              <Button 
+                onClick={() => {
+                  setContacts(prev => ({ ...prev, [type]: tempValue }));
+                }}
+                className="w-full md:w-auto"
+              >
                 Сохранить
               </Button>
-              <Button variant="outline" onClick={() => setTempValue(value)}>
+              <Button 
+                variant="outline" 
+                onClick={() => setTempValue(value)}
+                className="w-full md:w-auto"
+              >
                 Отмена
               </Button>
             </div>
@@ -115,10 +122,10 @@ const SiteSettings = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-1 md:px-0">
       <div>
-        <h2 className="text-2xl font-bold">Настройки сайта</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-xl md:text-2xl font-bold">Настройки сайта</h2>
+        <p className="text-sm md:text-base text-muted-foreground">
           Управление внешним видом и контактной информацией
         </p>
       </div>
@@ -134,18 +141,18 @@ const SiteSettings = () => {
 
         <TabsContent value="general">
           <Card>
-            <CardHeader>
-              <CardTitle>Основная информация</CardTitle>
-              <CardDescription>
+            <CardHeader className="p-4 md:p-6 pb-3">
+              <CardTitle className="text-lg md:text-xl">Основная информация</CardTitle>
+              <CardDescription className="text-sm md:text-base">
                 Аватар и имя, отображаемые на сайте
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-6 p-4 md:p-6">
               {/* Avatar Section */}
               <div className="space-y-4">
                 <Label>Аватар</Label>
-                <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 rounded-full overflow-hidden bg-muted">
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+                  <div className="w-20 h-20 rounded-full overflow-hidden bg-muted mx-auto md:mx-0">
                     <img 
                       src={avatar} 
                       alt="Avatar" 
@@ -155,7 +162,7 @@ const SiteSettings = () => {
                       }}
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-2 w-full">
                     <input
                       type="file"
                       id="avatar-upload"
@@ -164,13 +171,13 @@ const SiteSettings = () => {
                       onChange={handleAvatarUpload}
                     />
                     <Label htmlFor="avatar-upload" className="cursor-pointer">
-                      <Button variant="outline" type="button">
+                      <Button variant="outline" type="button" className="w-full md:w-auto">
                         <Icon name="Upload" size={16} className="mr-2" />
                         Загрузить аватар
                       </Button>
                     </Label>
-                    <p className="text-sm text-muted-foreground">
-                      Рекомендуемый размер: 200x200px, JPG или PNG
+                    <p className="text-xs md:text-sm text-muted-foreground text-center md:text-left">
+                      Размер: 200x200px, JPG или PNG
                     </p>
                   </div>
                 </div>
@@ -195,9 +202,9 @@ const SiteSettings = () => {
 
         <TabsContent value="contacts">
           <Card>
-            <CardHeader>
-              <CardTitle>Контактная информация</CardTitle>
-              <CardDescription>
+            <CardHeader className="p-4 md:p-6 pb-3">
+              <CardTitle className="text-lg md:text-xl">Контактная информация</CardTitle>
+              <CardDescription className="text-sm md:text-base">
                 Настройки для модального окна "Выберите способ связи"
               </CardDescription>
             </CardHeader>
@@ -208,24 +215,26 @@ const SiteSettings = () => {
                 { type: 'phone', label: 'Телефон', icon: 'Phone', placeholder: '+7900123456' },
                 { type: 'email', label: 'Email', icon: 'Mail', placeholder: 'info@example.com' }
               ].map((contact) => (
-                <div key={contact.type} className="flex items-center justify-between p-4 border rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <div key={contact.type} className="flex flex-col md:flex-row md:items-center justify-between p-4 border rounded-lg gap-3 md:gap-0">
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <Icon name={contact.icon as any} size={20} />
                     </div>
-                    <div>
+                    <div className="min-w-0 flex-1">
                       <p className="font-medium">{contact.label}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-muted-foreground truncate">
                         {contacts[contact.type as keyof typeof contacts] || 'Не указано'}
                       </p>
                     </div>
                   </div>
-                  <ContactEditModal
-                    type={contact.type}
-                    label={contact.label}
-                    value={contacts[contact.type as keyof typeof contacts]}
-                    placeholder={contact.placeholder}
-                  />
+                  <div className="flex-shrink-0">
+                    <ContactEditModal
+                      type={contact.type}
+                      label={contact.label}
+                      value={contacts[contact.type as keyof typeof contacts]}
+                      placeholder={contact.placeholder}
+                    />
+                  </div>
                 </div>
               ))}
             </CardContent>
@@ -234,18 +243,18 @@ const SiteSettings = () => {
 
         <TabsContent value="design">
           <Card>
-            <CardHeader>
-              <CardTitle>Дизайн сайта</CardTitle>
-              <CardDescription>
+            <CardHeader className="p-4 md:p-6 pb-3">
+              <CardTitle className="text-lg md:text-xl">Дизайн сайта</CardTitle>
+              <CardDescription className="text-sm md:text-base">
                 Фон героя блока и другие элементы дизайна
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-6 p-4 md:p-6">
               {/* Hero Background */}
               <div className="space-y-4">
                 <Label>Фон главного блока</Label>
                 <div className="space-y-4">
-                  <div className="w-full h-32 rounded-lg overflow-hidden bg-muted border">
+                  <div className="w-full h-32 md:h-40 rounded-lg overflow-hidden bg-muted border">
                     <img 
                       src={heroBackground} 
                       alt="Hero Background" 
@@ -264,13 +273,13 @@ const SiteSettings = () => {
                       onChange={handleHeroBackgroundUpload}
                     />
                     <Label htmlFor="hero-bg-upload" className="cursor-pointer">
-                      <Button variant="outline" type="button">
+                      <Button variant="outline" type="button" className="w-full md:w-auto">
                         <Icon name="Upload" size={16} className="mr-2" />
                         Загрузить фон
                       </Button>
                     </Label>
-                    <p className="text-sm text-muted-foreground">
-                      Рекомендуемый размер: 1920x1080px, JPG или PNG
+                    <p className="text-xs md:text-sm text-muted-foreground">
+                      Размер: 1920x1080px, JPG или PNG
                     </p>
                   </div>
                 </div>
@@ -280,12 +289,12 @@ const SiteSettings = () => {
         </TabsContent>
       </Tabs>
 
-      <div className="flex gap-3">
-        <Button onClick={handleSave}>
+      <div className="flex flex-col md:flex-row gap-3">
+        <Button onClick={handleSave} className="w-full md:w-auto">
           <Icon name="Save" size={16} className="mr-2" />
           Сохранить изменения
         </Button>
-        <Button variant="outline">
+        <Button variant="outline" className="w-full md:w-auto">
           <Icon name="Eye" size={16} className="mr-2" />
           Предварительный просмотр
         </Button>
