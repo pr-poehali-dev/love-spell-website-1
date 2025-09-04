@@ -119,19 +119,12 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                 decoding="async"
               />
             </div>
-            <div className="flex-grow">
+            <div>
               <h1 className="text-base sm:text-lg font-semibold text-foreground truncate tracking-wide">Раиса Ильинская</h1>
               <div className="text-sm font-medium text-accent">
                 <span className="typewriter" key={currentTitle}>{currentTitle}</span>
               </div>
             </div>
-            <button
-              onClick={() => navigate('/admin')}
-              className="p-2 rounded-lg hover:bg-muted/50 transition-colors group"
-              title="Панель администратора"
-            >
-              <Icon name="Settings" size={18} className="text-muted-foreground group-hover:text-accent transition-colors" />
-            </button>
           </div>
         </div>
       </div>
