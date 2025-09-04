@@ -25,13 +25,13 @@ interface SmtpSettingsProps {
 const SmtpSettings = ({ smtpSettings, setSmtpSettings, handleSaveSmtp, handleTestSmtp }: SmtpSettingsProps) => {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>SMTP настройки</CardTitle>
-        <CardDescription>
+      <CardHeader className="p-4 md:p-6 pb-3">
+        <CardTitle className="text-lg md:text-xl">SMTP настройки</CardTitle>
+        <CardDescription className="text-sm md:text-base">
           Настройки для отправки писем через SMTP
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 p-4 md:p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="smtp-host">SMTP Хост</Label>
@@ -114,12 +114,12 @@ const SmtpSettings = ({ smtpSettings, setSmtpSettings, handleSaveSmtp, handleTes
           </Select>
         </div>
 
-        <div className="flex gap-2 pt-4">
-          <Button onClick={handleSaveSmtp}>
+        <div className="flex flex-col md:flex-row gap-2 pt-4">
+          <Button onClick={handleSaveSmtp} className="w-full md:w-auto">
             <Icon name="Save" size={16} className="mr-2" />
             Сохранить
           </Button>
-          <Button variant="outline" onClick={handleTestSmtp}>
+          <Button variant="outline" onClick={handleTestSmtp} className="w-full md:w-auto">
             <Icon name="Send" size={16} className="mr-2" />
             Тест соединения
           </Button>

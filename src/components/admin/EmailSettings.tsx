@@ -83,21 +83,21 @@ const EmailSettings = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 px-1 md:px-0">
       <div>
-        <h2 className="text-2xl font-bold">Настройки Email</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-xl md:text-2xl font-bold">Настройки Email</h2>
+        <p className="text-muted-foreground text-sm md:text-base">
           SMTP, IMAP, шаблоны писем и автоответчик
         </p>
       </div>
 
-      <Tabs defaultValue="smtp" className="space-y-6">
-        <div className="w-full overflow-x-auto">
-          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-4 h-auto md:h-10 gap-1">
-            <TabsTrigger value="smtp" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">SMTP</TabsTrigger>
-            <TabsTrigger value="templates" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Шаблоны</TabsTrigger>
-            <TabsTrigger value="imap" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">IMAP</TabsTrigger>
-            <TabsTrigger value="autoreplies" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Автоответ</TabsTrigger>
+      <Tabs defaultValue="smtp" className="space-y-4 md:space-y-6">
+        <div className="w-full overflow-x-auto pb-1">
+          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-4 h-auto md:h-10 gap-1 p-1">
+            <TabsTrigger value="smtp" className="text-xs md:text-sm whitespace-nowrap px-3 md:px-4 py-2 flex-shrink-0">SMTP</TabsTrigger>
+            <TabsTrigger value="templates" className="text-xs md:text-sm whitespace-nowrap px-3 md:px-4 py-2 flex-shrink-0">Шаблоны</TabsTrigger>
+            <TabsTrigger value="imap" className="text-xs md:text-sm whitespace-nowrap px-3 md:px-4 py-2 flex-shrink-0">IMAP</TabsTrigger>
+            <TabsTrigger value="autoreplies" className="text-xs md:text-sm whitespace-nowrap px-3 md:px-4 py-2 flex-shrink-0">Автоответ</TabsTrigger>
           </TabsList>
         </div>
 

@@ -70,49 +70,51 @@ const AutoRepliesManager = ({ autoReplies, setAutoReplies }: AutoRepliesManagerP
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <Card>
-        <CardHeader>
-          <CardTitle>Автоответы</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 md:p-6 pb-3">
+          <CardTitle className="text-lg md:text-xl">Автоответы</CardTitle>
+          <CardDescription className="text-sm md:text-base">
             Автоматические ответы на письма клиентов по условиям
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 p-4 md:p-6">
           {autoReplies.map((reply) => (
-            <div key={reply.id} className="p-4 border rounded-lg">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h4 className="font-medium">{reply.name}</h4>
-                    <Badge variant={reply.enabled ? 'default' : 'secondary'}>
+            <div key={reply.id} className="p-3 md:p-4 border rounded-lg">
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <h4 className="font-medium text-sm md:text-base truncate">{reply.name}</h4>
+                    <Badge variant={reply.enabled ? 'default' : 'secondary'} className="text-xs">
                       {reply.enabled ? 'Активен' : 'Отключен'}
                     </Badge>
                   </div>
-                  <div className="text-sm text-muted-foreground mb-2">
+                  <div className="text-xs md:text-sm text-muted-foreground mb-2">
                     <strong>Условие:</strong> {getConditionText(reply.conditions)}
                   </div>
-                  <div className="text-sm text-muted-foreground mb-2">
+                  <div className="text-xs md:text-sm text-muted-foreground mb-2">
                     <strong>Задержка:</strong> {reply.delay === 0 ? 'Сразу' : `${reply.delay} сек`}
                   </div>
-                  <div className="text-sm bg-muted p-2 rounded">
+                  <div className="text-xs md:text-sm bg-muted p-2 rounded break-words">
                     {reply.response}
                   </div>
                 </div>
-                <div className="flex gap-2 ml-4">
+                <div className="flex gap-2 self-start md:ml-4">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => toggleAutoReply(reply.id)}
+                    className="h-8 w-8 p-0"
                   >
-                    <Icon name={reply.enabled ? 'Pause' : 'Play'} size={16} />
+                    <Icon name={reply.enabled ? 'Pause' : 'Play'} size={14} />
                   </Button>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => removeAutoReply(reply.id)}
+                    className="h-8 w-8 p-0"
                   >
-                    <Icon name="Trash2" size={16} />
+                    <Icon name="Trash2" size={14} />
                   </Button>
                 </div>
               </div>
@@ -126,10 +128,10 @@ const AutoRepliesManager = ({ autoReplies, setAutoReplies }: AutoRepliesManagerP
                 Добавить автоответ
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="w-[95vw] max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Новый автоответ</DialogTitle>
-                <DialogDescription>
+                <DialogTitle className="text-lg md:text-xl">Новый автоответ</DialogTitle>
+                <DialogDescription className="text-sm md:text-base">
                   Создайте правило для автоматического ответа на письма
                 </DialogDescription>
               </DialogHeader>
@@ -196,13 +198,14 @@ const AutoRepliesManager = ({ autoReplies, setAutoReplies }: AutoRepliesManagerP
                   />
                 </div>
 
-                <div className="flex gap-2">
-                  <Button onClick={addAutoReply}>
+                <div className="flex flex-col md:flex-row gap-2">
+                  <Button onClick={addAutoReply} className="w-full md:w-auto">
                     Добавить автоответ
                   </Button>
                   <Button
                     variant="outline"
                     onClick={() => setNewAutoReply({ name: '', conditions: {}, response: '', delay: 0, enabled: true })}
+                    className="w-full md:w-auto"
                   >
                     Очистить
                   </Button>

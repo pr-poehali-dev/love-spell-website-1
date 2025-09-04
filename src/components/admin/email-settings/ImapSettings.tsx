@@ -24,19 +24,19 @@ interface ImapSettingsProps {
 const ImapSettings = ({ imapSettings, setImapSettings, handleSaveImap }: ImapSettingsProps) => {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>IMAP настройки</CardTitle>
-        <CardDescription>
+      <CardHeader className="p-4 md:p-6 pb-3">
+        <CardTitle className="text-lg md:text-xl">IMAP настройки</CardTitle>
+        <CardDescription className="text-sm md:text-base">
           Настройки для получения писем и автоответчика
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center space-x-2 mb-4">
+      <CardContent className="space-y-4 p-4 md:p-6">
+        <div className="flex items-center space-x-3 p-3 rounded-lg border bg-muted/50">
           <Switch
             checked={imapSettings.enabled}
             onCheckedChange={(checked) => setImapSettings({ ...imapSettings, enabled: checked })}
           />
-          <Label>Включить автоответчик</Label>
+          <Label className="text-sm md:text-base font-medium">Включить автоответчик</Label>
         </div>
 
         {imapSettings.enabled && (
@@ -103,7 +103,7 @@ const ImapSettings = ({ imapSettings, setImapSettings, handleSaveImap }: ImapSet
           </>
         )}
 
-        <Button onClick={handleSaveImap}>
+        <Button onClick={handleSaveImap} className="w-full md:w-auto">
           <Icon name="Save" size={16} className="mr-2" />
           Сохранить настройки
         </Button>
