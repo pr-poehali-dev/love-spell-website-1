@@ -129,9 +129,13 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
               </div>
             </div>
             
-            {/* Moon Phase Animation */}
-            <div className="flex-shrink-0">
-              <MoonPhase size={36} />
+            {/* Moon Phase Animation - гармонично вписана в дизайн */}
+            <div className="flex-shrink-0 flex items-center gap-2">
+              <div className="hidden sm:flex flex-col items-end text-right">
+                <div className="text-xs text-muted-foreground font-medium">Лунная энергия</div>
+                <div className="text-[10px] text-accent">Сейчас активна</div>
+              </div>
+              <MoonPhase size={40} />
             </div>
           </div>
         </div>
