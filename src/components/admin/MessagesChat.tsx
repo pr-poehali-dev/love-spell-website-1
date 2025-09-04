@@ -106,9 +106,21 @@ const MessagesChat = () => {
   ]);
 
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(conversations[0]);
+  const [showChat, setShowChat] = useState(false);
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const handleConversationSelect = (conversation: Conversation) => {
+    setSelectedConversation(conversation);
+    if (window.innerWidth < 1024) {
+      setShowChat(true);
+    }
+  };
+
+  const handleBackToList = () => {
+    setShowChat(false);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -179,7 +191,7 @@ const MessagesChat = () => {
 
   return (
     <div className="space-y-3 md:space-y-6 px-1 md:px-0">
-      <div>
+      <div className={`${showChat && window.innerWidth < 1024 ? 'hidden' : 'block'}`}>
         <h2 className="text-lg md:text-2xl font-bold">Заявки и сообщения</h2>
         <p className="text-muted-foreground text-xs md:text-base">
           Общение с клиентами через email интеграцию
@@ -188,7 +200,7 @@ const MessagesChat = () => {
 
       <div className="flex flex-col lg:grid lg:grid-cols-3 gap-2 md:gap-6 h-[calc(100vh-140px)] lg:min-h-[500px]">
         {/* Список разговоров */}
-        <Card className="lg:col-span-1 h-[35vh] lg:h-full overflow-hidden">
+        <Card className={`lg:col-span-1 h-[calc(100vh-140px)] lg:h-full overflow-hidden ${showChat && window.innerWidth < 1024 ? 'hidden' : 'block'}`}>
           <CardHeader className="p-2 md:p-6 pb-2">
             <div className="flex items-center justify-between mb-2">
               <CardTitle className="text-sm md:text-base">Разговоры</CardTitle>
@@ -215,7 +227,7 @@ const MessagesChat = () => {
                         ? 'bg-primary/10 border border-primary/20'
                         : 'hover:bg-muted/50'
                     }`}
-                    onClick={() => setSelectedConversation(conversation)}
+                    onClick={() => handleConversationSelect(conversation)}
                   >
                     <div className="flex items-start gap-2 md:gap-3">
                       <Avatar className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0">
@@ -257,12 +269,20 @@ const MessagesChat = () => {
         </Card>
 
         {/* Чат */}
-        <Card className="lg:col-span-2 flex-1 h-[55vh] lg:h-full overflow-hidden">
+        <Card className={`lg:col-span-2 flex-1 h-[calc(100vh-140px)] lg:h-full overflow-hidden ${!showChat && window.innerWidth < 1024 ? 'hidden' : 'block'} relative`}>
           {selectedConversation ? (
             <>
               <CardHeader className="p-3 md:p-6 pb-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="lg:hidden h-8 w-8 p-0 mr-2"
+                      onClick={handleBackToList}
+                    >
+                      <Icon name="ArrowLeft" size={16} />
+                    </Button>
                     <Avatar className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0">
                       <AvatarImage src={`/api/placeholder/40/40`} />
                       <AvatarFallback className="text-sm">
@@ -284,7 +304,7 @@ const MessagesChat = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex flex-col h-[calc(55vh-60px)] lg:h-[500px] p-2 md:p-6">
+              <CardContent className="flex flex-col h-[calc(100vh-200px)] lg:h-[500px] p-2 md:p-6">
                 <ScrollArea className="flex-1 pr-1 md:pr-4">
                   <div className="space-y-3 md:space-y-4">
                     {selectedConversation.messages.map((message) => (
