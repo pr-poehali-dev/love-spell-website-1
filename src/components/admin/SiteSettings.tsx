@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
@@ -18,6 +19,11 @@ const SiteSettings = () => {
     whatsapp: '+7900123456',
     phone: '+7900123456',
     email: 'info@example.com'
+  });
+  const [cdnSettings, setCdnSettings] = useState({
+    enabled: false,
+    cdnUrl: '',
+    originalUrl: ''
   });
 
   const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +58,11 @@ const SiteSettings = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleSaveCdn = async () => {
+    // TODO: Implement CDN save API call
+    console.log('Saving CDN settings:', cdnSettings);
   };
 
   const handleSave = async () => {
@@ -132,10 +143,11 @@ const SiteSettings = () => {
 
       <Tabs defaultValue="general" className="space-y-6">
         <div className="w-full overflow-x-auto">
-          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-3 h-auto md:h-10">
-            <TabsTrigger value="general" className="text-xs md:text-sm whitespace-nowrap px-6 md:px-4">Основные</TabsTrigger>
-            <TabsTrigger value="contacts" className="text-xs md:text-sm whitespace-nowrap px-6 md:px-4">Контакты</TabsTrigger>
-            <TabsTrigger value="design" className="text-xs md:text-sm whitespace-nowrap px-6 md:px-4">Дизайн</TabsTrigger>
+          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-4 h-auto md:h-10">
+            <TabsTrigger value="general" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Основные</TabsTrigger>
+            <TabsTrigger value="contacts" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Контакты</TabsTrigger>
+            <TabsTrigger value="design" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Дизайн</TabsTrigger>
+            <TabsTrigger value="cdn" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">CDN</TabsTrigger>
           </TabsList>
         </div>
 
@@ -281,6 +293,94 @@ const SiteSettings = () => {
                     <p className="text-xs md:text-sm text-muted-foreground">
                       Размер: 1920x1080px, JPG или PNG
                     </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="cdn">
+          <Card>
+            <CardHeader className="p-4 md:p-6 pb-3">
+              <CardTitle className="text-lg md:text-xl">CDN настройки</CardTitle>
+              <CardDescription className="text-sm md:text-base">
+                Настройка кастомного CDN для ускорения загрузки сайта
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6 p-4 md:p-6">
+              {/* CDN Enable/Disable */}
+              <div className="flex items-center justify-between p-4 border rounded-lg">
+                <div>
+                  <h4 className="font-medium text-sm md:text-base">Включить CDN</h4>
+                  <p className="text-xs md:text-sm text-muted-foreground">
+                    {cdnSettings.enabled ? 'CDN активен' : 'CDN отключен'}
+                  </p>
+                </div>
+                <Switch
+                  checked={cdnSettings.enabled}
+                  onCheckedChange={(checked) => 
+                    setCdnSettings(prev => ({ ...prev, enabled: checked }))
+                  }
+                />
+              </div>
+
+              {cdnSettings.enabled && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="cdn-url">CDN URL</Label>
+                    <Input
+                      id="cdn-url"
+                      type="url"
+                      value={cdnSettings.cdnUrl}
+                      onChange={(e) => 
+                        setCdnSettings(prev => ({ ...prev, cdnUrl: e.target.value }))
+                      }
+                      placeholder="https://cdn.example.com"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      URL вашего CDN сервиса (например, CloudFront, CloudFlare)
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="original-url">Оригинальный URL сайта</Label>
+                    <Input
+                      id="original-url"
+                      type="url"
+                      value={cdnSettings.originalUrl}
+                      onChange={(e) => 
+                        setCdnSettings(prev => ({ ...prev, originalUrl: e.target.value }))
+                      }
+                      placeholder="https://yoursite.com"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Основной URL вашего сайта для настройки Origin в CDN
+                    </p>
+                  </div>
+
+                  <Button onClick={handleSaveCdn} className="w-full md:w-auto">
+                    <Icon name="Save" size={16} className="mr-2" />
+                    Сохранить CDN настройки
+                  </Button>
+                </div>
+              )}
+
+              {/* CDN Info */}
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="flex items-start gap-3">
+                  <Icon name="Info" size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <h5 className="font-medium text-blue-900 text-sm">Информация о CDN</h5>
+                    <p className="text-blue-700 text-xs mt-1 leading-relaxed">
+                      CDN (Content Delivery Network) ускоряет загрузку вашего сайта за счет кэширования 
+                      контента на серверах, расположенных ближе к пользователям.
+                    </p>
+                    <ul className="text-blue-700 text-xs mt-2 space-y-1">
+                      <li>• Быстрая загрузка статических файлов</li>
+                      <li>• Снижение нагрузки на основной сервер</li>
+                      <li>• Улучшение SEO за счет скорости</li>
+                    </ul>
                   </div>
                 </div>
               </div>

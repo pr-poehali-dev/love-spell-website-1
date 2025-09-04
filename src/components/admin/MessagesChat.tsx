@@ -205,12 +205,12 @@ const MessagesChat = () => {
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <ScrollArea className="h-[25vh] md:h-[35vh] lg:h-[500px]">
-              <div className="space-y-1 p-2 md:p-4">
+            <ScrollArea className="h-[320px] md:h-[400px] lg:h-[500px]">
+              <div className="space-y-2 p-3 md:p-4">
                 {filteredConversations.map((conversation) => (
                   <div
                     key={conversation.id}
-                    className={`p-2 md:p-3 rounded-lg cursor-pointer transition-colors ${
+                    className={`p-3 md:p-4 rounded-lg cursor-pointer transition-colors ${
                       selectedConversation?.id === conversation.id
                         ? 'bg-primary/10 border border-primary/20'
                         : 'hover:bg-muted/50'

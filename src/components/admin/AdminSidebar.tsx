@@ -46,7 +46,7 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
   return (
     <aside 
       className={cn(
-        "fixed left-0 top-0 h-full bg-card border-r transition-all duration-300 z-40",
+        "fixed left-0 top-0 h-full bg-card border-r transition-all duration-500 ease-in-out z-40",
         collapsed ? "w-16 -translate-x-full md:translate-x-0" : "w-64 translate-x-0"
       )}
     >
