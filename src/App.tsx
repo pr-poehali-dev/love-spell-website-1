@@ -16,6 +16,7 @@ import RivalRemovalPage from "./pages/RivalRemovalPage";
 import EnergyGatheringPage from "./pages/EnergyGatheringPage";
 import ReconciliationPage from "./pages/ReconciliationPage";
 import VoltaPage from "./pages/VoltaPage";
+import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/nabor-energii" element={<EnergyGatheringPage />} />
           <Route path="/primirenie" element={<ReconciliationPage />} />
           <Route path="/volta" element={<VoltaPage />} />
+          <Route path="/about" element={<AboutPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
