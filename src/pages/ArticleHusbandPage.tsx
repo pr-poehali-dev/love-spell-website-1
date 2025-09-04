@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import ContactModal from '@/components/ContactModal';
+import Layout from '@/components/Layout';
 
 export default function ArticleHusbandPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTitle, setCurrentTitle] = useState('Маг');
 
   return (
-    <div className="min-h-screen bg-background">
+    <Layout>
       <Header currentTitle={currentTitle} setCurrentTitle={setCurrentTitle} />
 
       {/* Широкое изображение-баннер */}
@@ -373,6 +374,6 @@ export default function ArticleHusbandPage() {
         onClose={() => setIsModalOpen(false)}
         onSuccess={(email) => console.log('Email sent to:', email)}
       />
-    </div>
+    </Layout>
   );
 }

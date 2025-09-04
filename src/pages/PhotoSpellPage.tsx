@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import ContactModal from '@/components/ContactModal';
+import Layout from '@/components/Layout';
 
 export default function PhotoSpellPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTitle, setCurrentTitle] = useState('Маг');
 
   return (
-    <div className="min-h-screen bg-background">
+    <Layout>
       <Header currentTitle={currentTitle} setCurrentTitle={setCurrentTitle} />
       <div className="relative z-0">
         <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-background/60 via-background/20 to-transparent pointer-events-none z-10"></div>
@@ -339,6 +340,6 @@ export default function PhotoSpellPage() {
         onClose={() => setIsModalOpen(false)}
         onSuccess={(email) => console.log('Email sent to:', email)}
       />
-    </div>
+    </Layout>
   );
 }

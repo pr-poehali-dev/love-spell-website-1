@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Icon from '@/components/ui/icon';
 import ContactModal from '@/components/ContactModal';
+import Layout from '@/components/Layout';
 
 const AboutPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <Layout>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <Helmet>
         <title>Обо мне - Раиса Ильинская | Ворожея и целительница</title>
         <meta name="description" content="Узнайте больше о Раисе Ильинской - опытной ворожее, которая поможет вам в любовной магии, снятии порчи и привлечении счастья." />
@@ -232,6 +234,7 @@ const AboutPage = () => {
 
       <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
+    </Layout>
   );
 };
 
