@@ -6,6 +6,7 @@ interface AdminSidebarProps {
   collapsed: boolean;
   activeSection: string;
   onSectionChange: (section: string) => void;
+  onMenuItemClick?: () => void;
 }
 
 const menuItems = [
@@ -40,14 +41,14 @@ const menuItems = [
     description: 'Чат с клиентами'
   },
   {
-    id: 'security',
-    label: 'Безопасность',
-    icon: 'Shield',
-    description: 'TOTP, пароли'
+    id: 'admin-settings',
+    label: 'Настройки админа',
+    icon: 'UserCog',
+    description: 'Безопасность, профиль'
   }
 ];
 
-const AdminSidebar = ({ collapsed, activeSection, onSectionChange }: AdminSidebarProps) => {
+const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemClick }: AdminSidebarProps) => {
   return (
     <aside 
       className={cn(
@@ -77,7 +78,10 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange }: AdminSideba
                 "w-full justify-start h-auto p-3",
                 collapsed && "px-3"
               )}
-              onClick={() => onSectionChange(item.id)}
+              onClick={() => {
+                onSectionChange(item.id);
+                onMenuItemClick?.();
+              }}
             >
               <Icon name={item.icon as any} size={20} className={cn(!collapsed && "mr-3")} />
               {!collapsed && (

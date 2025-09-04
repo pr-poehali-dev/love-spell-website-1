@@ -71,11 +71,11 @@ const Analytics = () => {
       </div>
 
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">Обзор</TabsTrigger>
-          <TabsTrigger value="conversions">Конверсии</TabsTrigger>
-          <TabsTrigger value="geography">География</TabsTrigger>
-          <TabsTrigger value="tracking">Метрики</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto md:h-10 gap-1">
+          <TabsTrigger value="overview" className="text-xs md:text-sm">Обзор</TabsTrigger>
+          <TabsTrigger value="conversions" className="text-xs md:text-sm">Конверсии</TabsTrigger>
+          <TabsTrigger value="geography" className="text-xs md:text-sm">География</TabsTrigger>
+          <TabsTrigger value="tracking" className="text-xs md:text-sm">Метрики</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
@@ -150,16 +150,18 @@ const Analytics = () => {
               <CardContent>
                 <div className="space-y-4">
                   {analyticsData.dailyStats.map((day) => (
-                    <div key={day.date} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                    <div key={day.date} className="flex flex-col md:flex-row md:items-center md:justify-between p-3 bg-muted/50 rounded-lg gap-2 md:gap-0">
                       <div className="font-medium">{day.date}</div>
-                      <div className="flex gap-6 text-sm">
-                        <div>
+                      <div className="flex flex-col md:flex-row gap-2 md:gap-6 text-sm">
+                        <div className="flex items-center">
                           <Icon name="Users" size={16} className="inline mr-1" />
-                          {day.visitors} посетителей
+                          <span className="md:hidden">Посет: </span>{day.visitors}
+                          <span className="hidden md:inline"> посетителей</span>
                         </div>
-                        <div>
+                        <div className="flex items-center">
                           <Icon name="Target" size={16} className="inline mr-1" />
-                          {day.conversions} конверсий
+                          <span className="md:hidden">Конв: </span>{day.conversions}
+                          <span className="hidden md:inline"> конверсий</span>
                         </div>
                       </div>
                     </div>

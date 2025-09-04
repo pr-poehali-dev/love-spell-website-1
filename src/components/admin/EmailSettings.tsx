@@ -92,11 +92,11 @@ const EmailSettings = () => {
       </div>
 
       <Tabs defaultValue="smtp" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="smtp">SMTP</TabsTrigger>
-          <TabsTrigger value="templates">Шаблоны</TabsTrigger>
-          <TabsTrigger value="imap">IMAP</TabsTrigger>
-          <TabsTrigger value="autoreplies">Автоответчик</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto md:h-10 gap-1">
+          <TabsTrigger value="smtp" className="text-xs md:text-sm">SMTP</TabsTrigger>
+          <TabsTrigger value="templates" className="text-xs md:text-sm">Шаблоны</TabsTrigger>
+          <TabsTrigger value="imap" className="text-xs md:text-sm">IMAP</TabsTrigger>
+          <TabsTrigger value="autoreplies" className="text-xs md:text-sm">Автоответчик</TabsTrigger>
         </TabsList>
 
         <TabsContent value="smtp">

@@ -8,7 +8,7 @@ import SiteSettings from '@/components/admin/SiteSettings';
 import EmailSettings from '@/components/admin/EmailSettings';
 import Analytics from '@/components/admin/Analytics';
 import MessagesChat from '@/components/admin/MessagesChat';
-import SecuritySettings from '@/components/admin/SecuritySettings';
+import AdminSettings from '@/components/admin/AdminSettings';
 
 const AdminDashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true); // По умолчанию скрыта на мобильных
@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   const renderContent = () => {
     switch (activeSection) {
       case 'overview':
-        return <DashboardOverview />;
+        return <DashboardOverview onSectionChange={setActiveSection} />;
       case 'site-settings':
         return <SiteSettings />;
       case 'email-settings':
@@ -26,10 +26,10 @@ const AdminDashboard = () => {
         return <Analytics />;
       case 'messages':
         return <MessagesChat />;
-      case 'security':
-        return <SecuritySettings />;
+      case 'admin-settings':
+        return <AdminSettings />;
       default:
-        return <DashboardOverview />;
+        return <DashboardOverview onSectionChange={setActiveSection} />;
     }
   };
 
@@ -39,18 +39,19 @@ const AdminDashboard = () => {
         collapsed={sidebarCollapsed}
         activeSection={activeSection}
         onSectionChange={setActiveSection}
+        onMenuItemClick={() => setSidebarCollapsed(true)}
       />
       
       <main className={`flex-1 transition-all duration-300 ${
         sidebarCollapsed ? 'ml-0 md:ml-16' : 'ml-0 md:ml-64'
       }`}>
-        <header className="bg-card border-b px-4 md:px-6 py-4 flex items-center justify-between">
+        <header className="bg-card border-b px-4 md:px-6 py-4 flex items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-2 md:gap-4">
             <Button 
               variant="ghost" 
               size="sm"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="md:hidden"
+              className="md:hidden hover:bg-accent"
             >
               <Icon name="Menu" size={20} />
             </Button>
@@ -58,18 +59,28 @@ const AdminDashboard = () => {
               variant="ghost" 
               size="sm"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="hidden md:flex"
+              className="hidden md:flex hover:bg-accent"
             >
               <Icon name={sidebarCollapsed ? 'PanelLeftOpen' : 'PanelLeftClose'} size={20} />
             </Button>
-            <h1 className="text-lg md:text-2xl font-bold">Админ Панель</h1>
+            <div className="flex flex-col">
+              <h1 className="text-lg md:text-2xl font-bold">Админ Панель</h1>
+              <p className="text-xs text-muted-foreground hidden md:block">Управление сайтом и заявками</p>
+            </div>
           </div>
           <div className="flex items-center gap-1 md:gap-3">
-            <Button variant="outline" size="sm" className="hidden sm:flex">
+            <Button variant="ghost" size="sm" className="relative hover:bg-accent" onClick={() => setActiveSection('messages')}>
+              <Icon name="Bell" size={16} />
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                3
+              </span>
+              <span className="sr-only">3 новых уведомления</span>
+            </Button>
+            <Button variant="outline" size="sm" className="hidden sm:flex hover:bg-accent">
               <Icon name="ExternalLink" size={16} className="mr-2" />
               <span className="hidden md:inline">Перейти на сайт</span>
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="hover:bg-accent">
               <Icon name="LogOut" size={16} className="mr-0 md:mr-2" />
               <span className="hidden md:inline">Выйти</span>
             </Button>
@@ -92,7 +103,7 @@ const AdminDashboard = () => {
   );
 };
 
-const DashboardOverview = () => (
+const DashboardOverview = ({ onSectionChange }: { onSectionChange: (section: string) => void }) => (
   <div className="space-y-6">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <Card>
@@ -162,7 +173,11 @@ const DashboardOverview = () => (
         </CardHeader>
         <CardContent className="space-y-3">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+            <div 
+              key={i} 
+              className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted/80 cursor-pointer transition-colors"
+              onClick={() => onSectionChange('messages')}
+            >
               <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                 <Icon name="Mail" size={16} />
               </div>
@@ -188,19 +203,35 @@ const DashboardOverview = () => (
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          <Button variant="outline" className="w-full justify-start">
+          <Button 
+            variant="outline" 
+            className="w-full justify-start"
+            onClick={() => onSectionChange('site-settings')}
+          >
             <Icon name="Settings" size={16} className="mr-2" />
             Настройки сайта
           </Button>
-          <Button variant="outline" className="w-full justify-start">
+          <Button 
+            variant="outline" 
+            className="w-full justify-start"
+            onClick={() => onSectionChange('email-settings')}
+          >
             <Icon name="Mail" size={16} className="mr-2" />
             Настройки email
           </Button>
-          <Button variant="outline" className="w-full justify-start">
+          <Button 
+            variant="outline" 
+            className="w-full justify-start"
+            onClick={() => onSectionChange('messages')}
+          >
             <Icon name="MessageSquare" size={16} className="mr-2" />
             Обработать заявки
           </Button>
-          <Button variant="outline" className="w-full justify-start">
+          <Button 
+            variant="outline" 
+            className="w-full justify-start"
+            onClick={() => onSectionChange('analytics')}
+          >
             <Icon name="BarChart3" size={16} className="mr-2" />
             Посмотреть статистику
           </Button>
