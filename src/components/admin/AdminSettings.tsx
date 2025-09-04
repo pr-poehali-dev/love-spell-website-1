@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import SecuritySettings from './SecuritySettings';
+import ProfileSettings from './ProfileSettings';
 
 const AdminSettings = () => {
   return (
@@ -24,19 +25,7 @@ const AdminSettings = () => {
         </TabsContent>
 
         <TabsContent value="profile" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Профиль администратора</CardTitle>
-              <CardDescription>
-                Настройка личных данных и предпочтений
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">Скоро будет доступно</p>
-              </div>
-            </CardContent>
-          </Card>
+          <ProfileSettings />
         </TabsContent>
       </Tabs>
     </div>

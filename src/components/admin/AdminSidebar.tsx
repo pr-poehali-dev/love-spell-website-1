@@ -39,12 +39,6 @@ const menuItems = [
     label: 'Заявки',
     icon: 'MessageSquare',
     description: 'Чат с клиентами'
-  },
-  {
-    id: 'admin-settings',
-    label: 'Настройки админа',
-    icon: 'UserCog',
-    description: 'Безопасность, профиль'
   }
 ];
 
@@ -75,12 +69,15 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
               key={item.id}
               variant={activeSection === item.id ? 'default' : 'ghost'}
               className={cn(
-                "w-full justify-start h-auto p-3",
-                collapsed && "px-3"
+                "w-full justify-start h-auto p-3 focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                collapsed && "px-3 justify-center"
               )}
               onClick={() => {
                 onSectionChange(item.id);
-                onMenuItemClick?.();
+                // Закрывать меню только на мобильных устройствах
+                if (window.innerWidth < 768) {
+                  onMenuItemClick?.();
+                }
               }}
             >
               <Icon name={item.icon as any} size={20} className={cn(!collapsed && "mr-3")} />
@@ -97,7 +94,31 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
         </nav>
       </div>
 
-      <div className="absolute bottom-4 left-4 right-4">
+      <div className="absolute bottom-4 left-4 right-4 space-y-3">
+        <Button
+          variant="ghost"
+          className={cn(
+            "w-full justify-start h-auto p-3",
+            collapsed && "px-3 justify-center"
+          )}
+          onClick={() => {
+            onSectionChange('admin-settings');
+            if (window.innerWidth < 768) {
+              onMenuItemClick?.();
+            }
+          }}
+        >
+          <Icon name="Settings" size={20} className={cn(!collapsed && "mr-3")} />
+          {!collapsed && (
+            <div className="text-left">
+              <div className="font-medium">Настройки</div>
+              <div className="text-xs text-muted-foreground">
+                Профиль и безопасность
+              </div>
+            </div>
+          )}
+        </Button>
+        
         <div className={cn(
           "p-3 bg-muted/50 rounded-lg",
           collapsed && "p-2"

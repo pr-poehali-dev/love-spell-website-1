@@ -9,6 +9,7 @@ import EmailSettings from '@/components/admin/EmailSettings';
 import Analytics from '@/components/admin/Analytics';
 import MessagesChat from '@/components/admin/MessagesChat';
 import AdminSettings from '@/components/admin/AdminSettings';
+import NotificationDropdown from '@/components/admin/NotificationDropdown';
 
 const AdminDashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true); // По умолчанию скрыта на мобильных
@@ -34,7 +35,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background flex overflow-x-hidden">
       <AdminSidebar 
         collapsed={sidebarCollapsed}
         activeSection={activeSection}
@@ -69,13 +70,7 @@ const AdminDashboard = () => {
             </div>
           </div>
           <div className="flex items-center gap-1 md:gap-3">
-            <Button variant="ghost" size="sm" className="relative hover:bg-accent" onClick={() => setActiveSection('messages')}>
-              <Icon name="Bell" size={16} />
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
-                3
-              </span>
-              <span className="sr-only">3 новых уведомления</span>
-            </Button>
+            <NotificationDropdown onSectionChange={setActiveSection} />
             <Button variant="outline" size="sm" className="hidden sm:flex hover:bg-accent">
               <Icon name="ExternalLink" size={16} className="mr-2" />
               <span className="hidden md:inline">Перейти на сайт</span>
@@ -87,7 +82,7 @@ const AdminDashboard = () => {
           </div>
         </header>
 
-        <div className="p-4 md:p-6">
+        <div className="p-4 md:p-6 overflow-x-hidden">
           {renderContent()}
         </div>
       </main>

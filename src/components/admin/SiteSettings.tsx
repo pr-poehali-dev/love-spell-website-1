@@ -124,10 +124,10 @@ const SiteSettings = () => {
       </div>
 
       <Tabs defaultValue="general" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 h-auto md:h-10">
-          <TabsTrigger value="general" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Основные</TabsTrigger>
-          <TabsTrigger value="contacts" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Контакты</TabsTrigger>
-          <TabsTrigger value="design" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Дизайн</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 h-auto md:h-10 overflow-x-auto md:overflow-x-visible">
+          <TabsTrigger value="general" className="text-xs md:text-sm whitespace-nowrap">Основные</TabsTrigger>
+          <TabsTrigger value="contacts" className="text-xs md:text-sm whitespace-nowrap">Контакты</TabsTrigger>
+          <TabsTrigger value="design" className="text-xs md:text-sm whitespace-nowrap">Дизайн</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general">
