@@ -69,8 +69,9 @@ const NotificationDropdown = ({ onSectionChange }: NotificationDropdownProps) =>
       </PopoverTrigger>
       
       <PopoverContent 
-        className="w-80 p-0" 
+        className="w-80 max-w-[95vw] p-0" 
         align="end" 
+        alignOffset={-8}
         sideOffset={8}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
@@ -98,7 +99,7 @@ const NotificationDropdown = ({ onSectionChange }: NotificationDropdownProps) =>
                 <p className="text-sm">Нет новых уведомлений</p>
               </div>
             ) : (
-              <div className="space-y-2 max-h-80 overflow-y-auto">
+              <div className="space-y-2 max-h-[60vh] md:max-h-80 overflow-y-auto">
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}

@@ -92,12 +92,14 @@ const EmailSettings = () => {
       </div>
 
       <Tabs defaultValue="smtp" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto md:h-10 gap-1 overflow-x-auto md:overflow-x-visible">
-          <TabsTrigger value="smtp" className="text-xs md:text-sm whitespace-nowrap">SMTP</TabsTrigger>
-          <TabsTrigger value="templates" className="text-xs md:text-sm whitespace-nowrap">Шаблоны</TabsTrigger>
-          <TabsTrigger value="imap" className="text-xs md:text-sm whitespace-nowrap">IMAP</TabsTrigger>
-          <TabsTrigger value="autoreplies" className="text-xs md:text-sm whitespace-nowrap">Автоответ</TabsTrigger>
-        </TabsList>
+        <div className="w-full overflow-x-auto">
+          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-4 h-auto md:h-10 gap-1">
+            <TabsTrigger value="smtp" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">SMTP</TabsTrigger>
+            <TabsTrigger value="templates" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Шаблоны</TabsTrigger>
+            <TabsTrigger value="imap" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">IMAP</TabsTrigger>
+            <TabsTrigger value="autoreplies" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Автоответ</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="smtp">
           <SmtpSettings

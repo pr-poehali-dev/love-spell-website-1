@@ -186,11 +186,14 @@ const MessagesChat = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[700px]">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-[500px] max-h-[80vh]">
         {/* Список разговоров */}
-        <Card className="lg:col-span-1">
+        <Card className="lg:col-span-1 max-h-[50vh] lg:max-h-full">
           <CardHeader className="pb-4">
-            <CardTitle className="text-lg">Разговоры</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-base">Разговоры</CardTitle>
+              <Badge variant="secondary">{filteredConversations.length}</Badge>
+            </div>
             <div className="relative">
               <Icon name="Search" size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -202,7 +205,7 @@ const MessagesChat = () => {
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <ScrollArea className="h-[500px]">
+            <ScrollArea className="h-[300px] lg:h-[500px]">
               <div className="space-y-1 p-4">
                 {filteredConversations.map((conversation) => (
                   <div

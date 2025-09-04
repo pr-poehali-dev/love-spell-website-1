@@ -46,7 +46,7 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
   return (
     <aside 
       className={cn(
-        "fixed left-0 top-0 h-full bg-card border-r transition-all duration-300 z-50",
+        "fixed left-0 top-0 h-full bg-card border-r transition-all duration-300 z-40",
         collapsed ? "w-16 -translate-x-full md:translate-x-0" : "w-64 translate-x-0"
       )}
     >
@@ -94,42 +94,47 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
         </nav>
       </div>
 
-      <div className="absolute bottom-4 left-4 right-4 space-y-3">
-        <Button
-          variant="ghost"
-          className={cn(
-            "w-full justify-start h-auto p-3",
-            collapsed && "px-3 justify-center"
-          )}
-          onClick={() => {
-            onSectionChange('admin-settings');
-            if (window.innerWidth < 768) {
-              onMenuItemClick?.();
-            }
-          }}
-        >
-          <Icon name="Settings" size={20} className={cn(!collapsed && "mr-3")} />
-          {!collapsed && (
-            <div className="text-left">
-              <div className="font-medium">Настройки</div>
-              <div className="text-xs text-muted-foreground">
-                Профиль и безопасность
-              </div>
-            </div>
-          )}
-        </Button>
-        
+      <div className="absolute bottom-4 left-4 right-4">
         <div className={cn(
-          "p-3 bg-muted/50 rounded-lg",
-          collapsed && "p-2"
+          "p-3 bg-muted/50 rounded-lg flex items-center justify-between",
+          collapsed && "p-2 justify-center"
         )}>
           {!collapsed ? (
-            <div>
-              <p className="font-medium text-sm">Администратор</p>
-              <p className="text-xs text-muted-foreground">admin@site.com</p>
-            </div>
+            <>
+              <div>
+                <p className="font-medium text-sm">Администратор</p>
+                <p className="text-xs text-muted-foreground">admin@site.com</p>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0 hover:bg-muted-foreground/20"
+                onClick={() => {
+                  onSectionChange('admin-settings');
+                  if (window.innerWidth < 768) {
+                    onMenuItemClick?.();
+                  }
+                }}
+              >
+                <Icon name="Settings" size={16} />
+                <span className="sr-only">Настройки администратора</span>
+              </Button>
+            </>
           ) : (
-            <div className="w-6 h-6 bg-primary rounded-full mx-auto" />
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-8 w-8 p-0 hover:bg-muted-foreground/20"
+              onClick={() => {
+                onSectionChange('admin-settings');
+                if (window.innerWidth < 768) {
+                  onMenuItemClick?.();
+                }
+              }}
+            >
+              <Icon name="Settings" size={16} />
+              <span className="sr-only">Настройки администратора</span>
+            </Button>
           )}
         </div>
       </div>

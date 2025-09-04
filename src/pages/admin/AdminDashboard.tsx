@@ -82,7 +82,7 @@ const AdminDashboard = () => {
           </div>
         </header>
 
-        <div className="p-4 md:p-6 overflow-x-hidden">
+        <div className="p-4 md:p-6 lg:p-8 overflow-x-hidden">
           {renderContent()}
         </div>
       </main>
@@ -90,7 +90,7 @@ const AdminDashboard = () => {
       {/* Mobile Overlay */}
       {!sidebarCollapsed && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          className="fixed inset-0 bg-black/50 z-30 md:hidden"
           onClick={() => setSidebarCollapsed(true)}
         />
       )}
@@ -100,7 +100,7 @@ const AdminDashboard = () => {
 
 const DashboardOverview = ({ onSectionChange }: { onSectionChange: (section: string) => void }) => (
   <div className="space-y-6">
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">

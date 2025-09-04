@@ -80,7 +80,7 @@ const ProfileSettings = () => {
                   </Button>
                 </DialogTrigger>
                 
-                <DialogContent>
+                <DialogContent className="w-[95vw] max-w-md mx-auto max-h-[80vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle>Изменение email адреса</DialogTitle>
                     <DialogDescription>

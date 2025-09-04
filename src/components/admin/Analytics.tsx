@@ -71,12 +71,14 @@ const Analytics = () => {
       </div>
 
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto md:h-10 gap-1 overflow-x-auto md:overflow-x-visible">
-          <TabsTrigger value="overview" className="text-xs md:text-sm whitespace-nowrap">Обзор</TabsTrigger>
-          <TabsTrigger value="conversions" className="text-xs md:text-sm whitespace-nowrap">Конверсии</TabsTrigger>
-          <TabsTrigger value="geography" className="text-xs md:text-sm whitespace-nowrap">География</TabsTrigger>
-          <TabsTrigger value="tracking" className="text-xs md:text-sm whitespace-nowrap">Метрики</TabsTrigger>
-        </TabsList>
+        <div className="w-full overflow-x-auto">
+          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-4 h-auto md:h-10 gap-1">
+            <TabsTrigger value="overview" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Обзор</TabsTrigger>
+            <TabsTrigger value="conversions" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Конверсии</TabsTrigger>
+            <TabsTrigger value="geography" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">География</TabsTrigger>
+            <TabsTrigger value="tracking" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Метрики</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="overview">
           <div className="space-y-6">
