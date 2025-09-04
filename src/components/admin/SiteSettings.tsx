@@ -137,10 +137,9 @@ const SiteSettings = () => {
 
       <Tabs defaultValue="general" className="space-y-6">
         <div className="w-full overflow-x-auto">
-          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-4 h-auto md:h-10">
-            <TabsTrigger value="general" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Основные</TabsTrigger>
+          <TabsList className="inline-flex w-full min-w-max md:grid md:grid-cols-3 h-auto md:h-10">
+            <TabsTrigger value="general" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Основные и Дизайн</TabsTrigger>
             <TabsTrigger value="contacts" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Контакты</TabsTrigger>
-            <TabsTrigger value="design" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">Дизайн</TabsTrigger>
             <TabsTrigger value="cdn" className="text-xs md:text-sm whitespace-nowrap px-4 md:px-3">CDN</TabsTrigger>
           </TabsList>
         </div>
@@ -148,9 +147,9 @@ const SiteSettings = () => {
         <TabsContent value="general">
           <Card>
             <CardHeader className="p-4 md:p-6 pb-3">
-              <CardTitle className="text-lg md:text-xl">Основная информация</CardTitle>
+              <CardTitle className="text-lg md:text-xl">Основная информация и дизайн</CardTitle>
               <CardDescription className="text-sm md:text-base">
-                Аватар и имя, отображаемые на сайте
+                Аватар, имя, favicon и элементы дизайна сайта
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 p-4 md:p-6">
@@ -202,6 +201,82 @@ const SiteSettings = () => {
                   Это имя будет отображаться на всех страницах сайта
                 </p>
               </div>
+
+              {/* Favicon Section */}
+              <div className="space-y-4">
+                <Label>Favicon сайта</Label>
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-muted border mx-auto md:mx-0 flex items-center justify-center">
+                    <img 
+                      src="/favicon.svg" 
+                      alt="Favicon" 
+                      className="w-10 h-10 object-contain"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/api/placeholder/40/40';
+                      }}
+                    />
+                  </div>
+                  <div className="space-y-2 w-full">
+                    <input
+                      type="file"
+                      id="favicon-upload"
+                      accept=".ico,.svg,.png"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          console.log('Uploading favicon:', file.name);
+                          // TODO: Implement favicon upload
+                        }
+                      }}
+                    />
+                    <Label htmlFor="favicon-upload" className="cursor-pointer">
+                      <Button variant="outline" type="button" className="w-full md:w-auto">
+                        <Icon name="Upload" size={16} className="mr-2" />
+                        Загрузить favicon
+                      </Button>
+                    </Label>
+                    <p className="text-xs md:text-sm text-muted-foreground text-center md:text-left">
+                      Размер: 32x32px, ICO, SVG или PNG
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hero Background Section */}
+              <div className="space-y-4">
+                <Label>Фон главного блока</Label>
+                <div className="space-y-4">
+                  <div className="w-full h-32 md:h-40 rounded-lg overflow-hidden bg-muted border">
+                    <img 
+                      src={heroBackground} 
+                      alt="Hero Background" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/api/placeholder/400/128';
+                      }}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <input
+                      type="file"
+                      id="hero-bg-upload"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleHeroBackgroundUpload}
+                    />
+                    <Label htmlFor="hero-bg-upload" className="cursor-pointer">
+                      <Button variant="outline" type="button" className="w-full md:w-auto">
+                        <Icon name="Upload" size={16} className="mr-2" />
+                        Загрузить фон
+                      </Button>
+                    </Label>
+                    <p className="text-xs md:text-sm text-muted-foreground">
+                      Размер: 1920x1080px, JPG или PNG
+                    </p>
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -247,52 +322,7 @@ const SiteSettings = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="design">
-          <Card>
-            <CardHeader className="p-4 md:p-6 pb-3">
-              <CardTitle className="text-lg md:text-xl">Дизайн сайта</CardTitle>
-              <CardDescription className="text-sm md:text-base">
-                Фон героя блока и другие элементы дизайна
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6 p-4 md:p-6">
-              {/* Hero Background */}
-              <div className="space-y-4">
-                <Label>Фон главного блока</Label>
-                <div className="space-y-4">
-                  <div className="w-full h-32 md:h-40 rounded-lg overflow-hidden bg-muted border">
-                    <img 
-                      src={heroBackground} 
-                      alt="Hero Background" 
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/api/placeholder/400/128';
-                      }}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <input
-                      type="file"
-                      id="hero-bg-upload"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleHeroBackgroundUpload}
-                    />
-                    <Label htmlFor="hero-bg-upload" className="cursor-pointer">
-                      <Button variant="outline" type="button" className="w-full md:w-auto">
-                        <Icon name="Upload" size={16} className="mr-2" />
-                        Загрузить фон
-                      </Button>
-                    </Label>
-                    <p className="text-xs md:text-sm text-muted-foreground">
-                      Размер: 1920x1080px, JPG или PNG
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+
 
         <TabsContent value="cdn">
           <Card>

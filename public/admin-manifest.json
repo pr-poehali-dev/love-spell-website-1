@@ -1,0 +1,74 @@
+{
+  "name": "Админ-панель - Раиса Ильинская",
+  "short_name": "Админ-панель",
+  "description": "Панель управления сайтом потомственной ворожеи Раисы Ильинской",
+  "start_url": "/admin/dashboard",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#FF8C00", 
+  "orientation": "any",
+  "scope": "/admin/",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.poehali.dev/files/b428bb0d-304c-4095-a2dd-f180f5f62b86.png",
+      "sizes": "192x192", 
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn.poehali.dev/files/b428bb0d-304c-4095-a2dd-f180f5f62b86.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["productivity", "business", "utilities"],
+  "lang": "ru",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Заявки",
+      "short_name": "Сообщения",
+      "description": "Просмотр и обработка заявок клиентов",
+      "url": "/admin/dashboard?section=messages",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Настройки",
+      "short_name": "Настройки",
+      "description": "Управление настройками сайта",
+      "url": "/admin/dashboard?section=site-settings",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "192x192", 
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Аналитика",
+      "short_name": "Статистика",
+      "description": "Просмотр статистики посещений и заявок",
+      "url": "/admin/dashboard?section=analytics",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

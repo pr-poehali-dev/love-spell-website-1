@@ -218,7 +218,7 @@ const MessagesChat = () => {
           </CardHeader>
           <CardContent className="p-0">
             <ScrollArea className="h-[calc(35vh-80px)] lg:h-[480px]">
-              <div className="space-y-1 md:space-y-2 p-2 md:p-4">
+              <div className="space-y-1 md:space-y-2 p-2 md:p-4 pb-8">
                 {filteredConversations.map((conversation) => (
                   <div
                     key={conversation.id}

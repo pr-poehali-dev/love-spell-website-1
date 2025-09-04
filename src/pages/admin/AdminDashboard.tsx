@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -33,6 +33,27 @@ const AdminDashboard = () => {
         return <DashboardOverview onSectionChange={setActiveSection} />;
     }
   };
+
+  useEffect(() => {
+    // Добавляем админ manifest когда находимся в админ-панели
+    const adminManifest = document.querySelector('link[rel="manifest"]');
+    if (adminManifest) {
+      adminManifest.setAttribute('href', '/admin-manifest.json');
+    } else {
+      const link = document.createElement('link');
+      link.rel = 'manifest';
+      link.href = '/admin-manifest.json';
+      document.head.appendChild(link);
+    }
+
+    return () => {
+      // Возвращаем основной manifest при выходе
+      const manifest = document.querySelector('link[rel="manifest"]');
+      if (manifest) {
+        manifest.setAttribute('href', '/manifest.json');
+      }
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background flex overflow-x-hidden">
