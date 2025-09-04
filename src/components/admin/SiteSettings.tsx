@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 
@@ -369,7 +368,7 @@ const SiteSettings = () => {
               {/* CDN Info */}
               <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="flex items-start gap-3">
-                  <Icon name="Info" size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                  <Icon name="AlertCircle" size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <h5 className="font-medium text-blue-900 text-sm">Информация о CDN</h5>
                     <p className="text-blue-700 text-xs mt-1 leading-relaxed">
