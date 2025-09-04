@@ -7,20 +7,25 @@ interface MoonPhaseProps {
 const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
   const [moonPhase, setMoonPhase] = useState(0);
 
-  // Максимально точный расчет фазы луны по астрономическим данным
+  // Простой и понятный расчет фазы луны
   const getMoonPhase = () => {
     const now = new Date();
     
-    // Точное новолуние 4 сентября 2025 года (по астрономическим данным)
-    // Корректирую с учетом текущей даты для максимальной точности
-    const sept4NewMoon = new Date(2025, 8, 3, 1, 56); // 3 сентября 2025, 01:56 UTC - ближайшее новолуние
-    const lunarCycle = 29.530588861; // точный синодический месяц
+    // Базовая точка: известное новолуние 3 сентября 2025, 01:56 UTC
+    const knownNewMoon = new Date('2025-09-03T01:56:00.000Z');
     
-    const timeDiff = now.getTime() - sept4NewMoon.getTime();
-    const daysSince = timeDiff / (86400000); // миллисекунды в дни
+    // Лунный цикл = 29.53 дня (среднее значение)
+    const lunarCycleDays = 29.53;
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
     
-    let phase = (daysSince % lunarCycle) / lunarCycle;
-    if (phase < 0) phase += 1; // нормализация для отрицательных значений
+    // Сколько дней прошло с известного новолуния
+    const daysSinceNewMoon = (now.getTime() - knownNewMoon.getTime()) / millisecondsPerDay;
+    
+    // Нормализуем в диапазон 0-1 (где 0 = новолуние, 0.5 = полнолуние)
+    let phase = (daysSinceNewMoon % lunarCycleDays) / lunarCycleDays;
+    
+    // Убираем отрицательные значения
+    if (phase < 0) phase += 1;
     
     return phase;
   };
@@ -42,104 +47,105 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
     setMoonPhase(getMoonPhase());
   }, []);
 
-  // Создание объемной луны с точными фазами
-  const create3DMoon = () => {
-    const radius = size / 2 - 3;
+  // Создание детализированной луны
+  const createDetailedMoon = () => {
+    const radius = size / 2 - 2;
     
-    // Точный расчет фазы луны
-    const phaseProgress = moonPhase; // от 0 до 1
+    // Простой и понятный расчет фаз
     const isWaxing = moonPhase < 0.5;
     
-    // Расчет видимой части (наполовину заполнение)
-    let visibleWidth;
-    if (moonPhase <= 0.25) {
-      // Растущий серп (0% -> 50%)
-      visibleWidth = (moonPhase / 0.25) * 50;
-    } else if (moonPhase <= 0.5) {
-      // Растущая луна (50% -> 100%)
-      visibleWidth = 50 + ((moonPhase - 0.25) / 0.25) * 50;
-    } else if (moonPhase <= 0.75) {
-      // Убывающая луна (100% -> 50%)
-      visibleWidth = 100 - ((moonPhase - 0.5) / 0.25) * 50;
+    // Заполненность всегда максимум 50%
+    let illumination;
+    if (moonPhase <= 0.5) {
+      // Растущая: от 0% до 50%
+      illumination = moonPhase * 100; // 0 -> 50%
     } else {
-      // Убывающий серп (50% -> 0%)
-      visibleWidth = 50 - ((moonPhase - 0.75) / 0.25) * 50;
+      // Убывающая: от 50% до 0%
+      illumination = (1 - moonPhase) * 100; // 50% -> 0%
     }
     
-    const percentage = Math.round(visibleWidth);
+    // Ограничиваем максимум 50%
+    illumination = Math.min(illumination, 50);
+    const percentage = Math.round(illumination);
     
     return (
       <div 
         className="relative flex flex-col items-center transition-all duration-500 hover:scale-110 cursor-pointer group"
-        style={{ width: size + 20, height: size + 30 }}
+        style={{ width: size + 30, height: size + 40 }}
         title={getMoonPhaseName(moonPhase)}
       >
-        {/* Основная объемная луна */}
+        {/* Основная луна без обводки и внутренних теней */}
         <div 
           className="relative rounded-full transition-all duration-1000 overflow-hidden"
           style={{
             width: radius * 2,
             height: radius * 2,
-            background: `radial-gradient(circle at 30% 30%, 
-              hsl(var(--accent) / 0.95) 0%, 
-              hsl(var(--accent) / 0.8) 40%, 
-              hsl(var(--muted) / 0.9) 60%, 
-              hsl(var(--accent) / 0.7) 80%,
-              hsl(var(--muted) / 0.8) 100%
-            )`,
-            border: `2px solid hsl(var(--accent) / 0.6)`,
-            boxShadow: `
-              inset -5px -5px 10px hsl(var(--muted) / 0.4),
-              inset 5px 5px 8px hsl(var(--accent) / 0.3),
-              0 0 15px hsl(var(--accent) / 0.4)
-            `
+            background: `radial-gradient(circle at 35% 25%, 
+              hsl(var(--accent) / 0.9) 0%, 
+              hsl(var(--accent) / 0.85) 25%, 
+              hsl(var(--accent) / 0.8) 50%, 
+              hsl(var(--accent) / 0.75) 75%,
+              hsl(var(--accent) / 0.7) 100%
+            )`
           }}
         >
-          {/* Объемные кратеры с тенями */}
+          {/* Детализированные кратеры и лунный ландшафт */}
           <div className="absolute inset-0">
-            {/* Большой кратер */}
+            {/* Mare Tranquillitatis - большое темное море */}
+            <div 
+              className="absolute rounded-full"
+              style={{
+                background: `radial-gradient(ellipse at 40% 30%, 
+                  hsl(var(--muted) / 0.6) 0%, 
+                  hsl(var(--muted) / 0.8) 50%,
+                  hsl(var(--accent) / 0.7) 100%
+                )`,
+                width: size * 0.18,
+                height: size * 0.15,
+                top: '22%',
+                left: '28%',
+                transform: 'rotate(-15deg)'
+              }}
+            />
+            
+            {/* Кратер Тихо - крупный кратер */}
             <div 
               className="absolute rounded-full"
               style={{
                 background: `radial-gradient(circle at 30% 30%, 
-                  hsl(var(--muted) / 0.9), 
-                  hsl(var(--accent) / 0.6)
+                  hsl(var(--muted) / 0.9) 0%, 
+                  hsl(var(--muted) / 0.7) 40%,
+                  hsl(var(--accent) / 0.6) 100%
                 )`,
-                width: size * 0.12,
-                height: size * 0.12,
-                top: '25%',
-                left: '32%',
-                boxShadow: `
-                  inset 2px 2px 4px hsl(var(--muted) / 0.6),
-                  inset -1px -1px 2px hsl(var(--accent) / 0.3)
-                `
+                width: size * 0.09,
+                height: size * 0.09,
+                top: '58%',
+                right: '25%'
               }}
             />
             
-            {/* Средний кратер */}
+            {/* Кратер Коперник */}
             <div 
               className="absolute rounded-full"
               style={{
-                background: `radial-gradient(circle at 40% 40%, 
-                  hsl(var(--muted) / 0.8), 
-                  hsl(var(--accent) / 0.5)
+                background: `radial-gradient(circle at 25% 25%, 
+                  hsl(var(--muted) / 0.85) 0%, 
+                  hsl(var(--accent) / 0.65) 100%
                 )`,
-                width: size * 0.08,
-                height: size * 0.08,
-                top: '60%',
-                right: '28%',
-                boxShadow: `
-                  inset 1px 1px 3px hsl(var(--muted) / 0.5),
-                  inset -0.5px -0.5px 1px hsl(var(--accent) / 0.2)
-                `
+                width: size * 0.06,
+                height: size * 0.06,
+                top: '35%',
+                left: '15%'
               }}
             />
             
-            {/* Маленькие кратеры */}
+            {/* Мелкие кратеры */}
             {[
-              { top: '40%', left: '18%', size: 0.05 },
-              { top: '72%', left: '58%', size: 0.04 },
-              { top: '15%', right: '22%', size: 0.03 }
+              { top: '45%', left: '65%', size: 0.04 },
+              { top: '75%', left: '45%', size: 0.035 },
+              { top: '12%', right: '18%', size: 0.025 },
+              { top: '68%', left: '25%', size: 0.03 },
+              { top: '25%', right: '35%', size: 0.02 }
             ].map((crater, i) => (
               <div 
                 key={i}
@@ -150,39 +156,68 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
                   height: size * crater.size,
                   top: crater.top,
                   left: crater.left,
-                  right: crater.right,
-                  boxShadow: `inset 0.5px 0.5px 1px hsl(var(--muted) / 0.4)`
+                  right: crater.right
+                }}
+              />
+            ))}
+            
+            {/* Лунные горы и хребты */}
+            <div 
+              className="absolute"
+              style={{
+                background: `linear-gradient(45deg, 
+                  transparent 40%, 
+                  hsl(var(--accent) / 0.3) 50%,
+                  transparent 60%
+                )`,
+                width: size * 0.3,
+                height: size * 0.05,
+                top: '40%',
+                right: '10%',
+                transform: 'rotate(25deg)',
+                borderRadius: '50px'
+              }}
+            />
+            
+            {/* Мелкие детали поверхности */}
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div 
+                key={`detail-${i}`}
+                className="absolute rounded-full"
+                style={{
+                  background: `hsl(var(--muted) / ${0.3 + Math.random() * 0.2})`,
+                  width: size * (0.008 + Math.random() * 0.01),
+                  height: size * (0.008 + Math.random() * 0.01),
+                  top: `${15 + Math.random() * 70}%`,
+                  left: `${15 + Math.random() * 70}%`
                 }}
               />
             ))}
           </div>
 
-          {/* Точная фаза луны */}
+          {/* Фаза луны с максимум 50% заполнением */}
           <div 
             className="absolute inset-0 rounded-full transition-all duration-1000"
             style={{
-              background: `linear-gradient(to right, 
-                hsl(var(--background) / 0.95) 0%, 
-                hsl(var(--background) / 0.9) 20%,
-                transparent 100%
-              )`,
+              background: `hsl(var(--background) / 0.9)`,
               clipPath: isWaxing 
-                ? `inset(0 0 0 ${visibleWidth}%)`
-                : `inset(0 ${visibleWidth}% 0 0)`
+                ? `inset(0 0 0 ${50 + illumination}%)`
+                : `inset(0 ${50 + illumination}% 0 0)`
             }}
           />
         </div>
 
-        {/* Текст с процентом снизу */}
+        {/* Процент с улучшенным дизайном */}
         <div 
-          className="mt-2 px-2 py-1 rounded-full text-xs font-bold transition-all duration-300"
+          className="mt-3 px-3 py-1 rounded-full text-sm font-bold transition-all duration-300 group-hover:scale-105"
           style={{
             background: `linear-gradient(135deg, 
-              hsl(var(--accent) / 0.8) 0%, 
-              hsl(var(--primary) / 0.6) 100%
+              hsl(var(--accent) / 0.9) 0%, 
+              hsl(var(--primary) / 0.7) 100%
             )`,
             color: `hsl(var(--background))`,
-            boxShadow: `0 2px 4px hsl(var(--accent) / 0.3)`
+            boxShadow: `0 3px 6px hsl(var(--accent) / 0.3)`,
+            border: `1px solid hsl(var(--accent) / 0.4)`
           }}
         >
           {percentage}%
@@ -199,7 +234,7 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
     );
   };
 
-  return create3DMoon();
+  return createDetailedMoon();
 };
 
 export default MoonPhase;

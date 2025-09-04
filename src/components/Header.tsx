@@ -135,7 +135,7 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
                 <div className="text-xs text-muted-foreground font-medium">Лунная энергия</div>
                 <div className="text-[10px] text-accent">Сейчас активна</div>
               </div>
-              <MoonPhase size={32} />
+              <MoonPhase size={45} />
             </div>
           </div>
         </div>
