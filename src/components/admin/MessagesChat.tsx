@@ -217,7 +217,7 @@ const MessagesChat = () => {
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <ScrollArea className="h-[calc(35vh-80px)] lg:h-[480px]">
+            <div className="h-[calc(35vh-80px)] lg:h-[480px] overflow-y-auto">
               <div className="space-y-1 md:space-y-2 p-2 md:p-4 pb-8">
                 {filteredConversations.map((conversation) => (
                   <div
@@ -264,7 +264,7 @@ const MessagesChat = () => {
                   </div>
                 ))}
               </div>
-            </ScrollArea>
+            </div>
           </CardContent>
         </Card>
 
@@ -305,7 +305,7 @@ const MessagesChat = () => {
                 </div>
               </CardHeader>
               <CardContent className="flex flex-col h-[calc(100vh-200px)] lg:h-[500px] p-2 md:p-6">
-                <ScrollArea className="flex-1 pr-1 md:pr-4 pb-4">
+                <div className="flex-1 pr-1 md:pr-4 pb-4 overflow-y-auto">
                   <div className="space-y-3 md:space-y-4 pb-4">
                     {selectedConversation.messages.map((message) => (
                       <div
@@ -342,7 +342,7 @@ const MessagesChat = () => {
                     ))}
                     <div ref={messagesEndRef} />
                   </div>
-                </ScrollArea>
+                </div>
                 
                 <div className="pt-3 md:pt-4 border-t">
                   <div className="flex gap-2">
