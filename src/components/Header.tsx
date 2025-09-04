@@ -108,83 +108,30 @@ export default function Header({ currentTitle, setCurrentTitle }: HeaderProps) {
     <>
       {/* Header Profile Section */}
       <div className="bg-background border-b border-border sticky top-0 z-30">
-        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-7xl mx-auto px-4 lg:px-8 py-4 lg:py-6">
-          <div className="flex items-center justify-between">
-            {/* Logo/Profile Section */}
-            <div className="flex items-center gap-3 lg:gap-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden flex-shrink-0">
-                <img 
-                  src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
-                  alt="Раиса Ильинская"
-                  className="w-full h-full object-cover"
-                  loading="eager"
-                  decoding="async"
-                />
-              </div>
-              <div>
-                <h1 className="text-base sm:text-lg lg:text-xl font-semibold text-foreground truncate tracking-wide">Раиса Ильинская</h1>
-                <div className="text-sm lg:text-base font-medium text-accent">
-                  <span className="typewriter" key={currentTitle}>{currentTitle}</span>
-                </div>
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
+              <img 
+                src="/img/ad82ffc8-0c3b-4ed9-9e55-893635b263d1.jpg" 
+                alt="Раиса Ильинская"
+                className="w-full h-full object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            <div>
+              <h1 className="text-base sm:text-lg font-semibold text-foreground truncate tracking-wide">Раиса Ильинская</h1>
+              <div className="text-sm font-medium text-accent">
+                <span className="typewriter" key={currentTitle}>{currentTitle}</span>
               </div>
             </div>
-
-            {/* Desktop Navigation - только на больших экранах */}
-            <nav className="hidden lg:flex items-center gap-8">
-              <button 
-                onClick={() => navigateToSection('ktoya', navigate, location)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === 'ktoya' 
-                    ? 'bg-accent text-accent-foreground' 
-                    : 'text-foreground hover:text-accent hover:bg-accent/10'
-                }`}
-              >
-                Обо мне
-              </button>
-              <button 
-                onClick={() => navigateToSection('obryad', navigate, location)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === 'obryad' 
-                    ? 'bg-accent text-accent-foreground' 
-                    : 'text-foreground hover:text-accent hover:bg-accent/10'
-                }`}
-              >
-                Обряды
-              </button>
-              <button 
-                onClick={() => navigateToSection('otziv', navigate, location)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === 'otziv' 
-                    ? 'bg-accent text-accent-foreground' 
-                    : 'text-foreground hover:text-accent hover:bg-accent/10'
-                }`}
-              >
-                Отзывы
-              </button>
-              <button 
-                onClick={() => navigateToSection('contact', navigate, location)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === 'contact' 
-                    ? 'bg-accent text-accent-foreground' 
-                    : 'text-foreground hover:text-accent hover:bg-accent/10'
-                }`}
-              >
-                Контакты
-              </button>
-              <button 
-                onClick={() => navigateToSection('contact', navigate, location)}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg font-semibold transition-all duration-300 ml-4"
-              >
-                Получить консультацию
-              </button>
-            </nav>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation Menu - только на мобильных */}  
-      <div className="lg:hidden bg-background sticky top-[73px] z-20 shadow-md">
-        <div className="max-w-sm sm:max-w-md md:max-w-lg mx-auto px-4 py-4">
+      {/* Navigation Menu */}  
+      <div className="bg-background sticky top-[73px] z-20 shadow-md">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 py-4">
           <div className="grid grid-cols-4 gap-1">
             <button 
               onClick={() => navigateToSection('ktoya', navigate, location)}
