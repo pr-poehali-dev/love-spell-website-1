@@ -11,7 +11,7 @@ import MessagesChat from '@/components/admin/MessagesChat';
 import SecuritySettings from '@/components/admin/SecuritySettings';
 
 const AdminDashboard = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true); // По умолчанию скрыта на мобильных
   const [activeSection, setActiveSection] = useState('overview');
 
   const renderContent = () => {
@@ -41,34 +41,53 @@ const AdminDashboard = () => {
         onSectionChange={setActiveSection}
       />
       
-      <main className={`flex-1 transition-all duration-300 ${sidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
-        <header className="bg-card border-b px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <main className={`flex-1 transition-all duration-300 ${
+        sidebarCollapsed ? 'ml-0 md:ml-16' : 'ml-0 md:ml-64'
+      }`}>
+        <header className="bg-card border-b px-4 md:px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 md:gap-4">
             <Button 
               variant="ghost" 
               size="sm"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="md:hidden"
+            >
+              <Icon name="Menu" size={20} />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="hidden md:flex"
             >
               <Icon name={sidebarCollapsed ? 'PanelLeftOpen' : 'PanelLeftClose'} size={20} />
             </Button>
-            <h1 className="text-2xl font-bold">Админ Панель</h1>
+            <h1 className="text-lg md:text-2xl font-bold">Админ Панель</h1>
           </div>
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm">
+          <div className="flex items-center gap-1 md:gap-3">
+            <Button variant="outline" size="sm" className="hidden sm:flex">
               <Icon name="ExternalLink" size={16} className="mr-2" />
-              Перейти на сайт
+              <span className="hidden md:inline">Перейти на сайт</span>
             </Button>
             <Button variant="ghost" size="sm">
-              <Icon name="LogOut" size={16} className="mr-2" />
-              Выйти
+              <Icon name="LogOut" size={16} className="mr-0 md:mr-2" />
+              <span className="hidden md:inline">Выйти</span>
             </Button>
           </div>
         </header>
 
-        <div className="p-6">
+        <div className="p-4 md:p-6">
           {renderContent()}
         </div>
       </main>
+
+      {/* Mobile Overlay */}
+      {!sidebarCollapsed && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setSidebarCollapsed(true)}
+        />
+      )}
     </div>
   );
 };

@@ -46,6 +46,21 @@
 <div id="root"></div>
 <script type="module" src="/src/main.tsx"></script>
 
+<!-- PWA Service Worker -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('Service Worker зарегистрирован:', registration);
+        })
+        .catch(error => {
+          console.log('Ошибка регистрации Service Worker:', error);
+        });
+    });
+  }
+</script>
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (m, e, t, r, i, k, a) {
