@@ -4,7 +4,6 @@ import Header from '@/components/Header';
 import Divider from '@/components/Divider';
 import ContactModal from '@/components/ContactModal';
 import SEO from '@/components/SEO';
-import Layout from '@/components/Layout';
 
 export default function ArticlePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +28,7 @@ export default function ArticlePage() {
   };
 
   return (
-    <Layout>
+    <div className="min-h-screen bg-background">
       <SEO 
         title="Приворот на жену - Мощный ритуал возврата любви | Раиса Ильинская"
         description="Мощный приворот на жену от потомственной ворожеи. Возвращение любви супруги, восстановление семейного счастья. Проверенные методы, безопасно и эффективно. Консультация бесплатно."
@@ -372,6 +371,6 @@ export default function ArticlePage() {
         onClose={() => setIsModalOpen(false)}
         onSuccess={(email) => console.log('Email sent to:', email)}
       />
-    </Layout>
+    </div>
   );
 }
