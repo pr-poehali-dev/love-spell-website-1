@@ -42,135 +42,147 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
     setMoonPhase(getMoonPhase());
   }, []);
 
-  // Создание реалистичной луны
-  const createMoonSVG = () => {
-    const radius = size / 2 - 3;
+  // Создание стильной 2D луны как 🌕
+  const create2DMoon = () => {
+    const radius = size / 2 - 2;
     const centerX = size / 2;
     const centerY = size / 2;
     
-    // Расчет освещенности для реалистичной фазы
-    const phaseAngle = moonPhase * 2 * Math.PI;
-    const k = (1 + Math.cos(phaseAngle)) / 2; // коэффициент освещенности
+    // Расчет освещенности для фазы
+    const illumination = Math.abs(Math.cos((moonPhase - 0.5) * Math.PI));
+    const isWaxing = moonPhase < 0.5;
     
     return (
       <div 
-        className="relative flex items-center justify-center transition-all duration-500 hover:scale-105 cursor-pointer group"
+        className="relative flex items-center justify-center transition-all duration-500 hover:scale-110 cursor-pointer group"
         style={{ width: size, height: size }}
         title={getMoonPhaseName(moonPhase)}
       >
-        <svg
-          width={size}
-          height={size}
-          className="drop-shadow-lg"
+        {/* Основной круг луны - плоский 2D дизайн */}
+        <div 
+          className="absolute rounded-full transition-all duration-1000"
+          style={{
+            width: radius * 2,
+            height: radius * 2,
+            background: `linear-gradient(135deg, 
+              hsl(var(--accent) / 0.9) 0%, 
+              hsl(var(--accent) / 0.7) 30%, 
+              hsl(var(--muted) / 0.9) 50%, 
+              hsl(var(--accent) / 0.6) 70%,
+              hsl(var(--accent) / 0.8) 100%
+            )`,
+            border: `1px solid hsl(var(--accent) / 0.5)`,
+            boxShadow: `
+              0 0 ${size * 0.3}px hsl(var(--accent) / 0.5),
+              0 0 ${size * 0.6}px hsl(var(--accent) / 0.2),
+              inset 0 0 ${size * 0.1}px hsl(var(--muted) / 0.3)
+            `
+          }}
         >
-          <defs>
-            {/* Градиенты в стиле сайта - используем CSS переменные */}
-            <radialGradient id="moonGradient" cx="0.3" cy="0.3">
-              <stop offset="0%" stopColor="hsl(var(--muted))" stopOpacity="0.95" />
-              <stop offset="70%" stopColor="hsl(var(--muted-foreground))" stopOpacity="0.7" />
-              <stop offset="100%" stopColor="hsl(var(--border))" stopOpacity="0.8" />
-            </radialGradient>
-            
-            <radialGradient id="shadowGradient" cx="0.5" cy="0.5">
-              <stop offset="0%" stopColor="hsl(var(--background))" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="hsl(var(--background))" stopOpacity="1" />
-            </radialGradient>
+          {/* 2D кратеры как простые круги */}
+          <div className="absolute inset-0 rounded-full overflow-hidden">
+            {/* Большой кратер */}
+            <div 
+              className="absolute rounded-full opacity-60"
+              style={{
+                background: `hsl(var(--muted) / 0.7)`,
+                width: size * 0.12,
+                height: size * 0.12,
+                top: '22%',
+                left: '28%',
+                boxShadow: `inset 0 0 ${size * 0.02}px hsl(var(--accent) / 0.3)`
+              }}
+            />
+            {/* Средний кратер */}
+            <div 
+              className="absolute rounded-full opacity-50"
+              style={{
+                background: `hsl(var(--muted) / 0.6)`,
+                width: size * 0.08,
+                height: size * 0.08,
+                top: '58%',
+                right: '30%',
+                boxShadow: `inset 0 0 ${size * 0.015}px hsl(var(--accent) / 0.2)`
+              }}
+            />
+            {/* Маленькие кратеры */}
+            <div 
+              className="absolute rounded-full opacity-40"
+              style={{
+                background: `hsl(var(--muted) / 0.5)`,
+                width: size * 0.05,
+                height: size * 0.05,
+                top: '40%',
+                left: '20%'
+              }}
+            />
+            <div 
+              className="absolute rounded-full opacity-30"
+              style={{
+                background: `hsl(var(--muted) / 0.4)`,
+                width: size * 0.04,
+                height: size * 0.04,
+                top: '70%',
+                left: '55%'
+              }}
+            />
+            <div 
+              className="absolute rounded-full opacity-35"
+              style={{
+                background: `hsl(var(--muted) / 0.45)`,
+                width: size * 0.03,
+                height: size * 0.03,
+                top: '15%',
+                right: '20%'
+              }}
+            />
+          </div>
+        </div>
 
-            {/* Мистические кратеры в цветах сайта */}
-            <pattern id="craters" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
-              <circle cx="4" cy="4" r="0.6" fill="hsl(var(--accent))" opacity="0.15"/>
-              <circle cx="12" cy="10" r="1" fill="hsl(var(--primary))" opacity="0.1"/>
-              <circle cx="6" cy="13" r="0.4" fill="hsl(var(--accent))" opacity="0.2"/>
-              <circle cx="11" cy="5" r="0.3" fill="hsl(var(--primary))" opacity="0.08"/>
-            </pattern>
-          </defs>
-          
-          {/* Основной диск луны в стиле сайта */}
-          <circle
-            cx={centerX}
-            cy={centerY}
-            r={radius}
-            fill="url(#moonGradient)"
-            stroke="hsl(var(--border))"
-            strokeWidth="0.3"
-            opacity="0.9"
-          />
-          
-          {/* Кратеры на поверхности */}
-          <circle
-            cx={centerX}
-            cy={centerY}
-            r={radius}
-            fill="url(#craters)"
-            opacity="0.6"
-          />
-          
-          {/* Тень для создания фазы */}
-          {moonPhase > 0.03 && moonPhase < 0.97 && (
-            <g>
-              <defs>
-                <mask id="moonMask">
-                  <rect width={size} height={size} fill="black"/>
-                  <circle cx={centerX} cy={centerY} r={radius} fill="white"/>
-                </mask>
-              </defs>
-              
-              {/* Теневая часть для создания фазы */}
-              {moonPhase < 0.5 ? (
-                // Растущая луна - тень справа
-                <ellipse
-                  cx={centerX + radius * (1 - 2 * k)}
-                  cy={centerY}
-                  rx={radius * Math.abs(1 - 2 * k)}
-                  ry={radius}
-                  fill="url(#shadowGradient)"
-                  mask="url(#moonMask)"
-                />
-              ) : (
-                // Убывающая луна - тень слева  
-                <ellipse
-                  cx={centerX - radius * (2 * k - 1)}
-                  cy={centerY}
-                  rx={radius * Math.abs(2 * k - 1)}
-                  ry={radius}
-                  fill="url(#shadowGradient)"
-                  mask="url(#moonMask)"
-                />
-              )}
-            </g>
-          )}
-          
-          {/* Мистическое свечение в цветах сайта */}
-          <circle
-            cx={centerX}
-            cy={centerY}
-            r={radius + 1.5}
-            fill="none"
-            stroke="hsl(var(--accent))"
-            strokeWidth="0.8"
-            opacity="0.4"
-            className="animate-pulse"
+        {/* 2D теневая маска для фазы */}
+        {moonPhase > 0.05 && moonPhase < 0.95 && (
+          <div 
+            className="absolute rounded-full transition-all duration-1000"
             style={{
-              animationDuration: '3s',
-              filter: 'blur(0.3px)'
+              width: radius * 2,
+              height: radius * 2,
+              background: `hsl(var(--background) / 0.9)`,
+              clipPath: isWaxing 
+                ? `inset(0 0 0 ${illumination * 100}%)`
+                : `inset(0 ${illumination * 100}% 0 0)`
             }}
           />
-          
-          {/* Внешнее магическое свечение */}
-          <circle
-            cx={centerX}
-            cy={centerY}
-            r={radius + 3}
-            fill="none"
-            stroke="hsl(var(--primary))"
-            strokeWidth="1.5"
-            opacity="0.25"
-            className="group-hover:opacity-60 transition-all duration-700"
-            style={{
-              filter: 'blur(1px)'
-            }}
-          />
-        </svg>
+        )}
+
+        {/* Простое 2D свечение */}
+        <div 
+          className="absolute rounded-full animate-pulse pointer-events-none"
+          style={{
+            width: (radius * 2) + 8,
+            height: (radius * 2) + 8,
+            background: `radial-gradient(circle, 
+              transparent 70%, 
+              hsl(var(--accent) / 0.3) 80%, 
+              transparent 100%
+            )`,
+            animationDuration: '4s'
+          }}
+        />
+
+        {/* Внешнее свечение при hover */}
+        <div 
+          className="absolute rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none"
+          style={{
+            width: (radius * 2) + 16,
+            height: (radius * 2) + 16,
+            background: `radial-gradient(circle, 
+              transparent 60%, 
+              hsl(var(--primary) / 0.4) 75%, 
+              transparent 100%
+            )`,
+            filter: 'blur(2px)'
+          }}
+        />
         
         {/* Мистический тултип */}
         <div className="absolute -bottom-9 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-card/95 backdrop-blur-sm border border-accent/20 rounded-lg px-3 py-2 text-xs font-medium whitespace-nowrap pointer-events-none z-30 shadow-xl">
@@ -183,7 +195,7 @@ const MoonPhase = ({ size = 40 }: MoonPhaseProps) => {
     );
   };
 
-  return createMoonSVG();
+  return create2DMoon();
 };
 
 export default MoonPhase;
