@@ -200,7 +200,7 @@ const MessagesChat = () => {
 
       <div className="flex flex-col lg:grid lg:grid-cols-3 gap-2 md:gap-6 h-[calc(100vh-140px)] lg:min-h-[500px]">
         {/* Список разговоров */}
-        <Card className={`lg:col-span-1 h-[calc(100vh-140px)] lg:h-full overflow-hidden ${showChat && window.innerWidth < 1024 ? 'hidden' : 'block'}`}>
+        <Card className={`lg:col-span-1 h-[calc(100vh-160px)] lg:h-full overflow-hidden ${showChat && window.innerWidth < 1024 ? 'hidden' : 'block'}`}>
           <CardHeader className="p-2 md:p-6 pb-2">
             <div className="flex items-center justify-between mb-2">
               <CardTitle className="text-sm md:text-base">Разговоры</CardTitle>
@@ -217,8 +217,8 @@ const MessagesChat = () => {
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="h-[calc(35vh-80px)] lg:h-[480px] overflow-y-auto">
-              <div className="space-y-1 md:space-y-2 p-2 md:p-4 pb-8">
+            <div className="h-[calc(35vh-100px)] lg:h-[480px] overflow-y-auto">
+              <div className="space-y-1 md:space-y-2 p-2 md:p-4 pb-4 md:pb-8">
                 {filteredConversations.map((conversation) => (
                   <div
                     key={conversation.id}
