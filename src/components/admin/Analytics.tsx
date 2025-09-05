@@ -396,7 +396,7 @@ const Analytics = () => {
                     <div key={service.name} className="p-3 md:p-4 border rounded-lg">
                       <div className="flex items-start gap-2 md:gap-3">
                         <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Icon name={service.icon as any} size={16} className="md:w-5 md:h-5" />
+                          <Icon name={service.icon} fallback="BarChart3" size={16} className="md:w-5 md:h-5" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <h4 className="font-medium text-sm md:text-base">{service.name}</h4>

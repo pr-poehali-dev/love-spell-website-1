@@ -51,8 +51,8 @@ const SiteSettings = () => {
       // TODO: Implement file upload to server
       const reader = new FileReader();
       reader.onload = (e) => {
-        if (e.target?.result) {
-          setHeroBackground(e.target.result as string);
+        if (e.target?.result && typeof e.target.result === 'string') {
+          setHeroBackground(e.target.result);
         }
       };
       reader.readAsDataURL(file);

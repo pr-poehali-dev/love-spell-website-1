@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -34,6 +34,7 @@ interface Conversation {
 }
 
 const MessagesChat = () => {
+  const [isMobile, setIsMobile] = useState(false);
   const [conversations] = useState<Conversation[]>([
     {
       id: '1',
@@ -111,12 +112,12 @@ const MessagesChat = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const handleConversationSelect = (conversation: Conversation) => {
+  const handleConversationSelect = useCallback((conversation: Conversation) => {
     setSelectedConversation(conversation);
-    if (window.innerWidth < 1024) {
+    if (isMobile) {
       setShowChat(true);
     }
-  };
+  }, [isMobile]);
 
   const handleBackToList = () => {
     setShowChat(false);
@@ -125,6 +126,16 @@ const MessagesChat = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -200,7 +211,7 @@ const MessagesChat = () => {
 
       <div className="flex flex-col lg:grid lg:grid-cols-3 gap-2 md:gap-6 h-[calc(100vh-140px)] lg:min-h-[500px]">
         {/* Список разговоров */}
-        <Card className={`lg:col-span-1 flex flex-col h-[calc(100vh-160px)] lg:h-full overflow-hidden ${showChat && window.innerWidth < 1024 ? 'hidden' : 'block'}`}>
+        <Card className={`lg:col-span-1 flex flex-col h-[calc(100vh-160px)] lg:h-full overflow-hidden ${showChat && isMobile ? 'hidden' : 'block'}`}>
           <CardHeader className="p-2 md:p-6 pb-2">
             <div className="flex items-center justify-between mb-2">
               <CardTitle className="text-sm md:text-base">Разговоры</CardTitle>
@@ -269,7 +280,7 @@ const MessagesChat = () => {
         </Card>
 
         {/* Чат */}
-        <Card className={`lg:col-span-2 flex-1 h-[calc(100vh-140px)] lg:h-full overflow-hidden ${!showChat && window.innerWidth < 1024 ? 'hidden' : 'block'} relative`}>
+        <Card className={`lg:col-span-2 flex-1 h-[calc(100vh-140px)] lg:h-full overflow-hidden ${!showChat && isMobile ? 'hidden' : 'block'} relative`}>
           {selectedConversation ? (
             <>
               <CardHeader className="p-3 md:p-6 pb-3">

@@ -84,7 +84,7 @@ const AdminSidebar = ({ collapsed, activeSection, onSectionChange, onMenuItemCli
               }}
             >
               <div className="absolute left-2 top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center" aria-hidden="true">
-                <Icon name={item.icon as any} size={20} />
+                <Icon name={item.icon} fallback="Settings" size={20} />
               </div>
               <div className={cn(
                 "text-left transition-all duration-300 overflow-hidden ml-3",

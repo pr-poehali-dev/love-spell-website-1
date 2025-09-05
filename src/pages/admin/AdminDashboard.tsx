@@ -65,7 +65,7 @@ const AdminDashboard = () => {
       />
       
       <main className={`flex-1 transition-all duration-300 ${
-        sidebarCollapsed ? 'ml-0 md:ml-16' : 'ml-0 md:ml-64'
+        sidebarCollapsed ? 'ml-0 lg:ml-16' : 'ml-0 lg:ml-64'
       }`}>
         <header className="bg-card border-b px-4 md:px-6 py-4 flex items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-2 md:gap-4">
@@ -126,7 +126,7 @@ const AdminDashboard = () => {
 
 const DashboardOverview = ({ onSectionChange }: { onSectionChange: (section: string) => void }) => (
   <div className="space-y-6">
-    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">
