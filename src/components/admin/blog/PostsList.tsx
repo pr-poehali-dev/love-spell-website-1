@@ -18,12 +18,12 @@ interface PostsListProps {
 export default function PostsList({ posts, onEdit, onDelete, categories, getStatusColor }: PostsListProps) {
   return (
     <div className="grid gap-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h3 className="text-lg font-semibold">Все статьи ({posts.length})</h3>
-        <div className="flex gap-2">
-          <Input placeholder="Поиск статей..." className="w-64" />
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+          <Input placeholder="Поиск статей..." className="w-full sm:w-64" />
           <Select>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="w-full sm:w-40">
               <SelectValue placeholder="Статус" />
             </SelectTrigger>
             <SelectContent>
@@ -38,14 +38,14 @@ export default function PostsList({ posts, onEdit, onDelete, categories, getStat
 
       {posts.map(post => (
         <Card key={post.id} className="hover:shadow-md transition-shadow">
-          <CardContent className="p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-20 h-20 bg-muted rounded-lg overflow-hidden flex-shrink-0">
+          <CardContent className="p-4 md:p-6">
+            <div className="flex items-start gap-3 md:gap-4">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                 {post.image ? (
                   <img src={post.image} alt="" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <Icon name="Image" size={24} className="text-muted-foreground" />
+                    <Icon name="Image" size={20} className="md:w-6 md:h-6 text-muted-foreground" />
                   </div>
                 )}
               </div>
@@ -57,7 +57,7 @@ export default function PostsList({ posts, onEdit, onDelete, categories, getStat
                     <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
                       {post.excerpt || 'Описание отсутствует'}
                     </p>
-                    <div className="flex items-center gap-4 mt-3">
+                    <div className="flex flex-wrap items-center gap-2 md:gap-4 mt-3">
                       <Badge variant="outline" className={getStatusColor(post.status)}>
                         {post.status === 'published' ? 'Опубликовано' : 
                          post.status === 'draft' ? 'Черновик' : 'Запланировано'}
@@ -67,7 +67,8 @@ export default function PostsList({ posts, onEdit, onDelete, categories, getStat
                       </span>
                       <span className="text-xs text-muted-foreground flex items-center gap-1">
                         <Icon name="Calendar" size={12} />
-                        {new Date(post.publishedDate).toLocaleDateString('ru-RU')}
+                        <span className="hidden sm:inline">{new Date(post.publishedDate).toLocaleDateString('ru-RU')}</span>
+                        <span className="sm:hidden">{new Date(post.publishedDate).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' })}</span>
                       </span>
                       <span className="text-xs text-muted-foreground flex items-center gap-1">
                         <Icon name="Clock" size={12} />

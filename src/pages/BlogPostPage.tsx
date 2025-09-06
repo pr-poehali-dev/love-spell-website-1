@@ -280,13 +280,13 @@ export default function BlogPostPage() {
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="max-w-4xl mx-auto">
           {/* Author info */}
-          <div className="flex items-center gap-4 mb-8 p-6 bg-muted/30 rounded-xl border">
-            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-              <Icon name="User" size={24} className="text-primary-foreground" />
+          <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8 p-4 md:p-6 bg-muted/30 rounded-xl border">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+              <Icon name="User" size={20} className="md:w-6 md:h-6 text-primary-foreground" />
             </div>
             <div>
-              <p className="font-semibold text-foreground">{post.author}</p>
-              <p className="text-sm text-muted-foreground">Потомственная ворожея</p>
+              <p className="font-semibold text-foreground text-sm md:text-base">{post.author}</p>
+              <p className="text-xs md:text-sm text-muted-foreground">Потомственная ворожея</p>
             </div>
           </div>
 
@@ -297,37 +297,37 @@ export default function BlogPostPage() {
           />
 
           {/* Call to action */}
-          <div className="mt-12 p-8 bg-primary/10 rounded-xl border-2 border-primary/20 text-center">
-            <Icon name="MessageCircle" size={48} className="mx-auto text-primary mb-4" />
-            <h3 className="text-2xl font-bold mb-4">
+          <div className="mt-8 md:mt-12 p-6 md:p-8 bg-primary/10 rounded-xl border-2 border-primary/20 text-center">
+            <Icon name="MessageCircle" size={40} className="md:w-12 md:h-12 mx-auto text-primary mb-3 md:mb-4" />
+            <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
               Нужна персональная консультация?
             </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 max-w-2xl mx-auto px-4">
               Получите индивидуальный совет от потомственной ворожеи. 
               Первая консультация - бесплатно!
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+              className="bg-primary text-primary-foreground px-6 md:px-8 py-2.5 md:py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors text-sm md:text-base"
             >
               Получить консультацию
             </button>
           </div>
 
           {/* Share buttons */}
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <p className="text-muted-foreground">Поделиться:</p>
+          <div className="mt-6 md:mt-8 flex items-center justify-center gap-3 md:gap-4">
+            <p className="text-sm md:text-base text-muted-foreground">Поделиться:</p>
             <div className="flex gap-2">
               <button className="p-2 rounded-full bg-muted hover:bg-muted-foreground/20 transition-colors">
-                <Icon name="Share" size={20} />
+                <Icon name="Share" size={18} className="md:w-5 md:h-5" />
               </button>
             </div>
           </div>
 
           {/* Related articles */}
-          <div className="mt-16">
-            <h3 className="text-2xl font-bold mb-8">Похожие статьи</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="mt-12 md:mt-16">
+            <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8">Похожие статьи</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               {Object.values(blogPosts)
                 .filter(p => p.id !== post.id && p.category === post.category)
                 .slice(0, 2)
@@ -343,11 +343,11 @@ export default function BlogPostPage() {
                       className="w-full h-32 object-cover"
                       loading="lazy"
                     />
-                    <div className="p-4">
-                      <h4 className="font-semibold mb-2 line-clamp-2">
+                    <div className="p-3 md:p-4">
+                      <h4 className="font-semibold mb-2 line-clamp-2 text-sm md:text-base">
                         {relatedPost.title}
                       </h4>
-                      <p className="text-sm text-muted-foreground line-clamp-2">
+                      <p className="text-xs md:text-sm text-muted-foreground line-clamp-2">
                         {relatedPost.excerpt}
                       </p>
                     </div>

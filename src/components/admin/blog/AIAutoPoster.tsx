@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
 import { Label } from '@/components/ui/label';
 import { BlogPost, Category } from '@/types/blog';
@@ -18,6 +19,7 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
   const [publishMode, setPublishMode] = useState<'auto' | 'review'>('review');
   const [generatedPosts, setGeneratedPosts] = useState<BlogPost[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [systemPrompt, setSystemPrompt] = useState('Ты - опытная ворожея Раиса Ильинская. Пиши статьи о магии, ритуалах и эзотерике в дружелюбном и понятном стиле.');
 
   const topicSuggestions = [
     'Защита от негатива',
@@ -111,7 +113,7 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div>
                 <Label>Количество статей</Label>
@@ -121,6 +123,7 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
                   max="10"
                   value={articleCount}
                   onChange={(e) => setArticleCount(parseInt(e.target.value) || 1)}
+                  className="mt-2"
                 />
               </div>
 
@@ -173,24 +176,43 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
 
               <div>
                 <Label>Добавить свою тему</Label>
-                <div className="flex gap-2 mt-2">
+                <div className="flex flex-col sm:flex-row gap-2 mt-2">
                   <Input
                     value={customTopic}
                     onChange={(e) => setCustomTopic(e.target.value)}
                     placeholder="Введите тему статьи"
                     onKeyPress={(e) => e.key === 'Enter' && handleAddCustomTopic()}
+                    className="flex-1"
                   />
                   <Button
                     type="button"
                     variant="outline"
                     onClick={handleAddCustomTopic}
                     disabled={!customTopic}
+                    className="w-full sm:w-auto"
                   >
                     <Icon name="Plus" size={16} />
+                    <span className="sm:hidden ml-2">Добавить</span>
                   </Button>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Системный промпт */}
+          <div>
+            <Label htmlFor="systemPrompt">Системный промпт для ИИ</Label>
+            <Textarea
+              id="systemPrompt"
+              value={systemPrompt}
+              onChange={(e) => setSystemPrompt(e.target.value)}
+              rows={3}
+              placeholder="Опишите роль и стиль, которого должен придерживаться ИИ при генерации статей"
+              className="mt-2"
+            />
+            <p className="text-xs text-muted-foreground mt-1">
+              Этот текст определяет личность и стиль ИИ при генерации статей
+            </p>
           </div>
 
           <div className="flex justify-center pt-4">

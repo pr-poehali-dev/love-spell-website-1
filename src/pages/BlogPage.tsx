@@ -193,20 +193,21 @@ export default function BlogPage() {
 
       {/* Categories */}
       <div className="bg-background/95 backdrop-blur-sm border-b sticky top-16 md:top-20 lg:top-24 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2">
+        <div className="container mx-auto px-4 py-3 md:py-4">
+          <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2 md:pb-0">
             {blogCategories.map(category => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-all duration-200 flex-shrink-0 ${
+                className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 rounded-full whitespace-nowrap text-xs md:text-sm font-medium transition-all duration-200 flex-shrink-0 ${
                   activeCategory === category.id
                     ? 'bg-primary text-primary-foreground shadow-lg scale-105'
                     : 'bg-muted hover:bg-muted-foreground/10 text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <Icon name={category.icon as any} size={16} />
-                {category.name}
+                <Icon name={category.icon as any} size={14} className="md:w-4 md:h-4" />
+                <span className="hidden sm:inline">{category.name}</span>
+                <span className="sm:hidden">{category.name.split(' ')[0]}</span>
               </button>
             ))}
           </div>
@@ -274,12 +275,12 @@ export default function BlogPage() {
         </div>
 
         {filteredPosts.length === 0 && (
-          <div className="text-center py-12">
-            <Icon name="FileX" size={48} className="mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-xl font-semibold text-muted-foreground mb-2">
+          <div className="text-center py-8 md:py-12 px-4">
+            <Icon name="FileX" size={40} className="md:w-12 md:h-12 mx-auto text-muted-foreground mb-4" />
+            <h3 className="text-lg md:text-xl font-semibold text-muted-foreground mb-2">
               Статей не найдено
             </h3>
-            <p className="text-muted-foreground">
+            <p className="text-sm md:text-base text-muted-foreground">
               В этой категории пока нет статей. Попробуйте выбрать другую категорию.
             </p>
           </div>
@@ -287,23 +288,23 @@ export default function BlogPage() {
       </div>
 
       {/* Newsletter Subscription */}
-      <div className="bg-muted/50 py-12 md:py-16">
+      <div className="bg-muted/50 py-8 md:py-12 lg:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <Icon name="Mail" size={48} className="mx-auto text-primary mb-6" />
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+            <Icon name="Mail" size={40} className="md:w-12 md:h-12 mx-auto text-primary mb-4 md:mb-6" />
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4">
               Получайте новые статьи первыми
             </h3>
-            <p className="text-muted-foreground mb-8">
+            <p className="text-sm md:text-base text-muted-foreground mb-6 md:mb-8 px-4">
               Подпишитесь на нашу рассылку и узнавайте о новых статьях, ритуалах и магических практиках
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-md mx-auto px-4">
               <input
                 type="email"
                 placeholder="Ваш email"
-                className="flex-1 px-4 py-3 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex-1 px-3 md:px-4 py-2.5 md:py-3 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm md:text-base"
               />
-              <button className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">
+              <button className="bg-primary text-primary-foreground px-4 md:px-6 py-2.5 md:py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors text-sm md:text-base">
                 Подписаться
               </button>
             </div>
