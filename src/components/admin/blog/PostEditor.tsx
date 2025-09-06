@@ -102,21 +102,9 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
             <div>
               <div className="flex items-center justify-between">
                 <Label htmlFor="category">Категория</Label>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    const newCategory = prompt('Введите название новой категории:');
-                    if (newCategory) {
-                      alert('Категория будет добавлена после сохранения статьи');
-                    }
-                  }}
-                  className="h-6 px-2 text-xs"
-                >
-                  <Icon name="Plus" size={12} className="mr-1" />
-                  Новая
-                </Button>
+                <span className="text-xs text-muted-foreground">
+                  Управляйте категориями через кнопку "Управление" выше
+                </span>
               </div>
               <Select
                 value={formData.category}
@@ -365,14 +353,14 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
             <Button
               variant="outline"
               onClick={() => handleInputChange('status', 'draft')}
-              disabled={!formData.title || !formData.content}
+              disabled={!formData.title.trim() || !formData.content.trim()}
               className="w-full sm:w-auto"
             >
               Сохранить как черновик
             </Button>
             <Button
               onClick={handleSave}
-              disabled={!formData.title || !formData.content}
+              disabled={!formData.title.trim() || !formData.content.trim()}
               className="w-full sm:w-auto"
             >
               {formData.status === 'published' ? 'Опубликовать' : 'Сохранить'}

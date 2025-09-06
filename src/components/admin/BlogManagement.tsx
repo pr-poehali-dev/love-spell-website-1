@@ -6,12 +6,14 @@ import { BlogPost, Category, categories, mockPosts } from '@/types/blog';
 import PostsList from './blog/PostsList';
 import PostEditor from './blog/PostEditor';
 import AIAutoPoster from './blog/AIAutoPoster';
+import CategoryManager from './blog/CategoryManager';
 
 export default function BlogManagement() {
   const [posts, setPosts] = useState<BlogPost[]>(mockPosts);
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [currentTab, setCurrentTab] = useState('manual');
+  const [blogCategories, setBlogCategories] = useState<Category[]>(categories);
 
   const handleCreateNew = () => {
     const newPost: BlogPost = {
@@ -45,6 +47,23 @@ export default function BlogManagement() {
 
   const handleDeletePost = (id: string) => {
     setPosts(posts.filter(p => p.id !== id));
+  };
+
+  const handleAddCategory = (newCategory: Omit<Category, 'id'>) => {
+    const category: Category = {
+      ...newCategory,
+      id: `category-${Date.now()}`
+    };
+    setBlogCategories(prev => [...prev, category]);
+  };
+
+  const handleDeleteCategory = (categoryId: string) => {
+    setBlogCategories(prev => prev.filter(cat => cat.id !== categoryId));
+  };
+
+  const handleBackToList = () => {
+    setSelectedPost(null);
+    setIsCreating(false);
   };
 
   const getStatusColor = (status: BlogPost['status']) => {
@@ -85,29 +104,44 @@ export default function BlogManagement() {
 
         <TabsContent value="manual" className="space-y-6">
           {selectedPost ? (
-            <PostEditor
-              post={selectedPost}
-              onSave={handleSavePost}
-              onCancel={() => {
-                setSelectedPost(null);
-                setIsCreating(false);
-              }}
-              categories={categories}
-              isCreating={isCreating}
-            />
+            <div>
+              <div className="flex items-center gap-4 mb-6">
+                <Button
+                  variant="outline"
+                  onClick={handleBackToList}
+                  className="flex items-center gap-2"
+                >
+                  <Icon name="ArrowLeft" size={16} />
+                  К списку статей
+                </Button>
+                <div className="h-6 w-px bg-border" />
+                <CategoryManager 
+                  categories={blogCategories}
+                  onAddCategory={handleAddCategory}
+                  onDeleteCategory={handleDeleteCategory}
+                />
+              </div>
+              <PostEditor
+                post={selectedPost}
+                onSave={handleSavePost}
+                onCancel={handleBackToList}
+                categories={blogCategories}
+                isCreating={isCreating}
+              />
+            </div>
           ) : (
             <PostsList
               posts={posts}
               onEdit={setSelectedPost}
               onDelete={handleDeletePost}
-              categories={categories}
+              categories={blogCategories}
               getStatusColor={getStatusColor}
             />
           )}
         </TabsContent>
 
         <TabsContent value="ai" className="space-y-6">
-          <AIAutoPoster categories={categories} />
+          <AIAutoPoster categories={blogCategories} />
         </TabsContent>
       </Tabs>
     </div>
