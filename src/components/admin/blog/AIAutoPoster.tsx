@@ -16,10 +16,15 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
   const [articleCount, setArticleCount] = useState(1);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [customTopic, setCustomTopic] = useState('');
-  const [publishMode, setPublishMode] = useState<'auto' | 'review'>('review');
+  const [publishMode, setPublishMode] = useState<'auto' | 'review' | 'scheduled'>('review');
   const [generatedPosts, setGeneratedPosts] = useState<BlogPost[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [systemPrompt, setSystemPrompt] = useState('Ты - опытная ворожея Раиса Ильинская. Пиши статьи о магии, ритуалах и эзотерике в дружелюбном и понятном стиле.');
+  const [scheduleSettings, setScheduleSettings] = useState({
+    articlesPerDay: 1,
+    startDate: new Date().toISOString().split('T')[0],
+    timeOfDay: '09:00'
+  });
 
   const topicSuggestions = [
     'Защита от негатива',
@@ -40,6 +45,10 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
         ? prev.filter(t => t !== topic)
         : [...prev, topic]
     );
+  };
+
+  const handleRemoveTopic = (topic: string) => {
+    setSelectedTopics(prev => prev.filter(t => t !== topic));
   };
 
   const handleAddCustomTopic = () => {
@@ -82,6 +91,9 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
       if (publishMode === 'auto') {
         // Автоматическая публикация
         console.log('Статьи опубликованы автоматически');
+      } else if (publishMode === 'scheduled') {
+        // Отложенная публикация
+        console.log('Статьи запланированы для отложенной публикации:', scheduleSettings);
       }
     } finally {
       setIsGenerating(false);
@@ -150,8 +162,86 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
                     />
                     <Label htmlFor="auto">Опубликовать сразу</Label>
                   </div>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      id="scheduled"
+                      name="publishMode"
+                      checked={publishMode === 'scheduled'}
+                      onChange={() => setPublishMode('scheduled')}
+                    />
+                    <Label htmlFor="scheduled">Отложенная публикация</Label>
+                  </div>
                 </div>
               </div>
+
+              {publishMode === 'scheduled' && (
+                <div className="p-4 bg-muted/30 rounded-lg border space-y-4">
+                  <h4 className="font-semibold text-sm flex items-center gap-2">
+                    <Icon name="Calendar" size={16} />
+                    Настройки расписания
+                  </h4>
+                  
+                  <div className="grid grid-cols-1 gap-4">
+                    <div>
+                      <Label htmlFor="articlesPerDay">Статей в день</Label>
+                      <Input
+                        id="articlesPerDay"
+                        type="number"
+                        min="1"
+                        max="10"
+                        value={scheduleSettings.articlesPerDay}
+                        onChange={(e) => setScheduleSettings(prev => ({
+                          ...prev,
+                          articlesPerDay: parseInt(e.target.value) || 1
+                        }))}
+                        className="mt-1"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="startDate">Начать с даты</Label>
+                      <Input
+                        id="startDate"
+                        type="date"
+                        value={scheduleSettings.startDate}
+                        onChange={(e) => setScheduleSettings(prev => ({
+                          ...prev,
+                          startDate: e.target.value
+                        }))}
+                        className="mt-1"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="timeOfDay">Время публикации</Label>
+                      <Input
+                        id="timeOfDay"
+                        type="time"
+                        value={scheduleSettings.timeOfDay}
+                        onChange={(e) => setScheduleSettings(prev => ({
+                          ...prev,
+                          timeOfDay: e.target.value
+                        }))}
+                        className="mt-1"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="text-xs text-muted-foreground bg-blue-50 p-3 rounded border-l-4 border-l-blue-500">
+                    <div className="flex items-start gap-2">
+                      <Icon name="Info" size={14} className="text-blue-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p><strong>Расписание:</strong></p>
+                        <p>• Статей в день: {scheduleSettings.articlesPerDay}</p>
+                        <p>• Начало: {new Date(scheduleSettings.startDate).toLocaleDateString('ru-RU')}</p>
+                        <p>• Время: {scheduleSettings.timeOfDay}</p>
+                        <p>• Всего дней: {Math.ceil(articleCount / scheduleSettings.articlesPerDay)}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="space-y-4">
@@ -172,6 +262,31 @@ export default function AIAutoPoster({ categories }: AIAutoPosterProps) {
                     </button>
                   ))}
                 </div>
+                
+                {selectedTopics.length > 0 && (
+                  <div className="mt-3">
+                    <Label className="text-xs text-muted-foreground">Выбранные темы:</Label>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {selectedTopics.map(topic => (
+                        <div
+                          key={`selected-${topic}`}
+                          className="flex items-center gap-1 bg-primary/10 border border-primary/20 text-primary px-2 py-1 rounded-full text-xs"
+                        >
+                          <span>{topic}</span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveTopic(topic);
+                            }}
+                            className="hover:bg-primary/20 rounded-full p-0.5 ml-1 transition-colors"
+                          >
+                            <Icon name="X" size={12} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div>

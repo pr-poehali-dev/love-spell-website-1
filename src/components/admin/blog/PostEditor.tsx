@@ -59,8 +59,8 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
         <CardTitle>{isCreating ? 'Создание новой статьи' : 'Редактирование статьи'}</CardTitle>
         <CardDescription>Заполните все поля для создания статьи</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <CardContent className="space-y-4 md:space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
           {/* Основная информация */}
           <div className="space-y-4">
             <div>
@@ -70,20 +70,28 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                 value={formData.title}
                 onChange={(e) => handleInputChange('title', e.target.value)}
                 placeholder="Введите заголовок статьи"
+                className="mt-2"
               />
             </div>
 
             <div>
               <Label htmlFor="slug">URL (slug)</Label>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2 mt-2">
                 <Input
                   id="slug"
                   value={formData.slug}
                   onChange={(e) => handleInputChange('slug', e.target.value)}
                   placeholder="url-stranitsy"
+                  className="flex-1"
                 />
-                <Button type="button" variant="outline" onClick={handleGenerateSlug}>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={handleGenerateSlug}
+                  className="w-full sm:w-auto"
+                >
                   <Icon name="RefreshCw" size={16} />
+                  <span className="sm:hidden ml-2">Генерировать</span>
                 </Button>
               </div>
             </div>
@@ -94,7 +102,7 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                 value={formData.category}
                 onValueChange={(value) => handleInputChange('category', value)}
               >
-                <SelectTrigger>
+                <SelectTrigger className="mt-2">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -111,7 +119,7 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                 value={formData.status}
                 onValueChange={(value: BlogPost['status']) => handleInputChange('status', value)}
               >
-                <SelectTrigger>
+                <SelectTrigger className="mt-2">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -133,24 +141,29 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                     <img src={formData.image} alt="" className="w-full h-full object-cover" />
                   </div>
                 )}
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <Input
                     id="image"
                     value={formData.image}
                     onChange={(e) => handleInputChange('image', e.target.value)}
                     placeholder="URL изображения"
+                    className="flex-1"
                   />
                   <Button
                     type="button"
                     variant="outline"
                     onClick={handleGenerateImage}
                     disabled={isGeneratingImage || !formData.title}
+                    className="w-full sm:w-auto"
                   >
                     {isGeneratingImage ? (
                       <Icon name="Loader2" size={16} className="animate-spin" />
                     ) : (
                       <Icon name="Sparkles" size={16} />
                     )}
+                    <span className="sm:hidden ml-2">
+                      {isGeneratingImage ? 'Генерируем...' : 'Генерировать'}
+                    </span>
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -159,7 +172,7 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="readTime">Время чтения (мин)</Label>
                 <Input
@@ -168,6 +181,7 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                   value={formData.readTime}
                   onChange={(e) => handleInputChange('readTime', parseInt(e.target.value) || 5)}
                   min="1"
+                  className="mt-2"
                 />
               </div>
               <div>
@@ -177,6 +191,7 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                   type="date"
                   value={formData.publishedDate}
                   onChange={(e) => handleInputChange('publishedDate', e.target.value)}
+                  className="mt-2"
                 />
               </div>
             </div>
@@ -192,6 +207,7 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
             onChange={(e) => handleInputChange('excerpt', e.target.value)}
             placeholder="Краткое описание статьи для превью"
             rows={3}
+            className="mt-2"
           />
         </div>
 
@@ -203,8 +219,8 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
             value={formData.content}
             onChange={(e) => handleInputChange('content', e.target.value)}
             placeholder="Основной текст статьи в HTML формате"
-            rows={15}
-            className="font-mono text-sm"
+            rows={12}
+            className="font-mono text-xs md:text-sm mt-2"
           />
         </div>
 
@@ -221,6 +237,7 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                 value={formData.seoTitle}
                 onChange={(e) => handleInputChange('seoTitle', e.target.value)}
                 placeholder="SEO заголовок (если отличается от основного)"
+                className="mt-2"
               />
             </div>
             
@@ -232,6 +249,7 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                 onChange={(e) => handleInputChange('seoDescription', e.target.value)}
                 placeholder="Краткое описание для поисковых систем"
                 rows={3}
+                className="mt-2"
               />
             </div>
 
@@ -242,27 +260,30 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                 value={formData.keywords.join(', ')}
                 onChange={(e) => handleInputChange('keywords', e.target.value.split(', ').filter(k => k.trim()))}
                 placeholder="ключевое слово 1, ключевое слово 2, ключевое слово 3"
+                className="mt-2"
               />
             </div>
           </CardContent>
         </Card>
 
         {/* Кнопки действий */}
-        <div className="flex justify-between pt-6 border-t">
-          <Button variant="outline" onClick={onCancel}>
+        <div className="flex flex-col sm:flex-row justify-between gap-3 pt-4 md:pt-6 border-t">
+          <Button variant="outline" onClick={onCancel} className="order-1 sm:order-none">
             Отмена
           </Button>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 order-0 sm:order-none">
             <Button
               variant="outline"
               onClick={() => handleInputChange('status', 'draft')}
               disabled={!formData.title || !formData.content}
+              className="w-full sm:w-auto"
             >
               Сохранить как черновик
             </Button>
             <Button
               onClick={handleSave}
               disabled={!formData.title || !formData.content}
+              className="w-full sm:w-auto"
             >
               {formData.status === 'published' ? 'Опубликовать' : 'Сохранить'}
             </Button>
