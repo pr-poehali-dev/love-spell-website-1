@@ -10,6 +10,8 @@ import Analytics from '@/components/admin/Analytics';
 import MessagesChat from '@/components/admin/MessagesChat';
 import AdminSettings from '@/components/admin/AdminSettings';
 import NotificationDropdown from '@/components/admin/NotificationDropdown';
+import BlogManagement from '@/components/admin/BlogManagement';
+import AISettings from '@/components/admin/AISettings';
 
 const AdminDashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true); // По умолчанию скрыта на мобильных
@@ -25,6 +27,10 @@ const AdminDashboard = () => {
         return <EmailSettings />;
       case 'analytics':
         return <Analytics />;
+      case 'blog':
+        return <BlogManagement />;
+      case 'ai-settings':
+        return <AISettings />;
       case 'messages':
         return <MessagesChat />;
       case 'admin-settings':

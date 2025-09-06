@@ -35,6 +35,18 @@ const menuItems = [
     description: 'Статистика и метрики'
   },
   {
+    id: 'blog',
+    label: 'Блог',
+    icon: 'BookOpen',
+    description: 'Управление статьями'
+  },
+  {
+    id: 'ai-settings',
+    label: 'ИИ настройки',
+    icon: 'Bot',
+    description: 'Настройки ИИ провайдера'
+  },
+  {
     id: 'messages',
     label: 'Заявки',
     icon: 'MessageSquare',

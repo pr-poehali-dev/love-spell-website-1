@@ -21,6 +21,8 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import ForgotPassword from "./pages/admin/ForgotPassword";
 import ResetPassword from "./pages/admin/ResetPassword";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import BlogPage from "./pages/BlogPage";
+import BlogPostPage from "./pages/BlogPostPage";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +45,9 @@ const App = () => (
           <Route path="/nabor-energii" element={<EnergyGatheringPage />} />
           <Route path="/primirenie" element={<ReconciliationPage />} />
           <Route path="/volta" element={<VoltaPage />} />
+          {/* Blog routes */}
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           {/* Admin routes */}
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/forgot-password" element={<ForgotPassword />} />

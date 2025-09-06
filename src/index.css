@@ -147,6 +147,89 @@
     clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 50% 100%, 0% 95%);
   }
 
+  /* Blog specific styles */
+  .article-content {
+    line-height: 1.8;
+  }
+
+  .article-content .prose {
+    max-width: none;
+  }
+
+  .article-content .prose p {
+    margin-bottom: 1.5rem;
+    color: hsl(var(--foreground));
+  }
+
+  .article-content .prose h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem 0;
+    color: hsl(var(--foreground));
+  }
+
+  .article-content .prose h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1.5rem 0 1rem 0;
+    color: hsl(var(--foreground));
+  }
+
+  .article-content .prose ul,
+  .article-content .prose ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+
+  .article-content .prose li {
+    margin-bottom: 0.5rem;
+    color: hsl(var(--foreground));
+  }
+
+  .article-content .prose strong {
+    font-weight: 600;
+    color: hsl(var(--primary));
+  }
+
+  .article-content .prose .lead {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Scrollbar hide utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
   .hero-bg {
     background-size: cover;
     background-position: center 30%;
