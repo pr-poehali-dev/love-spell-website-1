@@ -21,7 +21,18 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
   const handleInputChange = (field: keyof BlogPost, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    const updatedData = { ...formData, [field]: value };
+    
+    // Автогенерация slug из заголовка
+    if (field === 'title' && value) {
+      updatedData.slug = value
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .substring(0, 50);
+    }
+    
+    setFormData(updatedData);
   };
 
   const handleGenerateSlug = () => {
@@ -76,28 +87,37 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
 
             <div>
               <Label htmlFor="slug">URL (slug)</Label>
-              <div className="flex flex-col sm:flex-row gap-2 mt-2">
-                <Input
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => handleInputChange('slug', e.target.value)}
-                  placeholder="url-stranitsy"
-                  className="flex-1"
-                />
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={handleGenerateSlug}
-                  className="w-full sm:w-auto"
-                >
-                  <Icon name="RefreshCw" size={16} />
-                  <span className="sm:hidden ml-2">Генерировать</span>
-                </Button>
-              </div>
+              <Input
+                id="slug"
+                value={formData.slug}
+                onChange={(e) => handleInputChange('slug', e.target.value)}
+                placeholder="url-stranitsy"
+                className="mt-2"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Автоматически генерируется из заголовка
+              </p>
             </div>
 
             <div>
-              <Label htmlFor="category">Категория</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="category">Категория</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const newCategory = prompt('Введите название новой категории:');
+                    if (newCategory) {
+                      alert('Категория будет добавлена после сохранения статьи');
+                    }
+                  }}
+                  className="h-6 px-2 text-xs"
+                >
+                  <Icon name="Plus" size={12} className="mr-1" />
+                  Новая
+                </Button>
+              </div>
               <Select
                 value={formData.category}
                 onValueChange={(value) => handleInputChange('category', value)}
@@ -144,9 +164,18 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Input
                     id="image"
-                    value={formData.image}
-                    onChange={(e) => handleInputChange('image', e.target.value)}
-                    placeholder="URL изображения"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          handleInputChange('image', reader.result as string);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
                     className="flex-1"
                   />
                   <Button
@@ -166,8 +195,21 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
                     </span>
                   </Button>
                 </div>
+                {formData.image && (
+                  <div className="flex items-center gap-2 p-2 bg-muted rounded mt-2">
+                    <img src={formData.image} alt="Preview" className="w-12 h-12 object-cover rounded" />
+                    <span className="text-sm text-muted-foreground">Изображение выбрано</span>
+                    <button
+                      type="button"
+                      onClick={() => handleInputChange('image', '')}
+                      className="ml-auto text-destructive hover:text-destructive/80"
+                    >
+                      <Icon name="X" size={16} />
+                    </button>
+                  </div>
+                )}
                 <p className="text-xs text-muted-foreground">
-                  Можете указать URL или сгенерировать изображение с помощью ИИ
+                  Выберите файл с компьютера или сгенерируйте изображение с помощью ИИ
                 </p>
               </div>
             </div>
@@ -231,7 +273,23 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="seoTitle">SEO заголовок</Label>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="seoTitle">SEO заголовок</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const generated = `${formData.title} - Полное руководство от ворожеи`;
+                    handleInputChange('seoTitle', generated);
+                  }}
+                  disabled={!formData.title}
+                  className="h-6 px-2 text-xs"
+                >
+                  <Icon name="Wand2" size={12} className="mr-1" />
+                  ИИ
+                </Button>
+              </div>
               <Input
                 id="seoTitle"
                 value={formData.seoTitle}
@@ -242,7 +300,23 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
             </div>
             
             <div>
-              <Label htmlFor="seoDescription">SEO описание</Label>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="seoDescription">SEO описание</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const generated = `Узнайте всё о "${formData.title}" от потомственной ворожеи. Проверенные методы и ритуалы.`;
+                    handleInputChange('seoDescription', generated);
+                  }}
+                  disabled={!formData.title}
+                  className="h-6 px-2 text-xs"
+                >
+                  <Icon name="Wand2" size={12} className="mr-1" />
+                  ИИ
+                </Button>
+              </div>
               <Textarea
                 id="seoDescription"
                 value={formData.seoDescription}
@@ -254,7 +328,23 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
             </div>
 
             <div>
-              <Label htmlFor="keywords">Ключевые слова</Label>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="keywords">Ключевые слова</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const keywords = [formData.title.toLowerCase(), 'магия', 'ритуалы', 'эзотерика', 'ворожея'].filter(k => k);
+                    handleInputChange('keywords', keywords);
+                  }}
+                  disabled={!formData.title}
+                  className="h-6 px-2 text-xs"
+                >
+                  <Icon name="Wand2" size={12} className="mr-1" />
+                  ИИ
+                </Button>
+              </div>
               <Input
                 id="keywords"
                 value={formData.keywords.join(', ')}

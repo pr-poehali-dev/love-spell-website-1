@@ -11,6 +11,7 @@ export default function BlogManagement() {
   const [posts, setPosts] = useState<BlogPost[]>(mockPosts);
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const [currentTab, setCurrentTab] = useState('manual');
 
   const handleCreateNew = () => {
     const newPost: BlogPost = {
@@ -62,13 +63,15 @@ export default function BlogManagement() {
           <h2 className="text-2xl font-bold">Управление блогом</h2>
           <p className="text-muted-foreground">Создание и редактирование статей блога</p>
         </div>
-        <Button onClick={handleCreateNew} className="flex items-center gap-2">
-          <Icon name="Plus" size={16} />
-          Новая статья
-        </Button>
+        {currentTab === 'manual' && (
+          <Button onClick={handleCreateNew} className="flex items-center gap-2">
+            <Icon name="Plus" size={16} />
+            Новая статья
+          </Button>
+        )}
       </div>
 
-      <Tabs defaultValue="manual" className="w-full">
+      <Tabs defaultValue="manual" className="w-full" onValueChange={setCurrentTab}>
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="manual" className="flex items-center gap-2">
             <Icon name="Edit" size={16} />
