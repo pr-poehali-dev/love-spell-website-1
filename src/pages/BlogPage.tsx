@@ -183,54 +183,47 @@ export default function BlogPage() {
       
       <Header currentTitle={currentTitle} setCurrentTitle={setCurrentTitle} />
 
-      {/* Hero Section в стиле главной страницы */}
-      <div className="relative -mt-[240px] sm:-mt-[280px] md:-mt-[320px] z-10">
-        {/* Background Image with V-Mask */}
-        <div className="relative h-[70vh] sm:h-[75vh] overflow-hidden">
-          <div 
-            className="absolute inset-0 hero-bg v-mask"
-            style={{
-              backgroundImage: `url('/img/d8cd2c3b-01ba-410d-a448-5d44f78c7ad9.jpg')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          >
-            {/* Overlay для улучшения контраста */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
-          </div>
+      {/* Широкое изображение-баннер */}
+      <div className="relative z-0">
+        {/* Тень от липкой шапки */}
+        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-background/60 via-background/20 to-transparent pointer-events-none z-10"></div>
+        
+        <div className="w-full h-32 sm:h-40 md:h-48 relative overflow-hidden">
+          <img 
+            src="/img/d8cd2c3b-01ba-410d-a448-5d44f78c7ad9.jpg" 
+            alt="Блог о магии и эзотерике" 
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-primary/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent"></div>
         </div>
         
-        {/* Profile Section Overlapping */}
-        <div className="relative -mt-16 sm:-mt-20 md:-mt-24 z-10">
-          <div className="max-w-xs sm:max-w-sm md:max-w-md mx-auto px-4 text-center">
-            {/* Blog Icon */}
-            <div className="mb-6 relative">
-              <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
-                <div className="relative w-full h-full rounded-full overflow-hidden bg-primary flex items-center justify-center"
-                     style={{ 
-                       filter: 'drop-shadow(0 14px 24px rgba(0, 0, 0, 0.35))'
-                     }}>
-                  <Icon name="BookOpen" size={80} className="text-white" />
-                </div>
-              </div>
-            </div>
-            
-            {/* Title */}
-            <div className="mb-6 sm:mb-8">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg tracking-wide">
-                Блог о магии и эзотерике
-              </h1>
-              <div className="text-accent font-semibold text-lg sm:text-xl md:text-2xl drop-shadow-lg">
-                Древние знания от потомственной ворожеи
-              </div>
-            </div>
-          </div>
+        {/* Закругленные углы снизу с тенью */}
+        <div className="absolute bottom-0 left-0 right-0 h-8">
+          <div className="w-full h-full bg-background rounded-t-3xl shadow-[0_-8px_24px_rgba(0,0,0,0.3)]"></div>
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="bg-background pt-8 pb-12">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Основной контент */}
+      <main className="bg-background relative z-10">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-12 sm:space-y-16">
+        {/* Заголовок блога */}
+        <div>
+          <h2 className="text-xl font-bold text-foreground mb-8 relative pt-0">
+            <span className="relative inline-block">
+              <span className="text-2xl font-bold relative z-10 text-primary">Б</span>
+              <div className="absolute w-9 h-9 rounded-full opacity-40" style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.6) 0%, hsl(var(--primary) / 0.1) 100%)',
+                top: '-1px',
+                left: '-10px'
+              }}></div>
+            </span>лог о магии и эзотерике
+          </h2>
+          <p className="text-muted-foreground leading-relaxed text-base mb-8">
+            Древние знания и современные практики от потомственной ворожеи
+          </p>
+        </div>
           
           {/* Search */}
           <div className="mb-8">
@@ -286,7 +279,7 @@ export default function BlogPage() {
           )}
 
           {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             {filteredPosts.map(post => (
               <article
                 key={post.id}
@@ -413,7 +406,7 @@ export default function BlogPage() {
             </p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
