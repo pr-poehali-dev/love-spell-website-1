@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Icon from '@/components/ui/icon';
 import { Label } from '@/components/ui/label';
 import { BlogPost, Category } from '@/types/blog';
+import CategoryManager from './CategoryManager';
 
 interface PostEditorProps {
   post: BlogPost;
@@ -14,18 +15,38 @@ interface PostEditorProps {
   onCancel: () => void;
   categories: Category[];
   isCreating: boolean;
+  onAddCategory?: (category: Omit<Category, 'id'>) => void;
+  onDeleteCategory?: (id: string) => void;
 }
 
-export default function PostEditor({ post, onSave, onCancel, categories, isCreating }: PostEditorProps) {
+export default function PostEditor({ post, onSave, onCancel, categories, isCreating, onAddCategory, onDeleteCategory }: PostEditorProps) {
   const [formData, setFormData] = useState<BlogPost>(post);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+
+  // Функция транслитерации кириллицы
+  const transliterate = (text: string): string => {
+    const cyrillic = {
+      'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+      'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+      'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+      'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
+      'ы': 'y', 'э': 'e', 'ю': 'yu', 'я': 'ya',
+      'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo',
+      'Ж': 'Zh', 'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M',
+      'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
+      'Ф': 'F', 'Х': 'Kh', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Sch',
+      'Ы': 'Y', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya', 'ь': '', 'ъ': ''
+    };
+    
+    return text.split('').map(char => (cyrillic as any)[char] || char).join('');
+  };
 
   const handleInputChange = (field: keyof BlogPost, value: any) => {
     const updatedData = { ...formData, [field]: value };
     
-    // Автогенерация slug из заголовка
+    // Автогенерация slug из заголовка с транслитерацией
     if (field === 'title' && value) {
-      updatedData.slug = value
+      updatedData.slug = transliterate(value)
         .toLowerCase()
         .replace(/[^\w\s-]/g, '')
         .replace(/\s+/g, '-')
@@ -102,9 +123,19 @@ export default function PostEditor({ post, onSave, onCancel, categories, isCreat
             <div>
               <div className="flex items-center justify-between">
                 <Label htmlFor="category">Категория</Label>
-                <span className="text-xs text-muted-foreground">
-                  Управляйте категориями через кнопку "Управление" выше
-                </span>
+                {onAddCategory && onDeleteCategory && (
+                  <CategoryManager 
+                    categories={categories}
+                    onAddCategory={onAddCategory}
+                    onDeleteCategory={onDeleteCategory}
+                    trigger={(
+                      <Button variant="outline" size="sm" className="h-6 px-2 text-xs">
+                        <Icon name="Settings" size={12} className="mr-1" />
+                        Управление
+                      </Button>
+                    )}
+                  />
+                )}
               </div>
               <Select
                 value={formData.category}

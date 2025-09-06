@@ -114,12 +114,6 @@ export default function BlogManagement() {
                   <Icon name="ArrowLeft" size={16} />
                   К списку статей
                 </Button>
-                <div className="h-6 w-px bg-border" />
-                <CategoryManager 
-                  categories={blogCategories}
-                  onAddCategory={handleAddCategory}
-                  onDeleteCategory={handleDeleteCategory}
-                />
               </div>
               <PostEditor
                 post={selectedPost}
@@ -127,6 +121,8 @@ export default function BlogManagement() {
                 onCancel={handleBackToList}
                 categories={blogCategories}
                 isCreating={isCreating}
+                onAddCategory={handleAddCategory}
+                onDeleteCategory={handleDeleteCategory}
               />
             </div>
           ) : (

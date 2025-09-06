@@ -17,6 +17,7 @@ export default function CategoryManager({ categories, onAddCategory, onDeleteCat
   const [isOpen, setIsOpen] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newCategoryColor, setNewCategoryColor] = useState('#8B5CF6');
+  const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
 
   const handleAddCategory = () => {
     if (!newCategoryName.trim()) return;
@@ -33,9 +34,18 @@ export default function CategoryManager({ categories, onAddCategory, onDeleteCat
   };
 
   const handleDeleteCategory = (categoryId: string) => {
-    if (confirm('Вы уверены, что хотите удалить эту категорию?')) {
-      onDeleteCategory(categoryId);
+    setCategoryToDelete(categoryId);
+  };
+
+  const confirmDelete = () => {
+    if (categoryToDelete) {
+      onDeleteCategory(categoryToDelete);
+      setCategoryToDelete(null);
     }
+  };
+
+  const cancelDelete = () => {
+    setCategoryToDelete(null);
   };
 
   const colorOptions = [
@@ -95,6 +105,26 @@ export default function CategoryManager({ categories, onAddCategory, onDeleteCat
             </div>
           </div>
 
+          {/* Модальное окно подтверждения удаления */}
+          {categoryToDelete && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+              <div className="bg-background border rounded-lg p-6 max-w-sm w-full mx-4">
+                <h3 className="font-semibold text-lg mb-2">Удалить категорию?</h3>
+                <p className="text-muted-foreground text-sm mb-4">
+                  Вы уверены, что хотите удалить эту категорию? Это действие нельзя отменить.
+                </p>
+                <div className="flex gap-2 justify-end">
+                  <Button variant="outline" onClick={cancelDelete} size="sm">
+                    Отмена
+                  </Button>
+                  <Button variant="destructive" onClick={confirmDelete} size="sm">
+                    Удалить
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Добавление новой категории */}
           <div className="border-t pt-4">
             <h4 className="font-medium text-sm mb-3">Добавить новую категорию:</h4>
@@ -143,7 +173,7 @@ export default function CategoryManager({ categories, onAddCategory, onDeleteCat
                   variant="outline"
                   onClick={() => setIsOpen(false)}
                 >
-                  Готово
+                  Закрыть
                 </Button>
               </div>
             </div>
