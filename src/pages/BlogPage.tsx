@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import SEO from '@/components/SEO';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import Divider from '@/components/Divider';
 
 interface BlogPost {
   id: string;
@@ -111,16 +114,30 @@ const blogPosts: BlogPost[] = [
 export default function BlogPage() {
   const [currentTitle, setCurrentTitle] = useState('Блог');
   const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(blogPosts);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (activeCategory === 'all') {
-      setFilteredPosts(blogPosts);
-    } else {
-      setFilteredPosts(blogPosts.filter(post => post.category === activeCategory));
+    let filtered = blogPosts;
+    
+    // Фильтр по категории
+    if (activeCategory !== 'all') {
+      filtered = filtered.filter(post => post.category === activeCategory);
     }
-  }, [activeCategory]);
+    
+    // Фильтр по поиску
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(post => 
+        post.title.toLowerCase().includes(query) ||
+        post.excerpt.toLowerCase().includes(query) ||
+        post.keywords.some(keyword => keyword.toLowerCase().includes(query))
+      );
+    }
+    
+    setFilteredPosts(filtered);
+  }, [activeCategory, searchQuery]);
 
   const handlePostClick = (post: BlogPost) => {
     navigate(`/blog/${post.slug}`);
@@ -154,7 +171,7 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <SEO 
         title="Блог о магии и эзотерике | Раиса Ильинская - Потомственная ворожея"
         description="Статьи о любовной магии, защитных ритуалах, гаданиях и травничестве от потомственной ворожеи Раисы Ильинской. Практические советы и древние знания."
@@ -166,148 +183,234 @@ export default function BlogPage() {
       
       <Header currentTitle={currentTitle} setCurrentTitle={setCurrentTitle} />
 
-      {/* Hero Section */}
-      <div className="relative z-0 pt-16 md:pt-20 lg:pt-24">
-        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-background/60 via-background/20 to-transparent pointer-events-none z-10"></div>
+      {/* Hero Section в стиле главной страницы */}
+      <div className="relative -mt-[240px] sm:-mt-[280px] md:-mt-[320px] z-10">
+        {/* Background Image with V-Mask */}
+        <div className="relative h-[70vh] sm:h-[75vh] overflow-hidden">
+          <div 
+            className="absolute inset-0 hero-bg v-mask"
+            style={{
+              backgroundImage: `url('/img/d8cd2c3b-01ba-410d-a448-5d44f78c7ad9.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            {/* Overlay для улучшения контраста */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
+          </div>
+        </div>
         
-        <div className="w-full h-40 md:h-56 lg:h-64 relative overflow-hidden">
-          <img 
-            src="/img/d8cd2c3b-01ba-410d-a448-5d44f78c7ad9.jpg" 
-            alt="Блог о магии и эзотерике"
-            className="w-full h-full object-cover"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center text-white px-4">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">
+        {/* Profile Section Overlapping */}
+        <div className="relative -mt-16 sm:-mt-20 md:-mt-24 z-10">
+          <div className="max-w-xs sm:max-w-sm md:max-w-md mx-auto px-4 text-center">
+            {/* Blog Icon */}
+            <div className="mb-6 relative">
+              <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto">
+                <div className="relative w-full h-full rounded-full overflow-hidden bg-primary flex items-center justify-center"
+                     style={{ 
+                       filter: 'drop-shadow(0 14px 24px rgba(0, 0, 0, 0.35))'
+                     }}>
+                  <Icon name="BookOpen" size={80} className="text-white" />
+                </div>
+              </div>
+            </div>
+            
+            {/* Title */}
+            <div className="mb-6 sm:mb-8">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg tracking-wide">
                 Блог о магии и эзотерике
               </h1>
-              <p className="text-sm md:text-lg lg:text-xl opacity-90 max-w-2xl">
-                Древние знания и современные практики от потомственной ворожеи
-              </p>
+              <div className="text-accent font-semibold text-lg sm:text-xl md:text-2xl drop-shadow-lg">
+                Древние знания от потомственной ворожеи
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Categories */}
-      <div className="bg-background/95 backdrop-blur-sm border-b sticky top-16 md:top-20 lg:top-24 z-40">
-        <div className="container mx-auto px-4 py-3 md:py-4">
-          <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2 md:pb-0">
-            {blogCategories.map(category => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 rounded-full whitespace-nowrap text-xs md:text-sm font-medium transition-all duration-200 flex-shrink-0 ${
-                  activeCategory === category.id
-                    ? 'bg-primary text-primary-foreground shadow-lg scale-105'
-                    : 'bg-muted hover:bg-muted-foreground/10 text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <Icon name={category.icon as any} size={14} className="md:w-4 md:h-4" />
-                <span className="hidden sm:inline">{category.name}</span>
-                <span className="sm:hidden">{category.name.split(' ')[0]}</span>
-              </button>
-            ))}
+      {/* Content Section */}
+      <div className="bg-background pt-8 pb-12">
+        <div className="max-w-4xl mx-auto px-4">
+          
+          {/* Search */}
+          <div className="mb-8">
+            <div className="relative max-w-md mx-auto">
+              <Icon name="Search" size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Поиск статей..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-4 py-3 bg-card border-border rounded-lg"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <Icon name="X" size={16} />
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Blog Posts Grid */}
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredPosts.map(post => (
-            <article
-              key={post.id}
-              onClick={() => handlePostClick(post)}
-              className="bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group border"
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute top-4 right-4">
-                  <span className="bg-primary/90 backdrop-blur-sm text-primary-foreground px-3 py-1 rounded-full text-xs font-medium">
-                    {blogCategories.find(cat => cat.id === post.category)?.name}
-                  </span>
-                </div>
-              </div>
-              
-              <div className="p-6">
-                <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
-                  <div className="flex items-center gap-1">
-                    <Icon name="Calendar" size={12} />
-                    {new Date(post.publishedDate).toLocaleDateString('ru-RU')}
+          <Divider />
+
+          {/* Categories */}
+          <div className="mb-8">
+            <div className="flex flex-wrap gap-3 justify-center">
+              {blogCategories.map(category => (
+                <button
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-200 ${
+                    activeCategory === category.id
+                      ? 'bg-primary text-primary-foreground shadow-lg'
+                      : 'bg-card text-muted-foreground hover:text-foreground hover:bg-muted border border-border'
+                  }`}
+                >
+                  <Icon name={category.icon as any} size={16} />
+                  <span className="text-sm">{category.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <Divider />
+
+          {/* Results Info */}
+          {searchQuery && (
+            <div className="text-center text-sm text-muted-foreground mb-6">
+              Найдено {filteredPosts.length} статей по запросу "{searchQuery}"
+            </div>
+          )}
+
+          {/* Blog Posts Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredPosts.map(post => (
+              <article
+                key={post.id}
+                onClick={() => handlePostClick(post)}
+                className="group bg-card rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border border-border"
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden aspect-[4/3]">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Category Badge */}
+                  <div className="absolute top-3 left-3">
+                    <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-medium">
+                      {blogCategories.find(cat => cat.id === post.category)?.name}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Icon name="Clock" size={12} />
-                    {post.readTime} мин
-                  </div>
                 </div>
                 
-                <h2 className="text-lg font-bold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                  {post.title}
-                </h2>
-                
-                <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
-                  {post.excerpt}
-                </p>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Icon name="User" size={12} />
-                    {post.author}
+                {/* Content */}
+                <div className="p-6">
+                  {/* Meta Info */}
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
+                    <div className="flex items-center gap-1">
+                      <Icon name="Calendar" size={12} />
+                      {new Date(post.publishedDate).toLocaleDateString('ru-RU')}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Icon name="Clock" size={12} />
+                      {post.readTime} мин
+                    </div>
                   </div>
                   
-                  <div className="flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                    Читать
-                    <Icon name="ArrowRight" size={16} />
+                  {/* Title */}
+                  <h2 className="text-lg font-bold text-foreground mb-3 leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                    {post.title}
+                  </h2>
+                  
+                  {/* Excerpt */}
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  
+                  {/* Footer */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Icon name="User" size={12} />
+                      {post.author}
+                    </div>
+                    
+                    <div className="flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
+                      Читать
+                      <Icon name="ArrowRight" size={16} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {filteredPosts.length === 0 && (
-          <div className="text-center py-8 md:py-12 px-4">
-            <Icon name="FileX" size={40} className="md:w-12 md:h-12 mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-lg md:text-xl font-semibold text-muted-foreground mb-2">
-              Статей не найдено
-            </h3>
-            <p className="text-sm md:text-base text-muted-foreground">
-              В этой категории пока нет статей. Попробуйте выбрать другую категорию.
-            </p>
+              </article>
+            ))}
           </div>
-        )}
-      </div>
 
-      {/* Newsletter Subscription */}
-      <div className="bg-muted/50 py-8 md:py-12 lg:py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <Icon name="Mail" size={40} className="md:w-12 md:h-12 mx-auto text-primary mb-4 md:mb-6" />
-            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4">
+          {/* Empty State */}
+          {filteredPosts.length === 0 && (
+            <div className="text-center py-12">
+              <div className="bg-muted rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                <Icon name="FileX" size={24} className="text-muted-foreground" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">
+                Статей не найдено
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                {searchQuery ? 
+                  `По запросу "${searchQuery}" ничего не найдено. Попробуйте изменить поисковый запрос.` :
+                  'В этой категории пока нет статей. Попробуйте выбрать другую категорию.'
+                }
+              </p>
+              {(searchQuery || activeCategory !== 'all') && (
+                <div className="flex gap-3 justify-center">
+                  {searchQuery && (
+                    <Button onClick={() => setSearchQuery('')} variant="outline" size="sm">
+                      <Icon name="X" size={16} className="mr-2" />
+                      Очистить поиск
+                    </Button>
+                  )}
+                  {activeCategory !== 'all' && (
+                    <Button onClick={() => setActiveCategory('all')} variant="outline" size="sm">
+                      <Icon name="RotateCcw" size={16} className="mr-2" />
+                      Все статьи
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          <Divider />
+
+          {/* Newsletter Section */}
+          <div className="text-center py-8">
+            <Icon name="Mail" size={48} className="text-primary mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-foreground mb-4">
               Получайте новые статьи первыми
             </h3>
-            <p className="text-sm md:text-base text-muted-foreground mb-6 md:mb-8 px-4">
-              Подпишитесь на нашу рассылку и узнавайте о новых статьях, ритуалах и магических практиках
+            <p className="text-muted-foreground mb-6">
+              Подпишитесь на рассылку и узнавайте о новых магических практиках и древних знаниях
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-md mx-auto px-4">
-              <input
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <Input
                 type="email"
                 placeholder="Ваш email"
-                className="flex-1 px-3 md:px-4 py-2.5 md:py-3 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm md:text-base"
+                className="flex-1"
               />
-              <button className="bg-primary text-primary-foreground px-4 md:px-6 py-2.5 md:py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors text-sm md:text-base">
+              <Button className="px-6">
+                <Icon name="Send" size={16} className="mr-2" />
                 Подписаться
-              </button>
+              </Button>
             </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              Никакого спама. Отписаться можно в любое время.
+            </p>
           </div>
         </div>
       </div>
