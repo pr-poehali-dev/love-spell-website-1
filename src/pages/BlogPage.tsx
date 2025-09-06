@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import Divider from '@/components/Divider';
+
 
 interface BlogPost {
   id: string;
@@ -247,7 +247,7 @@ export default function BlogPage() {
             </div>
           </div>
 
-          <Divider />
+
 
           {/* Categories */}
           <div className="mb-8">
@@ -269,7 +269,7 @@ export default function BlogPage() {
             </div>
           </div>
 
-          <Divider />
+
 
           {/* Results Info */}
           {searchQuery && (
@@ -379,7 +379,7 @@ export default function BlogPage() {
             </div>
           )}
 
-          <Divider />
+
 
           {/* Newsletter Section */}
           <div className="text-center py-8">
