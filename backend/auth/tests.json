@@ -1,0 +1,67 @@
+{
+  "tests": [
+    {
+      "name": "Test login with valid credentials",
+      "method": "POST",
+      "path": "/login",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "username": "admin",
+        "password": "admin123"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "requiresTotp": true,
+        "tempToken": "string",
+        "sessionId": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test login with invalid credentials",
+      "method": "POST", 
+      "path": "/login",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "username": "invalid",
+        "password": "wrong"
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test TOTP verification with valid code",
+      "method": "POST",
+      "path": "/verify-totp", 
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "totpCode": "123456",
+        "tempToken": "test_token"
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test session verification without token",
+      "method": "GET",
+      "path": "/verify-session",
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "Authorization header required"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

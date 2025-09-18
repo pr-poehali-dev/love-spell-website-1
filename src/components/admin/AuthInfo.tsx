@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContextReal';
 
 export default function AuthInfo() {
   const { user } = useAuth();
@@ -155,11 +155,19 @@ export default function AuthInfo() {
         <CardContent>
           <div className="space-y-4">
             <div className="p-4 bg-muted/30 rounded-lg border-l-4 border-primary">
-              <h4 className="font-semibold mb-2">Тестовые данные для входа:</h4>
+              <h4 className="font-semibold mb-2">Данные для входа (реальная БД):</h4>
               <div className="space-y-2 text-sm">
                 <p><span className="font-medium">Логин:</span> <code className="bg-muted px-1 py-0.5 rounded">admin</code></p>
                 <p><span className="font-medium">Пароль:</span> <code className="bg-muted px-1 py-0.5 rounded">admin123</code></p>
                 <p><span className="font-medium">TOTP коды:</span> <code className="bg-muted px-1 py-0.5 rounded">123456</code>, <code className="bg-muted px-1 py-0.5 rounded">000000</code>, <code className="bg-muted px-1 py-0.5 rounded">111111</code></p>
+              </div>
+              <div className="mt-3 p-2 bg-blue-50 dark:bg-blue-950/20 rounded">
+                <p className="text-xs text-blue-700 dark:text-blue-300">
+                  ✅ <strong>Настоящая база данных PostgreSQL</strong><br/>
+                  ✅ <strong>Реальный бэкенд на Python</strong><br/>
+                  ✅ <strong>Хеширование паролей bcrypt</strong><br/>
+                  ✅ <strong>JWT токены с временем жизни</strong>
+                </p>
               </div>
             </div>
             

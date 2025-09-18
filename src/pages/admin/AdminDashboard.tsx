@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import Icon from '@/components/ui/icon';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContextReal';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import SiteSettings from '@/components/admin/SiteSettings';
 import EmailSettings from '@/components/admin/EmailSettings';

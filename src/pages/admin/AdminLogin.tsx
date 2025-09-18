@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
 import Icon from '@/components/ui/icon';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContextReal';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const AdminLogin = () => {
   const [step, setStep] = useState<'credentials' | 'totp'>('credentials');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [tempToken, setTempToken] = useState<string>('');
 
   // Редирект если уже авторизован
   useEffect(() => {
@@ -38,12 +39,21 @@ const AdminLogin = () => {
     try {
       const result = await login(formData.username, formData.password);
       
-      if (result.success && result.requiresTotp) {
+      if (result.success && result.requiresTotp && result.tempToken) {
         setStep('totp');
+        setTempToken(result.tempToken);
         toast({
           title: "Проверка пройдена",
           description: "Введите код из приложения аутентификатора",
         });
+      } else if (result.success && !result.requiresTotp) {
+        // Успешный вход без TOTP
+        toast({
+          title: "Вход выполнен",
+          description: "Добро пожаловать в админ панель!",
+        });
+        const from = location.state?.from?.pathname || '/admin/dashboard';
+        navigate(from, { replace: true });
       } else if (!result.success) {
         toast({
           variant: "destructive",
@@ -67,7 +77,7 @@ const AdminLogin = () => {
     setLoading(true);
     
     try {
-      const result = await verifyTotp(formData.totpCode);
+      const result = await verifyTotp(formData.totpCode, tempToken);
       
       if (result.success) {
         toast({
