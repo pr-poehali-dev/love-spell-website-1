@@ -112,7 +112,10 @@ def handle_login(event: Dict[str, Any], conn, cors_headers: Dict[str, str]) -> D
         username = body.get('username', '').strip()
         password = body.get('password', '')
         
+        print(f"Login attempt - Username: {username}, Password length: {len(password) if password else 0}")
+        
         if not username or not password:
+            print("Missing username or password")
             return {
                 'statusCode': 400,
                 'headers': cors_headers,
@@ -127,7 +130,10 @@ def handle_login(event: Dict[str, Any], conn, cors_headers: Dict[str, str]) -> D
         )
         user = cursor.fetchone()
         
+        print(f"User found: {user is not None}")
+        
         if not user:
+            print("User not found in database")
             return {
                 'statusCode': 401,
                 'headers': cors_headers,
@@ -144,7 +150,11 @@ def handle_login(event: Dict[str, Any], conn, cors_headers: Dict[str, str]) -> D
             }
         
         # Проверка пароля
-        if not verify_password(password, password_hash):
+        password_valid = verify_password(password, password_hash)
+        print(f"Password verification result: {password_valid}")
+        
+        if not password_valid:
+            print("Password verification failed")
             return {
                 'statusCode': 401,
                 'headers': cors_headers,

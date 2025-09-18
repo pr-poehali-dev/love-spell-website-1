@@ -3,7 +3,7 @@
     {
       "name": "Test login with valid credentials",
       "method": "POST",
-      "path": "/login",
+      "path": "/",
       "headers": {
         "Content-Type": "application/json"
       },
@@ -13,16 +13,18 @@
       },
       "expectedStatus": 200,
       "expectedBody": {
-        "requiresTotp": true,
-        "tempToken": "string",
-        "sessionId": "string"
+        "token": "string",
+        "user": {
+          "id": "string",
+          "username": "admin"
+        }
       },
       "bodyMatcher": "partial"
     },
     {
       "name": "Test login with invalid credentials",
       "method": "POST", 
-      "path": "/login",
+      "path": "/",
       "headers": {
         "Content-Type": "application/json"
       },
