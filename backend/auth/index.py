@@ -151,8 +151,8 @@ def handle_login(event: Dict[str, Any], conn, cors_headers: Dict[str, str]) -> D
                 'body': json.dumps({'error': 'Invalid username or password'})
             }
         
-        # Если есть TOTP секрет, требуем двухфакторную аутентификацию
-        if totp_secret:
+        # Если есть TOTP секрет И он не временный, требуем двухфакторную аутентификацию
+        if totp_secret and not totp_secret.startswith('temp_'):
             # Создаем временный токен для TOTP проверки
             temp_token = generate_session_token()
             temp_token_hash = hash_token(temp_token)
@@ -179,7 +179,7 @@ def handle_login(event: Dict[str, Any], conn, cors_headers: Dict[str, str]) -> D
                 })
             }
         else:
-            # Создаем полноценную сессию
+            # Создаем полноценную сессию (если TOTP не настроен или временный)
             return create_session(user_id, db_username, email, role, event, conn, cors_headers)
             
     except Exception as e:

@@ -57,6 +57,12 @@ const menuItems = [
     label: 'Авторизация',
     icon: 'ShieldCheck',
     description: 'Информация о сессии'
+  },
+  {
+    id: 'profile',
+    label: 'Профиль',
+    icon: 'User',
+    description: 'Настройки аккаунта'
   }
 ];
 

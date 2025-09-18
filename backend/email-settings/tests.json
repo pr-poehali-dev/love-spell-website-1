@@ -1,0 +1,46 @@
+{
+  "tests": [
+    {
+      "name": "Test get email settings without auth",
+      "method": "GET",
+      "path": "/email-settings",
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "Unauthorized"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test save SMTP without auth",
+      "method": "POST",
+      "path": "/email-settings/smtp",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "smtpHost": "smtp.example.com",
+        "smtpPort": 587,
+        "smtpUsername": "user@example.com",
+        "smtpPassword": "password",
+        "senderName": "Test Sender",
+        "senderEmail": "sender@example.com",
+        "encryptionType": "TLS"
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "Unauthorized"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test get templates without auth",
+      "method": "GET",
+      "path": "/email-settings/templates",
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "Unauthorized"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

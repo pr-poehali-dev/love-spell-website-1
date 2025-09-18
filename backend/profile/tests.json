@@ -1,0 +1,41 @@
+{
+  "tests": [
+    {
+      "name": "Test get profile without auth",
+      "method": "GET",
+      "path": "/profile",
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "Unauthorized"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test setup TOTP without auth",
+      "method": "POST",
+      "path": "/profile/setup-totp",
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "Unauthorized"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test update profile without auth",
+      "method": "POST",
+      "path": "/profile/update",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "email": "new@example.com",
+        "currentPassword": "admin123"
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "Unauthorized"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

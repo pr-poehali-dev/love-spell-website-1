@@ -155,19 +155,33 @@ export default function AuthInfo() {
         <CardContent>
           <div className="space-y-4">
             <div className="p-4 bg-muted/30 rounded-lg border-l-4 border-primary">
-              <h4 className="font-semibold mb-2">Данные для входа (реальная БД):</h4>
+              <h4 className="font-semibold mb-2">Данные для входа и тестирования:</h4>
               <div className="space-y-2 text-sm">
                 <p><span className="font-medium">Логин:</span> <code className="bg-muted px-1 py-0.5 rounded">admin</code></p>
                 <p><span className="font-medium">Пароль:</span> <code className="bg-muted px-1 py-0.5 rounded">admin123</code></p>
+                <p><span className="font-medium">TOTP:</span> Отключен по умолчанию (можно включить в "Профиль")</p>
                 <p><span className="font-medium">TOTP коды:</span> <code className="bg-muted px-1 py-0.5 rounded">123456</code>, <code className="bg-muted px-1 py-0.5 rounded">000000</code>, <code className="bg-muted px-1 py-0.5 rounded">111111</code></p>
               </div>
-              <div className="mt-3 p-2 bg-blue-50 dark:bg-blue-950/20 rounded">
-                <p className="text-xs text-blue-700 dark:text-blue-300">
-                  ✅ <strong>Настоящая база данных PostgreSQL</strong><br/>
-                  ✅ <strong>Реальный бэкенд на Python</strong><br/>
-                  ✅ <strong>Хеширование паролей bcrypt</strong><br/>
-                  ✅ <strong>JWT токены с временем жизни</strong>
+              <div className="mt-3 p-2 bg-green-50 dark:bg-green-950/20 rounded">
+                <p className="text-xs text-green-700 dark:text-green-300">
+                  ✅ <strong>PostgreSQL база данных</strong><br/>
+                  ✅ <strong>Python бэкенд с bcrypt</strong><br/>
+                  ✅ <strong>Реальная настройка TOTP с QR</strong><br/>
+                  ✅ <strong>Изменение email/пароля</strong><br/>
+                  ✅ <strong>SMTP/IMAP настройки в БД</strong><br/>
+                  ✅ <strong>Email шаблоны с переменными</strong>
                 </p>
+              </div>
+            </div>
+            
+            <div className="p-4 bg-orange-50 dark:bg-orange-950/20 rounded-lg border border-orange-200 dark:border-orange-800">
+              <h4 className="font-semibold mb-2 text-orange-900 dark:text-orange-100">Как протестировать новые функции:</h4>
+              <div className="space-y-2 text-sm text-orange-700 dark:text-orange-300">
+                <p><strong>1. TOTP настройка:</strong> Перейди в "Профиль" → "Безопасность" → "Включить TOTP"</p>
+                <p><strong>2. Смена пароля:</strong> "Профиль" → введи новый пароль + текущий для подтверждения</p>
+                <p><strong>3. Email настройки:</strong> "Email настройки" → SMTP/IMAP → сохрани настройки в БД</p>
+                <p><strong>4. Шаблоны:</strong> "Email настройки" → "Шаблоны" → редактируй готовые шаблоны</p>
+                <p><strong>5. Тест SMTP:</strong> После настройки SMTP → введи email для тестирования</p>
               </div>
             </div>
             

@@ -8,7 +8,7 @@ import Icon from '@/components/ui/icon';
 import { useAuth } from '@/contexts/AuthContextReal';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import SiteSettings from '@/components/admin/SiteSettings';
-import EmailSettings from '@/components/admin/EmailSettings';
+import EmailSettingsReal from '@/components/admin/EmailSettingsReal';
 import Analytics from '@/components/admin/Analytics';
 import MessagesChat from '@/components/admin/MessagesChat';
 import AdminSettings from '@/components/admin/AdminSettings';
@@ -16,6 +16,7 @@ import NotificationDropdown from '@/components/admin/NotificationDropdown';
 import BlogManagement from '@/components/admin/BlogManagement';
 import AISettings from '@/components/admin/AISettings';
 import AuthInfo from '@/components/admin/AuthInfo';
+import ProfileManagement from '@/components/admin/ProfileManagement';
 
 const AdminDashboard = () => {
   const { user, logout } = useAuth();
@@ -38,7 +39,7 @@ const AdminDashboard = () => {
       case 'site-settings':
         return <SiteSettings />;
       case 'email-settings':
-        return <EmailSettings />;
+        return <EmailSettingsReal />;
       case 'analytics':
         return <Analytics />;
       case 'blog':
@@ -51,6 +52,8 @@ const AdminDashboard = () => {
         return <AdminSettings />;
       case 'auth-info':
         return <AuthInfo />;
+      case 'profile':
+        return <ProfileManagement />;
       default:
         return <DashboardOverview onSectionChange={setActiveSection} />;
     }
