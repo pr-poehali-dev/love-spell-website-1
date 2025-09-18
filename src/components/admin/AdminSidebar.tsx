@@ -51,6 +51,12 @@ const menuItems = [
     label: 'Заявки',
     icon: 'MessageSquare',
     description: 'Чат с клиентами'
+  },
+  {
+    id: 'auth-info',
+    label: 'Авторизация',
+    icon: 'ShieldCheck',
+    description: 'Информация о сессии'
   }
 ];
 
