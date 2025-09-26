@@ -2,35 +2,20 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/components/ui/use-toast';
 import Icon from '@/components/ui/icon';
-import { useAuth } from '@/contexts/AuthContextReal';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import SiteSettings from '@/components/admin/SiteSettings';
-import EmailSettingsReal from '@/components/admin/EmailSettingsReal';
+import EmailSettings from '@/components/admin/EmailSettings';
 import Analytics from '@/components/admin/Analytics';
 import MessagesChat from '@/components/admin/MessagesChat';
 import AdminSettings from '@/components/admin/AdminSettings';
 import NotificationDropdown from '@/components/admin/NotificationDropdown';
 import BlogManagement from '@/components/admin/BlogManagement';
 import AISettings from '@/components/admin/AISettings';
-import AuthInfo from '@/components/admin/AuthInfo';
-import ProfileManagement from '@/components/admin/ProfileManagement';
 
 const AdminDashboard = () => {
-  const { user, logout } = useAuth();
-  const { toast } = useToast();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true); // По умолчанию скрыта на мобильных
   const [activeSection, setActiveSection] = useState('overview');
-
-  const handleLogout = () => {
-    logout();
-    toast({
-      title: "Выход выполнен",
-      description: "Вы успешно вышли из системы",
-    });
-  };
 
   const renderContent = () => {
     switch (activeSection) {
@@ -39,7 +24,7 @@ const AdminDashboard = () => {
       case 'site-settings':
         return <SiteSettings />;
       case 'email-settings':
-        return <EmailSettingsReal />;
+        return <EmailSettings />;
       case 'analytics':
         return <Analytics />;
       case 'blog':
@@ -50,10 +35,6 @@ const AdminDashboard = () => {
         return <MessagesChat />;
       case 'admin-settings':
         return <AdminSettings />;
-      case 'auth-info':
-        return <AuthInfo />;
-      case 'profile':
-        return <ProfileManagement />;
       default:
         return <DashboardOverview onSectionChange={setActiveSection} />;
     }
@@ -117,22 +98,6 @@ const AdminDashboard = () => {
           </div>
           <div className="flex items-center gap-1 md:gap-3">
             <NotificationDropdown onSectionChange={setActiveSection} />
-            
-            {/* Информация о пользователе */}
-            <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-muted/50 rounded-lg">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <Icon name="User" size={16} className="text-primary-foreground" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium">{user?.username}</span>
-                <div className="flex items-center gap-1">
-                  <Badge variant="default" className="text-xs px-1 py-0">
-                    {user?.role === 'admin' ? 'Администратор' : 'Пользователь'}
-                  </Badge>
-                </div>
-              </div>
-            </div>
-
             <Button 
               variant="outline" 
               size="sm" 
@@ -142,14 +107,7 @@ const AdminDashboard = () => {
               <Icon name="ExternalLink" size={16} className="mr-2" />
               <span className="hidden md:inline">Перейти на сайт</span>
             </Button>
-            
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="hover:bg-accent" 
-              onClick={handleLogout}
-              aria-label="Выйти из системы"
-            >
+            <Button variant="ghost" size="sm" className="hover:bg-accent" aria-label="Выйти из системы">
               <Icon name="LogOut" size={16} className="mr-0 md:mr-2" />
               <span className="hidden md:inline">Выйти</span>
             </Button>

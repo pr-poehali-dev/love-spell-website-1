@@ -1,19 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useToast } from '@/components/ui/use-toast';
 import Icon from '@/components/ui/icon';
-import { useAuth } from '@/contexts/AuthContextReal';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { toast } = useToast();
-  const { login, verifyTotp, isAuthenticated, isLoading } = useAuth();
-  
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -22,86 +16,42 @@ const AdminLogin = () => {
   const [step, setStep] = useState<'credentials' | 'totp'>('credentials');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [tempToken, setTempToken] = useState<string>('');
-
-  // Редирект если уже авторизован
-  useEffect(() => {
-    if (isAuthenticated) {
-      const from = location.state?.from?.pathname || '/admin/dashboard';
-      navigate(from, { replace: true });
-    }
-  }, [isAuthenticated, navigate, location]);
 
   const handleCredentialsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     
-    try {
-      const result = await login(formData.username, formData.password);
-      
-      if (result.success && result.requiresTotp && result.tempToken) {
-        setStep('totp');
-        setTempToken(result.tempToken);
-        toast({
-          title: "Проверка пройдена",
-          description: "Введите код из приложения аутентификатора",
-        });
-      } else if (result.success && !result.requiresTotp) {
-        // Успешный вход без TOTP
-        toast({
-          title: "Вход выполнен",
-          description: "Добро пожаловать в админ панель!",
-        });
-        const from = location.state?.from?.pathname || '/admin/dashboard';
-        navigate(from, { replace: true });
-      } else if (!result.success) {
-        toast({
-          variant: "destructive",
-          title: "Ошибка входа",
-          description: result.error || "Неверные учетные данные",
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Ошибка",
-        description: "Произошла ошибка при входе",
-      });
-    } finally {
+    // TODO: Implement backend API call
+    // const response = await api.adminLogin(formData.username, formData.password);
+    // if (response.requiresTotp) {
+    //   setStep('totp');
+    // } else if (response.success) {
+    //   navigate('/admin/dashboard');
+    // }
+    
+    // Temporary mock behavior
+    setTimeout(() => {
+      setStep('totp');
       setLoading(false);
-    }
+    }, 1000);
   };
 
   const handleTotpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     
-    try {
-      const result = await verifyTotp(formData.totpCode, tempToken);
-      
-      if (result.success) {
-        toast({
-          title: "Вход выполнен",
-          description: "Добро пожаловать в админ панель!",
-        });
-        const from = location.state?.from?.pathname || '/admin/dashboard';
-        navigate(from, { replace: true });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Неверный код",
-          description: result.error || "Проверьте код аутентификации",
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Ошибка",
-        description: "Произошла ошибка при проверке кода",
-      });
-    } finally {
+    // TODO: Implement TOTP verification
+    // const response = await api.verifyTotp(formData.totpCode);
+    // if (response.success) {
+    //   navigate('/admin/dashboard');
+    // }
+    
+    // Temporary mock behavior
+    setTimeout(() => {
+      console.log('TOTP verified, redirecting to dashboard...');
+      navigate('/admin/dashboard');
       setLoading(false);
-    }
+    }, 1000);
   };
 
   const handleChange = (field: string, value: string) => {
